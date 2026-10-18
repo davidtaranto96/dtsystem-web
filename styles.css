@@ -1,0 +1,1523 @@
+/* ============================================================
+   DT SYSTEM · WEB PERSONAL v2 — styles.css
+   Estética: mono-tech (Geist + Geist Mono), light/dark con
+   CSS variables, grilla + spotlight globales, marquees, etc.
+   ============================================================ */
+
+/* ---------- 1. Tokens de tema ---------- */
+:root {
+  --bg: oklch(0.968 0.005 240); /* blanco apagado, apenas hacia el celeste de la marca: el blanco puro cansaba */
+  --text: #333333;
+  --muted: rgba(51, 51, 51, 0.76);   /* 4,5:1 sobre el fondo y las tarjetas */
+  --accent: #52BFFE;          /* celeste primario: fondos, bordes, puntos */
+  --accent-ink: #0B6A9E;      /* el celeste cuando es texto: 5:1 sobre el fondo claro */
+  --ok: #22C55E;
+  --ok-ink: #15803D;
+  --amber: #F59E0B;           /* usar con muchísima moderación */
+  --pink: #EC4899;            /* usar con muchísima moderación */
+  --line: rgba(51, 51, 51, 0.12);
+  --card: #FFFFFF;
+  --card-border: rgba(51, 51, 51, 0.10);
+  --shadow: 0 24px 60px -24px rgba(14, 15, 18, 0.22);
+  --grid-color: rgba(51, 51, 51, 0.08);   /* texto al 8% */
+  --font-head: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  /* Tiempos. Toda duracion nueva sale de aca, igual que los colores. */
+  --fx-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --fx-tap: 140ms;    /* feedback de pulsado */
+  --fx-rapido: 180ms; /* hover, tooltips */
+  --fx-medio: 260ms;  /* dropdowns, acordeones */
+  --fx-lento: 520ms;  /* reveal al scroll, modales */
+  --t-min: 0.75rem;   /* letra mínima (12 px): rótulos, sellos y notas */
+  color-scheme: only light;   /* sin esto Android le aplica su oscurecido */
+}
+[data-theme="dark"] {
+  --bg: #0E0F12;
+  --text: #F2F2F2;
+  --muted: rgba(242, 242, 242, 0.66);
+  --accent-ink: #52BFFE;
+  --ok-ink: #22C55E;
+  --line: rgba(242, 242, 242, 0.14);
+  --card: #15171C;
+  --card-border: rgba(242, 242, 242, 0.10);
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.65);
+  --grid-color: rgba(242, 242, 242, 0.08);
+  color-scheme: dark;
+}
+
+/* ---------- 2. Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* TRUCO: el color de fondo vive en <html>; el body es transparente
+   para que la capa de efectos (.fx, z-index:-1) se vea a través. */
+html {
+  background: var(--bg); scroll-behavior: smooth; overflow-x: clip;
+  /* el header fijo tapa el titulo al saltar por ancla sin esto */
+  scroll-padding-top: 96px;
+}
+body {
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);   /* cuerpo en mono, como Clean Slate */
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  overflow-x: clip;              /* floats y marquees no generan scroll-x */
+  -webkit-font-smoothing: antialiased;
+}
+/* La mono ancha (Stökt) queda para labels, nav, botones y chips */
+.eyebrow, .bar, .nav a, .btn, .logo, .chip, .pw, .live, .status,
+.srv-num, .role, .avail, .b-stat span, .f-col h4, .footer-bottom,
+.hdr-cta, .srv-price, .verified, .demo-info small, .tw-mono { font-family: var(--font-mono); }
+/* Palabras largas: en títulos 'anywhere', porque las palabras del h2 van en
+   inline-block y 'break-word' no achica su ancho mínimo */
+body { overflow-wrap: break-word; }
+/* Los párrafos se leen en la sans: el mono queda para rótulos, precios y detalles (revisión 2026-10-16) */
+p { font-family: var(--font-head); font-size: 1rem; line-height: 1.6; text-wrap: pretty; }
+h1, h2, h3, h4, .h2 .w { overflow-wrap: anywhere; }
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+
+/* Cross-fade de colores (fallback cuando no hay View Transitions API).
+   Se activa por JS agregando .theme-fade a <html> durante 0.6s. */
+html.theme-fade, html.theme-fade body,
+html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.55s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+/* Con View Transitions: apagamos el cross-fade default; el reveal
+   circular se anima por JS sobre ::view-transition-new(root). */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+
+/* Accesibilidad */
+.skip {
+  position: absolute; left: 16px; top: 12px; z-index: 200;
+  background: var(--accent); color: #0E0F12; padding: 10px 16px;
+  border-radius: 8px; font-size: 0.75rem;
+  /* transform en vez de top: no toca layout */
+  transform: translateY(-80px);
+  transition: transform var(--fx-rapido) var(--fx-ease);
+}
+.skip:focus { transform: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- 3. Capa de efectos global (z-index:-1) ---------- */
+.fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+/* Grilla 1px que se desvanece hacia los bordes con mask elíptica */
+.fx-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 38%, #000 30%, transparent 78%);
+          mask-image: radial-gradient(ellipse 75% 65% at 50% 38%, #000 30%, transparent 78%);
+}
+/* Spotlight que sigue al cursor (posición via --mx/--my desde JS + rAF) */
+.fx-spot {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle 280px at var(--mx, 50%) var(--my, 30%),
+              color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%);
+  opacity: 0.55;
+}
+@media (hover: none) { .fx-spot { display: none; } }
+
+/* ---------- 4. Announcement bar + header (sticky juntos) ---------- */
+.top { position: sticky; top: 0; z-index: 100; }
+.bar {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 9px calc(44px + env(safe-area-inset-right)) 9px max(16px, env(safe-area-inset-left));
+  font-size: 0.75rem;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.bar[hidden] { display: none; }
+/* Mobile: una sola línea, sin que el texto pise la X */
+@media (max-width: 720px) {
+  .bar { font-size: var(--t-min); gap: 6px; padding: 8px calc(38px + env(safe-area-inset-right)) 8px max(10px, env(safe-area-inset-left)); white-space: nowrap; }
+  .bar > span[data-i18n] { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  /* Solo "Disponible para proyectos": el WhatsApp ya está en el hero */
+  .bar .bar-largo, .bar a { display: none; }
+}
+.bar a { color: var(--accent-ink); text-decoration: none; }
+@media (hover: hover) { .bar a:hover { text-decoration: underline; } }
+/* Beam de luz que recorre el borde inferior en loop de 4s.
+   El animation-delay negativo lo pone JS: -(Date.now()%4000)/1000 s,
+   así el beam está "sincronizado al reloj" y nunca se resetea. */
+.bar-beam {
+  position: absolute; left: 0; bottom: -1px; height: 1px; width: 220px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: beam 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes beam {
+  from { transform: translateX(-220px); }
+  to   { transform: translateX(100vw); }
+}
+.bar-x {
+  position: absolute; right: calc(8px + env(safe-area-inset-right)); top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: 6px; color: var(--muted);
+}
+@media (hover: hover) { .bar-x:hover { background: var(--line); color: var(--text); } }
+
+/* Header estilo Stökt: UNA sola barra de vidrio transparente que agrupa
+   logo + nav + acciones. Receta del Framer original: fondo translúcido
+   al 50% + backdrop blur(15px) + borde 1px al 13% + radio generoso. */
+.hdr { max-width: 1240px; margin: 0 auto; padding: 10px max(14px, env(safe-area-inset-right)) 10px max(14px, env(safe-area-inset-left)); }
+.hdr-pill {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 8px 8px 8px 22px; border-radius: 18px;
+  background: color-mix(in srgb, var(--bg) 62%, transparent);
+  backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid color-mix(in srgb, var(--text) 13%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #FFFFFF 30%, transparent),
+              0 10px 30px -18px rgba(14, 15, 18, 0.5);
+}
+.logo { font-family: var(--font-mono); font-size: 0.875rem; text-decoration: none; letter-spacing: 0.02em; justify-self: start; }
+.logo b { color: var(--accent); font-weight: 400; }
+.nav { display: flex; gap: 2px; justify-self: center; }
+.nav a {
+  font-size: 0.6875rem; font-weight: 400; text-transform: uppercase;
+  text-decoration: none; color: var(--text); letter-spacing: 0.09em;
+  padding: 9px 14px; border-radius: 999px; display: block;
+}
+@media (hover: hover) { .nav a:hover { color: var(--accent-ink); } }
+/* Hover "rotación vertical" (Stökt): el clip vive en .nl y la palabra que
+   ENTRA lo hace en color acento — igual que en wearestokt.com. */
+.nl { display: inline-block; position: relative; overflow: hidden; vertical-align: top; }
+.nl > span { display: block; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.nl > span + span { position: absolute; top: 100%; left: 0; color: var(--accent-ink); }
+@media (hover: hover) { .nav a:hover .nl > span { transform: translateY(-100%); } }
+.hdr-right { justify-self: end; display: flex; align-items: center; gap: 8px; }
+/* Botón de idioma (ES/EN) — .tgl.lang para ganarle a la regla base de .tgl */
+.tgl.lang { width: auto; display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; height: 34px; font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.05em; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+.hdr-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.75rem; text-decoration: none;
+  padding: 8px 14px; border-radius: 999px; white-space: nowrap;
+  background: var(--text); color: var(--bg);
+}
+@media (hover: hover) { .hdr-cta:hover { background: var(--accent); color: #0E0F12; } }
+
+/* Toggle de tema (sol/luna via data-theme) */
+.tgl { width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px; display: grid; place-items: center; color: var(--muted); }
+@media (hover: hover) { .tgl:hover { background: var(--line); color: var(--text); } }
+.tgl .moon { display: none; }
+[data-theme="dark"] .tgl .sun { display: none; }
+[data-theme="dark"] .tgl .moon { display: block; }
+
+/* Menú mobile: <details> con popover e items escalonados por --i */
+.menu { display: none; position: relative; margin-left: auto; }
+.menu summary { list-style: none; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 8px; cursor: pointer; }
+.menu summary::-webkit-details-marker { display: none; }
+@media (hover: hover) { .menu summary:hover { background: var(--line); } }
+.menu-pop {
+  position: absolute; right: 0; top: calc(100% + 8px); min-width: 210px;
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; box-shadow: var(--shadow); padding: 8px;
+  display: flex; flex-direction: column;
+}
+.menu-pop a {
+  font-family: var(--font-head); font-weight: 700; font-size: 0.8125rem;
+  text-decoration: none; padding: 10px 12px; border-radius: 8px;
+  opacity: 0; transform: translateY(-6px);
+  animation: mitem 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 55ms);      /* entrada escalonada */
+}
+@media (hover: hover) { .menu-pop a:hover { background: var(--line); } }
+@keyframes mitem { to { opacity: 1; transform: none; } }
+/* Tres rayas cerrado, X abierto, en el mismo lugar */
+.menu .ico-cerrar, .menu[open] .ico-abrir { display: none; }
+.menu[open] .ico-cerrar { display: block; }
+
+/* ---------- 5. Layout común ---------- */
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); }
+section { padding: 96px 0; }
+/* Rótulo de sección: "↓ ( Sobre mí ) ↓" en mono gris, en minúscula:
+   el rótulo en mayúsculas por sección es el molde genérico */
+.eyebrow {
+  display: inline-flex; align-items: center;
+  font-size: var(--t-min); letter-spacing: 0.02em;
+  color: var(--muted);
+}
+.eyebrow::before { content: "↓ ( "; white-space: pre; }
+.eyebrow::after { content: " ) ↓"; white-space: pre; }
+/* Nota con asterisco bajo los títulos (Stökt) */
+.astnote {
+  display: block; margin: 2px 0 10px;
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent-ink);
+}
+/* Cabeceras de sección centradas (como Clean Slate) */
+.sec-head { text-align: center; }
+.sec-head .sub { margin-left: auto; margin-right: auto; }
+.h2 { font-size: clamp(1.75rem, 4.2vw, 2.75rem); margin: 14px 0 12px; font-weight: 500; letter-spacing: -0.01em; }
+.sub { color: var(--muted); max-width: 560px; }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 14px 26px; border-radius: 999px; transition: transform 0.15s, background 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-pri { background: var(--accent); color: #0E0F12; }
+@media (hover: hover) { .btn-pri:hover { background: color-mix(in srgb, var(--accent) 85%, var(--text)); } }
+.btn-sec { border: 1px solid var(--line); color: var(--text); }
+@media (hover: hover) { .btn-sec:hover { border-color: var(--accent); } }
+/* Spinner del estado loading (hereda el color del texto del botón) */
+.spin {
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 2px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-top-color: currentColor;
+  animation: spin 0.7s linear infinite; display: none;
+}
+.btn.is-loading .spin { display: inline-block; }
+.btn.is-loading .btn-arrow { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- 6. HERO ---------- */
+/* Grilla [margen | texto | margen]: el texto toma su ancho y las tarjetas
+   flotantes viven en los márgenes, así nunca pisan el título. minmax(0, auto)
+   y width:100% (sin margin auto, que lo achica a su contenido) dejan que una
+   palabra larga se parta en vez de ensanchar la columna */
+.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto) minmax(0, 1fr); padding: 120px 0 140px; text-align: center; }
+.hero-inner { grid-column: 2; width: 100%; max-width: 780px; padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left)); position: relative; z-index: 2; }
+.hero h1 { font-size: clamp(2.375rem, 6.4vw, 4.75rem); margin-bottom: 22px; }
+/* Palabra rotante del typewriter — gradiente "IA" animado (como el
+   "beauty" de Clean Slate): clip del gradiente al texto + pan en loop */
+.tw {
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 40%, #EC4899 70%, #52BFFE);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  animation: ai-pan 5s ease-in-out infinite;
+}
+/* La palabra va en su propio renglón y el título de arriba se equilibra solo
+   (text-wrap: balance no corre si hay un <br>). "tienda online" lleva &nbsp;
+   en data-words: no se parte en el espacio, y una palabra que no entra se
+   corta en vez de salirse de la pantalla. */
+.tw-linea { display: block; }
+.caret {
+  display: inline-block; width: 0.09em; height: 0.92em;
+  background: var(--accent); vertical-align: -0.08em; margin-left: 2px;
+  animation: blink 1.05s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.hero .sub { margin: 0 auto 34px; }
+.hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* Screenshots flotantes en las esquinas.
+   Cada .float es absolute dentro de su margen de la grilla (columna 1 o 3;
+   con una sola línea, un absolute llega hasta el borde del padding):
+   --x/--r es la distancia al borde de la pantalla y --w el ancho de diseño.
+   Si no entra, primero se acerca al borde y después se achica; 36 px de aire
+   cubren lo que asoma la tarjeta girada y el parallax (18 px como máximo).
+   Parallax --px/--py (JS, según data-depth), rotación --rot y bob propios. */
+.float {
+  --off: clamp(1vw, var(--x), 100% - var(--w) - 36px);
+  position: absolute; grid-column: 1 / 2; left: var(--off); top: var(--y); z-index: 1;
+  width: min(var(--w), 100% - var(--off) - 36px);
+  transform: translate3d(var(--px, 0), var(--py, 0), 0);
+  will-change: transform;
+}
+.float.der {
+  --off: clamp(1vw, var(--r) - var(--w), 100% - var(--w) - 36px);
+  grid-column: 3 / 4; left: auto; right: var(--off);
+}
+/* Hasta 1100 px los márgenes dejan tarjetas de menos de 145 px y antes
+   tapaban el título: hero limpio, solo tipografía, como en el celular */
+@media (max-width: 1100px) { .float { display: none; } }
+.float-card {
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  background: var(--card);
+  transform: rotate(var(--rot, 0deg));
+  animation: bob var(--dur, 6s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+.float-card img { width: 100%; height: auto; }
+@keyframes bob { from { translate: 0 -7px; } to { translate: 0 7px; } }
+
+/* ---------- 7. Mobile showcase (marquees de teléfonos) ---------- */
+.mobile-sec { overflow: clip; }
+.mobile-head { text-align: center; margin-bottom: 56px; }
+.marquee { display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee + .marquee { margin-top: 34px; }
+.mtrack { display: flex; gap: 28px; flex-shrink: 0; animation: mscroll var(--speed, 10s) linear infinite; padding-right: 28px; }
+.marquee.rev .mtrack { animation-direction: reverse; }
+.eyebrow.rebota { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .eyebrow.rebota { animation: rebota 1.8s ease-in-out infinite; }
+}
+@keyframes rebota { 0%, 100% { translate: 0 0; } 50% { translate: 0 7px; } }
+@keyframes mscroll { to { transform: translateX(-100%); } }
+
+/* Teléfono dibujado en CSS: frame con notch + reflejo diagonal */
+.phone {
+  position: relative; width: 186px; flex-shrink: 0;
+  border-radius: 30px; padding: 9px;
+  background: linear-gradient(160deg, #2A2D33, #0E0F12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--shadow);
+}
+.phone::before {   /* notch */
+  content: ""; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+  width: 62px; height: 15px; border-radius: 999px; background: #0E0F12; z-index: 2;
+}
+.phone::after {    /* reflejo diagonal sutil */
+  content: ""; position: absolute; inset: 0; border-radius: 30px; z-index: 3; pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.07) 46%, rgba(255, 255, 255, 0.02) 60%, transparent 64%);
+}
+.phone img { border-radius: 22px; width: 100%; height: auto; }
+
+/* ---------- 8. Servicios (3 cards estilo theme-picker) ---------- */
+.srv-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 48px; }
+.srv {
+  position: relative; display: flex; flex-direction: column;
+  border: 1px solid var(--card-border); border-radius: 18px;
+  background: var(--card); padding: 20px; overflow: hidden;
+}
+.srv-img { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
+.srv-img::after {    /* glow del acento sobre la imagen */
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 60%);
+  pointer-events: none;
+}
+.srv-num { font-size: var(--t-min); color: var(--muted); letter-spacing: 0.12em; }
+.srv h3 { font-size: 1.3125rem; margin: 6px 0 4px; }
+.srv-tag { font-size: 0.8125rem; color: var(--muted); margin-bottom: 16px; }
+.srv ul { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; font-size: 0.8125rem; }
+.srv li { display: flex; gap: 9px; align-items: baseline; }
+.srv li::before { content: "✓"; color: var(--accent-ink); font-weight: 700; }
+.srv-price { font-size: 0.75rem; color: var(--muted); margin-bottom: 14px; }
+.srv-price b { color: var(--text); font-weight: 400; }  /* slot listo para precio */
+.srv-cta { margin-top: auto; font-size: 0.8125rem; text-decoration: none; color: var(--accent-ink); }
+@media (hover: hover) { .srv-cta:hover { text-decoration: underline; } }
+.ribbon {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  font-size: var(--t-min); letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--accent); color: #0E0F12; padding: 4px 10px; border-radius: 999px;
+}
+
+/* ---------- 9. Laptop showcase (laptop 100% CSS) ---------- */
+.laptop-sec { text-align: center; }
+.laptop { max-width: 760px; margin: 56px auto 0; position: relative; }
+.lap-lid {
+  position: relative; border-radius: 20px 20px 0 0;
+  background: linear-gradient(180deg, #34383F, #1B1D22);
+  padding: 13px 13px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.10); border-bottom: 0;
+}
+.lap-cam { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; background: #0A0B0D; box-shadow: 0 0 0 1.5px rgba(255,255,255,0.08); }
+.lap-screen { border-radius: 9px; overflow: hidden; background: #000; aspect-ratio: 16 / 10; }
+.lap-screen video, .lap-screen img { width: 100%; height: 100%; object-fit: cover; }
+.lap-hinge { height: 7px; background: linear-gradient(180deg, #14161A, #2A2D33); }
+.lap-base {
+  position: relative; height: 16px; margin: 0 -34px;
+  background: linear-gradient(180deg, #C9CDD4, #8F949C);
+  border-radius: 3px 3px 16px 16px;
+}
+[data-theme="dark"] .lap-base { background: linear-gradient(180deg, #3A3E45, #1E2126); }
+.lap-notch {   /* muesca para abrir la tapa */
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 110px; height: 7px; border-radius: 0 0 10px 10px;
+  background: rgba(0, 0, 0, 0.22);
+}
+.lap-led { position: absolute; right: 26px; top: 5px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+/* teclado + trackpad insinuados en la base */
+.lap-keys {
+  position: absolute; left: 15%; right: 15%; top: 4px; height: 5px; border-radius: 2px;
+  background: repeating-linear-gradient(90deg, rgba(0,0,0,0.14) 0 7px, transparent 7px 9px);
+}
+.lap-pad { position: absolute; left: 44%; right: 44%; bottom: 2px; height: 3px; border-radius: 2px; background: rgba(0, 0, 0, 0.14); }
+/* glow + sombra elíptica */
+.laptop::before {
+  content: ""; position: absolute; inset: -8% -14%; z-index: -1;
+  background: radial-gradient(ellipse 60% 55% at 50% 45%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+}
+.laptop::after {
+  content: ""; position: absolute; left: 8%; right: 8%; bottom: -26px; height: 30px;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(14, 15, 18, 0.35), transparent 70%);
+  filter: blur(8px);
+}
+
+/* ---------- 10. Testimonios ---------- */
+.stats { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; margin: 46px 0 60px; }
+.stat { text-align: center; }
+.stat b { display: block; font-family: var(--font-head); font-size: 2.625rem; font-weight: 700; letter-spacing: -0.02em; }
+.stat span { font-size: 0.75rem; color: var(--muted); }
+.review {
+  max-width: 680px; margin: 0 auto 64px; text-align: center;
+  border: 1px solid var(--card-border); border-radius: 20px;
+  background: var(--card); padding: 40px 36px; position: relative;
+}
+.review-q { color: var(--accent-ink); margin-bottom: 12px; }
+.review p { font-size: 1.0625rem; line-height: 1.7; margin-bottom: 22px; }
+.review-who { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 0.8125rem; }
+.avatar {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: #0E0F12; font-family: var(--font-head); font-weight: 700;
+}
+.verified { display: inline-flex; align-items: center; gap: 5px; font-size: var(--t-min); color: var(--muted); border: 1px solid var(--line); padding: 3px 9px; border-radius: 999px; }
+.verified svg { color: var(--accent-ink); }
+/* Marquee de testimonios (lento, ~55s) */
+.t-marquee { --speed: 55s; }
+.t-card {
+  width: 320px; flex-shrink: 0;
+  border: 1px solid var(--card-border); border-radius: 14px;
+  background: var(--card); padding: 20px; font-size: 0.8125rem;
+}
+.t-card p { color: var(--muted); margin-bottom: 14px; }
+.t-card .who { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; }
+.t-card .avatar { width: 30px; height: 30px; font-size: 0.8125rem; }
+
+/* ---------- 11. Demos en vivo ---------- */
+.demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 48px; }
+.demo {
+  position: relative; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--card-border); background: var(--card);
+  display: block; text-decoration: none;
+}
+.demo img { width: 100%; height: auto; }
+.demo-info { padding: 16px 18px; display: flex; align-items: center; gap: 10px; }
+.demo-info h3 { font-size: 0.9375rem; }
+.demo-info small { color: var(--muted); font-size: var(--t-min); }
+.live {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--t-min); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ok-ink); border: 1px solid color-mix(in srgb, var(--ok) 40%, transparent);
+  padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+}
+.live i { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.25; } }
+/* Overlay hover con pill "Visitar ↗" */
+.demo-ov {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity 0.25s;
+}
+.demo:focus-visible .demo-ov { opacity: 1; }
+@media (hover: hover) { .demo:hover .demo-ov { opacity: 1; } }
+.demo-ov span { background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: 999px; font-size: 0.8125rem; }
+
+/* ---------- 11b. Casos (grilla filtrable) ----------
+   Reusa .demo/.demo-grid. El filtro esconde con [hidden]; hace falta
+   !important porque .demo trae display:block. Las capturas son todas
+   640x400, y el aspect-ratio evita saltos de layout mientras cargan. */
+.cs-filter { justify-content: center; margin: 40px 0 6px; }
+.cs-filter[hidden] { display: none; }
+.cs-grid { margin-top: 26px; }
+.cs-grid .demo[hidden] { display: none !important; }
+.cs-grid .demo img { aspect-ratio: 16 / 10; object-fit: cover; }
+/* Sin huecos: la grilla va en medias columnas y cada caso ocupa dos. main.js le pone --ini
+   al primero de la última fila incompleta para centrarla, también con un filtro activo. */
+.cs-grid .demo { grid-column: var(--ini, auto) / span 2; }
+/* Tarjetas grandes (corrección 2026-10-15, variante A): dos por fila desde la tableta */
+.demo-grid.cs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.cs-grid .demo { border-radius: 22px; box-shadow: var(--shadow); }
+.cs-grid .demo img { transition: transform 0.6s var(--fx-ease); }
+@media (hover: hover) { .cs-grid .demo:hover img { transform: scale(1.04); } }
+.cs-grid .demo-info { padding: 20px 24px 22px; }
+.cs-grid .demo-info h3 { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); }
+.cs-grid .demo-info small { font-size: 0.875rem; }
+@media (max-width: 720px) {
+  .demo-grid.cs-grid { grid-template-columns: minmax(0, 1fr); }
+  .cs-grid .demo { grid-column: auto; }
+}
+/* Card sin link (proyecto sin demo pública): no debe simular ser clickeable */
+.cs-grid div.demo { cursor: default; }
+/* Badge apagado para lo que todavía no está publicado */
+.live.off { color: var(--muted); border-color: var(--line); }
+.live.off i { background: var(--muted); animation: none; }
+/* Solo para lectores de pantalla (anuncio del filtro) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+/* Chip de password copiable */
+.pw {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: var(--t-min); color: var(--muted);
+  border: 1px dashed var(--line); border-radius: 999px; padding: 3px 10px;
+}
+@media (hover: hover) { .pw:hover { border-color: var(--accent); color: var(--text); } }
+.pw.copied { color: var(--ok-ink); border-color: var(--ok); }
+
+/* ---------- 12. CTA final ---------- */
+.cta-card {
+  max-width: 640px; margin: 0 auto; text-align: center;
+  border: 1px solid var(--card-border); border-radius: 24px;
+  background: var(--card); padding: 60px 40px;
+  box-shadow: var(--shadow);
+}
+.cta-card .h2 { font-size: clamp(1.625rem, 3.6vw, 2.375rem); }
+
+/* ---------- 13. Footer ---------- */
+.footer { position: relative; overflow: hidden; border-top: 1px solid var(--line); padding: 80px 0 env(safe-area-inset-bottom); margin-top: 40px; }
+/* Wordmark gigante de fondo */
+.footer-giant {
+  position: absolute; left: 50%; bottom: -0.18em; transform: translateX(-50%);
+  font-family: var(--font-head); font-weight: 700; white-space: nowrap;
+  font-size: clamp(110px, 19vw, 300px); letter-spacing: -0.03em;
+  color: var(--text); opacity: 0.04; pointer-events: none; user-select: none;
+  z-index: 0; line-height: 1;
+}
+.footer-cols { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 36px; padding-bottom: 70px; }
+.f-contacto h4 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.f-contacto ul { list-style: none; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 0.8125rem; }
+.f-contacto a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
+.f-contacto svg { flex-shrink: 0; }
+@media (hover: hover) { .f-contacto a:hover { color: var(--accent-ink); } }
+.f-brand p { color: var(--muted); font-size: 0.8125rem; margin-top: 10px; max-width: 260px; }
+.f-col h4 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
+.f-col h4 svg { display: none; transition: transform 0.3s; }
+.f-col ul { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 0.8125rem; }
+.f-col a { color: var(--muted); text-decoration: none; }
+@media (hover: hover) { .f-col a:hover { color: var(--accent-ink); } }
+.footer-bottom {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid var(--line); padding: 18px 0 22px; font-size: 0.75rem; color: var(--muted);
+}
+.status {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+}
+.status i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); animation: pulse 1.6s ease-in-out infinite; }
+.made { margin-left: auto; }
+
+/* ---------- 14. Responsive ---------- */
+@media (max-width: 980px) {
+  .srv-grid, .demo-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .footer-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+/* El header completo pide 811 px en castellano (795 en inglés): debajo de
+   840 va el menú, así no se parte "Sobre mí" en dos renglones */
+@media (max-width: 840px) {
+  .nav, .hdr .hdr-cta { display: none; }
+  .hdr-pill { display: flex; justify-content: space-between; }
+  .menu { display: block; }
+  /* Abierto, el menú es una hoja que tapa la pantalla y el header queda
+     encima (logo, idioma, tema y la X). El blur del header se apaga
+     mientras tanto: backdrop-filter encerraría a la hoja fixed en él */
+  html:has(.menu[open]) { overflow: hidden; }
+  .hdr:has(.menu[open]) { position: relative; z-index: 2; }
+  .hdr-pill:has(.menu[open]) { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .menu[open] .menu-pop {
+    position: fixed; inset: 0; z-index: -1; min-width: 0;
+    border: 0; border-radius: 0; box-shadow: none; background: var(--bg);
+    /* a los costados, el texto arranca donde arranca el logo */
+    padding: calc(var(--menu-top, 112px) + 16px) calc(max(14px, env(safe-area-inset-right)) + 23px) max(28px, env(safe-area-inset-bottom)) calc(max(14px, env(safe-area-inset-left)) + 23px);
+    overflow-y: auto; overscroll-behavior: contain;
+    animation: hoja-in 0.2s ease both;
+  }
+  .menu-pop a { font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.25rem); font-weight: 500; padding: 12px 0; border-radius: 0; border-bottom: 1px solid var(--line); }
+}
+/* Celular acostado: dos columnas y letra más chica, para que entre sin scroll */
+@media (max-width: 840px) and (max-height: 520px) {
+  .menu[open] .menu-pop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 32px; align-content: start; }
+  .menu-pop a { font-size: 1.375rem; padding-block: 10px; }
+}
+@keyframes hoja-in { from { opacity: 0; } }
+@media (max-width: 720px) {
+  section { padding: 68px 0; }
+  .hero { padding: 88px 0 96px; }
+  .srv-grid, .demo-grid { grid-template-columns: minmax(0, 1fr); }
+  .stats { gap: 34px; }
+  .footer-cols { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .f-brand { margin-bottom: 26px; }
+  .f-contacto ul { flex-direction: column; gap: 0; }
+  /* Acordeón mobile: h4 clickeable, listas colapsadas con max-height animado */
+  .f-col { border-top: 1px solid var(--line); }
+  .f-col h4 { padding: 16px 0; cursor: pointer; }
+  .f-col h4 svg { display: block; }
+  .f-col.open h4 svg { transform: rotate(180deg); }
+  /* visibility: los enlaces de una columna cerrada no reciben el foco */
+  .f-col ul { overflow: hidden; max-height: 0; margin-top: 0; visibility: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.35s; }
+  .f-col.open ul { max-height: 220px; padding-bottom: 16px; visibility: visible; transition-delay: 0s; }
+  .f-col h4:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+}
+
+/* ---------- 17. Acordeón de servicios (Stökt) ----------
+   El panel abierto crece (transition de flex); los cerrados son franjas
+   de 92px con el título en vertical. Un abierto a la vez (JS). */
+.acc {
+  display: flex; gap: 16px; margin-top: 48px; height: 540px;
+  /* Full-bleed: el acordeón rompe el ancho del wrap y se extiende hasta
+     los bordes del viewport (con 20px de aire) */
+  margin-inline: calc(50% - 50vw + 20px);
+}
+.acc-p {
+  position: relative; display: flex; overflow: hidden;
+  flex: 1 1 0; min-width: 92px; cursor: pointer;
+  border: 1px solid var(--card-border); border-radius: 16px; background: var(--card);
+  transition: flex-grow 0.65s cubic-bezier(0.4, 0, 0.2, 1), flex-basis 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Con un detalle abierto, los demás se comprimen a franjas de 92px */
+.acc.has-open .acc-p:not(.open) { flex: 0 0 92px; }
+.acc-p.open { flex: 1 1 640px; cursor: default; }
+.acc-tab { position: absolute; inset: 0; z-index: 2; cursor: pointer; }
+.acc-p.open .acc-tab { pointer-events: none; }
+.acc-vert {
+  position: absolute; bottom: 26px; left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  writing-mode: vertical-rl; white-space: nowrap;
+  font-family: var(--font-head); font-weight: 500; font-size: 1.25rem;
+  color: var(--text); opacity: 0; transition: opacity 0.3s;
+}
+.acc-p.open .acc-vert { opacity: 0; }
+/* El título vertical solo aparece en las franjas del modo detalle */
+.acc.has-open .acc-p:not(.open) .acc-vert { opacity: 1; transition-delay: 0.35s; }
+
+/* ---------- Cover: estado inicial en grilla (imagen grande + título) ---------- */
+.acc-cover {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; padding: 26px;
+  transition: opacity 0.35s;
+}
+.acc-cover :is(img, video) {
+  width: min(80%, 360px); height: auto; margin: auto; border-radius: 10px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Hover: la imagen "flota" y aparece la pill de detalle */
+@media (hover: hover) { .acc-p:not(.open):hover .acc-cover :is(img, video) { transform: translateY(-10px) rotate(-2deg) scale(1.05); } }
+.acc-cover h3 { font-size: 1.3125rem; font-weight: 500; }
+.acc-pill {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
+  background: var(--text); color: var(--bg);
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 16px; border-radius: 8px; white-space: nowrap;
+  opacity: 0; transition: opacity 0.25s, translate 0.3s; pointer-events: none;
+}
+@media (hover: hover) and (min-width: 981px) { .acc-p:not(.open):hover .acc-pill { opacity: 1; translate: -50% -62%; } }
+/* En modo detalle: cover oculto en el abierto y en las franjas */
+.acc-p.open .acc-cover,
+.acc.has-open .acc-p:not(.open) .acc-cover { opacity: 0; pointer-events: none; }
+
+/* Mini botón reset (vuelve a la grilla) */
+.acc-reset {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px;
+}
+@media (hover: hover) { .acc-reset:hover { color: var(--text); border-color: var(--accent); } }
+.acc-body {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px; align-items: center;
+  width: 100%; min-width: min(640px, calc(100vw - 366px)); padding: 40px;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.acc-p.open .acc-body { opacity: 1; pointer-events: auto; transition-delay: 0.22s; }
+.acc-txt { display: flex; flex-direction: column; gap: 11px; align-items: flex-start; }
+/* Animación de expansión: el contenido del panel entra en cascada */
+.acc-txt > * { opacity: 0; translate: 0 14px; transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), translate 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.acc-p.open .acc-txt > * { opacity: 1; translate: 0 0; }
+.acc-p.open .acc-txt > *:nth-child(1) { transition-delay: 0.22s; }
+.acc-p.open .acc-txt > *:nth-child(2) { transition-delay: 0.28s; }
+.acc-p.open .acc-txt > *:nth-child(3) { transition-delay: 0.34s; }
+.acc-p.open .acc-txt > *:nth-child(4) { transition-delay: 0.40s; }
+.acc-p.open .acc-txt > *:nth-child(5) { transition-delay: 0.46s; }
+.acc-p.open .acc-txt > *:nth-child(6) { transition-delay: 0.52s; }
+.acc-txt h3 { font-size: 1.625rem; font-weight: 500; }
+.acc-list { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.8125rem; margin: 8px 0 4px; }
+.acc-list li { display: flex; gap: 10px; align-items: baseline; }
+.acc-list li::before { content: "\2192"; color: var(--accent-ink); }
+.acc-img { position: relative; border-radius: 12px; overflow: hidden; opacity: 0; scale: 1.06; transition: opacity 0.5s, scale 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+.acc-p.open .acc-img { opacity: 1; scale: 1; transition-delay: 0.25s; }
+.acc-img::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%);
+}
+.acc-img :is(img, canvas) { width: 100%; height: auto; display: block; }
+.acc-p .ribbon { opacity: 0; transition: opacity 0.3s; z-index: 3; }
+.acc-p.open .ribbon { opacity: 1; transition-delay: 0.25s; }
+@media (max-width: 980px) {
+  /* En mobile: cards apiladas; el cover queda como fila compacta */
+  .acc { flex-direction: column; height: auto; margin-inline: 0; }
+  .acc-p { flex: none !important; min-width: 0; }
+  .acc-vert { display: none; }
+  /* Objeto a la izquierda; título y pill apilados a la derecha, así el
+     título tiene todo el renglón y no se parte a mitad de palabra. Las filas
+     1fr de los bordes centran el bloque aunque la pill no esté (cursor custom) */
+  .acc-cover { position: relative; inset: auto; flex: 1; min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; align-items: center; gap: 0 18px; padding: 18px 20px; }
+  .acc-cover :is(img, video) { width: 86px; margin: 0; }
+  .acc-cover h3 { grid-column: 2; grid-row: 2; font-size: clamp(1.0625rem, 0.75rem + 1.2vw, 1.3125rem); hyphens: auto; }
+  .acc-pill { position: static; inset: auto; translate: none; opacity: 1; pointer-events: none; grid-column: 2; grid-row: 3; justify-self: start; align-self: start; margin-top: 10px; padding: 8px 12px; font-size: var(--t-min); white-space: normal; text-wrap: balance; }
+  .acc.has-open .acc-p:not(.open) .acc-cover { opacity: 1; pointer-events: auto; }
+  .acc-p.open .acc-cover { display: none; }
+  .acc-body { min-width: 0; grid-template-columns: minmax(0, 1fr); padding: 22px; }
+  .acc-p:not(.open) .acc-body { display: none; }
+}
+
+/* ---------- 18. Cursor inteligente ----------
+   Cuadradito blanco con mix-blend-mode: difference: invierte el color de
+   lo que tenga debajo → contraste garantizado sobre cualquier fondo.
+   Solo se activa con mouse fino (JS agrega .cursor-on a <html>). */
+html.cursor-on, html.cursor-on * { cursor: none !important; }
+/* Los campos conservan el I-beam: sin esto no se ve donde estas tipeando
+   justo en el formulario, que es el objetivo de conversion de la pagina. */
+html.cursor-on input, html.cursor-on textarea,
+html.cursor-on [contenteditable] { cursor: auto !important; }
+.cursor {
+  position: fixed; left: 50%; top: -40px; width: 14px; height: 14px;
+  border-radius: 4px; background: #FFFFFF;
+  mix-blend-mode: difference; pointer-events: none; z-index: 9999;
+  translate: -50% -50%;
+  /* width/height a proposito: el elemento es fixed, asi que no re-layoutea
+     el documento, y el estado .label mide segun su texto — un scale() lo
+     deformaria. Es la excepcion consciente a la regla de solo transform. */
+  transition: width 0.25s, height 0.25s, border-radius 0.25s, opacity 0.2s;
+}
+.cursor.on { width: 34px; height: 34px; border-radius: 999px; }   /* redondo sobre botones */
+.cursor.down { width: 10px; height: 10px; border-radius: 3px; }
+/* Cursor-pill con texto ("Ver detalle →", "← Arrastrá →"): MANTIENE el
+   mix-blend-mode difference — la pill blanca invierte lo que hay debajo y
+   las letras negras quedan como "ventanas" que dejan ver el fondo, igual
+   que el "LEARN MORE"/"DRAG" de Stökt. */
+.cursor span { display: none; }
+.cursor.label {
+  width: auto; height: auto; padding: 10px 15px; border-radius: 999px;
+  background: #FFFFFF; color: #000000;
+}
+.cursor.label span {
+  display: block; font-family: var(--font-mono); font-size: var(--t-min); font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap;
+}
+/* Con cursor custom activo, las pills estáticas sobran (el cursor las reemplaza) */
+html.cursor-on .acc-pill { display: none; }
+html.cursor-on .demo-ov { display: none; }
+
+/* En pantallas táctiles (sin hover ni cursor custom) las acciones deben
+   verse SIEMPRE: pill fija en covers y botón "Visitar" fijo en demos.
+   El botón va arriba a la derecha de la captura: abajo pisaba el título de
+   la tarjeta y el titular del sitio; arriba solo tapa su menú, que a ese
+   tamaño no se lee. */
+@media (hover: none) {
+  .acc-pill { opacity: 1; }
+  .demo-ov {
+    opacity: 1; background: transparent; backdrop-filter: none;
+    align-items: start; justify-items: end; padding: 14px;
+  }
+  .demo-ov span { font-size: var(--t-min); padding: 8px 14px; }
+}
+
+/* Cambio de idioma: cada texto traducido entra con blur+fade */
+html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+@keyframes langswap {
+  from { opacity: 0; filter: blur(5px); translate: 0 5px; }
+  to { opacity: 1; filter: blur(0); translate: 0 0; }
+}
+
+/* Marquee de testimonios arrastrable: el offset del drag viaja por
+   'translate' (no pisa el transform del keyframe) */
+.t-marquee { touch-action: pan-y; }
+.t-marquee .mtrack { translate: var(--drag, 0px) 0; }
+.t-marquee.dragging { user-select: none; }
+
+/* ---------- 15. prefers-reduced-motion: matar TODO ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    /* Los delays tambien: sin esto sobreviven el stagger del menu mobile y
+       los 6 nth-child del acordeon, que arrancan en opacity:0 — o sea,
+       contenido invisible justo para quien pidio menos movimiento. */
+    animation-delay: 0ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Marquees quietos, pero alcanzables: parkeados dentro de un
+     overflow:hidden con mask se veian 6 de 13 logos y no habia forma de
+     llegar al resto. Se suaviza, no se apaga. */
+  .mtrack { animation: none !important; }
+  .marquee { overflow-x: auto; overscroll-behavior-x: contain; mask-image: none; -webkit-mask-image: none; }
+  .mtrack[aria-hidden="true"] { display: none; }   /* el track duplicado sobra si se scrollea a mano */
+  .fx-spot { display: none; }               /* sin spotlight */
+  .caret { animation: none; }               /* caret fijo */
+  /* El cursor custom se oculta, pero .cursor-on sigue en <html> poniendo
+     cursor:none en todo: sin esto el visitante se queda SIN puntero. */
+  .cursor { display: none; }
+  html.cursor-on, html.cursor-on * { cursor: auto !important; }
+  html.cursor-on .acc-pill, html.cursor-on .demo-ov { display: revert; }
+  .btn-ai, .btn-ai::before { animation: none; }        /* gradiente estático */
+  .beam-card::after { animation: none; opacity: 0.4; }  /* beam estático */
+  .h2 .w { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .dotlive::after { animation: none; }
+}
+
+/* ============================================================
+   16. ITERACIÓN v2.1 — iridiscente, border beam, bento, Stökt
+   ============================================================ */
+
+/* ---------- Botón IA (Clean Slate): gradiente animado azul→violeta→rosa
+   que se desplaza en loop, anillo blanco y halo difuso que cambia de color
+   (es el MISMO gradiente en ::before con blur, animado en sincronía). */
+.btn-ai {
+  position: relative; color: #0E0F12; border-radius: 16px;
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
+  background-size: 300% 100%;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  animation: ai-pan 5s ease-in-out infinite;
+  isolation: isolate;
+}
+.btn-ai::before {
+  content: ""; position: absolute; inset: -6px; border-radius: 22px; z-index: -1;
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
+  background-size: 300% 100%;
+  filter: blur(16px); opacity: 0.65;
+  animation: ai-pan 5s ease-in-out infinite;   /* mismo timing → halo sincronizado */
+}
+@media (hover: hover) { .btn-ai:hover { transform: scale(1.03); } }
+@keyframes ai-pan { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+/* En el hero, botones rectangulares redondeados como Clean Slate */
+.hero-ctas .btn { border-radius: 16px; }
+/* En el celular, una sola acción: WhatsApp es el botón y "Ver mi trabajo"
+   pasa a enlace debajo, con su área de 44 px */
+@media (max-width: 720px) {
+  .hero-ctas { flex-direction: column; align-items: center; gap: 6px; }
+  .hero-ctas .btn-sec {
+    border: 0; border-radius: 4px; padding: 0 12px; min-height: 44px;
+    font-size: 0.875rem; text-transform: none; letter-spacing: 0;
+    text-decoration: underline; text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px; text-underline-offset: 5px;
+  }
+}
+
+/* ---------- Border beam (card destacada + card founder) ----------
+   Truco: ::after cubre toda la card con un conic-gradient (cola que se
+   desvanece hacia transparente) y se enmascara SOLO el borde: dos capas
+   de mask (content-box vs borde completo) con mask-composite: exclude →
+   queda visible únicamente el "padding" de 1.5px. El delay negativo
+   (var(--bb-delay), puesto por JS = -(Date.now()%4500)) lo sincroniza
+   al reloj, igual que el beam del announcement bar. */
+@property --bb-a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.beam-card { position: relative; }
+.beam-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+  background: conic-gradient(from var(--bb-a),
+    transparent 0deg, transparent 250deg,
+    color-mix(in srgb, var(--accent) 0%, transparent) 250deg,
+    var(--accent) 320deg, transparent 340deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  animation: bb-spin 4.5s linear infinite;
+  animation-delay: var(--bb-delay, 0s);
+  pointer-events: none;
+}
+@keyframes bb-spin { to { --bb-a: 360deg; } }
+
+/* ---------- Títulos palabra por palabra (Stökt) ----------
+   JS separa cada H2 en <span class="w" style="--w:i">; al entrar al
+   viewport se agrega .in y cada palabra sube 10px con 40ms de stagger. */
+.h2 .w {
+  display: inline-block; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: calc(var(--w) * 40ms);
+}
+.h2.in .w { opacity: 1; transform: none; }
+
+/* ---------- Bento "Sobre mí" (franja invertida estilo Stökt) ----------
+   En modo claro esta sección va OSCURA (#0a0a0a); en dark, clara.
+   Variables locales para no tocar el resto de la página. */
+.bento-sec {
+  --ib: #0a0a0a;                      /* fondo invertido */
+  --it: #F2F2F2;                      /* texto invertido */
+  --imut: rgba(242, 242, 242, 0.55);
+  --ibrd1: #333333; --ibrd2: #0d0d0d; /* extremos del borde-gradiente */
+  background: var(--ib); color: var(--it);
+}
+[data-theme="dark"] .bento-sec {
+  --ib: #F2F2F2; --it: #17181B; --imut: rgba(23, 24, 27, 0.55);
+  --ibrd1: #C4C4C4; --ibrd2: #E9E9E9;
+}
+.bento-sec .eyebrow, .bento-sec .sub { color: var(--imut); }
+.bento { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; margin-top: 44px; max-width: 100%; }
+/* min-width:0 — sin esto, el min-content de los hijos (marquee de chips,
+   canvas del globo, foto 800px) explota el ancho de la grilla en mobile */
+.bento > *, .bcard, .bcard-in, .b-stats, .founder, .founder > *, .founder-fig, .founder-txt { min-width: 0; }
+.bcard .marquee { max-width: 100%; }
+
+/* TRUCO borde-gradiente (Stökt): el wrapper .bcard ES el gradiente
+   (linear-gradient 126deg, #333 → #0d0d0d) con padding de 1px; .bcard-in
+   tapa el centro con el fondo sólido → queda un borde de 1px en gradiente.
+   En hover el extremo claro se mezcla con el acento. */
+.bcard {
+  border-radius: 10px; padding: 1px;
+  background: linear-gradient(126deg, var(--ibrd1) 0%, var(--ibrd2) 100%);
+  transition: background 0.35s;
+}
+@media (hover: hover) { .bcard:hover { background: linear-gradient(126deg, color-mix(in srgb, var(--ibrd1) 55%, var(--accent)) 0%, var(--ibrd2) 100%); } }
+.bcard-in { border-radius: 9px; background: var(--ib); padding: 24px; height: 100%; }
+
+.b-stats { grid-column: span 2; display: grid; grid-template-rows: repeat(3, 1fr); gap: 14px; }
+.b-stat .bcard-in { display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+.b-stat b { font-family: var(--font-head); font-weight: 500; font-size: 2.5rem; letter-spacing: -0.02em; line-height: 1; }
+.b-stat span { font-size: var(--t-min); letter-spacing: 0.1em; text-transform: uppercase; color: var(--imut); }
+
+.b-founder { grid-column: span 6; }
+/* Founder grande estilo Stökt: foto alta a la izquierda con nombre
+   superpuesto abajo (gradiente para legibilidad) + bio amplia a la derecha */
+.founder { display: grid; grid-template-columns: minmax(260px, 400px) minmax(0, 1fr); gap: 42px; }
+.founder-fig { position: relative; border-radius: 10px; overflow: hidden; margin: 0; }
+.founder-fig img { width: 100%; height: 100%; min-height: 460px; object-fit: cover; display: block; }
+.founder-fig::after { content: ""; position: absolute; inset: 45% 0 0 0; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6)); }
+.founder-id { position: absolute; left: 22px; bottom: 18px; right: 22px; z-index: 1; color: #F2F2F2; overflow-wrap: anywhere; }
+.founder-id h3 { font-size: 1.5625rem; font-weight: 500; }
+.founder-id .role { font-size: var(--t-min); letter-spacing: 0.14em; color: rgba(242, 242, 242, 0.75); }
+.founder-txt { display: flex; flex-direction: column; gap: 16px; padding: 8px 0; }
+.founder-txt h4 { font-size: 1.375rem; font-weight: 500; margin-bottom: 8px; }
+.founder-txt p { font-family: var(--font-head); font-size: 0.9375rem; line-height: 1.75; color: var(--imut); max-width: 62ch; }
+.founder-cta {
+  margin-top: auto; align-self: flex-end;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.8125rem; color: var(--it); text-decoration: none;
+}
+@media (hover: hover) { .founder-cta:hover { color: var(--accent-ink); } }
+
+/* Card del globo (Stökt): título + disponibilidad arriba, globo punteado
+   en canvas abajo, recortado por overflow para que "asome" del card. */
+.b-globe { grid-column: span 4; }
+.b-globe .bcard-in { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-bottom: 0; overflow: hidden; }
+.b-globe h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); margin-top: 10px; }
+.avail { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-min); letter-spacing: 0.1em; color: var(--imut); }
+.globe-wrap { width: min(720px, 100%); height: 400px; overflow: hidden; margin-top: 10px; }
+.globe-wrap canvas { width: 100%; aspect-ratio: 1; display: block; }
+/* Punto verde: dot sólido + halo (anillo) que escala y se desvanece */
+.dotlive {
+  position: relative; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--ok); box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+  flex-shrink: 0; display: inline-block;
+}
+.dotlive::after {
+  content: ""; position: absolute; inset: -5px; border-radius: 50%;
+  border: 2px solid var(--ok); opacity: 0;
+  animation: halo 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes halo { 0% { transform: scale(0.4); opacity: 0.9; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+
+.b-tools { grid-column: span 6; }
+.b-tools h3 { font-size: 0.9375rem; margin-bottom: 18px; }
+.chips-mq { --speed: 60s; }
+.chips-mq .mtrack { gap: 12px; padding-right: 12px; }
+.chip {
+  min-width: 64px; height: 64px; padding: 0 14px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--ibrd1); border-radius: 10px; background: var(--ib);
+  font-size: var(--t-min); color: var(--imut); white-space: nowrap;
+}
+.chip svg { display: block; }
+.chip-word { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--it); letter-spacing: 0.01em; }
+
+/* ---------- Formulario IA (CTA final) ----------
+   Card de vidrio con border-beam vivo, labels mono numerados, inputs
+   transparentes con subrayado que se "enciende" en acento al foco y
+   chips de tipo de proyecto. Envía por wa.me?text= (sin backend). */
+.ai-form {
+  max-width: 680px; margin: 0 auto; text-align: left;
+  border-radius: 20px; padding: 26px 28px 22px;
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 20px;
+}
+.af-head {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: 14px; border-bottom: 1px dashed var(--line);
+}
+.af-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6, #EC4899);
+  background-size: 300% 100%; animation: ai-pan 5s ease-in-out infinite; }
+.af-badge {
+  margin-left: auto; padding: 3px 10px; border-radius: 999px;
+  font-size: var(--t-min); letter-spacing: 0.08em; white-space: nowrap;
+  color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.af-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.af-field { display: flex; flex-direction: column; gap: 8px; }
+.af-label { font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.12em; text-transform: uppercase; }
+.af-label b { font-weight: 400; color: var(--muted); }
+.af-label em { font-style: normal; font-size: var(--t-min); color: var(--muted); }
+.ai-form input, .ai-form textarea {
+  font-family: var(--font-mono); font-size: 0.875rem; color: var(--text);
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  padding: 8px 2px; border-radius: 0; resize: none; min-height: 0;
+  transition: border-color 0.25s;
+}
+/* El textarea arranca de UNA línea (como los inputs) y crece con el
+   contenido: field-sizing donde exista + auto-grow por JS de fallback */
+.ai-form textarea { field-sizing: content; max-height: 180px; overflow: hidden; }
+.ai-form input::placeholder, .ai-form textarea::placeholder { color: var(--muted); }
+.ai-form input:focus-visible, .ai-form textarea:focus-visible {
+  outline: none; border-radius: 0;
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 var(--accent);   /* subrayado "encendido", 2px total */
+}
+/* Campo inválido tras intento de envío */
+.ai-form.tried input:invalid, .ai-form.tried textarea:invalid { border-bottom-color: var(--pink); }
+.af-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.af-chip {
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.05em;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted);
+  transition: all 0.2s;
+}
+@media (hover: hover) { .af-chip:hover { border-color: var(--accent); color: var(--text); } }
+.af-chip.on {
+  color: var(--accent-ink); border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  box-shadow: 0 0 14px -4px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.af-foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 4px; }
+.af-via { display: flex; align-items: center; gap: 8px; }
+.af-via .af-label { margin-right: 2px; }
+.af-hint { font-family: var(--font-mono); font-size: var(--t-min); color: var(--muted); max-width: 300px; text-align: left; line-height: 1.5; }
+.af-send { margin-left: auto; }
+@media (max-width: 720px) {
+  .ai-form { padding: 20px 18px; }
+  .af-grid { grid-template-columns: minmax(0, 1fr); }
+  .af-badge { display: none; }
+  .af-foot { flex-direction: column; align-items: stretch; }
+  .af-hint { max-width: none; text-align: center; }
+  .af-send { margin-left: 0; }
+  .af-via { justify-content: center; }
+}
+
+/* ---------- Newsletter del footer ----------
+   Franja de vidrio con input subrayado (misma estética que el form IA) */
+.nl-bar {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  border: 1px solid var(--card-border); border-radius: 18px;
+  background: color-mix(in srgb, var(--card) 75%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: 22px 26px; margin-bottom: 56px;
+}
+.nl-txt h4 { font-size: 1.0625rem; font-weight: 500; margin-bottom: 4px; }
+.nl-txt p { font-family: var(--font-mono); font-size: var(--t-min); color: var(--muted); max-width: 380px; }
+}
+.nl-btn { padding: 11px 20px; font-size: var(--t-min); white-space: nowrap; flex-shrink: 0; }
+@media (max-width: 720px) {
+  .nl-bar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; text-align: center; padding: 22px 18px; }
+  .nl-txt p { max-width: none; }
+}
+
+/* ---------- CTA final gigante (estilo Stökt) ---------- */
+.cta-giant { font-size: clamp(44px, 11vw, 150px); line-height: 0.95; letter-spacing: -0.04em; margin: 16px 0 10px; }
+
+/* ---------- Bento responsive ---------- */
+@media (max-width: 980px) {
+  .b-founder, .b-globe, .b-tools, .b-stats { grid-column: span 6; }
+  .b-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* founder.jpg mide 800 px: en la tableta va cuadrada y arriba, no estirada
+     al alto del texto (400x610 la agrandaba x1,5 en pantallas de densidad 2) */
+  .founder { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; }
+  .founder-fig { align-self: start; }
+  .founder-fig img { min-height: 0; height: auto; aspect-ratio: 1; }
+}
+@media (max-width: 720px) {
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .b-stats, .b-founder, .b-globe, .b-tools { grid-column: auto; }
+  .b-stats { grid-template-columns: minmax(0, 1fr); }
+  .founder { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .founder-fig img { min-height: 0; height: 100%; aspect-ratio: 1; }
+  /* Foto y nombre comparten la celda: si el nombre crece, crece la foto
+     en vez de recortarlo (absolute + overflow lo cortaba arriba) */
+  .founder-fig { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .founder-fig > img, .founder-id { grid-area: 1 / 1; }
+  .founder-id { position: relative; inset: auto; align-self: end; margin: 0 22px 18px; }
+  .founder-cta { align-self: flex-start; margin-top: 6px; }
+}
+
+/* ============================================================
+   19. RENDIMIENTO Y COSTURAS — pausa fuera de pantalla,
+       reveal de casos y feedback de pulsado
+   ============================================================ */
+
+/* ---------- Pausa fuera de pantalla ----------
+   Las animaciones CSS NO se pausan solas cuando el elemento sale del
+   viewport: sin esto quedan ~33 loops corriendo, 24 de ellos sobre cosas
+   que nadie está mirando. El JS marca cada <section> con .fx-quieto al
+   salir. Usamos animation-play-state (no animation:none) porque conserva
+   el progreso: al volver el loop sigue donde estaba, sin reinicio ni salto.
+   Incluye pseudo-elementos: el halo del botón y el border beam viven ahí. */
+.fx-quieto,
+.fx-quieto *,
+.fx-quieto::before,   .fx-quieto::after,
+.fx-quieto *::before, .fx-quieto *::after {
+  animation-play-state: paused !important;
+}
+/* Excepcion: langswap (el fundido al cambiar de idioma) arranca en
+   opacity:0 y corre sobre TODO [data-i18n], en las 8 secciones a la vez.
+   Pausado dejaria ese texto invisible los 650ms que dura la clase, y el
+   usuario que scrollea en el medio veria huecos. Es one-shot, asi que
+   dejarlo correr no cuesta nada. */
+.fx-quieto [data-i18n] { animation-play-state: running !important; }
+
+/* ---------- Reveal de las cards de casos ----------
+   Las 12 cards aparecían de golpe. El estado escondido cuelga de .fx-on,
+   que el JS agrega antes del primer pintado: si el script no carga o falla,
+   la clase nunca aparece y las cards quedan visibles. Nunca se entrega una
+   página donde un JS caído deja el contenido invisible. */
+html.fx-on .cs-grid .demo {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--fx-lento) var(--fx-ease) var(--fx-d, 0ms),
+              transform var(--fx-lento) var(--fx-ease) var(--fx-d, 0ms);
+}
+html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
+
+/* ---------- Feedback de pulsado ----------
+   Sólo .btn tenía :active. Los chips de filtro, las cards y el menú no
+   acusaban recibo al tocarlos, que en mobile se siente como que no anduvo. */
+.af-chip, .cs-grid .demo, .pw, summary { transition: transform var(--fx-tap) var(--fx-ease); }
+.af-chip:active, .pw:active, summary:active { transform: scale(0.97); }
+.cs-grid a.demo:active { transform: scale(0.985); }
+
+@media (prefers-reduced-motion: reduce) {
+  html.fx-on .cs-grid .demo { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .af-chip:active, .pw:active, summary:active, .cs-grid a.demo:active { transform: none; }
+}
+
+/* ---------- Feedback al apretar un panel del acordeón ----------
+   Abrir tarda 650ms (flex-basis). Sin esto, el primer cuarto de segundo
+   no pasa nada y el click se siente perdido. La especificidad tiene que
+   ganarle a la regla de hover de .acc-cover img (0,4,1), por eso el
+   selector arranca en .acc-p:not(.open). */
+.acc-p:not(.open) .acc-tab:active ~ .acc-cover :is(img, video) {
+  transform: scale(0.97);
+  transition-duration: var(--fx-tap);
+}
+.acc-tab:active .acc-vert { opacity: 0.55; transition: opacity var(--fx-tap) var(--fx-ease); }
+.acc-reset:active { transform: scale(0.97); transition: transform var(--fx-tap) var(--fx-ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  .acc-p:not(.open) .acc-tab:active ~ .acc-cover img,
+  .acc-reset:active { transform: none; }
+}
+
+/* ---------- 20. Marcas ----------
+   Los logos son siluetas PNG: la forma vive en el canal alfa y el color
+   lo pone currentColor a traves de mask-image. Por eso no hacen falta
+   variantes para claro y oscuro, y el hover es solo un cambio de opacidad. */
+.marcas-sec { padding: 62px 0 !important; }
+.marcas-sec + #proyectos { padding-top: 0; }
+/* Rótulo de la sección, en minúscula como los .eyebrow */
+.marcas-h {
+  text-align: center; font-size: var(--t-min); letter-spacing: 0.02em;
+  color: var(--muted); margin-bottom: 30px;
+}
+/* Carrusel de dos pistas en direcciones opuestas, como el de Cañada Húmeda.
+   Reusa .marquee/.mtrack (loop infinito + mask lateral + pausa fuera de
+   viewport ya montada). La segunda pista es refuerzo visual: aria-hidden. */
+.marcas-carrusel { margin-bottom: 6px; }
+.marcas-carrusel .mtrack { --speed: 38s; }
+.marcas-carrusel.rev .mtrack { animation-direction: reverse; }
+.marcas {
+  list-style: none; display: flex; flex-wrap: nowrap;
+  align-items: center; gap: 0 58px; padding-right: 58px;
+}
+.marca-txt {
+  font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.10em;
+  text-transform: uppercase; color: var(--text); white-space: nowrap;
+}
+.marcas a, .marcas .marca-txt { display: block; opacity: 0.72; transition: opacity var(--fx-rapido) var(--fx-ease); }
+.marcas a:focus-visible { opacity: 1; }
+@media (hover: hover) { .marcas a:hover, .marcas li:hover .marca-txt { opacity: 1; } }
+.marca {
+  display: block; background-color: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain;    mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+/* Alturas por marca: equilibrio optico, no matematico. El logo de Cañada
+   es apilado (simbolo sobre texto), asi que necesita mas alto para pesar
+   lo mismo que un wordmark de una linea. */
+.m-melou  { width: 104px; height: 31px; -webkit-mask-image: url(assets/marcas/marca-melou.png);  mask-image: url(assets/marcas/marca-melou.png); }
+.m-baza   { width: 62px;  height: 29px; -webkit-mask-image: url(assets/marcas/marca-baza.png);   mask-image: url(assets/marcas/marca-baza.png); }
+.m-canada { width: 39px;  height: 45px; -webkit-mask-image: url(assets/marcas/marca-canada.png); mask-image: url(assets/marcas/marca-canada.png); }
+.m-aires  { width: 189px; height: 27px; -webkit-mask-image: url(assets/marcas/marca-aires.png);  mask-image: url(assets/marcas/marca-aires.png); }
+.marcas-sec .astnote { display: block; text-align: center; margin-top: 26px; }
+
+@media (max-width: 720px) {
+  .marcas { gap: 22px 34px; }
+  .m-melou { width: 84px; height: 25px; }
+  .m-baza  { width: 50px; height: 23px; }
+  .m-canada{ width: 32px; height: 37px; }
+  .m-aires { width: 148px; height: 21px; }
+}
+
+/* ---------- Objetos 3D del acordeon (tecnica de Stokt) ----------
+   Video WebM con canal alfa: el objeto flota recortado, sin caja. Con
+   WebP animado (no WebM: Safari no soporta alfa ahi y el objeto sale
+   dentro de un rectangulo negro). En reposo se ve un PNG estatico, que es
+   el frame 0 del mismo objeto; el WebP se descarga recien al hover. */
+/* El objeto vive centrado en un frame 16:10 con aire alrededor. En el cover
+   se lo deja desbordar para que llene el panel: .acc-p ya recorta con
+   overflow:hidden, asi que lo unico que se pierde es ese aire. */
+.srv-obj { display: block; background: none; }
+.acc-cover canvas.srv-obj {
+  /* los objetos de Claude Design llenan casi todo el frame 720x450,
+     asi que no admiten el desborde que necesitaban los anteriores */
+  --obj-w: min(132%, 400px);
+  width: var(--obj-w); max-width: none; margin-block: auto;
+  /* en flex, un item mas ancho que la linea desborda hacia un lado aunque
+     tenga align-self:center. El margen negativo simetrico si lo centra. */
+  margin-inline: calc((100% - var(--obj-w)) / 2);
+}
+/* Con las tarjetas apiladas (≤980) el objeto va chico a la izquierda y sigue
+   desbordando un 14 % por lado, 17 px como máximo para no pasar el gap ni el
+   padding. El margen en % de arriba se calcula contra el
+   ancho de la tarjeta: en una fila empujaba título y pill fuera de la tarjeta. */
+@media (max-width: 980px) {
+  .acc-cover canvas.srv-obj {
+    --obj-w: clamp(120px, 20vw, 180px);
+    grid-row: 1 / -1; width: var(--obj-w); max-width: none; height: auto;
+    margin: 0 max(-17px, calc(var(--obj-w) * -0.14)); align-self: center;
+  }
+}
+/* Celular angosto (plegable cerrado, 280 a 340): objeto, título y pill más
+   chicos, así "Automatización" y "Ver detalle →" entran en un renglón */
+@media (max-width: 340px) {
+  .acc-cover { column-gap: 14px; padding: 16px; }
+  .acc-cover canvas.srv-obj { --obj-w: 96px; }
+  .acc-cover h3 { font-size: 1rem; }
+  .acc-pill { padding: 8px; letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .srv-obj { pointer-events: none; }   /* el JS ya no lo reproduce */
+}
+
+/* ============================================================
+   21. TARJETA HOLOGRAFICA DEL FOUNDER
+   Adaptacion del ProfileCard de React Bits a vanilla. El original usa un
+   holograma arcoiris tipo carta coleccionable; aca la paleta se acota al
+   gradiente de la marca (celeste -> violeta) para no romper el mono-tech.
+   El JS (main.js §24) setea las variables segun el puntero; el CSS solo
+   las consume, asi que sin JS la foto se ve normal y nada se rompe.
+   ============================================================ */
+.pf-card {
+  --pointer-x: 50%;  --pointer-y: 50%;
+  --pointer-from-center: 0;
+  --rotate-x: 0deg;  --rotate-y: 0deg;
+  --pf-op: 0;                                  /* intensidad, sube al entrar */
+  transform: rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+  transform-style: preserve-3d;
+  transition: transform var(--fx-medio) var(--fx-ease);
+  will-change: transform;
+}
+/* La perspectiva vive en el padre del elemento que rota */
+.founder { perspective: 1100px; }
+.pf-card .founder-id { z-index: 2; }           /* el nombre, siempre encima */
+
+.pf-shine, .pf-glare {
+  position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--pf-op);
+  transition: opacity var(--fx-medio) var(--fx-ease);
+}
+/* Bandas iridiscentes que se desplazan con el puntero.
+   Muy contenidas a proposito: sobre una foto de una persona, el color-dodge
+   del original convierte la cara en un arcoiris. Aca el brillo se apoya en
+   soft-light y el iridiscente apenas se insinua. */
+.pf-shine {
+  background-image:
+    repeating-linear-gradient(
+      -22deg,
+      transparent 0%,
+      color-mix(in srgb, var(--accent) 62%, transparent) 7%,
+      color-mix(in srgb, #8B7CF6 50%, transparent) 12%,
+      transparent 20%),
+    radial-gradient(circle at var(--pointer-x) var(--pointer-y),
+      rgba(255, 255, 255, 0.30) 0%, transparent 55%);
+  background-size: 300% 300%, 100% 100%;
+  background-position: var(--pointer-x) var(--pointer-y), center;
+  mix-blend-mode: overlay;
+  opacity: calc(var(--pf-op) * 0.7);
+}
+/* Reflejo de vidrio: es el que hace el trabajo, el iridiscente solo acompaña */
+.pf-glare {
+  background-image: radial-gradient(farthest-corner circle at var(--pointer-x) var(--pointer-y),
+    rgba(255, 255, 255, 0.42) 5%,
+    color-mix(in srgb, var(--accent) 30%, transparent) 34%,
+    transparent 70%);
+  mix-blend-mode: screen;
+  opacity: calc(var(--pf-op) * 0.8);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .pf-card { transform: none; }                /* en tactil no hay puntero que seguir */
+  .pf-shine, .pf-glare { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-card { transform: none !important; transition: none; }
+  .pf-shine, .pf-glare { display: none; }
+}
+
+/* Chip Cliente/Propio en cada caso: separa trabajo para clientes de
+   productos propios sin necesitar una leyenda aparte. */
+.origen {
+  margin-left: auto; flex-shrink: 0;
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--line); padding: 3px 8px; border-radius: 999px;
+  white-space: nowrap;
+}
+.origen + .live { margin-left: 6px; }
+.m-saurium { width: 133px; height: 44px; -webkit-mask-image: url(assets/marcas/marca-saurium.png); mask-image: url(assets/marcas/marca-saurium.png); }
+@media (max-width: 720px) {
+  .marcas { gap: 0 34px; padding-right: 34px; }
+  .m-saurium { width: 106px; height: 35px; }
+  .marca-txt { font-size: var(--t-min); }
+}
+.m-molins { width: 44px; height: 45px; -webkit-mask-image: url(assets/marcas/marca-molins.png); mask-image: url(assets/marcas/marca-molins.png); }
+@media (max-width: 720px) { .m-molins { width: 36px; height: 37px; } }
+/* Clientes nuevos (2026-10): equilibrio óptico, no matemático — lo apilado lleva más alto */
+.m-latorre { width: 40px;  height: 45px; -webkit-mask-image: url(assets/marcas/marca-latorre.png); mask-image: url(assets/marcas/marca-latorre.png); }
+@media (max-width: 720px) {
+  .m-latorre { width: 33px;  height: 37px; }
+}
+.m-josi    { width: 186px; height: 18px; -webkit-mask-image: url(assets/marcas/marca-josi.png);    mask-image: url(assets/marcas/marca-josi.png); }
+.m-mavenz  { width: 142px; height: 21px; -webkit-mask-image: url(assets/marcas/marca-mavenz.svg);  mask-image: url(assets/marcas/marca-mavenz.svg); }
+.m-retazos { width: 164px; height: 18px; -webkit-mask-image: url(assets/marcas/marca-retazos.png); mask-image: url(assets/marcas/marca-retazos.png); }
+.m-bf      { width: 32px;  height: 32px; -webkit-mask-image: url(assets/marcas/marca-bf.png);      mask-image: url(assets/marcas/marca-bf.png); }
+.marcas .marca-par { display: flex; align-items: center; gap: 10px; }
+.marcas li > .marca { opacity: 0.72; transition: opacity var(--fx-rapido) var(--fx-ease); }
+@media (hover: hover) { .marcas li:hover > .marca { opacity: 1; } }
+@media (max-width: 720px) {
+  .m-josi    { width: 150px; height: 15px; }
+  .m-mavenz  { width: 115px; height: 17px; }
+  .m-retazos { width: 133px; height: 15px; }
+  .m-bf      { width: 27px;  height: 27px; }
+}
+
+/* ============================================================
+   22. REVELADO AL SCROLL GENERALIZADO + NAV REACTIVO + PARALLAX
+   Mismo contrato que el reveal de la grilla de casos: el estado oculto
+   cuelga de html.fx-on (JS caido = todo visible), el observer marca
+   .fx-visto, y el rescate por geometria cubre saltos de ancla y scroll
+   rapido. Direccion variada por data-rv para que no se lea como plugin.
+   ============================================================ */
+html.fx-on [data-rv] {
+  opacity: 0;
+  transition: opacity var(--fx-lento) var(--fx-ease),
+              translate var(--fx-lento) var(--fx-ease),
+              scale var(--fx-lento) var(--fx-ease);
+}
+html.fx-on [data-rv="up"]   { translate: 0 18px; }
+html.fx-on [data-rv="down"] { translate: 0 -14px; }
+html.fx-on [data-rv="zoom"] { scale: 0.975; }
+/* fade: solo opacidad — para bloques con transform propio (laptop, marquees) */
+html.fx-on [data-rv].fx-visto { opacity: 1; translate: 0 0; scale: 1; }
+
+/* Stagger del acordeon: los 4 paneles entran escalonados la primera vez.
+   Va por animation y no por transition para no pisar la de flex-grow/basis
+   que maneja la apertura. */
+html.fx-on .acc:not(.fx-visto) .acc-p { opacity: 0; }
+.acc.fx-visto .acc-p {
+  animation: rv-in 0.55s var(--fx-ease) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+.acc-p:nth-child(2) { --i: 1; } .acc-p:nth-child(3) { --i: 2; } .acc-p:nth-child(4) { --i: 3; }
+
+/* Stagger de los campos del formulario al entrar */
+html.fx-on .ai-form:not(.fx-visto) .af-field { opacity: 0; }
+.ai-form.fx-visto .af-field {
+  animation: rv-in 0.5s var(--fx-ease) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+.af-field:nth-child(2) { --i: 1; } .af-field:nth-child(3) { --i: 2; }
+.af-field:nth-child(4) { --i: 3; } .ai-form > .af-field:nth-of-type(1) { --i: 4; }
+
+@keyframes rv-in {
+  from { opacity: 0; translate: 0 14px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* Nav reactivo: la pill gana cuerpo al despegarse del tope */
+.hdr-pill { transition: background-color var(--fx-medio) var(--fx-ease), box-shadow var(--fx-medio) var(--fx-ease); }
+html.nav-lejos .hdr-pill {
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #FFFFFF 30%, transparent),
+              0 14px 34px -16px rgba(14, 15, 18, 0.65);
+}
+
+/* Parallax corto del poster de la laptop: la imagen es mas alta que su
+   caja y el JS la desplaza hasta 40px segun el scroll. */
+.lap-screen { position: relative; }
+.lap-screen .lap-px { height: 114%; width: 100%; object-fit: cover; will-change: translate; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.fx-on [data-rv] { opacity: 1 !important; translate: 0 0 !important; scale: 1 !important; transition: none !important; }
+  html.fx-on .acc:not(.fx-visto) .acc-p, html.fx-on .ai-form:not(.fx-visto) .af-field { opacity: 1; }
+  .acc.fx-visto .acc-p, .ai-form.fx-visto .af-field { animation: none; }
+  .lap-screen .lap-px { translate: 0 0 !important; height: 100%; }
+}
+
+/* ============================================================
+   23. TODAS LAS PANTALLAS — dedo, letra, horizonte corto,
+       colores forzados (matriz del 07/10)
+   ============================================================ */
+/* Letra: en el celular el cuerpo sigue a la letra del navegador (16 px
+   por defecto) en vez de quedar en 15 */
+@media (max-width: 720px), (pointer: coarse) {
+  body { font-size: 1rem; }
+  .founder-txt p { font-size: 1rem; }
+}
+/* Con mouse, 24 px: los enlaces del pie ganan alto sin separarse más */
+.f-col ul { gap: 2px; }
+.f-col li a { display: inline-block; padding-block: 4px; }
+/* Con dedo: 44 px de objetivo. Donde agrandar la caja movería el diseño,
+   el área crece con un ::after transparente. */
+@media (pointer: coarse) {
+  .ai-form input, .ai-form textarea { font-size: max(1rem, 16px); min-height: 46px; }
+  .af-chip, .nl-btn, .skip, .acc-reset { min-height: 44px; }
+  .srv-cta { display: inline-flex; align-items: center; min-height: 44px; }
+  .menu-pop a { padding-block: 13px; }
+  .f-col ul { gap: 0; }
+  .f-col li a { display: block; padding-block: 13px; }
+  .nav a, .hdr-cta { position: relative; }
+  .nav a::after, .hdr-cta::after { content: ""; position: absolute; inset: -4px 0; }
+}
+/* .bar-x ya es absolute: no se toca su position */
+.bar a, .logo, .tgl, .menu summary, .founder-cta, .marcas a { position: relative; }
+.bar a::after, .bar-x::after, .logo::after, .tgl::after, .menu summary::after,
+.founder-cta::after, .marcas a::after { content: ""; position: absolute; }
+.bar a::after { inset: -14px -4px; }
+.bar-x::after { inset: -8px; }
+.logo::after { inset: -14px -4px; }
+.tgl::after { inset: -5px; }
+.menu summary::after { inset: -3px; }
+.founder-cta::after { inset: -12px -4px; }
+.marcas a::after { inset: -12px -6px; }
+/* Horizonte corto (celular acostado, zoom de 400%): sin barra de anuncio
+   (su enlace repite el del header) y el header más bajo */
+@media (max-height: 500px) {
+  .bar { display: none; }
+  .hdr { padding-block: 4px; }
+  .hdr-pill { padding-block: 3px; }
+  html { scroll-padding-top: 64px; }
+}
+/* Colores forzados: el fondo de los botones desaparece; el borde los
+   sigue marcando como botones */
+@media (forced-colors: active) {
+  button, summary, .btn, .hdr-cta, .af-chip, .founder-cta, .srv-cta, [role="button"] { border: 1px solid ButtonText; }
+}

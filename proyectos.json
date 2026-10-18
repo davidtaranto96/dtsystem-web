@@ -1,0 +1,189 @@
+{
+  "_nota": "Fuente de verdad de la grilla de casos. Editar aca y correr scripts/portfolio.py --build.",
+  "_orden": "El orden del array es el orden en la web. Ordenado por impacto de venta.",
+  "casos": [
+    {
+      "id": "latorre",
+      "nombre": "Edificio La Torre",
+      "cat": "web",
+      "url": "https://edificiolatorre.com",
+      "estado": "live",
+      "i18n": "c13s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Emprendimiento inmobiliario · Salta",
+        "en": "Real-estate development · Salta"
+      },
+      "alt": "Sitio del Edificio La Torre, emprendimiento inmobiliario en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
+      "id": "fmolins",
+      "nombre": "Francisco Molins",
+      "cat": "web",
+      "url": "https://franciscomolins.com",
+      "estado": "live",
+      "i18n": "c14s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Portal inmobiliario · Salta",
+        "en": "Real-estate portal · Salta"
+      },
+      "alt": "Portal inmobiliario de Francisco Molins, en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
+      "id": "melou",
+      "nombre": "melou.",
+      "cat": "web",
+      "url": "https://melou.com.ar",
+      "estado": "live",
+      "i18n": "c1s",
+      "sub": {
+        "es": "Web + reservas · retiros en Salta",
+        "en": "Site + bookings · Salta retreats"
+      },
+      "alt": "Sitio de melou, retiros de bienestar en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "origen": "cliente"
+    },
+    {
+      "id": "baza",
+      "nombre": "BAZA",
+      "cat": "web",
+      "url": "https://baza.com.ar",
+      "estado": "live",
+      "i18n": "c2s",
+      "sub": {
+        "es": "Tienda a medida · atelier de cuero",
+        "en": "Custom store · leather atelier"
+      },
+      "alt": "Tienda online de BAZA, atelier de cuero de Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "origen": "cliente"
+    },
+    {
+      "id": "saurium",
+      "nombre": "Saurium",
+      "cat": "web",
+      "url": "https://sauriumchukum.com",
+      "estado": "live",
+      "i18n": "c16s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Chukum de Yucatán · bilingüe",
+        "en": "Yucatán chukum · bilingual"
+      },
+      "alt": "Sitio de Saurium, recubrimiento de chukum de la península de Yucatán",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
+      "id": "canada",
+      "nombre": "Cañada Húmeda",
+      "cat": "web",
+      "url": "https://canadahumeda.com.ar",
+      "estado": "live",
+      "i18n": "c4s",
+      "sub": {
+        "es": "Institucional trilingüe · agro",
+        "en": "Trilingual corporate site · agri"
+      },
+      "alt": "Sitio institucional de Cañada Húmeda, grupo agroindustrial de Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "origen": "cliente"
+    },
+    {
+      "id": "aires",
+      "nombre": "Aires de San Lorenzo",
+      "cat": "web",
+      "url": "https://airesdesanlorenzo.com",
+      "estado": "live",
+      "i18n": "c5s",
+      "sub": {
+        "es": "Barrio privado · real estate",
+        "en": "Gated community · real estate"
+      },
+      "alt": "Landing de Aires de San Lorenzo, barrio privado en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "origen": "cliente"
+    },
+    {
+      "id": "mavenz",
+      "nombre": "MAVENZ",
+      "cat": "web",
+      "url": "",
+      "estado": "en-trabajo",
+      "i18n": "c12s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Comercializadora inmobiliaria · Salta",
+        "en": "Real-estate brokerage · Salta"
+      },
+      "alt": "Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta",
+      "cursor": {
+        "es": "Ver demo ↗",
+        "en": "View demo ↗"
+      },
+      "nota": "En trabajo: va sin link hasta que se publique."
+    },
+    {
+      "id": "josi",
+      "nombre": "Josi Compagnucci",
+      "cat": "web",
+      "url": "",
+      "estado": "en-trabajo",
+      "i18n": "c17s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Tienda de obra original · Barcelona",
+        "en": "Original artwork shop · Barcelona"
+      },
+      "alt": "Vista previa de la tienda de Josi Compagnucci, artista radicada en Barcelona",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "nota": "En trabajo: va sin link hasta que se publique."
+    },
+    {
+      "id": "retazos",
+      "nombre": "RETAZOS",
+      "cat": "web",
+      "url": "",
+      "estado": "en-trabajo",
+      "i18n": "c18s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Bolsos con residuo textil · Salta",
+        "en": "Bags made from textile waste · Salta"
+      },
+      "alt": "Vista previa de la tienda de RETAZOS, bolsos hechos con residuo textil en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      },
+      "nota": "En trabajo: va sin link hasta que se publique."
+    }
+  ]
+}
