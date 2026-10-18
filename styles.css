@@ -1218,17 +1218,20 @@ html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
    Los logos son siluetas PNG: la forma vive en el canal alfa y el color
    lo pone currentColor a traves de mask-image. Por eso no hacen falta
    variantes para claro y oscuro, y el hover es solo un cambio de opacidad. */
-.marcas-sec { padding: 62px 0 !important; }
+.marcas-sec { padding: 84px 0 !important; }
 .marcas-sec + #proyectos { padding-top: 0; }
 /* Rótulo de la sección, en minúscula como los .eyebrow */
 .marcas-h {
-  text-align: center; font-size: var(--t-min); letter-spacing: 0.02em;
-  color: var(--muted); margin-bottom: 30px;
+  text-align: center; font-size: 1rem; letter-spacing: 0.02em;
+  color: var(--muted); margin-bottom: 38px;
 }
 /* Carrusel de dos pistas en direcciones opuestas, como el de Cañada Húmeda.
    Reusa .marquee/.mtrack (loop infinito + mask lateral + pausa fuera de
    viewport ya montada). La segunda pista es refuerzo visual: aria-hidden. */
 .marcas-carrusel { margin-bottom: 6px; }
+/* Logos más grandes sin tocar las alturas por marca: zoom escala el layout entero */
+.marcas-carrusel .marcas { zoom: 1.15; }
+@media (min-width: 768px) { .marcas-carrusel .marcas { zoom: 1.35; } }
 .marcas-carrusel .mtrack { --speed: 38s; }
 .marcas-carrusel.rev .mtrack { animation-direction: reverse; }
 .marcas {
@@ -1255,7 +1258,7 @@ html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
 .m-baza   { width: 62px;  height: 29px; -webkit-mask-image: url(assets/marcas/marca-baza.png);   mask-image: url(assets/marcas/marca-baza.png); }
 .m-canada { width: 39px;  height: 45px; -webkit-mask-image: url(assets/marcas/marca-canada.png); mask-image: url(assets/marcas/marca-canada.png); }
 .m-aires  { width: 189px; height: 27px; -webkit-mask-image: url(assets/marcas/marca-aires.png);  mask-image: url(assets/marcas/marca-aires.png); }
-.marcas-sec .astnote { display: block; text-align: center; margin-top: 26px; }
+.marcas-sec .astnote { display: block; text-align: center; margin-top: 34px; }
 
 @media (max-width: 720px) {
   .marcas { gap: 22px 34px; }
