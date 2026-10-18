@@ -33,7 +33,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261016d">
+  <link rel="stylesheet" href="styles.css?v=20261018b">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -414,11 +414,11 @@
             </div>
           </div>
 
-          <!-- Caja de herramientas: marquee de chips (texto mono; reemplazable por SVGs de logos) -->
+          <!-- Caja de herramientas: marquee de chips; corre al revés que la cinta de marcas -->
           <div class="bcard b-tools">
             <div class="bcard-in">
               <h3 data-i18n="tools_h">Stack de todos los días</h3>
-              <div class="marquee chips-mq">
+              <div class="marquee chips-mq rev">
                 <div class="mtrack">
                   <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: #4FF8D2;">turso</span>
                 </div>
@@ -739,6 +739,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261016a" defer></script>
+  <script src="main.js?v=20261018b" defer></script>
 </body>
 </html>
