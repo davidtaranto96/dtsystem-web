@@ -58,22 +58,22 @@ html {
 body {
   background: transparent;
   color: var(--text);
-  font-family: var(--font-mono);   /* cuerpo en mono, como Clean Slate */
+  font-family: var(--font-head);   /* cuerpo en la sans; la mono queda para rótulos (2026-10-19) */
   font-weight: 400;
   font-size: 0.9375rem;
-  line-height: 1.65;
+  line-height: 1.5;
   overflow-x: clip;              /* floats y marquees no generan scroll-x */
   -webkit-font-smoothing: antialiased;
 }
 /* La mono ancha (Stökt) queda para labels, nav, botones y chips */
-.eyebrow, .bar, .nav a, .btn, .logo, .chip, .pw, .live, .status,
+.eyebrow, .bar, .nav a, .logo, .chip, .pw, .live, .status,
 .srv-num, .role, .avail, .b-stat span, .f-col h4, .footer-bottom,
-.hdr-cta, .srv-price, .verified, .demo-info small, .tw-mono { font-family: var(--font-mono); }
+.hdr-cta, .srv-price, .verified, .tw-mono { font-family: var(--font-mono); }
 /* Palabras largas: en títulos 'anywhere', porque las palabras del h2 van en
    inline-block y 'break-word' no achica su ancho mínimo */
 body { overflow-wrap: break-word; }
 /* Los párrafos se leen en la sans: el mono queda para rótulos, precios y detalles (revisión 2026-10-16) */
-p { font-family: var(--font-head); font-size: 1rem; line-height: 1.6; text-wrap: pretty; }
+p { font-family: var(--font-head); font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
 h1, h2, h3, h4, .h2 .w { overflow-wrap: anywhere; }
 h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
 img, video { max-width: 100%; display: block; }
@@ -105,7 +105,7 @@ html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
   transition: transform var(--fx-rapido) var(--fx-ease);
 }
 .skip:focus { transform: none; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- 3. Capa de efectos global (z-index:-1) ---------- */
 .fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
@@ -129,7 +129,10 @@ html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
 @media (hover: none) { .fx-spot { display: none; } }
 
 /* ---------- 4. Announcement bar + header (sticky juntos) ---------- */
-.top { position: sticky; top: 0; z-index: 100; }
+.top { position: sticky; top: 0; z-index: 100; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+/* en el celular se esconde al bajar y vuelve al subir; con foco adentro, a la vista */
+.top.oculta:not(:focus-within) { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) { .top { transition: none; } }
 .bar {
   position: relative;
   display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -188,7 +191,8 @@ html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
 .nav a {
   font-size: 0.6875rem; font-weight: 400; text-transform: uppercase;
   text-decoration: none; color: var(--text); letter-spacing: 0.09em;
-  padding: 9px 14px; border-radius: 999px; display: block;
+  padding: 9px 14px; border-radius: 999px;
+  display: flex; align-items: center; min-height: 44px;
 }
 @media (hover: hover) { .nav a:hover { color: var(--accent-ink); } }
 /* Hover "rotación vertical" (Stökt): el clip vive en .nl y la palabra que
@@ -210,7 +214,7 @@ html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
 .hdr-cta {
   display: inline-flex; align-items: center; gap: 7px;
   font-size: 0.75rem; text-decoration: none;
-  padding: 8px 14px; border-radius: 999px; white-space: nowrap;
+  padding: 8px 14px; min-height: 44px; border-radius: 999px; white-space: nowrap;
   background: var(--text); color: var(--bg);
 }
 @media (hover: hover) { .hdr-cta:hover { background: var(--accent); color: #0E0F12; } }
@@ -261,7 +265,7 @@ section { padding: 96px 0; }
 /* Nota con asterisco bajo los títulos (Stökt) */
 .astnote {
   display: block; margin: 2px 0 10px;
-  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.14em;
+  font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--accent-ink);
 }
 /* Cabeceras de sección centradas (como Clean Slate) */
@@ -273,8 +277,8 @@ section { padding: 96px 0; }
 /* Botones */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em;
-  text-transform: uppercase; text-decoration: none;
+  font-family: var(--font-head); font-size: 0.9375rem; font-weight: 500; letter-spacing: 0;
+  text-decoration: none;
   padding: 14px 26px; border-radius: 999px; transition: transform 0.15s, background 0.2s;
 }
 .btn:active { transform: scale(0.97); }
@@ -322,9 +326,10 @@ section { padding: 96px 0; }
 }
 @keyframes ha-letra { from { translate: 0 0.45em; opacity: 0; } }
 .ha-linea { display: block; margin-top: 16px; font-size: clamp(1.625rem, 3.4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 500; color: var(--muted); }
-/* la palabra que se escribe va sola en su renglon: al cambiar de largo no
-   empuja el resto de la portada */
-.ha .tw-linea { display: block; white-space: nowrap; min-height: 1.1em; }
+/* la palabra que se escribe sigue a "tu" en el mismo renglon. main.js le
+   reserva el ancho de la palabra mas larga: si no entra, baja entera al
+   renglon de abajo siempre igual, y al cambiar de palabra nada se corre */
+.ha .tw-linea { display: inline-block; white-space: nowrap; min-height: 1.1em; }
 .ha .ha-sub { margin: 0 0 30px; max-width: 52ch; }
 .ha .hero-ctas { justify-content: flex-start; }
 .ha-show { grid-area: foto; display: grid; padding-top: 40px; }
@@ -377,8 +382,8 @@ section { padding: 96px 0; }
   .ha-casos a:hover .ha-fl { transform: translate(3px, -3px); }
 }
 @media (max-width: 980px) {
-  .ha-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "txt" "casos"; row-gap: 52px; }
-  .ha-show { display: none; }
+  .ha-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "txt" "foto" "casos"; row-gap: 44px; }
+  .ha-show { padding-top: 30px; width: 100%; max-width: 560px; justify-self: center; }
   .ha-avatar { display: block; }
   .ha-casos ul { grid-template-columns: minmax(0, 1fr); }
   .ha-casos li + li a { padding-left: 0; border-left: 0; }
@@ -395,13 +400,7 @@ section { padding: 96px 0; }
 }
 /* Palabra rotante del typewriter — gradiente "IA" animado (como el
    "beauty" de Clean Slate): clip del gradiente al texto + pan en loop */
-.tw {
-  background: linear-gradient(115deg, #52BFFE, #8B7CF6 40%, #EC4899 70%, #52BFFE);
-  background-size: 300% 100%;
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent; -webkit-text-fill-color: transparent;
-  animation: ai-pan 5s ease-in-out infinite;
-}
+.tw { color: var(--accent-ink); }
 /* La palabra va en su propio renglón y el título de arriba se equilibra solo
    (text-wrap: balance no corre si hay un <br>). "tienda online" lleva &nbsp;
    en data-words: no se parte en el espacio, y una palabra que no entra se
@@ -454,6 +453,7 @@ section { padding: 96px 0; }
 .marquee + .marquee { margin-top: 34px; }
 .mtrack { display: flex; gap: 28px; flex-shrink: 0; animation: mscroll var(--speed, 10s) linear infinite; padding-right: 28px; }
 .marquee.rev .mtrack { animation-direction: reverse; }
+.marquee:hover .mtrack, .marquee:focus-within .mtrack { animation-play-state: paused; }
 .eyebrow.rebota { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
   .eyebrow.rebota { animation: rebota 1.8s ease-in-out infinite; }
@@ -561,7 +561,7 @@ section { padding: 96px 0; }
   background: var(--card); padding: 40px 36px; position: relative;
 }
 .review-q { color: var(--accent-ink); margin-bottom: 12px; }
-.review p { font-size: 1.0625rem; line-height: 1.7; margin-bottom: 22px; }
+.review p { font-size: 1.0625rem; line-height: 1.5; margin-bottom: 22px; }
 .review-who { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 0.8125rem; }
 .avatar {
   width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
@@ -647,9 +647,12 @@ section { padding: 96px 0; }
 .cs-grid .demo-info { padding: 20px 24px 22px; }
 .cs-grid .demo-info h3 { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); }
 .cs-grid .demo-info small { font-size: 0.875rem; }
+.cs-mas { display: none; }
 @media (max-width: 720px) {
   .demo-grid.cs-grid { grid-template-columns: minmax(0, 1fr); }
   .cs-grid .demo { grid-column: auto; }
+  .cs-grid.plegada > .demo:nth-child(n+5) { display: none; }
+  .cs-mas:not([hidden]) { display: flex; width: 100%; justify-content: center; margin-top: 24px; }
 }
 /* Card sin link (proyecto sin demo pública): no debe simular ser clickeable */
 .cs-grid div.demo { cursor: default; }
@@ -690,7 +693,7 @@ section { padding: 96px 0; }
   z-index: 0; line-height: 1;
 }
 .footer-cols { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 36px; padding-bottom: 70px; }
-.f-contacto h4 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.f-contacto h3 { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .f-contacto ul { list-style: none; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 0.8125rem; }
 .f-contacto a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
 .f-contacto svg { flex-shrink: 0; }
@@ -809,6 +812,7 @@ section { padding: 96px 0; }
 /* Hover: la imagen "flota" y aparece la pill de detalle */
 @media (hover: hover) { .acc-p:not(.open):hover .acc-cover :is(img, video) { transform: translateY(-10px) rotate(-2deg) scale(1.05); } }
 .acc-cover h3 { font-size: 1.3125rem; font-weight: 500; }
+.acc-frase { margin-top: 8px; max-width: 34ch; font-size: 0.875rem; line-height: 1.45; color: var(--muted); text-wrap: pretty; }
 .acc-pill {
   position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
   background: var(--text); color: var(--bg);
@@ -876,10 +880,11 @@ section { padding: 96px 0; }
   /* Objeto a la izquierda; título y pill apilados a la derecha, así el
      título tiene todo el renglón y no se parte a mitad de palabra. Las filas
      1fr de los bordes centran el bloque aunque la pill no esté (cursor custom) */
-  .acc-cover { position: relative; inset: auto; flex: 1; min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; align-items: center; gap: 0 18px; padding: 18px 20px; }
+  .acc-cover { position: relative; inset: auto; flex: 1; min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: 1fr auto auto auto 1fr; align-items: center; gap: 0 18px; padding: 18px 20px; }
   .acc-cover :is(img, video) { width: 86px; margin: 0; }
   .acc-cover h3 { grid-column: 2; grid-row: 2; font-size: clamp(1.0625rem, 0.75rem + 1.2vw, 1.3125rem); hyphens: auto; }
-  .acc-pill { position: static; inset: auto; translate: none; opacity: 1; pointer-events: none; grid-column: 2; grid-row: 3; justify-self: start; align-self: start; margin-top: 10px; padding: 8px 12px; font-size: var(--t-min); white-space: normal; text-wrap: balance; }
+  .acc-frase { grid-column: 2; grid-row: 3; margin-top: 4px; font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1rem); line-height: 1.4; }
+  .acc-pill { position: static; inset: auto; translate: none; opacity: 1; pointer-events: none; grid-column: 2; grid-row: 4; justify-self: start; align-self: start; margin-top: 10px; padding: 8px 12px; font-size: var(--t-min); white-space: normal; text-wrap: balance; }
   .acc.has-open .acc-p:not(.open) .acc-cover { opacity: 1; pointer-events: auto; }
   .acc-p.open .acc-cover { display: none; }
   .acc-body { min-width: 0; grid-template-columns: minmax(0, 1fr); padding: 22px; }
@@ -977,7 +982,6 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   .cursor { display: none; }
   html.cursor-on, html.cursor-on * { cursor: auto !important; }
   html.cursor-on .acc-pill, html.cursor-on .demo-ov { display: revert; }
-  .btn-ai, .btn-ai::before { animation: none; }        /* gradiente estático */
   .beam-card::after { animation: none; opacity: 0.4; }  /* beam estático */
   .h2 .w { opacity: 1 !important; transform: none !important; transition: none !important; }
   .dotlive::after { animation: none; }
@@ -987,24 +991,9 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
    16. ITERACIÓN v2.1 — iridiscente, border beam, bento, Stökt
    ============================================================ */
 
-/* ---------- Botón IA (Clean Slate): gradiente animado azul→violeta→rosa
-   que se desplaza en loop, anillo blanco y halo difuso que cambia de color
-   (es el MISMO gradiente en ::before con blur, animado en sincronía). */
-.btn-ai {
-  position: relative; color: #0E0F12; border-radius: 16px;
-  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
-  background-size: 300% 100%;
-  border: 2px solid rgba(255, 255, 255, 0.92);
-  animation: ai-pan 5s ease-in-out infinite;
-  isolation: isolate;
-}
-.btn-ai::before {
-  content: ""; position: absolute; inset: -6px; border-radius: 22px; z-index: -1;
-  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
-  background-size: 300% 100%;
-  filter: blur(16px); opacity: 0.65;
-  animation: ai-pan 5s ease-in-out infinite;   /* mismo timing → halo sincronizado */
-}
+/* ---------- Botón principal: celeste liso (el degradé violeta-rosa animado
+   se sacó el 2026-10-19: era la marca más típica de "hecho con IA"). */
+.btn-ai { position: relative; color: #0E0F12; border-radius: 16px; background: var(--accent); }
 @media (hover: hover) { .btn-ai:hover { transform: scale(1.03); } }
 @keyframes ai-pan { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 /* En el hero, botones rectangulares redondeados como Clean Slate */
@@ -1065,11 +1054,13 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   --ib: #0a0a0a;                      /* fondo invertido */
   --it: #F2F2F2;                      /* texto invertido */
   --imut: rgba(242, 242, 242, 0.55);
+  --turso: oklch(0.9 0.14 175);
   --ibrd1: #333333; --ibrd2: #0d0d0d; /* extremos del borde-gradiente */
   background: var(--ib); color: var(--it);
 }
 [data-theme="dark"] .bento-sec {
-  --ib: #F2F2F2; --it: #17181B; --imut: rgba(23, 24, 27, 0.55);
+  --ib: #F2F2F2; --it: #17181B; --imut: rgba(23, 24, 27, 0.7);
+  --turso: oklch(0.45 0.1 175);
   --ibrd1: #C4C4C4; --ibrd2: #E9E9E9;
 }
 .bento-sec .eyebrow, .bento-sec .sub { color: var(--imut); }
@@ -1105,10 +1096,10 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .founder-fig::after { content: ""; position: absolute; inset: 45% 0 0 0; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6)); }
 .founder-id { position: absolute; left: 22px; bottom: 18px; right: 22px; z-index: 1; color: #F2F2F2; overflow-wrap: anywhere; }
 .founder-id h3 { font-size: 1.5625rem; font-weight: 500; }
-.founder-id .role { font-size: var(--t-min); letter-spacing: 0.14em; color: rgba(242, 242, 242, 0.75); }
+.founder-id .role { font-size: var(--t-min); letter-spacing: 0.02em; color: rgba(242, 242, 242, 0.75); }
 .founder-txt { display: flex; flex-direction: column; gap: 16px; padding: 8px 0; }
 .founder-txt h4 { font-size: 1.375rem; font-weight: 500; margin-bottom: 8px; }
-.founder-txt p { font-family: var(--font-head); font-size: 0.9375rem; line-height: 1.75; color: var(--imut); max-width: 62ch; }
+.founder-txt p { font-family: var(--font-head); font-size: 0.9375rem; line-height: 1.55; color: var(--imut); max-width: 62ch; }
 .founder-cta {
   margin-top: auto; align-self: flex-end;
   display: inline-flex; align-items: center; gap: 7px;
@@ -1121,7 +1112,7 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .b-globe { grid-column: span 4; }
 .b-globe .bcard-in { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-bottom: 0; overflow: hidden; }
 .b-globe h3 { font-size: clamp(1.25rem, 2vw, 1.625rem); margin-top: 10px; }
-.avail { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-min); letter-spacing: 0.1em; color: var(--imut); }
+.avail { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-min); letter-spacing: 0.02em; color: var(--imut); }
 .globe-wrap { width: min(720px, 100%); height: 400px; overflow: hidden; margin-top: 10px; }
 .globe-wrap canvas { width: 100%; aspect-ratio: 1; display: block; }
 /* Punto verde: dot sólido + halo (anillo) que escala y se desvanece */
@@ -1170,14 +1161,7 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   padding-bottom: 14px; border-bottom: 1px dashed var(--line);
 }
 .af-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(115deg, #52BFFE, #8B7CF6, #EC4899);
-  background-size: 300% 100%; animation: ai-pan 5s ease-in-out infinite; }
-.af-badge {
-  margin-left: auto; padding: 3px 10px; border-radius: 999px;
-  font-size: var(--t-min); letter-spacing: 0.08em; white-space: nowrap;
-  color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-}
+  background: var(--accent); }
 .af-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 .af-field { display: flex; flex-direction: column; gap: 8px; }
 .af-label { font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.12em; text-transform: uppercase; }
@@ -1203,7 +1187,7 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .af-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .af-chip {
   font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.05em;
-  padding: 8px 14px; border-radius: 999px;
+  padding: 8px 14px; min-height: 44px; border-radius: 999px;
   border: 1px solid var(--line); color: var(--muted);
   transition: all 0.2s;
 }
@@ -1221,7 +1205,6 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 @media (max-width: 720px) {
   .ai-form { padding: 20px 18px; }
   .af-grid { grid-template-columns: minmax(0, 1fr); }
-  .af-badge { display: none; }
   .af-foot { flex-direction: column; align-items: stretch; }
   .af-hint { max-width: none; text-align: center; }
   .af-send { margin-left: 0; }
@@ -1238,7 +1221,7 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   padding: 22px 26px; margin-bottom: 56px;
 }
-.nl-txt h4 { font-size: 1.0625rem; font-weight: 500; margin-bottom: 4px; }
+.nl-txt h3 { font-size: 1.0625rem; font-weight: 500; margin-bottom: 4px; }
 .nl-txt p { font-family: var(--font-mono); font-size: var(--t-min); color: var(--muted); max-width: 380px; }
 }
 .nl-btn { padding: 11px 20px; font-size: var(--t-min); white-space: nowrap; flex-shrink: 0; }
@@ -1474,7 +1457,7 @@ html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
       -22deg,
       transparent 0%,
       color-mix(in srgb, var(--accent) 62%, transparent) 7%,
-      color-mix(in srgb, #8B7CF6 50%, transparent) 12%,
+      color-mix(in srgb, var(--accent-ink) 50%, transparent) 12%,
       transparent 20%),
     radial-gradient(circle at var(--pointer-x) var(--pointer-y),
       rgba(255, 255, 255, 0.30) 0%, transparent 55%);
@@ -1650,4 +1633,15 @@ html.nav-lejos .hdr-pill {
    sigue marcando como botones */
 @media (forced-colors: active) {
   button, summary, .btn, .hdr-cta, .af-chip, .founder-cta, .srv-cta, [role="button"] { border: 1px solid ButtonText; }
+}
+
+/* Transparencia reducida y contraste alto: las capas de vidrio pasan a sólidas */
+@media (prefers-reduced-transparency: reduce) {
+  .bar, .hdr-pill { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .ai-form, .nl-bar { background: var(--card); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .demo-ov { backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .bar, .hdr-pill { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: var(--text); }
+  .ai-form, .nl-bar { background: var(--card); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }

@@ -84,7 +84,7 @@ def capturar_una(url, destino, presupuesto=10000, ancho=1280, alto=800):
         capture_output=True)
     if not tmp.exists() or tmp.stat().st_size < 12000:
         return False   # pagina en blanco o error
-    subprocess.run(["sips", "--resampleHeightWidth", "400", "640",
+    subprocess.run(["sips", "--resampleHeightWidth", "600", "960",
                     "--setProperty", "format", "jpeg",
                     "--setProperty", "formatOptions", "82",
                     str(tmp), "--out", str(destino)], capture_output=True)
@@ -113,10 +113,14 @@ def capture(doc, forzar=False):
 def tarjeta(c):
     """Una card. Sin URL no es un <a>: no debe simular ser clickeable."""
     nota = f'          <!-- {c["nota"]} -->\n' if c.get("nota") else ""
-    img = (f'<img src="assets/casos/case-{c["id"]}.jpg" width="640" height="400" '
-           f'alt="{c["alt"]}" loading="lazy">')
+    # la pagina entera (full-<id>.webp, de scripts/capturar_enteras.py) se carga
+    # recien al pasar el mouse y baja sola; sin ese archivo la card queda fija
+    full = CAPS / f'full-{c["id"]}.webp'
+    extra = f' data-full="assets/casos/{full.name}"' if full.exists() else ""
+    img = (f'<div class="demo-shot"{extra}><img src="assets/casos/case-{c["id"]}.jpg" width="960" height="600" '
+           f'alt="{c["alt"]}" loading="lazy"></div>')
     if c["estado"] == "live":
-        badge = '<span class="live"><i aria-hidden="true"></i> Live</span>'
+        badge = '<span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>'
     elif c["estado"] == "en-trabajo":
         # sin link y con su foto: la vista previa de lo que todavia no se publico
         badge = ('<span class="live off"><i aria-hidden="true"></i> '
@@ -174,7 +178,7 @@ def build(doc):
 
     js = JS.read_text(encoding="utf-8")
     i18n = "\n".join(f'    {c["i18n"]}: "{c["sub"]["en"]}",' for c in casos)
-    i18n += '\n    or_c: "Client", or_p: "Own", st_wip: "In progress",'
+    i18n += '\n    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live",'
     js = entre_marcadores(js, "// CASOS:INICIO", "// CASOS:FIN", i18n, "el i18n en main.js")
     JS.write_text(js, encoding="utf-8")
 
