@@ -97,6 +97,76 @@
     }
   }
 
+  /* ---------- 4b. Portada de autor ----------
+     Hora de Salta en vivo, letras del nombre que se levantan cerca del
+     puntero, foto que se inclina y vista previa de los trabajos. */
+  (() => {
+    const hora = $("#haHora");
+    if (hora) {
+      const fmt = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "America/Argentina/Salta" });
+      const tic = () => { hora.textContent = fmt.format(new Date()); };
+      tic();
+      setInterval(tic, 20000);
+    }
+    const nombre = $("#haNombre");
+    if (nombre) {
+      let i = 0;
+      nombre.innerHTML = nombre.textContent.split(" ").map((p) =>
+        "<span style=\"white-space:nowrap\">" + [...p].map((c) => `<span class="l" style="--i:${i++}">${c}</span>`).join("") + "</span>"
+      ).join(" ");
+    }
+    const hero = $(".ha");
+    if (!hero || reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const letras = $$(".l", nombre);
+    const foto = $("#haFoto");
+    let px = 0, py = 0, raf = 0;
+    const pintar = () => {
+      raf = 0;
+      for (const l of letras) {
+        const r = l.getBoundingClientRect();
+        const d = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2));
+        l.style.setProperty("--k", Math.max(0, 1 - d / 170).toFixed(3));
+      }
+      if (foto && foto.offsetWidth) {
+        const r = hero.getBoundingClientRect();
+        const x = (px - r.left) / r.width - 0.5, y = (py - r.top) / r.height - 0.5;
+        foto.style.setProperty("--ry", (x * 9).toFixed(2) + "deg");
+        foto.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+        foto.style.setProperty("--fx", (-x * 14).toFixed(1) + "px");
+        foto.style.setProperty("--fy", (-y * 14).toFixed(1) + "px");
+      }
+    };
+    hero.addEventListener("pointermove", (e) => {
+      px = e.clientX; py = e.clientY;
+      if (!raf) raf = requestAnimationFrame(pintar);
+    });
+    hero.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(raf); raf = 0;
+      letras.forEach((l) => l.style.setProperty("--k", 0));
+      if (foto) ["--rx", "--ry", "--fx", "--fy"].forEach((v) => foto.style.removeProperty(v));
+    });
+
+    const prev = $("#haPrev");
+    if (!prev) return;
+    let tx = 0, ty = 0, cx = 0, cy = 0, sigue = 0;
+    const seguir = () => {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      prev.style.transform = `translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px) rotate(${((tx - cx) * 0.03).toFixed(2)}deg)`;
+      sigue = prev.classList.contains("on") || Math.abs(tx - cx) > 0.5 ? requestAnimationFrame(seguir) : 0;
+    };
+    $$(".ha-casos a").forEach((a) => {
+      a.addEventListener("pointerenter", (e) => {
+        prev.src = a.dataset.prev;
+        tx = e.clientX + 24; ty = e.clientY - 90;
+        if (!prev.classList.contains("on")) { cx = tx; cy = ty; }
+        prev.classList.add("on");
+        if (!sigue) sigue = requestAnimationFrame(seguir);
+      });
+      a.addEventListener("pointermove", (e) => { tx = e.clientX + 24; ty = e.clientY - 90; });
+      a.addEventListener("pointerleave", () => prev.classList.remove("on"));
+    });
+  })();
+
   /* ---------- 5. PARALLAX de los screenshots flotantes ----------
      data-depth 2..4 → desplazamiento máx ~18px. Batched con rAF. */
   const floats = $$(".float");
@@ -493,46 +563,49 @@
     nav_inicio: "Home", nav_prod: "Products", nav_proy: "Projects", nav_sobre: "About me", nav_contacto: "Contact",
     chat: "Get in touch",
     hero_t: "Building your",
-    hero_sub: "Custom websites, online stores and CRMs — with automation and AI where it counts. Built in Salta, running in production.",
+    acc_casos: "See similar work",
+    hero_foto: "I build it myself, end to end",
+    hero_casos: "Recent work",
+    hero_sub: "Websites, stores and custom systems. I design, build and maintain them myself, from Salta. Real businesses use them today.",
     cta_hero: "Chat on WhatsApp \u2192",
     cta_work: "See my work",
     mob_eb: "Truly mobile-first",
-    mob_h: "Built for how it's really used: from the phone.",
+    mob_h: "Your customers look you up on their phone. That's where design starts.",
     srv_eb: "Products", srv_h: "Choose where to start.",
-    srv_sub: "Four ways to work with me, from a site with a bot to the full system.",
+    srv_sub: "Four things I build. Tell me which one you're missing.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
-    s1_tag: "Landings, corporate sites and e-commerce that sell.",
-    s1_l1: "Custom landing and corporate site",
-    s1_l2: "Online store with payments and shipping",
-    s1_l3: "SEO, analytics and a built-in WhatsApp bot",
+    s1_tag: "So people find you, get what you do and reach out.",
+    s1_l1: "Your site, designed for your business",
+    s1_l2: "Online store that takes payment and ships",
+    s1_l3: "Found on Google, WhatsApp built in",
     price: "Price: <b>Custom</b>",
-    see_more: "Learn more \u2192",
+    see_more: "Ask me →",
     acc_pill: "See details \u2192",
     acc_reset: "\u2715 Close details",
     s2_h: "Systems & CRM",
-    s2_tag: "Software for your business: CRM, panel and portal, like DT-System.",
-    s2_l1: "CRM with pipeline, projects and tasks",
-    s2_l2: "PDF quotes, invoicing and P&amp;L",
-    s2_l3: "Client portal and reports",
+    s2_tag: "So you stop running the business on spreadsheets and loose messages.",
+    s2_l1: "Clients, projects and tasks in one place",
+    s2_l2: "Quotes, invoices and numbers up to date",
+    s2_l3: "A portal where your client sees their side",
     s3_h: "Mobile apps",
-    s3_tag: "Custom Android & iPhone apps, from design to the store.",
-    s3_l1: "Mobile-first design and prototype",
-    s3_l2: "Cross-platform development",
-    s3_l3: "Google Play & App Store release",
+    s3_tag: "When your business needs to live in people's pockets.",
+    s3_l1: "A prototype first, to test the idea",
+    s3_l2: "One app for Android and iPhone",
+    s3_l3: "Published on Google Play and App Store",
     s4_h: "AI Automation",
-    s4_tag: "Processes that run themselves: AI + integrations.",
-    s4_l1: "WhatsApp bots with AI (Claude)",
-    s4_l2: "M365/Azure flows and Graph API",
-    s4_l3: "Integrations across your tools",
+    s4_tag: "What you do by hand every day can run on its own.",
+    s4_l1: "WhatsApp that answers when you're away",
+    s4_l2: "Microsoft 365 tasks that run themselves",
+    s4_l3: "Your tools, connected to each other",
     lap_eb: "See it working", lap_h: "One of my CRMs at work.",
     lap_sub: "A walkthrough of one of the CRMs I have in production, with demo data.",
     about_eb: "About me", about_h: "The person behind the system.",
     f_p1: "SysAdmin at JBKnowledge (a global company) based in Salta, Argentina. Computer Engineering student, 5+ years managing M365, Azure and automation.",
     f_p2: "Today I have two custom CRMs in production: one feeds a real-estate portal and the other runs a studio's day-to-day work. I designed and built both, and I maintain them myself.",
-    f_p3: "I work from idea to deploy: solo when that's enough, building a team when the project calls for it.",
+    f_p3: "From the idea to the live site. Solo when that's enough; with a team when the project calls for it.",
     f_cta: "Work with me",
-    f_h: "The Founder",
+    f_h: "Who builds it",
     st1: "Years in IT", st2: "Custom CRMs in production", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
     avail: "AVAILABLE \u00b7 REMOTE WORLDWIDE",
@@ -573,7 +646,7 @@
     af_hint: "Opens WhatsApp with your briefing ready to send.",
     af_send: "Send briefing",
     af_direct: "Direct WhatsApp \u2197",
-    f_tag: "Automate the boring stuff, focus on what matters.",
+    f_tag: "Fewer manual tasks, more time for your business.",
     nl_h: "News & new work",
     nl_p: "What I'm launching, first on Instagram.",
     nl_btn: "Follow on Instagram \u2197",
@@ -1038,4 +1111,58 @@
       arrancar();
     });
   }
+  /* Scrollspy: marca en la nav la sección que se está leyendo */
+  (() => {
+    const nav = $(".nav");
+    if (!nav) return;
+    const links = $$("a[href^='#']", nav);
+    const ink = document.createElement("span");
+    ink.className = "nav-ink";
+    ink.setAttribute("aria-hidden", "true");
+    nav.appendChild(ink);
+    // Marcas cuenta como Proyectos: es la misma conversación (con quién trabajé)
+    const alias = { marcas: "proyectos", testimonios: "sobre-mi" };
+    const ids = ["top", "servicios", "sobre-mi", "testimonios", "marcas", "proyectos", "contacto"];
+    const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    let actual = "";
+    const pintar = (id) => {
+      if (id === actual) return;
+      actual = id;
+      $$("a[href^='#']", document.querySelector(".hdr") || document).forEach((a) => {
+        if (a.getAttribute("href") === "#" + id) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+      mover();
+    };
+    const mover = () => {
+      const a = links.find((l) => l.getAttribute("href") === "#" + actual);
+      if (!a || !a.offsetWidth) { ink.classList.remove("on"); return; }
+      const t = a.querySelector(".nl") || a;
+      const r = t.getBoundingClientRect(), n = nav.getBoundingClientRect();
+      ink.style.setProperty("--ink-x", (r.left - n.left) + "px");
+      ink.style.setProperty("--ink-w", r.width);
+      ink.classList.add("on");
+    };
+    const calcular = () => {
+      const linea = innerHeight * 0.4;
+      let id = "top";
+      for (const s of secs) {
+        if (s.offsetParent === null && s.id !== "top") continue;
+        if (s.getBoundingClientRect().top <= linea) id = s.id;
+      }
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) id = "contacto";
+      pintar(alias[id] || id);
+    };
+    let pend = false;
+    addEventListener("scroll", () => {
+      if (pend) return;
+      pend = true;
+      requestAnimationFrame(() => { pend = false; calcular(); });
+    }, { passive: true });
+    addEventListener("resize", mover);
+    // El cambio de idioma cambia el ancho de las palabras
+    new MutationObserver(mover).observe(nav, { subtree: true, characterData: true, childList: true });
+    if (document.fonts) document.fonts.ready.then(mover);
+    calcular();
+  })();
 })();
