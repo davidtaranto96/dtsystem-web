@@ -33,7 +33,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261018b">
+  <link rel="stylesheet" href="styles.css?v=20261018e">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -136,23 +136,40 @@
 
   <main id="main">
     <!-- ============ 3. HERO ============ -->
-    <section class="hero" id="top">
-      <div class="hero-inner">
-        <h1><span data-i18n="hero_t">Haciendo realidad tu</span> <span class="tw-linea"><span class="tw" id="tw" data-words="idea|web|tienda&nbsp;online|CRM|app" data-words-en="idea|website|online&nbsp;store|CRM|app"></span><span class="caret" aria-hidden="true"></span></span></h1>
-        <p class="sub" data-i18n="hero_sub">Webs, tiendas online y CRM a medida — con automatización e IA cuando suma. Construido en Salta, usado en producción.</p>
-        <div class="hero-ctas">
-          <!-- Botón estilo Clean Slate: gradiente animado + anillo blanco + halo -->
-          <a class="btn btn-ai" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="cta_hero">Hablar por WhatsApp →</span></a>
-          <a class="btn btn-sec" href="#proyectos" data-i18n="cta_work">Ver mi trabajo</a>
+    <!-- Portada de autor: nombre, foto real y tres trabajos con nombre propio -->
+    <section class="hero ha" id="top">
+      <div class="ha-grid wrap">
+        <div class="ha-txt">
+          <p class="ha-lugar"><img class="ha-avatar" src="assets/founder.jpg" width="800" height="800" alt="" aria-hidden="true"><span>Salta, Argentina</span><span class="ha-sep" aria-hidden="true">·</span><time class="ha-hora" id="haHora"></time></p>
+          <h1><span class="sr-only">David Taranto. </span><span class="ha-nombre" id="haNombre" aria-hidden="true">David Taranto</span><span class="ha-linea"><span data-i18n="hero_t">Haciendo realidad tu</span> <span class="tw-linea"><span class="tw" id="tw" data-words="idea|web|tienda&nbsp;online|CRM|app" data-words-en="idea|website|online&nbsp;store|CRM|app"></span><span class="caret" aria-hidden="true"></span></span></span></h1>
+          <p class="sub ha-sub" data-i18n="hero_sub">Webs, tiendas y sistemas a medida. Los diseño, los programo y los mantengo yo, desde Salta. Hoy los usan negocios de verdad.</p>
+          <div class="hero-ctas">
+            <!-- Botón estilo Clean Slate: gradiente animado + anillo blanco + halo -->
+            <a class="btn btn-ai" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="cta_hero">Hablar por WhatsApp →</span></a>
+            <a class="btn btn-sec" href="#proyectos" data-i18n="cta_work">Ver mi trabajo</a>
+          </div>
+        </div>
+        <figure class="ha-foto" id="haFoto">
+          <img src="assets/founder.jpg" width="800" height="800" alt="David Taranto, fundador de DT System" fetchpriority="high">
+          <figcaption data-i18n="hero_foto">Lo hago yo, de punta a punta</figcaption>
+        </figure>
+        <div class="ha-casos">
+          <p class="ha-casos-h" data-i18n="hero_casos">Trabajo reciente</p>
+          <ul>
+            <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" data-prev="assets/casos/case-aires.jpg"><img src="assets/casos/case-aires.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Aires de San Lorenzo</span><span class="ha-cs" data-i18n="c5s">Barrio privado · real estate</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://melou.com.ar" target="_blank" rel="noopener" data-prev="assets/casos/case-melou.jpg"><img src="assets/casos/case-melou.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">melou</span><span class="ha-cs" data-i18n="c1s">Web + reservas · retiros en Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" data-prev="assets/casos/case-latorre.jpg"><img src="assets/casos/case-latorre.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Edificio La Torre</span><span class="ha-cs" data-i18n="c13s">Emprendimiento inmobiliario · Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+          </ul>
         </div>
       </div>
+      <img class="ha-prev" id="haPrev" alt="" aria-hidden="true">
     </section>
 
     <!-- ============ 4. MOBILE SHOWCASE ============ -->
     <section class="mobile-sec">
       <div class="mobile-head wrap">
         <span class="eyebrow rebota" data-i18n="mob_eb">Mobile-first de verdad</span>
-        <h2 class="h2" data-rv="up" data-i18n="mob_h">Hecho para cómo se usa en serio: desde el celular.</h2>
+        <h2 class="h2" data-rv="up" data-i18n="mob_h">Tus clientes te buscan desde el celular. Ahí se diseña primero.</h2>
       </div>
 
       <!-- Marquee infinito: el track se duplica con aria-hidden="true"
@@ -198,7 +215,7 @@
         <div class="sec-head" data-rv="up">
           <span class="eyebrow" data-i18n="srv_eb">Productos</span>
           <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
-          <p class="sub" data-i18n="srv_sub">Cuatro formas de trabajar conmigo, de la web con bot al sistema completo.</p>
+          <p class="sub" data-i18n="srv_sub">Cuatro cosas que hago. Decime cuál te falta.</p>
           <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
         </div>
 
@@ -219,14 +236,17 @@
               <div class="acc-txt">
                 <span class="srv-num">01</span>
                 <h3 data-i18n="s1_h">Webs y Tiendas</h3>
-                <p class="srv-tag" data-i18n="s1_tag">Landings, webs corporativas y e-commerce que venden.</p>
+                <p class="srv-tag" data-i18n="s1_tag">Para que te encuentren, entiendan qué hacés y te escriban.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s1_l1">Landing y web corporativa a medida</li>
-                  <li data-i18n="s1_l2">Tienda online con pagos y envíos</li>
-                  <li data-i18n="s1_l3">SEO, analítica y bot de WhatsApp integrado</li>
+                  <li data-i18n="s1_l1">Tu web, diseñada para tu negocio</li>
+                  <li data-i18n="s1_l2">Tienda online que cobra y envía</li>
+                  <li data-i18n="s1_l3">Visible en Google, con WhatsApp integrado</li>
                 </ul>
-                <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
-                <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Ver más →</a>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <a class="srv-casos" href="#proyectos" data-i18n="acc_casos">Ver trabajos así</a>
+                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                </div>
               </div>
               <div class="acc-img">
                 <canvas class="srv-obj" data-obj="web" width="720" height="450"
@@ -249,14 +269,16 @@
               <div class="acc-txt">
                 <span class="srv-num">02</span>
                 <h3 data-i18n="s2_h">Sistemas y CRM</h3>
-                <p class="srv-tag" data-i18n="s2_tag">Software para tu negocio: CRM, panel y portal, como DT-System.</p>
+                <p class="srv-tag" data-i18n="s2_tag">Para dejar de llevar el negocio en planillas y mensajes sueltos.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s2_l1">CRM con pipeline, proyectos y tareas</li>
-                  <li data-i18n="s2_l2">Presupuestos PDF, facturación y P&amp;L</li>
-                  <li data-i18n="s2_l3">Portal del cliente y reportes</li>
+                  <li data-i18n="s2_l1">Clientes, proyectos y tareas en un lugar</li>
+                  <li data-i18n="s2_l2">Presupuestos, facturas y números al día</li>
+                  <li data-i18n="s2_l3">Un portal donde tu cliente ve lo suyo</li>
                 </ul>
-                <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
-                <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Ver más →</a>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                </div>
               </div>
               <div class="acc-img">
                 <canvas class="srv-obj" data-obj="sys" width="720" height="450"
@@ -278,14 +300,16 @@
               <div class="acc-txt">
                 <span class="srv-num">03</span>
                 <h3 data-i18n="s3_h">Apps móviles</h3>
-                <p class="srv-tag" data-i18n="s3_tag">Apps Android y iPhone a medida, del diseño a la store.</p>
+                <p class="srv-tag" data-i18n="s3_tag">Si tu negocio tiene que vivir en el bolsillo de la gente.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s3_l1">Diseño mobile-first y prototipo</li>
-                  <li data-i18n="s3_l2">Desarrollo multiplataforma</li>
-                  <li data-i18n="s3_l3">Publicación en Google Play y App Store</li>
+                  <li data-i18n="s3_l1">Primero un prototipo para probar la idea</li>
+                  <li data-i18n="s3_l2">Una sola app para Android y iPhone</li>
+                  <li data-i18n="s3_l3">Publicada en Google Play y App Store</li>
                 </ul>
-                <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
-                <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Ver más →</a>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                </div>
               </div>
               <div class="acc-img">
                 <canvas class="srv-obj" data-obj="app" width="720" height="450"
@@ -307,14 +331,16 @@
               <div class="acc-txt">
                 <span class="srv-num">04</span>
                 <h3 data-i18n="s4_h">Automatización IA</h3>
-                <p class="srv-tag" data-i18n="s4_tag">Procesos que se hacen solos: IA + integraciones.</p>
+                <p class="srv-tag" data-i18n="s4_tag">Lo que hoy hacés a mano, todos los días, puede hacerse solo.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s4_l1">Bots de WhatsApp con IA (Claude)</li>
-                  <li data-i18n="s4_l2">Flujos M365/Azure y Graph API</li>
-                  <li data-i18n="s4_l3">Integraciones entre tus herramientas</li>
+                  <li data-i18n="s4_l1">WhatsApp que responde cuando no estás</li>
+                  <li data-i18n="s4_l2">Tareas de Microsoft 365 que corren solas</li>
+                  <li data-i18n="s4_l3">Tus herramientas conectadas entre sí</li>
                 </ul>
-                <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
-                <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Ver más →</a>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                </div>
               </div>
               <div class="acc-img">
                 <canvas class="srv-obj" data-obj="ia" width="720" height="450"
@@ -403,10 +429,10 @@
                 </figcaption>
               </figure>
               <div class="founder-txt">
-                <h4 data-i18n="f_h">El Founder</h4>
+                <h4 data-i18n="f_h">Quién lo hace</h4>
                 <p data-i18n="f_p1">SysAdmin en JBKnowledge (empresa global) desde Salta, Argentina. Estudiante de Ingeniería Informática, 5+ años administrando M365, Azure y automatización.</p>
                 <p data-i18n="f_p2">Hoy tengo dos CRMs a medida en producción: uno alimenta un portal inmobiliario y el otro organiza el trabajo diario de un estudio. Los diseñé, los programé y los mantengo yo.</p>
-                <p data-i18n="f_p3">Trabajo de la idea al deploy: solo cuando alcanza, armando equipo cuando el proyecto lo pide.</p>
+                <p data-i18n="f_p3">Voy de la idea a la web publicada. Solo cuando alcanza; con equipo cuando el proyecto lo pide.</p>
                 <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Trabajar conmigo</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="transform: rotate(-45deg);" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                 </a>
@@ -717,7 +743,7 @@
       <div class="footer-cols">
         <div class="f-brand">
           <a class="logo" href="#top">dt<b>/</b>system</a>
-          <p data-i18n="f_tag">Automatizá lo repetitivo y enfocate en lo que importa.</p>
+          <p data-i18n="f_tag">Menos tareas a mano, más tiempo para tu negocio.</p>
         </div>
         <div class="f-contacto">
           <h4 data-i18n="f_cont">Contacto</h4>
@@ -739,6 +765,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261018b" defer></script>
+  <script src="main.js?v=20261018e" defer></script>
 </body>
 </html>
