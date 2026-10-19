@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261019j">
+  <link rel="stylesheet" href="styles.css?v=20261019k">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -687,24 +687,12 @@
             <span data-i18n="af_head">Contame tu proyecto</span>
           </div>
 
-          <div class="af-grid">
-            <label class="af-field">
-              <span class="af-label"><b data-i18n="af_name">Tu nombre</b></span>
-              <input type="text" name="nombre" autocomplete="name" enterkeyhint="next" required>
-            </label>
-            <label class="af-field">
-              <span class="af-label"><b data-i18n="af_from">Tu negocio / proyecto</b></span>
-              <input type="text" name="negocio" autocomplete="organization" enterkeyhint="next">
-            </label>
-            <label class="af-field">
-              <span class="af-label"><b data-i18n="af_mail">Tu correo</b> <em data-i18n="af_opt">· opcional</em></span>
-              <input type="email" name="correo" autocomplete="email" enterkeyhint="next">
-            </label>
-            <label class="af-field">
-              <span class="af-label"><b data-i18n="af_tel">Tu teléfono</b> <em data-i18n="af_opt">· opcional</em></span>
-              <input type="tel" name="telefono" autocomplete="tel" enterkeyhint="next">
-            </label>
-          </div>
+          <!-- Dos campos para escribir y nada más: el contacto llega solo,
+               porque el mensaje sale de su WhatsApp o de su correo -->
+          <label class="af-field">
+            <span class="af-label"><b data-i18n="af_name">Tu nombre</b></span>
+            <input type="text" name="nombre" autocomplete="name" enterkeyhint="next" required>
+          </label>
 
           <div class="af-field">
             <span class="af-label"><b data-i18n="af_type">¿Qué necesitás?</b></span>
@@ -718,7 +706,7 @@
           </div>
 
           <label class="af-field">
-            <span class="af-label"><b data-i18n="af_idea">Contame el proyecto</b></span>
+            <span class="af-label"><b data-i18n="af_idea">La idea, en pocas palabras</b></span>
             <textarea name="idea" rows="1" required></textarea>
           </label>
 
@@ -780,6 +768,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261019j" defer></script>
+  <script src="main.js?v=20261019k" defer></script>
 </body>
 </html>

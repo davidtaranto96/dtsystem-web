@@ -403,21 +403,15 @@
       const btn = $(".af-send", aiForm);
       if (btn.classList.contains("is-loading")) return;
       const nombre = aiForm.nombre.value.trim();
-      const negocio = aiForm.negocio.value.trim();
-      const correo = aiForm.correo.value.trim();
-      const telefono = aiForm.telefono.value.trim();
       const tipo = $(".af-chip.on[data-val]", aiForm)?.dataset.val || "";
       const idea = aiForm.idea.value.trim();
       const via = $(".af-chip.on[data-via]", aiForm)?.dataset.via || "wa";
       // Briefing multilínea (para email); en wa.me también respeta los saltos
       const L = lang === "en"
-        ? { hi: `Hi! I'm ${nombre}`, biz: "Business", mail: "Email", tel: "Phone", need: "I need", idea: "My idea", subj: `Project inquiry \u2014 ${nombre}` }
-        : { hi: `\u00a1Hola! Soy ${nombre}`, biz: "Negocio", mail: "Correo", tel: "Tel\u00e9fono", need: "Necesito", idea: "Mi idea", subj: `Consulta de proyecto \u2014 ${nombre}` };
+        ? { hi: `Hi! I'm ${nombre}`, need: "I need", idea: "My idea", subj: `Project inquiry \u2014 ${nombre}` }
+        : { hi: `\u00a1Hola! Soy ${nombre}`, need: "Necesito", idea: "Mi idea", subj: `Consulta de proyecto \u2014 ${nombre}` };
       const msg = [
         L.hi,
-        negocio && `${L.biz}: ${negocio}`,
-        correo && `${L.mail}: ${correo}`,
-        telefono && `${L.tel}: ${telefono}`,
         `${L.need}: ${tipo}`,
         `${L.idea}: ${idea}`
       ].filter(Boolean).join("\n");
@@ -766,12 +760,11 @@
     cta_h: "LET’S TALK.",
     cta_sub: "Tell me what you need. Fill in the form and WhatsApp or your email opens with the message ready to send.",
     af_head: "Tell me about your project",
-    af_name: "Your name", af_from: "Your business / project",
-    af_mail: "Your email", af_tel: "Your phone", af_opt: "\u00b7 optional",
+    af_name: "Your name",
     af_via: "Send via",
     af_type: "What do you need?",
     af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
-    af_idea: "Tell me about the project",
+    af_idea: "Your idea, in a few words",
     cs_mas: "See all projects",
     af_hint: "Opens WhatsApp with your message ready to send.",
     af_send: "Send inquiry",
