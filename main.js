@@ -115,6 +115,65 @@
         "<span style=\"white-space:nowrap\">" + [...p].map((c) => `<span class="l" style="--i:${i++}">${c}</span>`).join("") + "</span>"
       ).join(" ");
     }
+    /* Vitrina de la portada: pasa las webs entregadas. Cada una arranca
+       con su captura liviana, cambia a la pagina entera cuando carga y la
+       recorre hacia abajo. Pasar el mouse por un trabajo de la lista lo
+       muestra y frena la vuelta. Fuera de pantalla, quieta. */
+    const pant = $("#haPant"), url = $("#haUrl");
+    if (pant && url && getComputedStyle($("#haFoto")).display !== "none") {
+      const SITIOS = [["airesdesanlorenzo.com", "aires"], ["melou.com.ar", "melou"], ["edificiolatorre.com", "latorre"],
+        ["lopezpropiedades.com", "lpz"], ["baza.com.ar", "baza"]];
+      const primera = pant.querySelector("img");
+      const sl = SITIOS.map(([, n], i) => {
+        const im = i ? new Image() : primera;
+        if (i) { im.className = "ha-sl"; im.alt = ""; im.width = 960; im.height = 600; im.src = `assets/casos/case-${n}.jpg`; im.loading = "lazy"; pant.append(im); }
+        im.dataset.full = `assets/casos/full-${n}.webp`;
+        return im;
+      });
+      let act = 0, t1 = 0, t2 = 0, visible = true, fijo = false;
+      const entera = (im) => new Promise((ok) => {
+        if (im.dataset.lista) return ok();
+        const f = new Image();
+        f.onload = () => { im.src = f.src; im.dataset.lista = "1"; ok(); };
+        f.onerror = () => ok();
+        f.src = im.dataset.full;
+      });
+      const mostrar = (i, recorrer) => {
+        clearTimeout(t1); clearTimeout(t2);
+        const viejo = sl[act];
+        if (i !== act) {
+          viejo.classList.remove("on");
+          setTimeout(() => { if (!viejo.classList.contains("on")) viejo.classList.remove("baja"); }, 650);
+        }
+        act = i;
+        const im = sl[i];
+        im.classList.remove("baja");
+        im.classList.add("on");
+        url.textContent = SITIOS[i][0];
+        if (reduced || !recorrer) return;
+        entera(im).then(() => {
+          if (act !== i || fijo) return;
+          const dur = Math.min(9, Math.max(3, (im.offsetHeight / pant.offsetHeight) * 1.6));
+          im.style.setProperty("--dur", dur.toFixed(1) + "s");
+          t1 = setTimeout(() => im.classList.add("baja"), 900);
+          t2 = setTimeout(() => { if (visible && !fijo) mostrar((i + 1) % sl.length, true); }, 900 + dur * 1000 + 1400);
+        });
+      };
+      if (!reduced) {
+        new IntersectionObserver(([e]) => {
+          const antes = visible; visible = e.isIntersecting;
+          if (visible && !antes && !fijo) mostrar(act, true);
+        }).observe(pant);
+        mostrar(0, true);
+      }
+      $$(".ha-casos a").forEach((a) => {
+        const i = SITIOS.findIndex(([d]) => a.href.includes(d));
+        if (i < 0) return;
+        a.addEventListener("pointerenter", () => { fijo = true; mostrar(i, false); });
+        a.addEventListener("pointerleave", () => { fijo = false; mostrar(act, true); });
+      });
+    }
+
     const hero = $(".ha");
     if (!hero || reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const letras = $$(".l", nombre);
@@ -132,8 +191,6 @@
         const x = (px - r.left) / r.width - 0.5, y = (py - r.top) / r.height - 0.5;
         foto.style.setProperty("--ry", (x * 9).toFixed(2) + "deg");
         foto.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
-        foto.style.setProperty("--fx", (-x * 14).toFixed(1) + "px");
-        foto.style.setProperty("--fy", (-y * 14).toFixed(1) + "px");
       }
     };
     hero.addEventListener("pointermove", (e) => {
@@ -143,29 +200,29 @@
     hero.addEventListener("pointerleave", () => {
       cancelAnimationFrame(raf); raf = 0;
       letras.forEach((l) => l.style.setProperty("--k", 0));
-      if (foto) ["--rx", "--ry", "--fx", "--fy"].forEach((v) => foto.style.removeProperty(v));
-    });
-
-    const prev = $("#haPrev");
-    if (!prev) return;
-    let tx = 0, ty = 0, cx = 0, cy = 0, sigue = 0;
-    const seguir = () => {
-      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
-      prev.style.transform = `translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px) rotate(${((tx - cx) * 0.03).toFixed(2)}deg)`;
-      sigue = prev.classList.contains("on") || Math.abs(tx - cx) > 0.5 ? requestAnimationFrame(seguir) : 0;
-    };
-    $$(".ha-casos a").forEach((a) => {
-      a.addEventListener("pointerenter", (e) => {
-        prev.src = a.dataset.prev;
-        tx = e.clientX + 24; ty = e.clientY - 90;
-        if (!prev.classList.contains("on")) { cx = tx; cy = ty; }
-        prev.classList.add("on");
-        if (!sigue) sigue = requestAnimationFrame(seguir);
-      });
-      a.addEventListener("pointermove", (e) => { tx = e.clientX + 24; ty = e.clientY - 90; });
-      a.addEventListener("pointerleave", () => prev.classList.remove("on"));
+      if (foto) ["--rx", "--ry"].forEach((v) => foto.style.removeProperty(v));
     });
   })();
+
+  /* Cards de proyectos: con mouse, la primera vez que el puntero entra se
+     carga la pagina entera y se monta encima de la captura. La duracion
+     del recorrido sale de lo larga que es, para que baje a ritmo parejo. */
+  if (!reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    $$(".demo-shot[data-full]").forEach((shot) => {
+      shot.closest(".demo").addEventListener("pointerenter", () => {
+        if (shot.querySelector(".full")) return;
+        const im = new Image();
+        im.className = "full"; im.alt = ""; im.decoding = "async";
+        im.onload = () => {
+          const viaje = im.offsetHeight - shot.offsetHeight;
+          shot.style.setProperty("--dur", Math.min(12, Math.max(2.5, viaje / 260)).toFixed(1) + "s");
+          shot.classList.add("lista");
+        };
+        im.src = shot.dataset.full;
+        shot.append(im);
+      });
+    });
+  }
 
   /* ---------- 5. PARALLAX de los screenshots flotantes ----------
      data-depth 2..4 → desplazamiento máx ~18px. Batched con rAF. */
@@ -563,65 +620,67 @@
     nav_inicio: "Home", nav_prod: "Products", nav_proy: "Projects", nav_sobre: "About me", nav_contacto: "Contact",
     chat: "Get in touch",
     hero_t: "Building your",
-    acc_casos: "See similar work",
-    hero_foto: "I build it myself, end to end",
-    hero_casos: "Recent work",
-    hero_sub: "Websites, stores and custom systems. I design, build and maintain them myself, from Salta. Real businesses use them today.",
+    acc_casos: "See projects",
+    hero_foto: "Founder of DT System",
+    hero_casos: "Recent projects",
+    hero_sub: "I build websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to ongoing support.",
     cta_hero: "Chat on WhatsApp \u2192",
-    cta_work: "See my work",
-    mob_eb: "Truly mobile-first",
-    mob_h: "Your customers look you up on their phone. That's where design starts.",
+    cta_work: "See projects",
+    mob_eb: "Built for mobile",
+    mob_h: "Most of your customers arrive on their phone. Every project is designed for that screen first.",
     srv_eb: "Products", srv_h: "Choose where to start.",
-    srv_sub: "Four things I build. Tell me which one you're missing.",
+    srv_sub: "Four services designed to grow together: start with one and add the rest when you need them.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
-    s1_tag: "So people find you, get what you do and reach out.",
-    s1_l1: "Your site, designed for your business",
-    s1_l2: "Online store that takes payment and ships",
-    s1_l3: "Found on Google, WhatsApp built in",
+    s1_tag: "A professional presence that builds trust and turns visits into inquiries.",
+    s1_l1: "Custom corporate site or landing page",
+    s1_l2: "Online store with payments and shipping",
+    s1_l3: "Google visibility and WhatsApp contact",
     price: "Price: <b>Custom</b>",
-    see_more: "Ask me →",
+    see_more: "Get in touch →",
     acc_pill: "See details \u2192",
     acc_reset: "\u2715 Close details",
     s2_h: "Systems & CRM",
-    s2_tag: "So you stop running the business on spreadsheets and loose messages.",
-    s2_l1: "Clients, projects and tasks in one place",
-    s2_l2: "Quotes, invoices and numbers up to date",
-    s2_l3: "A portal where your client sees their side",
+    s2_tag: "Your own system to keep clients, sales and payments in one place.",
+    s2_l1: "Client and opportunity management",
+    s2_l2: "Quotes, invoicing and reports",
+    s2_l3: "Access portal for your clients",
     s3_h: "Mobile apps",
-    s3_tag: "When your business needs to live in people's pockets.",
-    s3_l1: "A prototype first, to test the idea",
+    s3_tag: "Android and iPhone apps, from prototype to launch.",
+    s3_l1: "Design and clickable prototype",
     s3_l2: "One app for Android and iPhone",
-    s3_l3: "Published on Google Play and App Store",
-    s4_h: "AI Automation",
-    s4_tag: "What you do by hand every day can run on its own.",
-    s4_l1: "WhatsApp that answers when you're away",
-    s4_l2: "Microsoft 365 tasks that run themselves",
-    s4_l3: "Your tools, connected to each other",
-    lap_eb: "See it working", lap_h: "One of my CRMs at work.",
-    lap_sub: "A walkthrough of one of the CRMs I have in production, with demo data.",
+    s3_l3: "Publishing on Google Play and the App Store",
+    s4_h: "Automation",
+    s4_tag: "The repetitive processes in your operation, handled without manual work.",
+    s4_l1: "Automated WhatsApp replies",
+    s4_l2: "Microsoft 365 workflows",
+    s4_l3: "Integration between your tools",
+    lap_eb: "In action", lap_h: "This is how a custom CRM works.",
+    lap_sub: "A walkthrough of a system in production, with demo data.",
     about_eb: "About me", about_h: "The person behind the system.",
-    f_p1: "SysAdmin at JBKnowledge (a global company) based in Salta, Argentina. Computer Engineering student, 5+ years managing M365, Azure and automation.",
-    f_p2: "Today I have two custom CRMs in production: one feeds a real-estate portal and the other runs a studio's day-to-day work. I designed and built both, and I maintain them myself.",
-    f_p3: "From the idea to the live site. Solo when that's enough; with a team when the project calls for it.",
-    f_cta: "Work with me",
-    f_h: "Who builds it",
+    f_p1: "Systems administrator at JBKnowledge, a global company, and Computer Engineering student. Over five years of experience with Microsoft 365, Azure and automation.",
+    f_p2: "Today I maintain two custom CRMs in production: one powers a real estate portal and the other runs the daily work of a firm.",
+    f_p3: "Every project has a single point of contact, from the first meeting to launch. When the scope calls for it, I bring in specialists.",
+    f_cta: "Start a project",
+    f_h: "Who's behind it",
     st1: "Years in IT", st2: "Custom CRMs in production", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
     avail: "AVAILABLE \u00b7 REMOTE WORLDWIDE",
-    tools_h: "Everyday stack",
+    tools_h: "Tools I work with",
     test_eb: "Trust", test_h: "Results, not promises.",
     test_note: "*Straight from clients",
-    cta_note: "*No fluff",
-    mk_h: "Brands that already trusted me",
-    mk_note: "*Real clients, not filler logos",
-    cs_eb: "Cases", cs_h: "Work delivered.",
-    cs_sub: "Websites, stores and systems that real businesses use every day.",
+    cta_note: "*No commitment",
+    mk_h: "Companies that trust DT System",
+    mk_note: "*Delivered and in use",
+    f_role: "Founder · DT System",
+    cs_eb: "Cases", cs_h: "Delivered projects.",
+    cs_sub: "Websites, stores and systems in use today.",
     cs_f0: "All", cs_f1: "Sites & stores", cs_f2: "Systems & CRM",
-    cs_f3: "Mobile apps", cs_f4: "AI automation",
+    cs_f3: "Mobile apps", cs_f4: "Automation",
     // CASOS:INICIO
     c13s: "Real-estate development · Salta",
     c14s: "Real-estate portal · Salta",
+    c19s: "Real-estate portal linked to the CRM · Salta",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
     c16s: "Yucatán chukum · bilingual",
@@ -632,8 +691,8 @@
     c18s: "Bags made from textile waste · Salta",
     or_c: "Client", or_p: "Own", st_wip: "In progress",
     // CASOS:FIN
-    cta_eb: "Seriously", cta_h: "LET'S TALK.",
-    cta_sub: "Got an idea? Tell me about it. Fill in the briefing and WhatsApp or your email opens with the message ready \u2014 I read it myself and get back to you.",
+    cta_eb: "Contact", cta_h: "LET'S TALK.",
+    cta_sub: "Tell me what you need. Fill in the form and WhatsApp or your email opens with the message ready to send.",
     cta_btn: "Talk to my assistant",
     af_head: "Tell me about your project",
     af_badge: "Same-day reply",
@@ -641,12 +700,12 @@
     af_mail: "Your email", af_tel: "Your phone", af_opt: "\u00b7 optional",
     af_via: "Send via",
     af_type: "What do you need?",
-    af_t1: "Web / Store", af_t2: "System / CRM", af_t3: "Mobile app", af_t4: "AI Automation", af_t5: "Other",
-    af_idea: "Tell me the idea",
+    af_t1: "Web / Store", af_t2: "System / CRM", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
+    af_idea: "Tell me about the project",
     af_hint: "Opens WhatsApp with your briefing ready to send.",
-    af_send: "Send briefing",
+    af_send: "Send inquiry",
     af_direct: "Direct WhatsApp \u2197",
-    f_tag: "Fewer manual tasks, more time for your business.",
+    f_tag: "Custom websites and systems for businesses that want to grow in an orderly way.",
     nl_h: "News & new work",
     nl_p: "What I'm launching, first on Instagram.",
     nl_btn: "Follow on Instagram \u2197",
