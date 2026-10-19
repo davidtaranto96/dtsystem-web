@@ -33,7 +33,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261019b">
+  <link rel="stylesheet" href="styles.css?v=20261019c">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -149,12 +149,15 @@
             <a class="btn btn-sec" href="#proyectos" data-i18n="cta_work">Ver proyectos</a>
           </div>
         </div>
-        <!-- Vitrina: una ventana de navegador que pasa las webs entregadas y
-             recorre cada una hacia abajo. Las diapositivas las arma main.js. -->
-        <figure class="ha-show" id="haFoto" aria-hidden="true">
-          <div class="ha-barra"><i></i><i></i><i></i><span class="ha-url" id="haUrl">airesdesanlorenzo.com</span></div>
-          <div class="ha-pant" id="haPant"><img class="ha-sl on" src="assets/casos/case-aires.jpg" width="960" height="600" alt="" fetchpriority="high"></div>
-        </figure>
+        <!-- Vitrina: un mazo de ventanas con las webs entregadas. La de adelante
+             escribe su direccion, muestra dos o tres secciones y pasa al fondo.
+             Las demas ventanas las arma main.js; sin JS queda esta sola. -->
+        <div class="ha-show" id="haFoto" aria-hidden="true">
+          <div class="ha-win" data-p="0">
+            <div class="ha-barra"><i></i><i></i><i></i><span class="ha-url">airesdesanlorenzo.com</span></div>
+            <div class="ha-pant"><img src="assets/casos/case-aires.jpg" width="960" height="600" alt="" fetchpriority="high"></div>
+          </div>
+        </div>
         <div class="ha-casos">
           <p class="ha-casos-h" data-i18n="hero_casos">Proyectos recientes</p>
           <ul>
@@ -775,6 +778,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261019b" defer></script>
+  <script src="main.js?v=20261019c" defer></script>
 </body>
 </html>
