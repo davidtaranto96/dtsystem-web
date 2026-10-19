@@ -115,63 +115,93 @@
         "<span style=\"white-space:nowrap\">" + [...p].map((c) => `<span class="l" style="--i:${i++}">${c}</span>`).join("") + "</span>"
       ).join(" ");
     }
-    /* Vitrina de la portada: pasa las webs entregadas. Cada una arranca
-       con su captura liviana, cambia a la pagina entera cuando carga y la
-       recorre hacia abajo. Pasar el mouse por un trabajo de la lista lo
-       muestra y frena la vuelta. Fuera de pantalla, quieta. */
-    const pant = $("#haPant"), url = $("#haUrl");
-    if (pant && url && getComputedStyle($("#haFoto")).display !== "none") {
+    /* Vitrina de la portada: un mazo de ventanas. La de adelante escribe
+       su direccion, la pagina aparece, baja a dos o tres secciones con
+       pausas y despues la ventana cae y pasa al fondo del mazo. Pasar el
+       mouse por un trabajo de la lista lo trae adelante y frena la vuelta.
+       Fuera de pantalla, quieta. */
+    const show = $("#haFoto");
+    if (show && getComputedStyle(show).display !== "none") {
       const SITIOS = [["airesdesanlorenzo.com", "aires"], ["melou.com.ar", "melou"], ["edificiolatorre.com", "latorre"],
         ["lopezpropiedades.com", "lpz"], ["baza.com.ar", "baza"]];
-      const primera = pant.querySelector("img");
-      const sl = SITIOS.map(([, n], i) => {
-        const im = i ? new Image() : primera;
-        if (i) { im.className = "ha-sl"; im.alt = ""; im.width = 960; im.height = 600; im.src = `assets/casos/case-${n}.jpg`; im.loading = "lazy"; pant.append(im); }
-        im.dataset.full = `assets/casos/full-${n}.webp`;
-        return im;
+      const molde = $(".ha-win", show);
+      const wins = SITIOS.map(([d, n], i) => {
+        const w = i ? molde.cloneNode(true) : molde;
+        const im = $("img", w);
+        if (i) { im.removeAttribute("fetchpriority"); im.src = `assets/casos/case-${n}.jpg`; show.append(w); }
+        $(".ha-url", w).textContent = d;
+        w.dataset.p = Math.min(i, 3);
+        return { w, im, url: $(".ha-url", w), dom: d, full: `assets/casos/full-${n}.webp` };
       });
-      let act = 0, t1 = 0, t2 = 0, visible = true, fijo = false;
-      const entera = (im) => new Promise((ok) => {
-        if (im.dataset.lista) return ok();
+      let orden = wins.map((_, i) => i), timers = [], visible = true, fijo = false, corriendo = false;
+      const espera = (ms) => new Promise((ok) => timers.push(setTimeout(ok, ms)));
+      const cortar = () => { timers.forEach(clearTimeout); timers = []; corriendo = false; };
+      const entera = (v) => v.lista || new Promise((ok) => {
         const f = new Image();
-        f.onload = () => { im.src = f.src; im.dataset.lista = "1"; ok(); };
-        f.onerror = () => ok();
-        f.src = im.dataset.full;
+        f.onload = () => { v.im.src = f.src; v.lista = true; ok(); };
+        f.onerror = ok;
+        f.src = v.full;
+        setTimeout(ok, 4000);
       });
-      const mostrar = (i, recorrer) => {
-        clearTimeout(t1); clearTimeout(t2);
-        const viejo = sl[act];
-        if (i !== act) {
-          viejo.classList.remove("on");
-          setTimeout(() => { if (!viejo.classList.contains("on")) viejo.classList.remove("baja"); }, 650);
+      const ubicar = () => orden.forEach((i, pos) => { wins[i].w.dataset.p = Math.min(pos, 3); });
+      // sin transicion: para volver una ventana a cero mientras nadie la ve
+      const aCero = (v) => {
+        v.w.classList.add("quieta");
+        v.im.style.transform = "";
+        v.w.getBoundingClientRect();
+        v.w.classList.remove("quieta");
+      };
+      const visita = async (v, mia) => {
+        v.url.textContent = ""; v.url.classList.add("escribe");
+        v.w.classList.add("carga");
+        await espera(350);
+        for (const ch of v.dom) { if (mia !== corriendo) return; v.url.textContent += ch; await espera(38); }
+        v.url.classList.remove("escribe");
+        await entera(v);
+        if (mia !== corriendo) return;
+        v.w.classList.remove("carga");
+        await espera(1600);
+        const viaje = v.im.offsetHeight - v.im.parentNode.offsetHeight;
+        for (const f of [0.16, 0.36, 0.58]) {
+          if (mia !== corriendo || viaje <= 0) break;
+          v.im.style.transform = `translateY(${-Math.min(viaje, v.im.offsetHeight * f).toFixed(0)}px)`;
+          await espera(2200);
         }
-        act = i;
-        const im = sl[i];
-        im.classList.remove("baja");
-        im.classList.add("on");
-        url.textContent = SITIOS[i][0];
-        if (reduced || !recorrer) return;
-        entera(im).then(() => {
-          if (act !== i || fijo) return;
-          const dur = Math.min(9, Math.max(3, (im.offsetHeight / pant.offsetHeight) * 1.6));
-          im.style.setProperty("--dur", dur.toFixed(1) + "s");
-          t1 = setTimeout(() => im.classList.add("baja"), 900);
-          t2 = setTimeout(() => { if (visible && !fijo) mostrar((i + 1) % sl.length, true); }, 900 + dur * 1000 + 1400);
-        });
+      };
+      const vuelta = async () => {
+        if (corriendo || fijo || !visible) return;
+        const mia = corriendo = {};
+        while (mia === corriendo) {
+          const v = wins[orden[0]];
+          await visita(v, mia);
+          if (mia !== corriendo) return;
+          // la de adelante cae; las de atras avanzan un lugar
+          v.w.classList.add("sale");
+          orden.push(orden.shift()); ubicar();
+          v.w.dataset.p = 0;
+          await espera(700);
+          v.w.classList.add("quieta"); v.w.classList.remove("sale");
+          v.w.dataset.p = 3; aCero(v);
+          v.w.classList.remove("quieta");
+          ubicar();
+          await espera(500);
+        }
       };
       if (!reduced) {
-        new IntersectionObserver(([e]) => {
-          const antes = visible; visible = e.isIntersecting;
-          if (visible && !antes && !fijo) mostrar(act, true);
-        }).observe(pant);
-        mostrar(0, true);
+        new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) vuelta(); else cortar(); }).observe(show);
+        $$(".ha-casos a").forEach((a) => {
+          const i = SITIOS.findIndex(([d]) => a.href.includes(d));
+          if (i < 0) return;
+          a.addEventListener("pointerenter", () => {
+            fijo = true; cortar();
+            wins.forEach((v) => { v.w.classList.remove("carga", "sale"); v.url.classList.remove("escribe"); v.url.textContent = v.dom; });
+            const pos = orden.indexOf(i);
+            orden = [...orden.slice(pos), ...orden.slice(0, pos)];
+            wins.forEach(aCero); ubicar();
+          });
+          a.addEventListener("pointerleave", () => { fijo = false; vuelta(); });
+        });
       }
-      $$(".ha-casos a").forEach((a) => {
-        const i = SITIOS.findIndex(([d]) => a.href.includes(d));
-        if (i < 0) return;
-        a.addEventListener("pointerenter", () => { fijo = true; mostrar(i, false); });
-        a.addEventListener("pointerleave", () => { fijo = false; mostrar(act, true); });
-      });
     }
 
     const hero = $(".ha");

@@ -325,26 +325,39 @@ section { padding: 96px 0; }
 .ha .tw-linea { display: inline; }
 .ha .ha-sub { margin: 0 0 30px; max-width: 52ch; }
 .ha .hero-ctas { justify-content: flex-start; }
-.ha-show {
-  grid-area: foto; position: relative; margin: 0; border-radius: 14px; overflow: hidden;
+.ha-show { grid-area: foto; display: grid; padding-top: 40px; }
+.ha-win {
+  grid-area: 1 / 1; border-radius: 14px; overflow: hidden;
   border: 1px solid var(--card-border); background: var(--card); box-shadow: var(--shadow);
-  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: 50% 0;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s, filter 0.9s;
 }
+/* posicion en el mazo: 0 adelante, 3 escondida detras de todo */
+.ha-win[data-p="0"] { z-index: 3; transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.ha-win[data-p="1"] { z-index: 2; transform: translateY(-20px) scale(0.94); opacity: 0.9; filter: brightness(0.96); }
+.ha-win[data-p="2"] { z-index: 1; transform: translateY(-38px) scale(0.88); opacity: 0.6; filter: brightness(0.92); }
+.ha-win[data-p="3"] { z-index: 0; transform: translateY(-50px) scale(0.82); opacity: 0; }
+/* la que se va: cae un poco hacia el frente y se desvanece */
+.ha-win.sale { z-index: 4; transform: translateY(48px) scale(1.03) rotate(-1.5deg); opacity: 0; transition-duration: 0.7s; }
+.ha-win.quieta, .ha-win.quieta * { transition: none !important; }
 .ha-barra { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
 .ha-barra i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
 .ha-url {
   flex: 1; margin-left: 10px; padding: 4px 12px; border-radius: 999px; text-align: center;
-  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); min-height: 1.5em;
   background: color-mix(in srgb, var(--text) 5%, transparent);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.ha-pant { position: relative; aspect-ratio: 16 / 10; overflow: hidden; container-type: size; background: var(--bg); }
-.ha-sl { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transition: opacity 0.6s var(--fx-ease); }
-.ha-sl.on { opacity: 1; }
-/* recorre la pagina entera: sube la imagen hasta que su borde de abajo
-   toca el de la pantalla (100cqh es el alto de .ha-pant) */
-.ha-sl.baja { transform: translateY(calc(-100% + 100cqh)); transition: opacity 0.6s var(--fx-ease), transform var(--dur, 7s) cubic-bezier(0.45, 0, 0.55, 1); }
+.ha-url.escribe::after { content: ""; display: inline-block; width: 1px; height: 1em; margin-left: 1px; vertical-align: -0.15em; background: currentColor; animation: ha-caret 0.8s steps(1) infinite; }
+@keyframes ha-caret { 50% { opacity: 0; } }
+.ha-pant { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg); }
+.ha-pant img { position: absolute; left: 0; top: 0; width: 100%; height: auto; transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s, scale 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+/* "carga" la pagina al llegar la direccion */
+.ha-win.carga .ha-pant img { opacity: 0; scale: 1.03; transition: none; }
+/* barra de carga bajo la direccion mientras se escribe */
+.ha-pant::after { content: ""; position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(1); opacity: 0; transition: opacity 0.4s 0.2s; }
+.ha-win.carga .ha-pant::after { opacity: 1; transition: none; animation: ha-carga 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes ha-carga { from { transform: scaleX(0); } to { transform: scaleX(0.85); } }
 .ha-casos { grid-area: casos; }
 .ha-casos-h { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin-bottom: 12px; }
 .ha-casos ul { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
@@ -376,7 +389,7 @@ section { padding: 96px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ha-nombre .l { animation: none; transition: none; }
-  .ha-show, .ha-sl { transition: none; }
+  .ha-win, .ha-pant img { transition: none; }
 }
 /* Palabra rotante del typewriter — gradiente "IA" animado (como el
    "beauty" de Clean Slate): clip del gradiente al texto + pan en loop */
