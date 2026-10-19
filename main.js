@@ -131,6 +131,9 @@
         if (i) { im.removeAttribute("fetchpriority"); im.src = `assets/casos/case-${n}.jpg`; show.append(w); }
         $(".ha-url", w).textContent = d;
         w.dataset.p = Math.min(i, 3);
+        // todas arrancan en blanco: la pagina aparece recien cuando su ventana
+        // pasa adelante y termina de escribir la direccion
+        if (!reduced) { w.classList.add("carga"); $(".ha-url", w).textContent = ""; }
         return { w, im, url: $(".ha-url", w), dom: d, full: `assets/casos/full-${n}.webp` };
       });
       let orden = wins.map((_, i) => i), timers = [], visible = true, fijo = false, corriendo = false;
@@ -152,15 +155,17 @@
         v.w.classList.remove("quieta");
       };
       const visita = async (v, mia) => {
-        v.url.textContent = ""; v.url.classList.add("escribe");
-        v.w.classList.add("carga");
-        await espera(350);
-        for (const ch of v.dom) { if (mia !== corriendo) return; v.url.textContent += ch; await espera(38); }
-        v.url.classList.remove("escribe");
-        await entera(v);
-        if (mia !== corriendo) return;
-        v.w.classList.remove("carga");
-        await espera(1600);
+        // si ya esta cargada (la trajo el mouse), no la vuelve a escribir
+        if (v.w.classList.contains("carga")) {
+          v.url.textContent = ""; v.url.classList.add("escribe");
+          await espera(350);
+          for (const ch of v.dom) { if (mia !== corriendo) return; v.url.textContent += ch; await espera(38); }
+          v.url.classList.remove("escribe");
+          await entera(v);
+          if (mia !== corriendo) return;
+          v.w.classList.remove("carga");
+          await espera(1600);
+        }
         const viaje = v.im.offsetHeight - v.im.parentNode.offsetHeight;
         for (const f of [0.16, 0.36, 0.58]) {
           if (mia !== corriendo || viaje <= 0) break;
@@ -182,6 +187,7 @@
           await espera(700);
           v.w.classList.add("quieta"); v.w.classList.remove("sale");
           v.w.dataset.p = 3; aCero(v);
+          v.w.classList.add("carga"); v.url.textContent = "";
           v.w.classList.remove("quieta");
           ubicar();
           await espera(500);
@@ -194,7 +200,11 @@
           if (i < 0) return;
           a.addEventListener("pointerenter", () => {
             fijo = true; cortar();
-            wins.forEach((v) => { v.w.classList.remove("carga", "sale"); v.url.classList.remove("escribe"); v.url.textContent = v.dom; });
+            wins.forEach((v) => { v.w.classList.remove("sale"); v.url.classList.remove("escribe"); });
+            wins.forEach((v, k) => {
+              v.w.classList.toggle("carga", k !== i);
+              v.url.textContent = k === i ? v.dom : "";
+            });
             const pos = orden.indexOf(i);
             orden = [...orden.slice(pos), ...orden.slice(0, pos)];
             wins.forEach(aCero); ubicar();

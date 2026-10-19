@@ -322,7 +322,9 @@ section { padding: 96px 0; }
 }
 @keyframes ha-letra { from { translate: 0 0.45em; opacity: 0; } }
 .ha-linea { display: block; margin-top: 16px; font-size: clamp(1.625rem, 3.4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 500; color: var(--muted); }
-.ha .tw-linea { display: inline; }
+/* la palabra que se escribe va sola en su renglon: al cambiar de largo no
+   empuja el resto de la portada */
+.ha .tw-linea { display: block; white-space: nowrap; min-height: 1.1em; }
 .ha .ha-sub { margin: 0 0 30px; max-width: 52ch; }
 .ha .hero-ctas { justify-content: flex-start; }
 .ha-show { grid-area: foto; display: grid; padding-top: 40px; }
