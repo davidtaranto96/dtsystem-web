@@ -7,7 +7,12 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let lang = localStorage.getItem("dt-lang") || "es";   // idioma actual (ES default)
+  // localStorage tira error si el navegador bloquea el almacenamiento: nunca debe tumbar el script
+  const store = {
+    get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
+  };
+  let lang = store.get("dt-lang") || "es";   // idioma actual (ES default)
   const MAIL = "david_taranto@outlook.es";
 
   /* ---------- 1. TEMA (light/dark) ----------
@@ -15,7 +20,7 @@
      Al togglear: View Transitions API con reveal circular desde el botón;
      fallback: cross-fade de 0.55s agregando .theme-fade a <html>. */
   const root = document.documentElement;
-  function applyTheme(next) { root.dataset.theme = next; localStorage.setItem("dt-theme", next); }
+  function applyTheme(next) { root.dataset.theme = next; store.set("dt-theme", next); }
 
   $("#themeToggle")?.addEventListener("click", (e) => {
     const next = root.dataset.theme === "dark" ? "light" : "dark";
@@ -67,10 +72,10 @@
   /* ---------- 3. Announcement bar dismissible ---------- */
   const bar = $("#bar");
   if (bar) {
-    if (localStorage.getItem("dt-bar-dismissed") === "1") bar.hidden = true;
+    if (store.get("dt-bar-dismissed") === "1") bar.hidden = true;
     $(".bar-x", bar)?.addEventListener("click", () => {
       bar.hidden = true;
-      localStorage.setItem("dt-bar-dismissed", "1");
+      store.set("dt-bar-dismissed", "1");
     });
   }
 
@@ -83,9 +88,29 @@
     if (reduced) {
       tw.textContent = getWords()[0]; // estático si el usuario pide menos movimiento
     } else {
-      let wi = 0, ci = 0, deleting = false;
+      let wi = 0, ci = 0, deleting = false, medidas = "";
+      // reserva el ancho de la palabra mas larga (cambia con el idioma)
+      const linea = tw.parentNode;
+      const reservar = (words) => {
+        const prueba = tw.cloneNode();
+        prueba.removeAttribute("id");
+        prueba.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
+        linea.append(prueba);
+        let max = 0;
+        for (const w of words) { prueba.textContent = w; max = Math.max(max, prueba.getBoundingClientRect().width); }
+        prueba.remove();
+        const caret = linea.querySelector(".caret");
+        linea.style.minWidth = Math.ceil(max + (caret ? caret.getBoundingClientRect().width + 4 : 0)) + "px";
+      };
+      addEventListener("resize", () => { medidas = ""; }, { passive: true });
+      // fuera de pantalla o con la pestaña oculta, la palabra espera
+      let enVista = true;
+      if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => { enVista = e.isIntersecting; }).observe(linea);
+      if (document.fonts) document.fonts.ready.then(() => { medidas = ""; });
       (function tick() {
+        if (!enVista || document.hidden) { setTimeout(tick, 600); return; }
         const words = getWords();
+        if (medidas !== words.join("|") + innerWidth) { reservar(words); medidas = words.join("|") + innerWidth; }
         const word = words[wi % words.length];
         ci = Math.min(ci, word.length) + (deleting ? -1 : 1);
         tw.textContent = word.slice(0, ci);
@@ -128,7 +153,7 @@
       const wins = SITIOS.map(([d, n], i) => {
         const w = i ? molde.cloneNode(true) : molde;
         const im = $("img", w);
-        if (i) { im.removeAttribute("fetchpriority"); im.src = `assets/casos/case-${n}.jpg`; show.append(w); }
+        if (i) { im.removeAttribute("fetchpriority"); im.removeAttribute("src"); im.dataset.src = `assets/casos/case-${n}.jpg`; show.append(w); }
         $(".ha-url", w).textContent = d;
         w.dataset.p = Math.min(i, 3);
         // todas arrancan en blanco: la pagina aparece recien cuando su ventana
@@ -139,13 +164,16 @@
       let orden = wins.map((_, i) => i), timers = [], visible = true, fijo = false, corriendo = false;
       const espera = (ms) => new Promise((ok) => timers.push(setTimeout(ok, ms)));
       const cortar = () => { timers.forEach(clearTimeout); timers = []; corriendo = false; };
-      const entera = (v) => v.lista || new Promise((ok) => {
+      // una sola descarga por ventana, aunque la pidan la precarga y la visita
+      const entera = (v) => v.descarga || (v.descarga = new Promise((ok) => {
         const f = new Image();
-        f.onload = () => { v.im.src = f.src; v.lista = true; ok(); };
+        f.onload = () => { delete v.im.dataset.src; v.im.src = f.src; ok(); };
         f.onerror = ok;
         f.src = v.full;
-        setTimeout(ok, 4000);
-      });
+      }));
+      // la visita no espera mas de 2,5 s: si la pagina entera no llego, arranca con la captura
+      const poner = (v) => { if (v.im.dataset.src) { v.im.src = v.im.dataset.src; delete v.im.dataset.src; } };
+      const lista = (v) => { poner(v); return Promise.race([entera(v), espera(2500)]); };
       const ubicar = () => orden.forEach((i, pos) => { wins[i].w.dataset.p = Math.min(pos, 3); });
       // sin transicion: para volver una ventana a cero mientras nadie la ve
       const aCero = (v) => {
@@ -158,19 +186,19 @@
         // si ya esta cargada (la trajo el mouse), no la vuelve a escribir
         if (v.w.classList.contains("carga")) {
           v.url.textContent = ""; v.url.classList.add("escribe");
-          await espera(350);
-          for (const ch of v.dom) { if (mia !== corriendo) return; v.url.textContent += ch; await espera(38); }
+          await espera(200);
+          for (const ch of v.dom) { if (mia !== corriendo) return; v.url.textContent += ch; await espera(30); }
           v.url.classList.remove("escribe");
-          await entera(v);
+          await lista(v);
           if (mia !== corriendo) return;
           v.w.classList.remove("carga");
-          await espera(1600);
+          await espera(1100);
         }
         const viaje = v.im.offsetHeight - v.im.parentNode.offsetHeight;
         for (const f of [0.16, 0.36, 0.58]) {
           if (mia !== corriendo || viaje <= 0) break;
           v.im.style.transform = `translateY(${-Math.min(viaje, v.im.offsetHeight * f).toFixed(0)}px)`;
-          await espera(2200);
+          await espera(1900);
         }
       };
       const vuelta = async () => {
@@ -194,6 +222,13 @@
         }
       };
       if (!reduced) {
+        // las paginas enteras se bajan de a una, en orden:
+        // cuando a cada ventana le toca pasar adelante ya esta lista
+        // (despues del load, para no competir con lo critico; la primera visita la pide igual)
+        const precargar = () => wins.reduce((p, v) => p.then(() => entera(v)), Promise.resolve());
+        if (matchMedia("(min-width: 981px)").matches) {
+          if (document.readyState === "complete") precargar(); else addEventListener("load", precargar, { once: true });
+        }
         new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) vuelta(); else cortar(); }).observe(show);
         $$(".ha-casos a").forEach((a) => {
           const i = SITIOS.findIndex(([d]) => a.href.includes(d));
@@ -201,6 +236,7 @@
           a.addEventListener("pointerenter", () => {
             fijo = true; cortar();
             wins.forEach((v) => { v.w.classList.remove("sale"); v.url.classList.remove("escribe"); });
+            poner(wins[i]);
             wins.forEach((v, k) => {
               v.w.classList.toggle("carga", k !== i);
               v.url.textContent = k === i ? v.dom : "";
@@ -297,14 +333,15 @@
     }, { passive: true });
   }
 
-  /* ---------- 7. Video del laptop: pausar fuera del viewport ---------- */
+  /* ---------- 7. Video del laptop: se baja y arranca al acercarse, pausa fuera del viewport.
+     Con movimiento reducido queda el poster. ---------- */
   const vid = $("#lapVideo");
   if (vid && "IntersectionObserver" in window) {
     new IntersectionObserver((entries) => {
       for (const en of entries) {
-        if (en.isIntersecting) vid.play().catch(() => {}); else vid.pause();
+        if (en.isIntersecting && !reduced) vid.play().catch(() => {}); else vid.pause();
       }
-    }, { threshold: 0.35 }).observe(vid);
+    }, { rootMargin: "200px 0px" }).observe(vid);
   }
 
   /* ---------- 8. Chips de password copiables ---------- */
@@ -329,16 +366,16 @@
     // Chips de tipo de proyecto (selección única, solo entre data-val)
     $$(".af-chip[data-val]", aiForm).forEach((ch) =>
       ch.addEventListener("click", () => {
-        $$(".af-chip[data-val]", aiForm).forEach((c) => c.classList.remove("on"));
-        ch.classList.add("on");
+        $$(".af-chip[data-val]", aiForm).forEach((c) => { c.classList.remove("on"); c.setAttribute("aria-pressed", "false"); });
+        ch.classList.add("on"); ch.setAttribute("aria-pressed", "true");
       })
     );
     // Canal de envío (WhatsApp/Email) + hint acorde
     const afHint = $("#afHint");
     $$(".af-chip[data-via]", aiForm).forEach((ch) =>
       ch.addEventListener("click", () => {
-        $$(".af-chip[data-via]", aiForm).forEach((c) => c.classList.remove("on"));
-        ch.classList.add("on");
+        $$(".af-chip[data-via]", aiForm).forEach((c) => { c.classList.remove("on"); c.setAttribute("aria-pressed", "false"); });
+        ch.classList.add("on"); ch.setAttribute("aria-pressed", "true");
         const mail = ch.dataset.via === "mail";
         if (afHint) afHint.textContent = lang === "en"
           ? (mail ? "Opens your email app with the briefing ready to send." : "Opens WhatsApp with your briefing ready to send.")
@@ -657,30 +694,29 @@
     skip: "Skip to content",
     bar_t: "Available for <span class=\"bar-largo\">new </span>projects<span class=\"bar-largo\"> \u2014</span>",
     bar_l: "Chat on WhatsApp",
-    nav_inicio: "Home", nav_prod: "Products", nav_proy: "Projects", nav_sobre: "About me", nav_contacto: "Contact",
+    nav_inicio: "Home", nav_prod: "Services", nav_proy: "Projects", nav_sobre: "About me", nav_contacto: "Contact",
     chat: "Get in touch",
-    hero_t: "Building your",
+    hero_t: "Building your", hero_sr: "idea, website, store, system or app",
     acc_casos: "See projects",
     hero_foto: "Founder of DT System",
     hero_casos: "Recent projects",
     hero_sub: "I build websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to ongoing support.",
     cta_hero: "Chat on WhatsApp \u2192",
     cta_work: "See projects",
-    mob_eb: "Built for mobile",
     mob_h: "Most of your customers arrive on their phone. Every project is designed for that screen first.",
-    srv_eb: "Products", srv_h: "Choose where to start.",
-    srv_sub: "Four services designed to grow together: start with one and add the rest when you need them.",
+    srv_h: "Choose where to start.",
+    srv_sub: "Four services that work together. Start with one and add the others when the business calls for it.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
-    s1_tag: "A professional presence that builds trust and turns visits into inquiries.",
+    s1_tag: "Your business presented with care, with a clear path from visit to inquiry.",
     s1_l1: "Custom corporate site or landing page",
     s1_l2: "Online store with payments and shipping",
-    s1_l3: "Google visibility and WhatsApp contact",
-    price: "Price: <b>Custom</b>",
+    s1_l3: "Ready to show up on Google and receive inquiries on WhatsApp",
+    price: "Quote: <b>by scope</b>",
     see_more: "Get in touch →",
     acc_pill: "See details \u2192",
     acc_reset: "\u2715 Close details",
-    s2_h: "Systems & CRM",
+    s2_h: "Management systems",
     s2_tag: "Your own system to keep clients, sales and payments in one place.",
     s2_l1: "Client and opportunity management",
     s2_l2: "Quotes, invoicing and reports",
@@ -691,36 +727,32 @@
     s3_l2: "One app for Android and iPhone",
     s3_l3: "Publishing on Google Play and the App Store",
     s4_h: "Automation",
-    s4_tag: "The repetitive processes in your operation, handled without manual work.",
-    s4_l1: "Automated WhatsApp replies",
-    s4_l2: "Microsoft 365 workflows",
-    s4_l3: "Integration between your tools",
-    lap_eb: "In action", lap_h: "This is how a custom CRM works.",
-    lap_sub: "A walkthrough of a system in production, with demo data.",
-    about_eb: "About me", about_h: "The person behind the system.",
+    s4_tag: "The tasks repeated by hand every day, handled without anyone touching them.",
+    s4_l2: "Automated tasks in Outlook, Excel and Teams",
+    s4_l3: "Connecting the tools you already use",
+    lap_h: "This is how a custom system works.",
+    lap_sub: "A walkthrough of a system in use, with sample data.",
+    about_h: "The person behind the system.",
     f_p1: "Systems administrator at JBKnowledge, a global company, and Computer Engineering student. Over five years of experience with Microsoft 365, Azure and automation.",
-    f_p2: "Today I maintain two custom CRMs in production: one powers a real estate portal and the other runs the daily work of a firm.",
-    f_p3: "Every project has a single point of contact, from the first meeting to launch. When the scope calls for it, I bring in specialists.",
+    f_p2: "Today I maintain two custom management systems in daily use: one powers a real estate portal and the other runs the daily work of a firm.",
+    f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
-    f_h: "Who's behind it",
-    st1: "Years in IT", st2: "Custom CRMs in production", st3: "Sites in Argentina and Mexico",
+    f_h: "Who’s behind it",
+    st1: "Years in systems", st2: "Custom systems in use", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
-    avail: "AVAILABLE \u00b7 REMOTE WORLDWIDE",
+    avail: "AVAILABLE \u00b7 REMOTE WORK",
     tools_h: "Tools I work with",
-    test_eb: "Trust", test_h: "Results, not promises.",
-    test_note: "*Straight from clients",
-    cta_note: "*No commitment",
+    test_h: "Results, not promises.",
     mk_h: "Companies that trust DT System",
-    mk_note: "*Delivered and in use",
     f_role: "Founder · DT System",
-    cs_eb: "Cases", cs_h: "Delivered projects.",
+    cs_h: "Delivered projects.",
     cs_sub: "Websites, stores and systems in use today.",
-    cs_f0: "All", cs_f1: "Sites & stores", cs_f2: "Systems & CRM",
+    cs_f0: "All", cs_f1: "Sites & stores", cs_f2: "Management systems",
     cs_f3: "Mobile apps", cs_f4: "Automation",
     // CASOS:INICIO
     c13s: "Real-estate development · Salta",
     c14s: "Real-estate portal · Salta",
-    c19s: "Real-estate portal linked to the CRM · Salta",
+    c19s: "Real-estate portal linked to the system · Salta",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
     c16s: "Yucatán chukum · bilingual",
@@ -729,36 +761,48 @@
     c12s: "Real-estate brokerage · Salta",
     c17s: "Original artwork shop · Barcelona",
     c18s: "Bags made from textile waste · Salta",
-    or_c: "Client", or_p: "Own", st_wip: "In progress",
+    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live",
     // CASOS:FIN
-    cta_eb: "Contact", cta_h: "LET'S TALK.",
+    cta_h: "LET’S TALK.",
     cta_sub: "Tell me what you need. Fill in the form and WhatsApp or your email opens with the message ready to send.",
-    cta_btn: "Talk to my assistant",
     af_head: "Tell me about your project",
-    af_badge: "Same-day reply",
     af_name: "Your name", af_from: "Your business / project",
     af_mail: "Your email", af_tel: "Your phone", af_opt: "\u00b7 optional",
     af_via: "Send via",
     af_type: "What do you need?",
-    af_t1: "Web / Store", af_t2: "System / CRM", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
+    af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
     af_idea: "Tell me about the project",
-    af_hint: "Opens WhatsApp with your briefing ready to send.",
+    cs_mas: "See all projects",
+    af_hint: "Opens WhatsApp with your message ready to send.",
     af_send: "Send inquiry",
-    af_direct: "Direct WhatsApp \u2197",
     f_tag: "Custom websites and systems for businesses that want to grow in an orderly way.",
     nl_h: "News & new work",
-    nl_p: "What I'm launching, first on Instagram.",
+    nl_p: "What I’m launching, first on Instagram.",
     nl_btn: "Follow on Instagram \u2197",
     f_cont: "Contact",
     f_wa: "WhatsApp", f_status: "Available for projects",
     made: "Made in Salta, Argentina"
   };
   const langLbl = $("#langLabel");
+  // la frase de cada servicio también se lee con el panel cerrado
+  $$(".acc-p").forEach((p) => {
+    const tag = $(".srv-tag", p), h = $(".acc-cover h3", p);
+    if (!tag || !h) return;
+    const f = tag.cloneNode(true);
+    f.className = "acc-frase";
+    h.after(f);
+  });
+  let titleEs, descEs;
   function setLang(l, animate) {
     lang = l;
-    localStorage.setItem("dt-lang", l);
+    store.set("dt-lang", l);
     document.documentElement.lang = l === "en" ? "en" : "es";
     if (langLbl) langLbl.textContent = l.toUpperCase();
+    // la pestaña y la descripción también cambian de idioma
+    const desc = $('meta[name="description"]');
+    if (titleEs === undefined) { titleEs = document.title; descEs = desc?.content; }
+    document.title = l === "en" ? "David Taranto — Custom websites and systems | DT System, Salta" : titleEs;
+    if (desc) desc.content = l === "en" ? "Custom websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to support. Made in Salta, Argentina." : descEs;
     $$("[data-i18n]").forEach((el) => {
       const k = el.dataset.i18n;
       if (el.dataset.es === undefined) el.dataset.es = el.innerHTML; // snapshot ES
@@ -822,10 +866,14 @@
   const acc = $("#acc");
   const accReset = $("#accReset");
   if (acc) {
+    // El detalle cerrado queda invisible: inert lo saca del Tab y del lector
+    const cerrarDetalle = (p) => { const b = $(".acc-body", p); if (b) b.inert = true; };
+    $$(".acc-p", acc).forEach(cerrarDetalle);
     const closeAll = () => {
       $$(".acc-p", acc).forEach((p) => {
         p.classList.remove("open");
         $(".acc-tab", p)?.setAttribute("aria-expanded", "false");
+        cerrarDetalle(p);
       });
     };
     $$(".acc-tab", acc).forEach((tab) =>
@@ -833,6 +881,7 @@
         closeAll();
         const p = tab.closest(".acc-p");
         p.classList.add("open");
+        const b = $(".acc-body", p); if (b) b.inert = false;
         tab.setAttribute("aria-expanded", "true");
         acc.classList.add("has-open");         // modo detalle
         accReset?.removeAttribute("hidden");
@@ -840,9 +889,11 @@
     );
     // Mini botón de reset: cierra todo y vuelve a la grilla inicial
     accReset?.addEventListener("click", () => {
+      const abierto = $(".acc-p.open .acc-tab", acc);
       closeAll();
       acc.classList.remove("has-open");
       accReset.setAttribute("hidden", "");
+      abierto?.focus({ preventScroll: true });   // el foco no se pierde en el body
     });
   }
 
@@ -921,6 +972,20 @@
       centrarUltimaFila();
     };
     centrarUltimaFila();
+    // en el celular se ven cuatro y el resto queda detrás de un botón;
+    // elegir un filtro también despliega
+    const mas = $("#csMas");
+    if (mas && cards.length > 4) {
+      csGrid.classList.add("plegada");
+      mas.hidden = false;
+      const desplegar = () => { csGrid.classList.remove("plegada"); mas.hidden = true; };
+      mas.addEventListener("click", () => {
+        desplegar();
+        revelarVisibles();
+        (cards[4].matches("a") ? cards[4] : $("a", cards[4]))?.focus();
+      });
+      chips.forEach((c) => c.addEventListener("click", desplegar));
+    }
     matchMedia("(max-width: 980px)").addEventListener("change", centrarUltimaFila);
     matchMedia("(max-width: 720px)").addEventListener("change", centrarUltimaFila);
 
@@ -934,7 +999,7 @@
     if (chips.filter((c) => !c.hidden).length <= 2) csFilter.hidden = true;
     chips.forEach((chip) => {
       chip.addEventListener("click", () => {
-        chips.forEach((c) => c.classList.toggle("on", c === chip));
+        chips.forEach((c) => { c.classList.toggle("on", c === chip); c.setAttribute("aria-pressed", String(c === chip)); });
         apply(chip.dataset.f);
         revelarVisibles();   // el filtro puede mostrar cards aún sin revelar
       });
@@ -1018,15 +1083,28 @@
      wearestokt.com, donde el objeto sigue vivo en la card expandida. */
   const REPOSO = { web: 18, sys: 18, app: 17, ia: 9 };
   $$(".acc-p").forEach((panel) => {
-    const dpr = Math.min(3, window.devicePixelRatio || 1);
+    // El lienzo base es de 720x450: se dobla solo si se muestra grande y la
+    // pantalla es densa. A x3 eran ~93 MB de canvas en el celular.
+    const dpr = window.devicePixelRatio || 1;
     const instanciar = (cv) => {
-      const crear = window.DTAnim && window.DTAnim[cv.dataset.obj];
+      const crear = cv && window.DTAnim && window.DTAnim[cv.dataset.obj];
       if (!crear) return null;
-      try { return crear(cv, { q: "scale=" + dpr, reposo: REPOSO[cv.dataset.obj] || 0 }); }
+      const escala = cv.getBoundingClientRect().width * dpr > 720 ? Math.min(2, dpr) : 1;
+      try { return crear(cv, { q: "scale=" + escala, reposo: REPOSO[cv.dataset.obj] || 0 }); }
       catch (e) { return null; }
     };
     const cover = instanciar($(".acc-cover canvas.srv-obj", panel));
-    const detalle = instanciar($(".acc-img canvas.srv-obj", panel));
+    // el del detalle se crea recién la primera vez que se abre el panel
+    let detalle = null;
+    const cvDetalle = $(".acc-img canvas.srv-obj", panel);
+    if ("MutationObserver" in window) {
+      new MutationObserver(() => {
+        if (panel.classList.contains("open")) {
+          detalle = detalle || instanciar(cvDetalle);
+          if (!reduced) { cover && cover.stop(); detalle && detalle.start(); }
+        } else detalle && detalle.stop();
+      }).observe(panel, { attributes: true, attributeFilter: ["class"] });
+    }
     if (reduced) return;                  // quedan los frames quietos
 
     // cover: anima al hover, solo mientras el panel este cerrado
@@ -1037,15 +1115,8 @@
       panel.addEventListener("focusin", entra);
       panel.addEventListener("focusout", cover.stop);
     }
-    // detalle: loop continuo mientras el panel este abierto. Se observa la
-    // clase .open en vez de engancharse al modulo del acordeon: cubre
-    // tambien el boton de reset y no acopla los dos modulos.
-    if (detalle && "MutationObserver" in window) {
-      new MutationObserver(() => {
-        if (panel.classList.contains("open")) { cover && cover.stop(); detalle.start(); }
-        else detalle.stop();
-      }).observe(panel, { attributes: true, attributeFilter: ["class"] });
-    }
+    // detalle: loop continuo mientras el panel este abierto (lo maneja el
+    // MutationObserver de arriba, que mira la clase .open y cubre el reset)
     // fuera del viewport nadie dibuja; al volver, el detalle retoma si
     // el panel sigue abierto
     if ("IntersectionObserver" in window) {
@@ -1263,5 +1334,23 @@
     new MutationObserver(mover).observe(nav, { subtree: true, characterData: true, childList: true });
     if (document.fonts) document.fonts.ready.then(mover);
     calcular();
+  })();
+  /* ---------- La barra de arriba se esconde al bajar (celular) ---------- */
+  (() => {
+    const top = $(".top");
+    if (!top) return;
+    const chico = matchMedia("(max-width: 840px)");
+    let ultimo = scrollY, pend = false;
+    addEventListener("scroll", () => {
+      if (pend) return;
+      pend = true;
+      requestAnimationFrame(() => {
+        pend = false;
+        const y = scrollY, d = y - ultimo;
+        if (Math.abs(d) < 8) return;
+        ultimo = y;
+        top.classList.toggle("oculta", chico.matches && d > 0 && y > 160 && !$(".menu[open]", top));
+      });
+    }, { passive: true });
   })();
 })();

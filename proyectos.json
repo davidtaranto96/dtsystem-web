@@ -39,6 +39,24 @@
       }
     },
     {
+      "id": "lpz",
+      "nombre": "López Propiedades",
+      "cat": "web",
+      "url": "https://lopezpropiedades.com",
+      "estado": "live",
+      "i18n": "c19s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Portal inmobiliario conectado al sistema · Salta",
+        "en": "Real-estate portal linked to the system · Salta"
+      },
+      "alt": "Portal inmobiliario de López Propiedades, en Salta",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
       "id": "melou",
       "nombre": "melou.",
       "cat": "web",
@@ -118,7 +136,7 @@
       "estado": "live",
       "i18n": "c5s",
       "sub": {
-        "es": "Barrio privado · real estate",
+        "es": "Barrio privado · inmobiliario",
         "en": "Gated community · real estate"
       },
       "alt": "Landing de Aires de San Lorenzo, barrio privado en Salta",

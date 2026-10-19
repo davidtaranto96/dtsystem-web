@@ -7,17 +7,22 @@
   <meta name="color-scheme" content="light dark">
 
   <!-- ============ SEO ============ -->
-  <title>David Taranto — Sistemas con IA para tu negocio | DT System</title>
-  <meta name="description" content="Webs, tiendas online y CRM a medida, con automatización e IA cuando suma. Hecho en Salta, Argentina, usado en producción. 11 proyectos de clientes, 8 en línea.">
+  <title>David Taranto — Webs y sistemas a medida | DT System, Salta</title>
+  <meta name="description" content="Webs, tiendas online y sistemas de gestión a medida para empresas y emprendimientos. Me encargo del proyecto completo, del primer boceto al soporte. Hecho en Salta, Argentina.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="David Taranto — Sistemas con IA para tu negocio">
-  <meta property="og:description" content="Webs, tiendas online y CRM a medida, con IA cuando suma. Hechos en Salta y usados en producción por clientes reales.">
+  <meta property="og:title" content="David Taranto — Webs y sistemas a medida para tu negocio">
+  <meta property="og:description" content="Webs, tiendas online y sistemas de gestión a medida. Hechos en Salta, Argentina, y en uso diario por quienes los encargaron.">
   <meta property="og:url" content="https://dtsystem.com.ar/">
+  <meta property="og:site_name" content="DT System">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
   <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
+  <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
@@ -33,13 +38,14 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261019e">
+  <link rel="stylesheet" href="styles.css?v=20261019h">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
   <script>
     (function () {
-      var t = localStorage.getItem("dt-theme")
+      var t = null; try { t = localStorage.getItem("dt-theme"); } catch (e) {}
+      t = t
            || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       document.documentElement.dataset.theme = t;
       // Gate del reveal: el estado escondido de las cards cuelga de .fx-on.
@@ -54,19 +60,26 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "David Taranto",
-    "jobTitle": "Windows System Administrator & AI Product Builder",
-    "worksFor": { "@type": "Organization", "name": "JBKnowledge" },
-    "address": { "@type": "PostalAddress", "addressLocality": "Salta", "addressCountry": "AR" },
-    "email": "mailto:david_taranto@outlook.es",
+    "@type": "ProfessionalService",
+    "name": "DT System",
+    "description": "Webs, tiendas online y sistemas de gestión a medida para empresas y emprendimientos.",
     "url": "https://dtsystem.com.ar/",
-    "sameAs": [
-      "https://github.com/davidtaranto96",
-      "https://linkedin.com/in/davidtaranto",
-      "https://www.instagram.com/david.taranto/"
-    ],
-    "knowsAbout": ["Microsoft 365", "Azure", "Automatización", "IA", "Claude", "Next.js", "WhatsApp bots"]
+    "logo": "https://dtsystem.com.ar/assets/brand/logo-dt.png",
+    "image": "https://dtsystem.com.ar/assets/og.png",
+    "email": "mailto:david_taranto@outlook.es",
+    "address": { "@type": "PostalAddress", "addressLocality": "Salta", "addressRegion": "Salta", "addressCountry": "AR" },
+    "areaServed": [{ "@type": "Country", "name": "Argentina" }, { "@type": "Country", "name": "México" }],
+    "founder": {
+      "@type": "Person",
+      "name": "David Taranto",
+      "jobTitle": "Desarrollador de webs y sistemas a medida",
+      "sameAs": [
+        "https://github.com/davidtaranto96",
+        "https://linkedin.com/in/davidtaranto",
+        "https://www.instagram.com/david.taranto/"
+      ]
+    },
+    "knowsAbout": ["Desarrollo web", "Tiendas online", "Shopify", "Sistemas de gestión", "Automatización", "Next.js"]
   }
   </script>
 </head>
@@ -97,7 +110,7 @@
         <a class="logo" href="#top">dt<b>/</b>system</a>
         <nav class="nav" aria-label="Principal" data-i18n-aria="nav">
           <a href="#top"><span class="nl"><span data-i18n="nav_inicio">Inicio</span><span aria-hidden="true" data-i18n="nav_inicio">Inicio</span></span></a>
-          <a href="#servicios"><span class="nl"><span data-i18n="nav_prod">Productos</span><span aria-hidden="true" data-i18n="nav_prod">Productos</span></span></a>
+          <a href="#servicios"><span class="nl"><span data-i18n="nav_prod">Servicios</span><span aria-hidden="true" data-i18n="nav_prod">Servicios</span></span></a>
           <a href="#sobre-mi"><span class="nl"><span data-i18n="nav_sobre">Sobre mí</span><span aria-hidden="true" data-i18n="nav_sobre">Sobre mí</span></span></a>
           <a href="#proyectos"><span class="nl"><span data-i18n="nav_proy">Proyectos</span><span aria-hidden="true" data-i18n="nav_proy">Proyectos</span></span></a>
           <a href="#contacto"><span class="nl"><span data-i18n="nav_contacto">Contacto</span><span aria-hidden="true" data-i18n="nav_contacto">Contacto</span></span></a>
@@ -123,7 +136,7 @@
           </summary>
           <div class="menu-pop">
             <a href="#top" style="--i:0" data-i18n="nav_inicio">Inicio</a>
-            <a href="#servicios" style="--i:1" data-i18n="nav_prod">Productos</a>
+            <a href="#servicios" style="--i:1" data-i18n="nav_prod">Servicios</a>
             <a href="#sobre-mi" style="--i:2" data-i18n="nav_sobre">Sobre mí</a>
             <a href="#proyectos" style="--i:3" data-i18n="nav_proy">Proyectos</a>
             <a href="#contacto" style="--i:4" data-i18n="nav_contacto">Contacto</a>
@@ -140,8 +153,8 @@
     <section class="hero ha" id="top">
       <div class="ha-grid wrap">
         <div class="ha-txt">
-          <p class="ha-lugar"><img class="ha-avatar" src="assets/founder.jpg" width="800" height="800" alt="" aria-hidden="true"><span>Salta, Argentina</span><span class="ha-sep" aria-hidden="true">·</span><time class="ha-hora" id="haHora"></time></p>
-          <h1><span class="sr-only">David Taranto. </span><span class="ha-nombre" id="haNombre" aria-hidden="true">David Taranto</span><span class="ha-linea"><span data-i18n="hero_t">Haciendo realidad tu</span> <span class="tw-linea"><span class="tw" id="tw" data-words="idea|web|tienda&nbsp;online|sistema|app" data-words-en="idea|website|online&nbsp;store|system|app"></span><span class="caret" aria-hidden="true"></span></span></span></h1>
+          <p class="ha-lugar"><img class="ha-avatar" src="assets/founder-120.jpg" width="120" height="120" alt="" aria-hidden="true"><span>Salta, Argentina</span><span class="ha-sep" aria-hidden="true">·</span><time class="ha-hora" id="haHora"></time></p>
+          <h1><span class="sr-only">David Taranto. </span><span class="ha-nombre" id="haNombre" aria-hidden="true">David Taranto</span><span class="ha-linea"><span data-i18n="hero_t">Hago realidad tu</span> <span class="sr-only" data-i18n="hero_sr">idea, web, tienda, sistema o app</span><span class="tw-linea" aria-hidden="true"><span class="tw" id="tw" data-words="idea|web|tienda|sistema|app" data-words-en="idea|website|store|system|app"></span><span class="caret" aria-hidden="true"></span></span></span></h1>
           <p class="sub ha-sub" data-i18n="hero_sub">Desarrollo webs, tiendas online y sistemas de gestión a medida para empresas y emprendimientos. Me encargo del proyecto completo, del primer boceto al soporte.</p>
           <div class="hero-ctas">
             <!-- Botón estilo Clean Slate: gradiente animado + anillo blanco + halo -->
@@ -161,9 +174,9 @@
         <div class="ha-casos">
           <p class="ha-casos-h" data-i18n="hero_casos">Proyectos recientes</p>
           <ul>
-            <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" data-prev="assets/casos/case-aires.jpg"><img src="assets/casos/case-aires.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Aires de San Lorenzo</span><span class="ha-cs" data-i18n="c5s">Barrio privado · real estate</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
-            <li><a href="https://melou.com.ar" target="_blank" rel="noopener" data-prev="assets/casos/case-melou.jpg"><img src="assets/casos/case-melou.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">melou</span><span class="ha-cs" data-i18n="c1s">Web + reservas · retiros en Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
-            <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" data-prev="assets/casos/case-latorre.jpg"><img src="assets/casos/case-latorre.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Edificio La Torre</span><span class="ha-cs" data-i18n="c13s">Emprendimiento inmobiliario · Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" data-prev="assets/casos/case-aires.jpg"><img src="assets/casos/mini-aires.jpg" width="192" height="120" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Aires de San Lorenzo</span><span class="ha-cs" data-i18n="c5s">Barrio privado · inmobiliario</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://melou.com.ar" target="_blank" rel="noopener" data-prev="assets/casos/case-melou.jpg"><img src="assets/casos/mini-melou.jpg" width="192" height="120" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">melou</span><span class="ha-cs" data-i18n="c1s">Web + reservas · retiros en Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
+            <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" data-prev="assets/casos/case-latorre.jpg"><img src="assets/casos/mini-latorre.jpg" width="192" height="120" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Edificio La Torre</span><span class="ha-cs" data-i18n="c13s">Emprendimiento inmobiliario · Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
           </ul>
         </div>
       </div>
@@ -172,7 +185,6 @@
     <!-- ============ 4. MOBILE SHOWCASE ============ -->
     <section class="mobile-sec">
       <div class="mobile-head wrap">
-        <span class="eyebrow rebota" data-i18n="mob_eb">Pensado para el celular</span>
         <h2 class="h2" data-rv="up" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
       </div>
 
@@ -186,7 +198,7 @@
           <div class="phone"><img src="assets/mobile-9.jpg" width="360" height="780" alt="Cañada Húmeda en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-10.jpg" width="360" height="780" alt="MAVENZ en el celular" loading="lazy"></div>
         </div>
-        <div class="mtrack" aria-hidden="true">
+        <div class="mtrack" aria-hidden="true" inert>
           <div class="phone"><img src="assets/mobile-1.jpg" width="360" height="780" alt="melou en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-5.jpg" width="360" height="780" alt="Edificio La Torre en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-2.jpg" width="360" height="780" alt="Tienda BAZA en el celular" loading="lazy"></div>
@@ -203,7 +215,7 @@
           <div class="phone"><img src="assets/mobile-11.jpg" width="360" height="780" alt="Josi Compagnucci en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-12.jpg" width="360" height="780" alt="RETAZOS en el celular" loading="lazy"></div>
         </div>
-        <div class="mtrack" aria-hidden="true">
+        <div class="mtrack" aria-hidden="true" inert>
           <div class="phone"><img src="assets/mobile-7.jpg?v=2" width="360" height="780" alt="Saurium en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-8.jpg" width="360" height="780" alt="Portal de Francisco Molins en el celular" loading="lazy"></div>
           <div class="phone"><img src="assets/mobile-4.jpg" width="360" height="780" alt="Aires de San Lorenzo en el celular" loading="lazy"></div>
@@ -217,9 +229,8 @@
     <section id="servicios">
       <div class="wrap">
         <div class="sec-head" data-rv="up">
-          <span class="eyebrow" data-i18n="srv_eb">Productos</span>
           <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
-          <p class="sub" data-i18n="srv_sub">Cuatro servicios pensados para crecer juntos: podés empezar por uno y sumar el resto cuando lo necesites.</p>
+          <p class="sub" data-i18n="srv_sub">Cuatro servicios que se combinan. Podés empezar por uno y sumar los demás cuando el negocio lo pida.</p>
           <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
         </div>
 
@@ -240,16 +251,16 @@
               <div class="acc-txt">
                 <span class="srv-num">01</span>
                 <h3 data-i18n="s1_h">Webs y Tiendas</h3>
-                <p class="srv-tag" data-i18n="s1_tag">Una presencia profesional que genera confianza y convierte visitas en consultas.</p>
+                <p class="srv-tag" data-i18n="s1_tag">Tu negocio presentado con seriedad, con un camino claro de la visita a la consulta.</p>
                 <ul class="acc-list">
                   <li data-i18n="s1_l1">Web institucional o landing a medida</li>
                   <li data-i18n="s1_l2">Tienda online con pagos y envíos</li>
-                  <li data-i18n="s1_l3">Posicionamiento en Google y WhatsApp</li>
+                  <li data-i18n="s1_l3">Preparada para aparecer en Google y recibir consultas por WhatsApp</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
                   <a class="srv-casos" href="#proyectos" data-i18n="acc_casos">Ver proyectos</a>
-                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
                 </div>
               </div>
               <div class="acc-img">
@@ -261,18 +272,18 @@
 
           <article class="acc-p">
             <span class="ribbon" data-i18n="ribbon">Más pedido</span>
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s2_h">Sistemas y CRM</span></button>
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s2_h">Sistemas de gestión</span></button>
             <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
             <div class="acc-cover" aria-hidden="true">
               <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
               <canvas class="srv-obj" data-obj="sys" width="720" height="450"
                       aria-hidden="true"></canvas>
-              <h3 data-i18n="s2_h">Sistemas y CRM</h3>
+              <h3 data-i18n="s2_h">Sistemas de gestión</h3>
             </div>
             <div class="acc-body">
               <div class="acc-txt">
                 <span class="srv-num">02</span>
-                <h3 data-i18n="s2_h">Sistemas y CRM</h3>
+                <h3 data-i18n="s2_h">Sistemas de gestión</h3>
                 <p class="srv-tag" data-i18n="s2_tag">Un sistema propio para ordenar clientes, ventas y cobros en un solo lugar.</p>
                 <ul class="acc-list">
                   <li data-i18n="s2_l1">Gestión de clientes y oportunidades</li>
@@ -281,7 +292,7 @@
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
                 </div>
               </div>
               <div class="acc-img">
@@ -312,7 +323,7 @@
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
                 </div>
               </div>
               <div class="acc-img">
@@ -335,15 +346,14 @@
               <div class="acc-txt">
                 <span class="srv-num">04</span>
                 <h3 data-i18n="s4_h">Automatizaciones</h3>
-                <p class="srv-tag" data-i18n="s4_tag">Los procesos repetitivos de tu operación, resueltos sin intervención manual.</p>
+                <p class="srv-tag" data-i18n="s4_tag">Las tareas que hoy se repiten a mano todos los días, resueltas sin que nadie las toque.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s4_l1">Atención automática por WhatsApp</li>
-                  <li data-i18n="s4_l2">Flujos de trabajo en Microsoft 365</li>
-                  <li data-i18n="s4_l3">Integración entre tus herramientas</li>
+                  <li data-i18n="s4_l2">Tareas automáticas en Outlook, Excel y Teams</li>
+                  <li data-i18n="s4_l3">Conexión entre las herramientas que ya usás</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
+                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
                 </div>
               </div>
               <div class="acc-img">
@@ -359,20 +369,19 @@
     <!-- ============ 6. LAPTOP SHOWCASE (laptop 100% CSS) ============ -->
     <section class="laptop-sec" id="dt-system">
       <div class="wrap">
-        <span class="eyebrow" data-i18n="lap_eb">En funcionamiento</span>
-        <h2 class="h2" data-i18n="lap_h">Así funciona un CRM a medida.</h2>
-        <p class="sub" style="margin: 0 auto;" data-i18n="lap_sub">Recorrido por un sistema en producción, con datos de demostración.</p>
+        <h2 class="h2" data-i18n="lap_h">Así funciona un sistema a medida.</h2>
+        <p class="sub" style="margin: 0 auto;" data-i18n="lap_sub">Recorrido por un sistema en uso, con datos de ejemplo.</p>
 
         <div class="laptop" data-rv="fade">
           <div class="lap-lid">
             <span class="lap-cam" aria-hidden="true"></span>
             <div class="lap-screen">
-              <!-- Screencast real de un CRM en producción, sin nombres de clientes,
+              <!-- Screencast real de un sistema en producción, sin nombres de clientes,
                    navegado con datos ficticios. El módulo 7 de main.js lo pausa
                    fuera del viewport. -->
-              <video id="lapVideo" autoplay muted loop playsinline disablepictureinpicture
+              <video id="lapVideo" muted loop playsinline disablepictureinpicture preload="none"
                      poster="assets/laptop-poster.jpg?v=2"
-                     aria-label="Recorrido por un CRM hecho por DT System">
+                     aria-label="Recorrido por un sistema hecho por DT System">
                 <source src="assets/dt-system-demo.mp4?v=2" type="video/mp4">
               </video>
             </div>
@@ -392,15 +401,14 @@
     <section class="bento-sec" id="sobre-mi">
       <div class="wrap">
         <div class="sec-head" data-rv="down">
-          <span class="eyebrow" data-i18n="about_eb">Sobre mí</span>
           <h2 class="h2" data-i18n="about_h">La persona detrás del sistema.</h2>
         </div>
 
         <div class="bento">
           <!-- Columna de stats con count-up (IntersectionObserver, ~1s) -->
           <div class="b-stats">
-            <div class="bcard b-stat"><div class="bcard-in"><b data-count="5" data-suffix="+">5+</b><span data-i18n="st1">Años en IT</span></div></div>
-            <div class="bcard b-stat"><div class="bcard-in"><b data-count="2">2</b><span data-i18n="st2">CRMs a medida en producción</span></div></div>
+            <div class="bcard b-stat"><div class="bcard-in"><b data-count="5" data-suffix="+">5+</b><span data-i18n="st1">Años en sistemas</span></div></div>
+            <div class="bcard b-stat"><div class="bcard-in"><b data-count="2">2</b><span data-i18n="st2">Sistemas a medida en uso</span></div></div>
             <div class="bcard b-stat"><div class="bcard-in"><b>AR · MX</b><span data-i18n="st3">Webs en Argentina y México</span></div></div>
           </div>
 
@@ -408,7 +416,7 @@
           <div class="bcard b-globe">
             <div class="bcard-in">
               <h3 data-i18n="globe_h">Basado en Salta, Argentina</h3>
-              <span class="avail"><i class="dotlive" aria-hidden="true"></i> <span data-i18n="avail">DISPONIBLE · REMOTO WORLDWIDE</span></span>
+              <span class="avail"><i class="dotlive" aria-hidden="true"></i> <span data-i18n="avail">DISPONIBLE · TRABAJO REMOTO</span></span>
               <div class="globe-wrap">
                 <canvas id="globeCanvas" role="img" aria-label="Globo terráqueo punteado con Salta, Argentina, marcada"></canvas>
               </div>
@@ -435,8 +443,8 @@
               <div class="founder-txt">
                 <h4 data-i18n="f_h">Quién está detrás</h4>
                 <p data-i18n="f_p1">Administrador de sistemas en JBKnowledge, empresa de alcance global, y estudiante de Ingeniería Informática. Más de cinco años de experiencia con Microsoft 365, Azure y automatización.</p>
-                <p data-i18n="f_p2">Hoy mantengo dos CRMs a medida en producción: uno alimenta un portal inmobiliario y el otro organiza el trabajo diario de un estudio.</p>
-                <p data-i18n="f_p3">Cada proyecto tiene un único responsable, de la primera reunión a la puesta en marcha. Cuando el alcance lo requiere, sumo especialistas.</p>
+                <p data-i18n="f_p2">Hoy mantengo dos sistemas de gestión a medida en uso diario: uno alimenta un portal inmobiliario y el otro organiza el trabajo diario de un estudio.</p>
+                <p data-i18n="f_p3">De cada proyecto me encargo de la primera reunión a la puesta en marcha: un solo responsable, con nombre. Cuando el alcance lo requiere, sumo especialistas.</p>
                 <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Empezar un proyecto</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="transform: rotate(-45deg);" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                 </a>
@@ -450,10 +458,10 @@
               <h3 data-i18n="tools_h">Herramientas de trabajo</h3>
               <div class="marquee chips-mq rev">
                 <div class="mtrack">
-                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: #4FF8D2;">turso</span>
+                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
                 </div>
-                <div class="mtrack" aria-hidden="true">
-                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: #4FF8D2;">turso</span>
+                <div class="mtrack" aria-hidden="true" inert>
+                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
                 </div>
               </div>
             </div>
@@ -466,9 +474,7 @@
     <!-- Oculta hasta cargar reviews reales: sacar `hidden` y el display:none, y reemplazar los [REEMPLAZAR]. -->
     <section id="testimonios" hidden style="display:none">
       <div class="wrap" style="text-align: center;">
-        <span class="eyebrow" data-i18n="test_eb">Confianza</span>
         <h2 class="h2" data-i18n="test_h">Resultados, no promesas.</h2>
-        <span class="astnote" data-i18n="test_note">*Palabra de clientes</span>
 
         <!-- Review destacada -->
         <figure class="review">
@@ -493,7 +499,7 @@
           <div class="t-card"><p>“Respuesta a leads en segundos, demos agendadas solas. Duplicamos consultas atendidas.” [REEMPLAZAR]</p><div class="who"><span class="avatar">F</span>Federico · freelancer</div></div>
           <div class="t-card"><p>“El portal del cliente nos sacó el 80% de los mails de '¿cómo va mi proyecto?'.” [REEMPLAZAR]</p><div class="who"><span class="avatar">S</span>Sofía · consultora</div></div>
         </div>
-        <div class="mtrack" aria-hidden="true">
+        <div class="mtrack" aria-hidden="true" inert>
           <div class="t-card"><p>“Me armó el sistema de presupuestos y cobros. Lo que antes era una planilla infernal ahora son dos clics.” [REEMPLAZAR]</p><div class="who"><span class="avatar">L</span>Lucía · estudio contable</div></div>
           <div class="t-card"><p>“El bot atiende mejor que yo un lunes a la mañana. Los clientes ni se dan cuenta de que es IA.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--amber)">J</span>Julián · agencia de viajes</div></div>
           <div class="t-card"><p>“Migró todo nuestro offboarding a Azure. Cero errores desde entonces.” [REEMPLAZAR]</p><div class="who"><span class="avatar">R</span>Rodrigo · IT manager</div></div>
@@ -525,7 +531,7 @@
               <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
               <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
           </ul>
-          <ul class="marcas mtrack" aria-hidden="true">
+          <ul class="marcas mtrack" aria-hidden="true" inert>
               <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
               <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
               <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
@@ -538,8 +544,7 @@
               <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
               <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
           </ul>
-        </div>        <span class="astnote" data-i18n="mk_note">*Proyectos entregados y en uso</span>
-      </div>
+        </div>      </div>
     </section>
 
     <!-- ============ 8. CASOS — TRABAJO ENTREGADO ============
@@ -549,17 +554,16 @@
     <section id="proyectos">
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
-          <span class="eyebrow" data-i18n="cs_eb">Casos</span>
           <h2 class="h2" data-i18n="cs_h">Proyectos entregados.</h2>
           <p class="sub" data-i18n="cs_sub">Webs, tiendas y sistemas que hoy están en uso.</p>
         </div>
 
         <div class="af-chips cs-filter" id="csFilter" role="group" aria-label="Filtrar proyectos por tipo" data-i18n-aria="cs_filtro">
-          <button type="button" class="af-chip on" data-f="all" data-i18n="cs_f0">Todos</button>
-          <button type="button" class="af-chip" data-f="web" data-i18n="cs_f1">Webs y tiendas</button>
-          <button type="button" class="af-chip" data-f="sys" data-i18n="cs_f2">Sistemas y CRM</button>
-          <button type="button" class="af-chip" data-f="app" data-i18n="cs_f3">Apps móviles</button>
-          <button type="button" class="af-chip" data-f="ia" data-i18n="cs_f4">Automatizaciones</button>
+          <button type="button" aria-pressed="true" class="af-chip on" data-f="all" data-i18n="cs_f0">Todos</button>
+          <button type="button" aria-pressed="false" class="af-chip" data-f="web" data-i18n="cs_f1">Webs y tiendas</button>
+          <button type="button" aria-pressed="false" class="af-chip" data-f="sys" data-i18n="cs_f2">Sistemas de gestión</button>
+          <button type="button" aria-pressed="false" class="af-chip" data-f="app" data-i18n="cs_f3">Apps móviles</button>
+          <button type="button" aria-pressed="false" class="af-chip" data-f="ia" data-i18n="cs_f4">Automatizaciones</button>
         </div>
 
         <div class="demo-grid cs-grid" id="csGrid">
@@ -568,7 +572,7 @@
             <div class="demo-shot" data-full="assets/casos/full-latorre.webp"><img src="assets/casos/case-latorre.jpg" width="960" height="600" alt="Sitio del Edificio La Torre, emprendimiento inmobiliario en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Edificio La Torre</h3><small data-i18n="c13s">Emprendimiento inmobiliario · Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -577,7 +581,7 @@
             <div class="demo-shot" data-full="assets/casos/full-fmolins.webp"><img src="assets/casos/case-fmolins.jpg" width="960" height="600" alt="Portal inmobiliario de Francisco Molins, en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Francisco Molins</h3><small data-i18n="c14s">Portal inmobiliario · Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -585,8 +589,8 @@
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://lopezpropiedades.com" target="_blank" rel="noopener">
             <div class="demo-shot" data-full="assets/casos/full-lpz.webp"><img src="assets/casos/case-lpz.jpg" width="960" height="600" alt="Portal inmobiliario de López Propiedades, en Salta" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>López Propiedades</h3><small data-i18n="c19s">Portal inmobiliario conectado al CRM · Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <div><h3>López Propiedades</h3><small data-i18n="c19s">Portal inmobiliario conectado al sistema · Salta</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -595,7 +599,7 @@
             <div class="demo-shot" data-full="assets/casos/full-melou.webp"><img src="assets/casos/case-melou.jpg" width="960" height="600" alt="Sitio de melou, retiros de bienestar en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>melou.</h3><small data-i18n="c1s">Web + reservas · retiros en Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -604,7 +608,7 @@
             <div class="demo-shot" data-full="assets/casos/full-baza.webp"><img src="assets/casos/case-baza.jpg" width="960" height="600" alt="Tienda online de BAZA, atelier de cuero de Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>BAZA</h3><small data-i18n="c2s">Tienda a medida · atelier de cuero</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -613,7 +617,7 @@
             <div class="demo-shot" data-full="assets/casos/full-saurium.webp"><img src="assets/casos/case-saurium.jpg" width="960" height="600" alt="Sitio de Saurium, recubrimiento de chukum de la península de Yucatán" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Saurium</h3><small data-i18n="c16s">Chukum de Yucatán · bilingüe</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -622,7 +626,7 @@
             <div class="demo-shot" data-full="assets/casos/full-canada.webp"><img src="assets/casos/case-canada.jpg" width="960" height="600" alt="Sitio institucional de Cañada Húmeda, grupo agroindustrial de Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Cañada Húmeda</h3><small data-i18n="c4s">Institucional trilingüe · agro</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -630,8 +634,8 @@
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://airesdesanlorenzo.com" target="_blank" rel="noopener">
             <div class="demo-shot" data-full="assets/casos/full-aires.webp"><img src="assets/casos/case-aires.jpg" width="960" height="600" alt="Landing de Aires de San Lorenzo, barrio privado en Salta" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>Aires de San Lorenzo</h3><small data-i18n="c5s">Barrio privado · real estate</small></div>
-              <span class="live"><i aria-hidden="true"></i> Live</span>
+              <div><h3>Aires de San Lorenzo</h3><small data-i18n="c5s">Barrio privado · inmobiliario</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
@@ -664,15 +668,14 @@
           </div>
           <!-- CASOS:FIN -->
         </div>
+        <button class="btn btn-sec cs-mas" id="csMas" type="button" hidden data-i18n="cs_mas">Ver todos los proyectos</button>
       </div>
     </section>
 
     <!-- ============ 9. CTA FINAL (gigante, estilo Stökt) ============ -->
     <section id="contacto" class="cta-final">
       <div class="wrap sec-head" data-rv="zoom">
-        <span class="eyebrow" data-i18n="cta_eb">Contacto</span>
         <h2 class="h2 cta-giant" data-i18n="cta_h">HABLEMOS.</h2>
-        <span class="astnote" data-i18n="cta_note">*Sin compromiso</span>
         <p class="sub" style="margin: 0 auto 36px;" data-i18n="cta_sub">Contame qué necesitás. Completá el formulario y se abre WhatsApp o tu correo con el mensaje listo para enviar.</p>
         <!-- ============ FORMULARIO IA ============
              Sin backend (GitHub Pages): al enviar arma el mensaje y lo manda
@@ -682,7 +685,6 @@
           <div class="af-head">
             <span class="af-dot" aria-hidden="true"></span>
             <span data-i18n="af_head">Contame tu proyecto</span>
-            <span class="af-badge" data-i18n="af_badge">Respuesta en el día</span>
           </div>
 
           <div class="af-grid">
@@ -692,7 +694,7 @@
             </label>
             <label class="af-field">
               <span class="af-label"><b data-i18n="af_from">Tu negocio / proyecto</b></span>
-              <input type="text" name="negocio" enterkeyhint="next">
+              <input type="text" name="negocio" autocomplete="organization" enterkeyhint="next">
             </label>
             <label class="af-field">
               <span class="af-label"><b data-i18n="af_mail">Tu correo</b> <em data-i18n="af_opt">· opcional</em></span>
@@ -707,11 +709,11 @@
           <div class="af-field">
             <span class="af-label"><b data-i18n="af_type">¿Qué necesitás?</b></span>
             <div class="af-chips" role="group" aria-label="Tipo de proyecto" data-i18n-aria="af_tipo">
-              <button type="button" class="af-chip on" data-val="Web / Tienda" data-i18n="af_t1">Web / Tienda</button>
-              <button type="button" class="af-chip" data-val="Sistema / CRM" data-i18n="af_t2">Sistema / CRM</button>
-              <button type="button" class="af-chip" data-val="App móvil" data-i18n="af_t3">App móvil</button>
-              <button type="button" class="af-chip" data-val="Automatización IA" data-i18n="af_t4">Automatización</button>
-              <button type="button" class="af-chip" data-val="Otro" data-i18n="af_t5">Otro</button>
+              <button type="button" aria-pressed="true" class="af-chip on" data-val="Web / Tienda" data-i18n="af_t1">Web / Tienda</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-val="Sistema de gestión" data-i18n="af_t2">Sistema de gestión</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-val="App móvil" data-i18n="af_t3">App móvil</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-val="Automatización" data-i18n="af_t4">Automatización</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-val="Otro" data-i18n="af_t5">Otro</button>
             </div>
           </div>
 
@@ -725,10 +727,10 @@
                  ambos gratis, sin backend -->
             <div class="af-via" role="group" aria-label="Canal de envío" data-i18n-aria="af_via">
               <span class="af-label"><b data-i18n="af_via">Enviar por</b></span>
-              <button type="button" class="af-chip on" data-via="wa">WhatsApp</button>
-              <button type="button" class="af-chip" data-via="mail">Email</button>
+              <button type="button" aria-pressed="true" class="af-chip on" data-via="wa">WhatsApp</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-via="mail">Email</button>
             </div>
-            <span class="af-hint" id="afHint" data-i18n="af_hint">Se abre en WhatsApp con tu briefing listo para enviar.</span>
+            <span class="af-hint" id="afHint" data-i18n="af_hint">Se abre WhatsApp con tu mensaje listo para enviar.</span>
             <button type="submit" class="btn btn-ai af-send">
               <span class="spin" aria-hidden="true"></span>
               <span data-i18n="af_send">Enviar consulta</span> <span class="btn-arrow">→</span>
@@ -748,7 +750,7 @@
       <!-- Novedades por Instagram: sin lista de correo que mantener -->
       <div class="nl-bar">
         <div class="nl-txt">
-          <h4 data-i18n="nl_h">Novedades y trabajos nuevos</h4>
+          <h3 data-i18n="nl_h">Novedades y trabajos nuevos</h3>
           <p data-i18n="nl_p">Lo que voy lanzando, primero en Instagram.</p>
         </div>
         <a class="btn btn-pri nl-btn" href="https://www.instagram.com/david.taranto/" target="_blank" rel="noopener" data-i18n="nl_btn">Seguir en Instagram ↗</a>
@@ -759,7 +761,7 @@
           <p data-i18n="f_tag">Webs y sistemas a medida para negocios que quieren crecer con orden.</p>
         </div>
         <div class="f-contacto">
-          <h4 data-i18n="f_cont">Contacto</h4>
+          <h3 data-i18n="f_cont">Contacto</h3>
           <ul>
             <li><a href="https://wa.me/5493875454070" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.4 8.4 0 0 0-7.3 12.6L3.6 20.4l4.4-1.1A8.4 8.4 0 1 0 12 3.5z"/><path fill="currentColor" stroke="none" transform="translate(8.05 7.95) scale(.33)" d="M20 15.4c-1.2 0-2.4-.2-3.5-.6a1 1 0 0 0-1 .3l-1.6 2c-2.8-1.4-5.5-3.9-6.9-6.9l2-1.7c.3-.3.3-.7.2-1-.4-1.1-.6-2.3-.6-3.5 0-.5-.4-1-1-1H4.2C3.6 3 3 3.2 3 4c0 9.3 7.7 17 17 17 .7 0 1-.6 1-1.2v-3.4c0-.6-.5-1-1-1z"/></svg><span data-i18n="f_wa">WhatsApp</span></a></li>
             <li><a href="mailto:david_taranto@outlook.es"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.6 7.6 12 13l7.4-5.4"/></svg><span>david_taranto@outlook.es</span></a></li>
@@ -778,6 +780,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261019e" defer></script>
+  <script src="main.js?v=20261019h" defer></script>
 </body>
 </html>
