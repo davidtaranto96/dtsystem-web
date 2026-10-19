@@ -400,7 +400,13 @@ section { padding: 96px 0; }
 }
 /* Palabra rotante del typewriter — gradiente "IA" animado (como el
    "beauty" de Clean Slate): clip del gradiente al texto + pan en loop */
-.tw { color: var(--accent-ink); }
+.tw {
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 40%, #EC4899 70%, #52BFFE);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  animation: ai-pan 5s ease-in-out infinite;
+}
 /* La palabra va en su propio renglón y el título de arriba se equilibra solo
    (text-wrap: balance no corre si hay un <br>). "tienda online" lleva &nbsp;
    en data-words: no se parte en el espacio, y una palabra que no entra se
@@ -982,6 +988,7 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   .cursor { display: none; }
   html.cursor-on, html.cursor-on * { cursor: auto !important; }
   html.cursor-on .acc-pill, html.cursor-on .demo-ov { display: revert; }
+  .btn-ai, .btn-ai::before, .tw, .af-dot { animation: none; }  /* gradiente estático */
   .beam-card::after { animation: none; opacity: 0.4; }  /* beam estático */
   .h2 .w { opacity: 1 !important; transform: none !important; transition: none !important; }
   .dotlive::after { animation: none; }
@@ -991,9 +998,24 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
    16. ITERACIÓN v2.1 — iridiscente, border beam, bento, Stökt
    ============================================================ */
 
-/* ---------- Botón principal: celeste liso (el degradé violeta-rosa animado
-   se sacó el 2026-10-19: era la marca más típica de "hecho con IA"). */
-.btn-ai { position: relative; color: #0E0F12; border-radius: 16px; background: var(--accent); }
+/* ---------- Botón IA: gradiente animado azul→violeta→rosa en loop, anillo
+   blanco y halo difuso (el mismo gradiente en ::before con blur, en sincronía).
+   Se sacó el 2026-10-19 y volvió el mismo día a pedido de David. */
+.btn-ai {
+  position: relative; color: #0E0F12; border-radius: 16px;
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
+  background-size: 300% 100%;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  animation: ai-pan 5s ease-in-out infinite;
+  isolation: isolate;
+}
+.btn-ai::before {
+  content: ""; position: absolute; inset: -6px; border-radius: 22px; z-index: -1;
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6 35%, #EC4899 65%, #52BFFE);
+  background-size: 300% 100%;
+  filter: blur(16px); opacity: 0.65;
+  animation: ai-pan 5s ease-in-out infinite;
+}
 @media (hover: hover) { .btn-ai:hover { transform: scale(1.03); } }
 @keyframes ai-pan { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 /* En el hero, botones rectangulares redondeados como Clean Slate */
@@ -1161,7 +1183,8 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   padding-bottom: 14px; border-bottom: 1px dashed var(--line);
 }
 .af-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  background: var(--accent); }
+  background: linear-gradient(115deg, #52BFFE, #8B7CF6, #EC4899);
+  background-size: 300% 100%; animation: ai-pan 5s ease-in-out infinite; }
 .af-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 .af-field { display: flex; flex-direction: column; gap: 8px; }
 .af-label { font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.12em; text-transform: uppercase; }
@@ -1457,7 +1480,7 @@ html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
       -22deg,
       transparent 0%,
       color-mix(in srgb, var(--accent) 62%, transparent) 7%,
-      color-mix(in srgb, var(--accent-ink) 50%, transparent) 12%,
+      color-mix(in srgb, #8B7CF6 50%, transparent) 12%,
       transparent 20%),
     radial-gradient(circle at var(--pointer-x) var(--pointer-y),
       rgba(255, 255, 255, 0.30) 0%, transparent 55%);
