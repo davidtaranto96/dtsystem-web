@@ -307,9 +307,9 @@ section { padding: 96px 0; }
    avatar junto al lugar y los trabajos llevan su miniatura. */
 .hero { position: relative; padding: 132px 0 76px; }
 .ha-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 580px);
   grid-template-areas: "txt foto" "casos casos";
-  column-gap: clamp(32px, 5vw, 88px); row-gap: 72px; align-items: center;
+  column-gap: clamp(32px, 4vw, 64px); row-gap: 72px; align-items: center;
 }
 .ha-txt { grid-area: txt; }
 .ha-lugar { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin-bottom: 22px; }
@@ -317,7 +317,7 @@ section { padding: 96px 0; }
 .ha-hora { font-variant-numeric: tabular-nums; }
 .ha-avatar { display: none; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
 .ha h1 { font-size: inherit; margin-bottom: 24px; }
-.ha-nombre { display: block; font-size: clamp(3.25rem, 8vw, 6rem); line-height: 0.95; letter-spacing: -0.035em; font-weight: 500; }
+.ha-nombre { display: block; font-size: clamp(2.75rem, 5.5vw, 4.5rem); line-height: 0.95; letter-spacing: -0.035em; font-weight: 500; }
 .ha-nombre .l {
   display: inline-block; transform: translateY(calc(var(--k, 0) * -0.14em));
   color: color-mix(in srgb, var(--accent-ink) calc(var(--k, 0) * 100%), var(--text));
