@@ -1185,7 +1185,6 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .af-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
   background: linear-gradient(115deg, #52BFFE, #8B7CF6, #EC4899);
   background-size: 300% 100%; animation: ai-pan 5s ease-in-out infinite; }
-.af-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 .af-field { display: flex; flex-direction: column; gap: 8px; }
 .af-label { font-family: var(--font-mono); font-size: var(--t-min); letter-spacing: 0.12em; text-transform: uppercase; }
 .af-label b { font-weight: 400; color: var(--muted); }
@@ -1226,8 +1225,10 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .af-hint { font-family: var(--font-mono); font-size: var(--t-min); color: var(--muted); max-width: 300px; text-align: left; line-height: 1.5; }
 .af-send { margin-left: auto; }
 @media (max-width: 720px) {
-  .ai-form { padding: 20px 18px; }
-  .af-grid { grid-template-columns: minmax(0, 1fr); }
+  .ai-form { padding: 20px 18px; gap: 18px; }
+  .af-head { padding-bottom: 12px; }
+  .af-chips { gap: 6px; }
+  .af-chip { padding: 8px 12px; }
   .af-foot { flex-direction: column; align-items: stretch; }
   .af-hint { max-width: none; text-align: center; }
   .af-send { margin-left: 0; }
@@ -1249,8 +1250,25 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 }
 .nl-btn { padding: 11px 20px; font-size: var(--t-min); white-space: nowrap; flex-shrink: 0; }
 @media (max-width: 720px) {
-  .nl-bar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; text-align: center; padding: 22px 18px; }
+  .nl-bar { flex-direction: column; flex-wrap: nowrap; align-items: stretch; text-align: center; padding: 22px 18px; margin-bottom: 44px; }
   .nl-txt p { max-width: none; }
+  /* Pie del celular: todo centrado, el contacto en una fila de íconos
+     redondos y abajo el estado y la firma en dos renglones */
+  .footer { padding-top: 56px; }
+  .footer-cols { flex-direction: column; align-items: center; text-align: center; gap: 22px; padding-bottom: 36px; }
+  .f-brand { margin-bottom: 0; }
+  .f-brand p { margin-inline: auto; }
+  .f-contacto h3 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .f-contacto ul { flex-direction: row; justify-content: center; gap: 12px; margin-top: 0; }
+  .f-contacto a {
+    width: 52px; height: 52px; justify-content: center; gap: 0; border-radius: 50%;
+    border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--text);
+  }
+  .f-contacto a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 22px 0 calc(28px + env(safe-area-inset-bottom)); }
+  .footer-bottom .status { order: -1; }
+  .made { margin-left: 0; }
+  .footer-giant { font-size: 17vw; bottom: -0.12em; }
 }
 
 /* ---------- CTA final gigante (estilo Stökt) ---------- */
