@@ -303,7 +303,7 @@ section { padding: 96px 0; }
    avatar junto al lugar y los trabajos llevan su miniatura. */
 .hero { position: relative; padding: 132px 0 76px; }
 .ha-grid {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   grid-template-areas: "txt foto" "casos casos";
   column-gap: clamp(32px, 5vw, 88px); row-gap: 72px; align-items: center;
 }
@@ -325,22 +325,26 @@ section { padding: 96px 0; }
 .ha .tw-linea { display: inline; }
 .ha .ha-sub { margin: 0 0 30px; max-width: 52ch; }
 .ha .hero-ctas { justify-content: flex-start; }
-.ha-foto {
-  grid-area: foto; position: relative; margin: 0; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden;
-  border: 1px solid var(--card-border); background: var(--card);
-  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+.ha-show {
+  grid-area: foto; position: relative; margin: 0; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--card-border); background: var(--card); box-shadow: var(--shadow);
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.ha-foto img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
-  transform: scale(1.07) translate(var(--fx, 0px), var(--fy, 0px));
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+.ha-barra { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.ha-barra i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.ha-url {
+  flex: 1; margin-left: 10px; padding: 4px 12px; border-radius: 999px; text-align: center;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.ha-foto figcaption {
-  position: absolute; left: 14px; bottom: 14px; padding: 8px 13px; border-radius: 999px;
-  font-family: var(--font-mono); font-size: 0.75rem; color: var(--text);
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-}
+.ha-pant { position: relative; aspect-ratio: 16 / 10; overflow: hidden; container-type: size; background: var(--bg); }
+.ha-sl { position: absolute; left: 0; top: 0; width: 100%; height: auto; opacity: 0; transition: opacity 0.6s var(--fx-ease); }
+.ha-sl.on { opacity: 1; }
+/* recorre la pagina entera: sube la imagen hasta que su borde de abajo
+   toca el de la pantalla (100cqh es el alto de .ha-pant) */
+.ha-sl.baja { transform: translateY(calc(-100% + 100cqh)); transition: opacity 0.6s var(--fx-ease), transform var(--dur, 7s) cubic-bezier(0.45, 0, 0.55, 1); }
 .ha-casos { grid-area: casos; }
 .ha-casos-h { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); margin-bottom: 12px; }
 .ha-casos ul { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
@@ -357,18 +361,9 @@ section { padding: 96px 0; }
   .ha-casos a:hover .ha-cn, .ha-casos a:hover .ha-fl { color: var(--accent-ink); }
   .ha-casos a:hover .ha-fl { transform: translate(3px, -3px); }
 }
-/* Vista previa que sigue al puntero sobre los trabajos (solo mouse) */
-.ha-prev {
-  position: fixed; left: 0; top: 0; z-index: 30; width: 300px; aspect-ratio: 16 / 10; object-fit: cover;
-  border-radius: 12px; pointer-events: none; opacity: 0; scale: 0.85;
-  box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
-  transition: opacity 0.25s, scale 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.ha-prev:not([src]) { display: none; }
-.ha-prev.on { opacity: 1; scale: 1; }
 @media (max-width: 980px) {
   .ha-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "txt" "casos"; row-gap: 52px; }
-  .ha-foto, .ha-prev { display: none; }
+  .ha-show { display: none; }
   .ha-avatar { display: block; }
   .ha-casos ul { grid-template-columns: minmax(0, 1fr); }
   .ha-casos li + li a { padding-left: 0; border-left: 0; }
@@ -381,7 +376,7 @@ section { padding: 96px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ha-nombre .l { animation: none; transition: none; }
-  .ha-foto, .ha-foto img { transition: none; }
+  .ha-show, .ha-sl { transition: none; }
 }
 /* Palabra rotante del typewriter — gradiente "IA" animado (como el
    "beauty" de Clean Slate): clip del gradiente al texto + pan en loop */
@@ -615,8 +610,25 @@ section { padding: 96px 0; }
 /* Tarjetas grandes (corrección 2026-10-15, variante A): dos por fila desde la tableta */
 .demo-grid.cs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
 .cs-grid .demo { border-radius: 22px; box-shadow: var(--shadow); }
-.cs-grid .demo img { transition: transform 0.6s var(--fx-ease); }
-@media (hover: hover) { .cs-grid .demo:hover img { transform: scale(1.04); } }
+/* La captura vive en una ventana 16:10. Con mouse, main.js carga la pagina
+   entera (data-full) y al pasar por encima baja sola hasta el final; al
+   salir sube rapido. 100cqh es el alto de la ventana. */
+.demo-shot { position: relative; overflow: hidden; aspect-ratio: 16 / 10; container-type: size; }
+.cs-grid .demo-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.cs-grid .demo-shot .full {
+  position: absolute; left: 0; top: 0; height: auto; aspect-ratio: auto; object-fit: initial;
+  opacity: 0; transition: opacity 0.3s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.demo-shot.lista .full { opacity: 1; }
+@media (hover: hover) {
+  .cs-grid .demo:hover .demo-shot.lista .full {
+    transform: translateY(calc(-100% + 100cqh));
+    transition: opacity 0.3s, transform var(--dur, 8s) cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  /* el pill de Visitar va a la esquina, sin velo: la web tiene que verse */
+  .cs-grid .demo-ov { background: transparent; backdrop-filter: none; align-items: start; justify-items: end; padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .cs-grid .demo-shot .full { display: none; } }
 .cs-grid .demo-info { padding: 20px 24px 22px; }
 .cs-grid .demo-info h3 { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); }
 .cs-grid .demo-info small { font-size: 0.875rem; }

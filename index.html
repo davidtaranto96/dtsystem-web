@@ -8,7 +8,7 @@
 
   <!-- ============ SEO ============ -->
   <title>David Taranto — Sistemas con IA para tu negocio | DT System</title>
-  <meta name="description" content="Webs, tiendas online y CRM a medida, con automatización e IA cuando suma. Hecho en Salta, Argentina, usado en producción. 10 proyectos de clientes, 7 en línea.">
+  <meta name="description" content="Webs, tiendas online y CRM a medida, con automatización e IA cuando suma. Hecho en Salta, Argentina, usado en producción. 11 proyectos de clientes, 8 en línea.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="David Taranto — Sistemas con IA para tu negocio">
   <meta property="og:description" content="Webs, tiendas online y CRM a medida, con IA cuando suma. Hechos en Salta y usados en producción por clientes reales.">
@@ -33,7 +33,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261018e">
+  <link rel="stylesheet" href="styles.css?v=20261019b">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -142,19 +142,21 @@
         <div class="ha-txt">
           <p class="ha-lugar"><img class="ha-avatar" src="assets/founder.jpg" width="800" height="800" alt="" aria-hidden="true"><span>Salta, Argentina</span><span class="ha-sep" aria-hidden="true">·</span><time class="ha-hora" id="haHora"></time></p>
           <h1><span class="sr-only">David Taranto. </span><span class="ha-nombre" id="haNombre" aria-hidden="true">David Taranto</span><span class="ha-linea"><span data-i18n="hero_t">Haciendo realidad tu</span> <span class="tw-linea"><span class="tw" id="tw" data-words="idea|web|tienda&nbsp;online|CRM|app" data-words-en="idea|website|online&nbsp;store|CRM|app"></span><span class="caret" aria-hidden="true"></span></span></span></h1>
-          <p class="sub ha-sub" data-i18n="hero_sub">Webs, tiendas y sistemas a medida. Los diseño, los programo y los mantengo yo, desde Salta. Hoy los usan negocios de verdad.</p>
+          <p class="sub ha-sub" data-i18n="hero_sub">Desarrollo webs, tiendas online y sistemas de gestión a medida para empresas y emprendimientos. Me encargo del proyecto completo, del primer boceto al soporte.</p>
           <div class="hero-ctas">
             <!-- Botón estilo Clean Slate: gradiente animado + anillo blanco + halo -->
             <a class="btn btn-ai" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="cta_hero">Hablar por WhatsApp →</span></a>
-            <a class="btn btn-sec" href="#proyectos" data-i18n="cta_work">Ver mi trabajo</a>
+            <a class="btn btn-sec" href="#proyectos" data-i18n="cta_work">Ver proyectos</a>
           </div>
         </div>
-        <figure class="ha-foto" id="haFoto">
-          <img src="assets/founder.jpg" width="800" height="800" alt="David Taranto, fundador de DT System" fetchpriority="high">
-          <figcaption data-i18n="hero_foto">Lo hago yo, de punta a punta</figcaption>
+        <!-- Vitrina: una ventana de navegador que pasa las webs entregadas y
+             recorre cada una hacia abajo. Las diapositivas las arma main.js. -->
+        <figure class="ha-show" id="haFoto" aria-hidden="true">
+          <div class="ha-barra"><i></i><i></i><i></i><span class="ha-url" id="haUrl">airesdesanlorenzo.com</span></div>
+          <div class="ha-pant" id="haPant"><img class="ha-sl on" src="assets/casos/case-aires.jpg" width="960" height="600" alt="" fetchpriority="high"></div>
         </figure>
         <div class="ha-casos">
-          <p class="ha-casos-h" data-i18n="hero_casos">Trabajo reciente</p>
+          <p class="ha-casos-h" data-i18n="hero_casos">Proyectos recientes</p>
           <ul>
             <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" data-prev="assets/casos/case-aires.jpg"><img src="assets/casos/case-aires.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">Aires de San Lorenzo</span><span class="ha-cs" data-i18n="c5s">Barrio privado · real estate</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
             <li><a href="https://melou.com.ar" target="_blank" rel="noopener" data-prev="assets/casos/case-melou.jpg"><img src="assets/casos/case-melou.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ha-cn">melou</span><span class="ha-cs" data-i18n="c1s">Web + reservas · retiros en Salta</span><span class="ha-fl" aria-hidden="true">↗</span></a></li>
@@ -162,14 +164,13 @@
           </ul>
         </div>
       </div>
-      <img class="ha-prev" id="haPrev" alt="" aria-hidden="true">
     </section>
 
     <!-- ============ 4. MOBILE SHOWCASE ============ -->
     <section class="mobile-sec">
       <div class="mobile-head wrap">
-        <span class="eyebrow rebota" data-i18n="mob_eb">Mobile-first de verdad</span>
-        <h2 class="h2" data-rv="up" data-i18n="mob_h">Tus clientes te buscan desde el celular. Ahí se diseña primero.</h2>
+        <span class="eyebrow rebota" data-i18n="mob_eb">Pensado para el celular</span>
+        <h2 class="h2" data-rv="up" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
       </div>
 
       <!-- Marquee infinito: el track se duplica con aria-hidden="true"
@@ -215,7 +216,7 @@
         <div class="sec-head" data-rv="up">
           <span class="eyebrow" data-i18n="srv_eb">Productos</span>
           <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
-          <p class="sub" data-i18n="srv_sub">Cuatro cosas que hago. Decime cuál te falta.</p>
+          <p class="sub" data-i18n="srv_sub">Cuatro servicios pensados para crecer juntos: podés empezar por uno y sumar el resto cuando lo necesites.</p>
           <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
         </div>
 
@@ -236,15 +237,15 @@
               <div class="acc-txt">
                 <span class="srv-num">01</span>
                 <h3 data-i18n="s1_h">Webs y Tiendas</h3>
-                <p class="srv-tag" data-i18n="s1_tag">Para que te encuentren, entiendan qué hacés y te escriban.</p>
+                <p class="srv-tag" data-i18n="s1_tag">Una presencia profesional que genera confianza y convierte visitas en consultas.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s1_l1">Tu web, diseñada para tu negocio</li>
-                  <li data-i18n="s1_l2">Tienda online que cobra y envía</li>
-                  <li data-i18n="s1_l3">Visible en Google, con WhatsApp integrado</li>
+                  <li data-i18n="s1_l1">Web institucional o landing a medida</li>
+                  <li data-i18n="s1_l2">Tienda online con pagos y envíos</li>
+                  <li data-i18n="s1_l3">Posicionamiento en Google y WhatsApp</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <a class="srv-casos" href="#proyectos" data-i18n="acc_casos">Ver trabajos así</a>
+                  <a class="srv-casos" href="#proyectos" data-i18n="acc_casos">Ver proyectos</a>
                   <p class="srv-price" data-i18n="price">Precio: <b>A medida</b></p>
                 </div>
               </div>
@@ -269,11 +270,11 @@
               <div class="acc-txt">
                 <span class="srv-num">02</span>
                 <h3 data-i18n="s2_h">Sistemas y CRM</h3>
-                <p class="srv-tag" data-i18n="s2_tag">Para dejar de llevar el negocio en planillas y mensajes sueltos.</p>
+                <p class="srv-tag" data-i18n="s2_tag">Un sistema propio para ordenar clientes, ventas y cobros en un solo lugar.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s2_l1">Clientes, proyectos y tareas en un lugar</li>
-                  <li data-i18n="s2_l2">Presupuestos, facturas y números al día</li>
-                  <li data-i18n="s2_l3">Un portal donde tu cliente ve lo suyo</li>
+                  <li data-i18n="s2_l1">Gestión de clientes y oportunidades</li>
+                  <li data-i18n="s2_l2">Presupuestos, facturación y reportes</li>
+                  <li data-i18n="s2_l3">Portal de acceso para tus clientes</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
@@ -300,11 +301,11 @@
               <div class="acc-txt">
                 <span class="srv-num">03</span>
                 <h3 data-i18n="s3_h">Apps móviles</h3>
-                <p class="srv-tag" data-i18n="s3_tag">Si tu negocio tiene que vivir en el bolsillo de la gente.</p>
+                <p class="srv-tag" data-i18n="s3_tag">Aplicaciones para Android y iPhone, del prototipo a la publicación.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s3_l1">Primero un prototipo para probar la idea</li>
+                  <li data-i18n="s3_l1">Diseño y prototipo navegable</li>
                   <li data-i18n="s3_l2">Una sola app para Android y iPhone</li>
-                  <li data-i18n="s3_l3">Publicada en Google Play y App Store</li>
+                  <li data-i18n="s3_l3">Publicación en Google Play y App Store</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
@@ -319,23 +320,23 @@
           </article>
 
           <article class="acc-p">
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s4_h">Automatización IA</span></button>
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s4_h">Automatizaciones</span></button>
             <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
             <div class="acc-cover" aria-hidden="true">
               <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
               <canvas class="srv-obj" data-obj="ia" width="720" height="450"
                       aria-hidden="true"></canvas>
-              <h3 data-i18n="s4_h">Automatización IA</h3>
+              <h3 data-i18n="s4_h">Automatizaciones</h3>
             </div>
             <div class="acc-body">
               <div class="acc-txt">
                 <span class="srv-num">04</span>
-                <h3 data-i18n="s4_h">Automatización IA</h3>
-                <p class="srv-tag" data-i18n="s4_tag">Lo que hoy hacés a mano, todos los días, puede hacerse solo.</p>
+                <h3 data-i18n="s4_h">Automatizaciones</h3>
+                <p class="srv-tag" data-i18n="s4_tag">Los procesos repetitivos de tu operación, resueltos sin intervención manual.</p>
                 <ul class="acc-list">
-                  <li data-i18n="s4_l1">WhatsApp que responde cuando no estás</li>
-                  <li data-i18n="s4_l2">Tareas de Microsoft 365 que corren solas</li>
-                  <li data-i18n="s4_l3">Tus herramientas conectadas entre sí</li>
+                  <li data-i18n="s4_l1">Atención automática por WhatsApp</li>
+                  <li data-i18n="s4_l2">Flujos de trabajo en Microsoft 365</li>
+                  <li data-i18n="s4_l3">Integración entre tus herramientas</li>
                 </ul>
                 <div class="acc-pie">
                   <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
@@ -355,9 +356,9 @@
     <!-- ============ 6. LAPTOP SHOWCASE (laptop 100% CSS) ============ -->
     <section class="laptop-sec" id="dt-system">
       <div class="wrap">
-        <span class="eyebrow" data-i18n="lap_eb">Miralo funcionando</span>
-        <h2 class="h2" data-i18n="lap_h">Así trabaja un CRM mío.</h2>
-        <p class="sub" style="margin: 0 auto;" data-i18n="lap_sub">Un recorrido por uno de los CRMs que tengo en producción, con datos de demo.</p>
+        <span class="eyebrow" data-i18n="lap_eb">En funcionamiento</span>
+        <h2 class="h2" data-i18n="lap_h">Así funciona un CRM a medida.</h2>
+        <p class="sub" style="margin: 0 auto;" data-i18n="lap_sub">Recorrido por un sistema en producción, con datos de demostración.</p>
 
         <div class="laptop" data-rv="fade">
           <div class="lap-lid">
@@ -425,15 +426,15 @@
                 <span class="pf-glare" aria-hidden="true"></span>
                 <figcaption class="founder-id">
                   <h3>David Taranto</h3>
-                  <span class="role">SYSADMIN &amp; AI BUILDER — DT SYSTEM</span>
+                  <span class="role" data-i18n="f_role">Fundador · DT System</span>
                 </figcaption>
               </figure>
               <div class="founder-txt">
-                <h4 data-i18n="f_h">Quién lo hace</h4>
-                <p data-i18n="f_p1">SysAdmin en JBKnowledge (empresa global) desde Salta, Argentina. Estudiante de Ingeniería Informática, 5+ años administrando M365, Azure y automatización.</p>
-                <p data-i18n="f_p2">Hoy tengo dos CRMs a medida en producción: uno alimenta un portal inmobiliario y el otro organiza el trabajo diario de un estudio. Los diseñé, los programé y los mantengo yo.</p>
-                <p data-i18n="f_p3">Voy de la idea a la web publicada. Solo cuando alcanza; con equipo cuando el proyecto lo pide.</p>
-                <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Trabajar conmigo</span>
+                <h4 data-i18n="f_h">Quién está detrás</h4>
+                <p data-i18n="f_p1">Administrador de sistemas en JBKnowledge, empresa de alcance global, y estudiante de Ingeniería Informática. Más de cinco años de experiencia con Microsoft 365, Azure y automatización.</p>
+                <p data-i18n="f_p2">Hoy mantengo dos CRMs a medida en producción: uno alimenta un portal inmobiliario y el otro organiza el trabajo diario de un estudio.</p>
+                <p data-i18n="f_p3">Cada proyecto tiene un único responsable, de la primera reunión a la puesta en marcha. Cuando el alcance lo requiere, sumo especialistas.</p>
+                <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Empezar un proyecto</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="transform: rotate(-45deg);" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                 </a>
               </div>
@@ -443,7 +444,7 @@
           <!-- Caja de herramientas: marquee de chips; corre al revés que la cinta de marcas -->
           <div class="bcard b-tools">
             <div class="bcard-in">
-              <h3 data-i18n="tools_h">Stack de todos los días</h3>
+              <h3 data-i18n="tools_h">Herramientas de trabajo</h3>
               <div class="marquee chips-mq rev">
                 <div class="mtrack">
                   <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: #4FF8D2;">turso</span>
@@ -506,7 +507,7 @@
          estatica a proposito — un marquee sumaria loops infinitos. -->
     <section id="marcas" class="marcas-sec">
       <div class="wrap">
-        <p class="marcas-h" data-rv="down" data-i18n="mk_h">Marcas que ya confiaron</p>
+        <p class="marcas-h" data-rv="down" data-i18n="mk_h">Empresas que confían en DT System</p>
         <div class="marcas-carrusel marquee">
           <ul class="marcas mtrack">
               <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
@@ -534,7 +535,7 @@
               <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
               <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
           </ul>
-        </div>        <span class="astnote" data-i18n="mk_note">*Clientes reales, no logos de relleno</span>
+        </div>        <span class="astnote" data-i18n="mk_note">*Proyectos entregados y en uso</span>
       </div>
     </section>
 
@@ -546,8 +547,8 @@
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
           <span class="eyebrow" data-i18n="cs_eb">Casos</span>
-          <h2 class="h2" data-i18n="cs_h">Trabajo entregado.</h2>
-          <p class="sub" data-i18n="cs_sub">Webs, tiendas y sistemas que hoy usan negocios de verdad.</p>
+          <h2 class="h2" data-i18n="cs_h">Proyectos entregados.</h2>
+          <p class="sub" data-i18n="cs_sub">Webs, tiendas y sistemas que hoy están en uso.</p>
         </div>
 
         <div class="af-chips cs-filter" id="csFilter" role="group" aria-label="Filtrar proyectos por tipo" data-i18n-aria="cs_filtro">
@@ -555,13 +556,13 @@
           <button type="button" class="af-chip" data-f="web" data-i18n="cs_f1">Webs y tiendas</button>
           <button type="button" class="af-chip" data-f="sys" data-i18n="cs_f2">Sistemas y CRM</button>
           <button type="button" class="af-chip" data-f="app" data-i18n="cs_f3">Apps móviles</button>
-          <button type="button" class="af-chip" data-f="ia" data-i18n="cs_f4">Automatización IA</button>
+          <button type="button" class="af-chip" data-f="ia" data-i18n="cs_f4">Automatizaciones</button>
         </div>
 
         <div class="demo-grid cs-grid" id="csGrid">
           <!-- CASOS:INICIO -->
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://edificiolatorre.com" target="_blank" rel="noopener">
-            <img src="assets/casos/case-latorre.jpg" width="640" height="400" alt="Sitio del Edificio La Torre, emprendimiento inmobiliario en Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-latorre.webp"><img src="assets/casos/case-latorre.jpg" width="960" height="600" alt="Sitio del Edificio La Torre, emprendimiento inmobiliario en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Edificio La Torre</h3><small data-i18n="c13s">Emprendimiento inmobiliario · Salta</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -570,7 +571,7 @@
           </a>
 
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://franciscomolins.com" target="_blank" rel="noopener">
-            <img src="assets/casos/case-fmolins.jpg" width="640" height="400" alt="Portal inmobiliario de Francisco Molins, en Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-fmolins.webp"><img src="assets/casos/case-fmolins.jpg" width="960" height="600" alt="Portal inmobiliario de Francisco Molins, en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Francisco Molins</h3><small data-i18n="c14s">Portal inmobiliario · Salta</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -578,8 +579,17 @@
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
 
+          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://lopezpropiedades.com" target="_blank" rel="noopener">
+            <div class="demo-shot" data-full="assets/casos/full-lpz.webp"><img src="assets/casos/case-lpz.jpg" width="960" height="600" alt="Portal inmobiliario de López Propiedades, en Salta" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>López Propiedades</h3><small data-i18n="c19s">Portal inmobiliario conectado al CRM · Salta</small></div>
+              <span class="live"><i aria-hidden="true"></i> Live</span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
+          </a>
+
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://melou.com.ar" target="_blank" rel="noopener">
-            <img src="assets/casos/case-melou.jpg" width="640" height="400" alt="Sitio de melou, retiros de bienestar en Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-melou.webp"><img src="assets/casos/case-melou.jpg" width="960" height="600" alt="Sitio de melou, retiros de bienestar en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>melou.</h3><small data-i18n="c1s">Web + reservas · retiros en Salta</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -588,7 +598,7 @@
           </a>
 
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://baza.com.ar" target="_blank" rel="noopener">
-            <img src="assets/casos/case-baza.jpg" width="640" height="400" alt="Tienda online de BAZA, atelier de cuero de Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-baza.webp"><img src="assets/casos/case-baza.jpg" width="960" height="600" alt="Tienda online de BAZA, atelier de cuero de Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>BAZA</h3><small data-i18n="c2s">Tienda a medida · atelier de cuero</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -597,7 +607,7 @@
           </a>
 
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://sauriumchukum.com" target="_blank" rel="noopener">
-            <img src="assets/casos/case-saurium.jpg" width="640" height="400" alt="Sitio de Saurium, recubrimiento de chukum de la península de Yucatán" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-saurium.webp"><img src="assets/casos/case-saurium.jpg" width="960" height="600" alt="Sitio de Saurium, recubrimiento de chukum de la península de Yucatán" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Saurium</h3><small data-i18n="c16s">Chukum de Yucatán · bilingüe</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -606,7 +616,7 @@
           </a>
 
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://canadahumeda.com.ar" target="_blank" rel="noopener">
-            <img src="assets/casos/case-canada.jpg" width="640" height="400" alt="Sitio institucional de Cañada Húmeda, grupo agroindustrial de Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-canada.webp"><img src="assets/casos/case-canada.jpg" width="960" height="600" alt="Sitio institucional de Cañada Húmeda, grupo agroindustrial de Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Cañada Húmeda</h3><small data-i18n="c4s">Institucional trilingüe · agro</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -615,7 +625,7 @@
           </a>
 
           <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://airesdesanlorenzo.com" target="_blank" rel="noopener">
-            <img src="assets/casos/case-aires.jpg" width="640" height="400" alt="Landing de Aires de San Lorenzo, barrio privado en Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-aires.webp"><img src="assets/casos/case-aires.jpg" width="960" height="600" alt="Landing de Aires de San Lorenzo, barrio privado en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Aires de San Lorenzo</h3><small data-i18n="c5s">Barrio privado · real estate</small></div>
               <span class="live"><i aria-hidden="true"></i> Live</span>
@@ -625,7 +635,7 @@
 
           <!-- En trabajo: va sin link hasta que se publique. -->
           <div class="demo" data-cat="web">
-            <img src="assets/casos/case-mavenz.jpg" width="640" height="400" alt="Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-mavenz.webp"><img src="assets/casos/case-mavenz.jpg" width="960" height="600" alt="Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>MAVENZ</h3><small data-i18n="c12s">Comercializadora inmobiliaria · Salta</small></div>
               <span class="live off"><i aria-hidden="true"></i> <span data-i18n="st_wip">En trabajo</span></span>
@@ -634,7 +644,7 @@
 
           <!-- En trabajo: va sin link hasta que se publique. -->
           <div class="demo" data-cat="web">
-            <img src="assets/casos/case-josi.jpg" width="640" height="400" alt="Vista previa de la tienda de Josi Compagnucci, artista radicada en Barcelona" loading="lazy">
+            <div class="demo-shot"><img src="assets/casos/case-josi.jpg" width="960" height="600" alt="Vista previa de la tienda de Josi Compagnucci, artista radicada en Barcelona" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Josi Compagnucci</h3><small data-i18n="c17s">Tienda de obra original · Barcelona</small></div>
               <span class="live off"><i aria-hidden="true"></i> <span data-i18n="st_wip">En trabajo</span></span>
@@ -643,7 +653,7 @@
 
           <!-- En trabajo: va sin link hasta que se publique. -->
           <div class="demo" data-cat="web">
-            <img src="assets/casos/case-retazos.jpg" width="640" height="400" alt="Vista previa de la tienda de RETAZOS, bolsos hechos con residuo textil en Salta" loading="lazy">
+            <div class="demo-shot" data-full="assets/casos/full-retazos.webp"><img src="assets/casos/case-retazos.jpg" width="960" height="600" alt="Vista previa de la tienda de RETAZOS, bolsos hechos con residuo textil en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>RETAZOS</h3><small data-i18n="c18s">Bolsos con residuo textil · Salta</small></div>
               <span class="live off"><i aria-hidden="true"></i> <span data-i18n="st_wip">En trabajo</span></span>
@@ -657,10 +667,10 @@
     <!-- ============ 9. CTA FINAL (gigante, estilo Stökt) ============ -->
     <section id="contacto" class="cta-final">
       <div class="wrap sec-head" data-rv="zoom">
-        <span class="eyebrow" data-i18n="cta_eb">En serio</span>
+        <span class="eyebrow" data-i18n="cta_eb">Contacto</span>
         <h2 class="h2 cta-giant" data-i18n="cta_h">HABLEMOS.</h2>
-        <span class="astnote" data-i18n="cta_note">*Sin vueltas</span>
-        <p class="sub" style="margin: 0 auto 36px;" data-i18n="cta_sub">¿Tenés una idea? Contámela. Completá el briefing y se abre WhatsApp o tu correo con el mensaje listo: lo leo yo y te respondo.</p>
+        <span class="astnote" data-i18n="cta_note">*Sin compromiso</span>
+        <p class="sub" style="margin: 0 auto 36px;" data-i18n="cta_sub">Contame qué necesitás. Completá el formulario y se abre WhatsApp o tu correo con el mensaje listo para enviar.</p>
         <!-- ============ FORMULARIO IA ============
              Sin backend (GitHub Pages): al enviar arma el mensaje y lo manda
              al asistente de WhatsApp con el texto prellenado (wa.me?text=).
@@ -697,13 +707,13 @@
               <button type="button" class="af-chip on" data-val="Web / Tienda" data-i18n="af_t1">Web / Tienda</button>
               <button type="button" class="af-chip" data-val="Sistema / CRM" data-i18n="af_t2">Sistema / CRM</button>
               <button type="button" class="af-chip" data-val="App móvil" data-i18n="af_t3">App móvil</button>
-              <button type="button" class="af-chip" data-val="Automatización IA" data-i18n="af_t4">Automatización IA</button>
+              <button type="button" class="af-chip" data-val="Automatización IA" data-i18n="af_t4">Automatización</button>
               <button type="button" class="af-chip" data-val="Otro" data-i18n="af_t5">Otro</button>
             </div>
           </div>
 
           <label class="af-field">
-            <span class="af-label"><b data-i18n="af_idea">Contame la idea</b></span>
+            <span class="af-label"><b data-i18n="af_idea">Contame el proyecto</b></span>
             <textarea name="idea" rows="1" required></textarea>
           </label>
 
@@ -718,7 +728,7 @@
             <span class="af-hint" id="afHint" data-i18n="af_hint">Se abre en WhatsApp con tu briefing listo para enviar.</span>
             <button type="submit" class="btn btn-ai af-send">
               <span class="spin" aria-hidden="true"></span>
-              <span data-i18n="af_send">Enviar briefing</span> <span class="btn-arrow">→</span>
+              <span data-i18n="af_send">Enviar consulta</span> <span class="btn-arrow">→</span>
             </button>
           </div>
         </form>
@@ -743,7 +753,7 @@
       <div class="footer-cols">
         <div class="f-brand">
           <a class="logo" href="#top">dt<b>/</b>system</a>
-          <p data-i18n="f_tag">Menos tareas a mano, más tiempo para tu negocio.</p>
+          <p data-i18n="f_tag">Webs y sistemas a medida para negocios que quieren crecer con orden.</p>
         </div>
         <div class="f-contacto">
           <h4 data-i18n="f_cont">Contacto</h4>
@@ -765,6 +775,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261018e" defer></script>
+  <script src="main.js?v=20261019b" defer></script>
 </body>
 </html>
