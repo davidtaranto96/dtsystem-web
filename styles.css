@@ -777,6 +777,12 @@ section { padding: 96px 0; }
 /* ---------- 17. Acordeón de servicios (Stökt) ----------
    El panel abierto crece (transition de flex); los cerrados son franjas
    de 92px con el título en vertical. Un abierto a la vez (JS). */
+.srv-it {
+  margin-top: 32px; padding-top: 22px; border-top: 1px dashed var(--line);
+  font-size: 0.9375rem; line-height: 1.55; color: var(--muted); text-wrap: pretty;
+}
+@media (min-width: 721px) { .srv-it { text-align: center; text-wrap: balance; padding-inline: 10%; } }
+.srv-it b { font-weight: 500; color: var(--text); }
 .acc {
   display: flex; gap: 16px; margin-top: 48px; height: 540px;
   /* Full-bleed: el acordeón rompe el ancho del wrap y se extiende hasta

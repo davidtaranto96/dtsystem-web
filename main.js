@@ -699,6 +699,7 @@
     cta_work: "See projects",
     mob_h: "Most of your customers arrive on their phone. Every project is designed for that screen first.",
     srv_h: "Choose where to start.",
+    srv_it: "<b>I also handle the technical side:</b> your own domain and email, Microsoft 365 or Google Workspace, backups and access.",
     srv_sub: "Four services that work together. Start with one and add the others when the business calls for it.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
