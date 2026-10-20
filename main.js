@@ -13,7 +13,7 @@
     set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
   };
   let lang = store.get("dt-lang") || "es";   // idioma actual (ES default)
-  const MAIL = "david_taranto@outlook.es";
+  const MAIL = "contacto@dtsystem.com.ar";
 
   /* ---------- 1. TEMA (light/dark) ----------
      El default ya se aplicó con el script inline del <head> (evita flash).
