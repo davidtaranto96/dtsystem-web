@@ -198,7 +198,8 @@
       "cursor": {
         "es": "Visitar ↗",
         "en": "Visit ↗"
-      }
+      },
+      "sin_link": true
     },
     {
       "id": "casapora",
@@ -216,7 +217,8 @@
       "cursor": {
         "es": "Ver demo ↗",
         "en": "View demo ↗"
-      }
+      },
+      "sin_link": true
     },
     {
       "id": "plb",
@@ -234,14 +236,15 @@
       "cursor": {
         "es": "Ver demo ↗",
         "en": "View demo ↗"
-      }
+      },
+      "sin_link": true
     },
     {
       "id": "mavenz",
       "nombre": "MAVENZ",
       "cat": "web",
-      "url": "",
-      "estado": "en-trabajo",
+      "url": "https://mavenz.com.ar",
+      "estado": "live",
       "i18n": "c12s",
       "origen": "cliente",
       "sub": {
@@ -250,8 +253,8 @@
       },
       "alt": "Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta",
       "cursor": {
-        "es": "Ver demo ↗",
-        "en": "View demo ↗"
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
       },
       "nota": "En trabajo: va sin link hasta que se publique."
     },
