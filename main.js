@@ -733,7 +733,7 @@
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
     f_h: "Who’s behind it",
-    st1: "Years in systems", st2: "Custom systems in use", st3: "Sites in Argentina and Mexico",
+    st1: "Years in systems", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
     avail: "AVAILABLE \u00b7 REMOTE WORK",
     tools_h: "Tools I work with",
