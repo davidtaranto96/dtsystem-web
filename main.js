@@ -311,7 +311,7 @@
       v.className = "vid"; v.muted = true; v.loop = true; v.playsInline = true;
       v.setAttribute("aria-hidden", "true");
       v.addEventListener("playing", () => shot.classList.add("sonando"));
-      v.src = shot.dataset.video;
+      v.src = (matchMedia("(max-width: 720px)").matches && shot.dataset.videoCel) || shot.dataset.video;
       shot.append(v);
     }
     return v;
