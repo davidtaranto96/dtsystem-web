@@ -57,6 +57,24 @@
       }
     },
     {
+      "id": "crm-molins",
+      "nombre": "CRM Molins",
+      "cat": "sys",
+      "url": "",
+      "estado": "en-uso",
+      "i18n": "c27s",
+      "origen": "cliente",
+      "sub": {
+        "es": "CRM inmobiliario que alimenta los portales · Salta",
+        "en": "Real-estate CRM that feeds the portals · Salta"
+      },
+      "alt": "Pantalla de consultas de un CRM inmobiliario: cada contacto con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderlo",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
+    },
+    {
       "id": "melou",
       "nombre": "melou.",
       "cat": "web",
@@ -91,6 +109,24 @@
         "en": "Visit ↗"
       },
       "origen": "cliente"
+    },
+    {
+      "id": "crm-bf",
+      "nombre": "BF Studio",
+      "cat": "sys",
+      "url": "",
+      "estado": "en-uso",
+      "i18n": "c26s",
+      "origen": "cliente",
+      "sub": {
+        "es": "CRM de un estudio creativo · Salta",
+        "en": "CRM for a creative studio · Salta"
+      },
+      "alt": "Tablero de inicio del CRM de BF Studio con las tareas del día, las que vencen, la agenda y los proyectos activos",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
     },
     {
       "id": "saurium",
@@ -129,6 +165,24 @@
       "origen": "cliente"
     },
     {
+      "id": "panel-mavenz",
+      "nombre": "Panel MAVENZ",
+      "cat": "sys",
+      "url": "",
+      "estado": "en-uso",
+      "i18n": "c23s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Panel para editar la web · Salta",
+        "en": "Website editing panel · Salta"
+      },
+      "alt": "Listado de proyectos del panel de MAVENZ: cada proyecto inmobiliario con su foto, su estado en la web o en la revista y el botón para agregar uno nuevo",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
+    },
+    {
       "id": "aires",
       "nombre": "Aires de San Lorenzo",
       "cat": "web",
@@ -145,6 +199,96 @@
         "en": "Visit ↗"
       },
       "origen": "cliente"
+    },
+    {
+      "id": "casamiento",
+      "nombre": "Nos Casamos",
+      "cat": "web",
+      "url": "https://davidtaranto96.github.io/Casamiento/",
+      "estado": "live",
+      "i18n": "c22s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Invitación web con confirmación",
+        "en": "Wedding invitation with RSVP"
+      },
+      "alt": "Invitación web de casamiento con confirmación de asistencia",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
+      "id": "crm-taranto",
+      "nombre": "Estudio Taranto",
+      "cat": "sys",
+      "url": "",
+      "estado": "demo",
+      "i18n": "c24s",
+      "origen": "cliente",
+      "sub": {
+        "es": "CRM para un estudio contable",
+        "en": "CRM for an accounting firm"
+      },
+      "alt": "Tablero del CRM de un estudio contable con indicadores de clientes, trámites y vencimientos, un gráfico de facturación cobrada contra pendiente y el rendimiento del equipo",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
+    },
+    {
+      "id": "apunto",
+      "nombre": "Apunto",
+      "cat": "app",
+      "url": "",
+      "estado": "en-uso",
+      "i18n": "c25s",
+      "origen": "propio",
+      "sub": {
+        "es": "App de tareas y hábitos · Android",
+        "en": "Tasks and habits app · Android"
+      },
+      "alt": "Dos pantallas de la app Apunto: el calendario del mes con las tareas marcadas y el seguimiento de hábitos con la racha de la semana",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
+    },
+    {
+      "id": "casapora",
+      "nombre": "Casa Porã",
+      "cat": "web",
+      "url": "https://casa-pora.dtsystem.com.ar",
+      "estado": "demo",
+      "i18n": "c20s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Lodge de campo · Misiones",
+        "en": "Countryside lodge · Misiones"
+      },
+      "alt": "Demo del sitio de Casa Porã, lodge de campo en San Javier, Misiones",
+      "cursor": {
+        "es": "Ver demo ↗",
+        "en": "View demo ↗"
+      }
+    },
+    {
+      "id": "plb",
+      "nombre": "Grupo PLB",
+      "cat": "web",
+      "url": "https://plb.dtsystem.com.ar",
+      "estado": "demo",
+      "i18n": "c21s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Asesores de seguros · Salta",
+        "en": "Insurance advisors · Salta"
+      },
+      "alt": "Demo del sitio de Grupo PLB, asesores de seguros en Salta",
+      "cursor": {
+        "es": "Ver demo ↗",
+        "en": "View demo ↗"
+      }
     },
     {
       "id": "mavenz",

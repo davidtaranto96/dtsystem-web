@@ -740,23 +740,31 @@
     test_h: "Results, not promises.",
     mk_h: "Companies that trust DT System",
     f_role: "Founder · DT System",
-    cs_h: "Delivered projects.",
-    cs_sub: "Websites, stores and systems in use today.",
+    cs_h: "Projects.",
+    cs_sub: "Websites, stores and systems in use, plus demos of what I'm building. Systems are private: shown with sample data.",
     cs_f0: "All", cs_f1: "Sites & stores", cs_f2: "Management systems",
     cs_f3: "Mobile apps", cs_f4: "Automation",
     // CASOS:INICIO
     c13s: "Real-estate development · Salta",
     c14s: "Real-estate portal · Salta",
     c19s: "Real-estate portal linked to the system · Salta",
+    c27s: "Real-estate CRM that feeds the portals · Salta",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
+    c26s: "CRM for a creative studio · Salta",
     c16s: "Yucatán chukum · bilingual",
     c4s: "Trilingual corporate site · agri",
+    c23s: "Website editing panel · Salta",
     c5s: "Gated community · real estate",
+    c22s: "Wedding invitation with RSVP",
+    c24s: "CRM for an accounting firm",
+    c25s: "Tasks and habits app · Android",
+    c20s: "Countryside lodge · Misiones",
+    c21s: "Insurance advisors · Salta",
     c12s: "Real-estate brokerage · Salta",
     c17s: "Original artwork shop · Barcelona",
     c18s: "Bags made from textile waste · Salta",
-    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live",
+    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live", st_demo: "Demo", st_uso: "In use",
     // CASOS:FIN
     cta_h: "LET’S TALK.",
     cta_sub: "Tell me what you need. Fill in the form and WhatsApp or your email opens with the message ready to send.",
@@ -964,6 +972,17 @@
       });
       status.textContent = n + (lang === "en" ? " projects shown" : " proyectos visibles");
       centrarUltimaFila();
+      // las que quedan visibles se reacomodan: entran con un fundido corto y
+      // escalonado en vez de saltar a su lugar nuevo
+      if (!reduced) {
+        cards.filter((c) => !c.hidden).forEach((c, i) => {
+          c.classList.remove("cs-entra");
+          void c.offsetWidth;   // reinicia la animacion si se cambia de filtro rapido
+          c.style.setProperty("--cs-d", Math.min(i, 7) * 40 + "ms");
+          c.classList.add("cs-entra");
+          c.addEventListener("animationend", () => c.classList.remove("cs-entra"), { once: true });
+        });
+      }
     };
     centrarUltimaFila();
     // en el celular se ven cuatro y el resto queda detrás de un botón;
