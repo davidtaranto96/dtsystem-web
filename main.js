@@ -629,14 +629,75 @@
       meridians.push(line);
     }
     const salta = ll(-24.7859, -65.4117);   // Salta Capital, exacto
-    const TILT = -0.42;                 // centra la vista en ~lat -24 (Salta)
+    // Inclinación de reposo. En escritorio el globo asoma recortado como
+    // un domo: Salta va al tercio de arriba, no pegada al borde. Si se ve
+    // entero (celular), Salta va al centro.
+    const recortado = () => globeC.parentElement.clientHeight < globeC.clientWidth * 0.9;
+    let TILT0 = recortado() ? -0.78 : -0.43;
+    addEventListener("resize", () => { TILT0 = recortado() ? -0.78 : -0.43; }, { passive: true });
     const ROT0 = 65.4 * D2R;            // arranca con Salta de frente
     const SPEED = 0.0028;               // velocidad de crucero
-    let rot = ROT0, speed = SPEED, targetSpeed = SPEED;
+    const TAU = Math.PI * 2;
+    let rot = ROT0, tilt = TILT0, vRot = 0, vTilt = 0;
+    let modo = "auto";                  // auto | arrastre | inercia
+    let quietoDesde = 0;
     let visible = true, dpr = Math.min(devicePixelRatio || 1, 2);
-    // Hover: el globo desacelera a ~12% (lerp, sin frenazo seco)
-    globeC.addEventListener("mouseenter", () => { targetSpeed = SPEED * 0.12; });
-    globeC.addEventListener("mouseleave", () => { targetSpeed = SPEED; });
+
+    // Arrastrar para girar: horizontal con mouse y con el dedo; vertical
+    // solo con mouse, porque en el celular el gesto vertical es el scroll
+    // (touch-action: pan-y en el CSS).
+    let px = 0, py = 0, pt = 0, puntero = null;
+    globeC.addEventListener("pointerdown", (e) => {
+      puntero = e.pointerType;
+      globeC.setPointerCapture(e.pointerId);
+      px = e.clientX; py = e.clientY; pt = performance.now();
+      vRot = vTilt = 0; modo = "arrastre";
+      globeC.classList.add("agarrado");
+    });
+    globeC.addEventListener("pointermove", (e) => {
+      if (modo !== "arrastre") return;
+      const R = (globeC.clientWidth || 400) / 2;
+      const now = performance.now(), dt = Math.max(now - pt, 1);
+      const dr = (e.clientX - px) / R;
+      const dtl = puntero === "mouse" ? (e.clientY - py) / R : 0;
+      rot += dr; tilt = Math.max(-1.25, Math.min(0.9, tilt + dtl));
+      // velocidad suavizada, en radianes por cuadro de 16 ms
+      vRot = vRot * 0.5 + (dr / dt) * 16 * 0.5;
+      vTilt = vTilt * 0.5 + (dtl / dt) * 16 * 0.5;
+      px = e.clientX; py = e.clientY; pt = now;
+      if (reduced) drawGlobe(now);
+    });
+    const soltar = () => {
+      if (modo !== "arrastre") return;
+      globeC.classList.remove("agarrado");
+      // Si el dedo se quedó quieto antes de soltar, no hay tiro
+      if (performance.now() - pt > 90) vRot = vTilt = 0;
+      modo = reduced ? "auto" : "inercia";
+      quietoDesde = 0;
+    };
+    globeC.addEventListener("pointerup", soltar);
+    globeC.addEventListener("pointercancel", () => { vRot = vTilt = 0; soltar(); });
+
+    // Distancia angular de Salta al frente: el giro automático frena al
+    // pasar por ahí, así en cada vuelta se ve dónde está.
+    const aSalta = () => { const d = ((rot - ROT0) % TAU + TAU) % TAU; return Math.min(d, TAU - d); };
+    function paso(now) {
+      if (modo === "inercia") {
+        rot += vRot; tilt = Math.max(-1.25, Math.min(0.9, tilt + vTilt));
+        vRot *= 0.95; vTilt *= 0.9;
+        if (Math.abs(vRot) < 0.0004 && Math.abs(vTilt) < 0.0004) {
+          if (!quietoDesde) quietoDesde = now;
+          if (now - quietoDesde > 1400) { modo = "auto"; vRot = 0; }
+        }
+      } else if (modo === "auto") {
+        const d = aSalta();
+        const x = Math.min(d / 0.7, 1);
+        const meta = SPEED * (0.12 + 0.88 * x * x * (3 - 2 * x));
+        vRot += (meta - vRot) * 0.03;            // arranca y frena sin saltos
+        rot += vRot;
+        tilt += (TILT0 - tilt) * 0.02;           // vuelve solo a la inclinación de reposo
+      }
+    }
 
     // Proyecta un punto: rotación Y + tilt X. Devuelve [sx, sy, prof]
     function proj(p, cx, cy, R, cosR, sinR, cosT, sinT) {
@@ -657,7 +718,7 @@
       const ink = darkCard ? "242,242,242" : "23,24,27";
       const cx = w / 2, cy = w / 2, R = w / 2 - 6;
       const cosR = Math.cos(rot), sinR = Math.sin(rot);
-      const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
+      const cosT = Math.cos(tilt), sinT = Math.sin(tilt);
       // Contorno
       gctx.strokeStyle = `rgba(${ink},0.28)`;
       gctx.lineWidth = 1;
@@ -717,13 +778,12 @@
     }
 
     if (reduced) {
+      // Sin giro solo ni inercia: se redibuja únicamente al arrastrar
       requestAnimationFrame((t) => drawGlobe(t));
     } else {
-      // Giro completo y continuo; el hover lo frena suavemente (lerp)
       (function loop(t) {
-        if (visible) {
-          speed += (targetSpeed - speed) * 0.06;
-          rot += speed;
+        if (visible || modo !== "auto") {
+          paso(t || 0);
           drawGlobe(t || 0);
         }
         requestAnimationFrame(loop);

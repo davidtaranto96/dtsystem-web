@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023t">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023u">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023t">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023u">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261023t">
+  <link rel="stylesheet" href="styles.css?v=20261023u">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -509,7 +509,7 @@
             <div class="demo-shot" data-full="assets/casos/full-casapora.webp"><img src="assets/casos/case-casapora.jpg" width="960" height="600" alt="Demo del sitio de Casa Porã, lodge de campo en San Javier, Misiones" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Casa Porã</h3><small data-i18n="c20s">Lodge de campo · Misiones</small></div>
-              <span class="live es-demo"><i aria-hidden="true"></i> <span data-i18n="st_demo">Demo</span></span>
+              <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
 
@@ -517,7 +517,7 @@
             <div class="demo-shot" data-full="assets/casos/full-plb.webp"><img src="assets/casos/case-plb.jpg" width="960" height="600" alt="Demo del sitio de Grupo PLB, asesores de seguros en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Grupo PLB</h3><small data-i18n="c21s">Asesores de seguros · Salta</small></div>
-              <span class="live es-demo"><i aria-hidden="true"></i> <span data-i18n="st_demo">Demo</span></span>
+              <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
 
@@ -536,7 +536,7 @@
             <div class="demo-shot"><img src="assets/casos/case-josi.jpg" width="960" height="600" alt="Vista previa de la tienda de Josi Compagnucci, artista radicada en Barcelona" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>Josi Compagnucci</h3><small data-i18n="c17s">Tienda de obra original · Barcelona</small></div>
-              <span class="live off"><i aria-hidden="true"></i> <span data-i18n="st_wip">En trabajo</span></span>
+              <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
 
@@ -545,7 +545,7 @@
             <div class="demo-shot" data-full="assets/casos/full-retazos.webp"><img src="assets/casos/case-retazos.jpg" width="960" height="600" alt="Vista previa de la tienda de RETAZOS, bolsos hechos con residuo textil en Salta" loading="lazy"></div>
             <div class="demo-info">
               <div><h3>RETAZOS</h3><small data-i18n="c18s">Bolsos con residuo textil · Salta</small></div>
-              <span class="live off"><i aria-hidden="true"></i> <span data-i18n="st_wip">En trabajo</span></span>
+              <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
           <!-- CASOS:FIN -->
@@ -600,7 +600,7 @@
               <h3 data-i18n="globe_h">Basado en Salta, Argentina</h3>
               <span class="avail"><i class="dotlive" aria-hidden="true"></i> <span data-i18n="avail">DISPONIBLE · TRABAJO REMOTO</span></span>
               <div class="globe-wrap">
-                <canvas id="globeCanvas" role="img" aria-label="Globo terráqueo punteado con Salta, Argentina, marcada"></canvas>
+                <canvas id="globeCanvas" role="img" aria-label="Globo terráqueo punteado con Salta, Argentina, marcada. Se puede girar arrastrando." data-cursor="Arrastrar" data-cursor-en="Drag"></canvas>
               </div>
             </div>
           </div>
@@ -789,6 +789,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261023t" defer></script>
+  <script src="main.js?v=20261023u" defer></script>
 </body>
 </html>
