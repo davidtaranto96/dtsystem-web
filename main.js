@@ -1360,7 +1360,7 @@
     nav.appendChild(ink);
     // Marcas cuenta como Proyectos: es la misma conversación (con quién trabajé)
     const alias = { marcas: "proyectos", testimonios: "sobre-mi" };
-    const ids = ["top", "servicios", "sobre-mi", "testimonios", "marcas", "proyectos", "contacto"];
+    const ids = ["top", "servicios", "marcas", "proyectos", "sobre-mi", "testimonios", "contacto"];
     const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
     let actual = "";
     const pintar = (id) => {

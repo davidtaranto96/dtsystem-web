@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023p">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023q">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023p">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023q">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261023p">
+  <link rel="stylesheet" href="styles.css?v=20261023q">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -111,8 +111,8 @@
         <nav class="nav" aria-label="Principal" data-i18n-aria="nav">
           <a href="#top"><span class="nl"><span data-i18n="nav_inicio">Inicio</span><span aria-hidden="true" data-i18n="nav_inicio">Inicio</span></span></a>
           <a href="#servicios"><span class="nl"><span data-i18n="nav_prod">Servicios</span><span aria-hidden="true" data-i18n="nav_prod">Servicios</span></span></a>
-          <a href="#sobre-mi"><span class="nl"><span data-i18n="nav_sobre">Sobre mí</span><span aria-hidden="true" data-i18n="nav_sobre">Sobre mí</span></span></a>
           <a href="#proyectos"><span class="nl"><span data-i18n="nav_proy">Proyectos</span><span aria-hidden="true" data-i18n="nav_proy">Proyectos</span></span></a>
+          <a href="#sobre-mi"><span class="nl"><span data-i18n="nav_sobre">Sobre mí</span><span aria-hidden="true" data-i18n="nav_sobre">Sobre mí</span></span></a>
           <a href="#contacto"><span class="nl"><span data-i18n="nav_contacto">Contacto</span><span aria-hidden="true" data-i18n="nav_contacto">Contacto</span></span></a>
         </nav>
       <div class="hdr-right">
@@ -137,8 +137,8 @@
           <div class="menu-pop">
             <a href="#top" style="--i:0" data-i18n="nav_inicio">Inicio</a>
             <a href="#servicios" style="--i:1" data-i18n="nav_prod">Servicios</a>
-            <a href="#sobre-mi" style="--i:2" data-i18n="nav_sobre">Sobre mí</a>
-            <a href="#proyectos" style="--i:3" data-i18n="nav_proy">Proyectos</a>
+            <a href="#proyectos" style="--i:2" data-i18n="nav_proy">Proyectos</a>
+            <a href="#sobre-mi" style="--i:3" data-i18n="nav_sobre">Sobre mí</a>
             <a href="#contacto" style="--i:4" data-i18n="nav_contacto">Contacto</a>
           </div>
         </details>
@@ -368,118 +368,6 @@
       </div>
     </section>
 
-    <!-- ============ 7. SOBRE MÍ — BENTO GRID (franja invertida estilo Stökt) ============ -->
-    <section class="bento-sec" id="sobre-mi">
-      <div class="wrap">
-        <div class="sec-head" data-rv="down">
-          <h2 class="h2" data-i18n="about_h">La persona detrás del sistema.</h2>
-        </div>
-
-        <div class="bento">
-          <!-- Columna de stats con count-up (IntersectionObserver, ~1s) -->
-          <div class="b-stats">
-            <div class="bcard b-stat"><div class="bcard-in"><b data-count="5" data-suffix="+">5+</b><span data-i18n="st1">Años en sistemas</span></div></div>
-            <div class="bcard b-stat"><div class="bcard-in"><b>AR · MX</b><span data-i18n="st3">Webs en Argentina y México</span></div></div>
-          </div>
-
-          <!-- Globo punteado en canvas con Salta marcada (estilo Stökt) -->
-          <div class="bcard b-globe">
-            <div class="bcard-in">
-              <h3 data-i18n="globe_h">Basado en Salta, Argentina</h3>
-              <span class="avail"><i class="dotlive" aria-hidden="true"></i> <span data-i18n="avail">DISPONIBLE · TRABAJO REMOTO</span></span>
-              <div class="globe-wrap">
-                <canvas id="globeCanvas" role="img" aria-label="Globo terráqueo punteado con Salta, Argentina, marcada"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card founder (la grande) — con border beam sincronizado -->
-          <div class="bcard b-founder beam-card">
-            <div class="bcard-in founder">
-              <!-- PROMPT HIGGSFIELD (desde una foto tuya): "Retrato editorial duotono:
-                   sombras #0a0a0a y luces celeste #52BFFE, alto contraste, grano fino,
-                   fondo liso oscuro, encuadre cuadrado 1:1, estilo tech minimalista, 800x800" -->
-              <figure class="founder-fig pf-card">
-                <img src="assets/founder.jpg" width="800" height="800" alt="David Taranto" loading="lazy">
-                <!-- Capas del efecto holografico (ver styles.css §21). Van sobre la
-                     foto y debajo del nombre; puramente decorativas. -->
-                <span class="pf-shine" aria-hidden="true"></span>
-                <span class="pf-glare" aria-hidden="true"></span>
-                <figcaption class="founder-id">
-                  <h3>David Taranto</h3>
-                  <span class="role" data-i18n="f_role">Fundador · DT System</span>
-                </figcaption>
-              </figure>
-              <div class="founder-txt">
-                <h4 data-i18n="f_h">Quién está detrás</h4>
-                <p data-i18n="f_p1">Ingeniero de identidad y accesos en DXC Technology, empresa global de servicios de tecnología, y estudiante de Ingeniería Informática. Más de cinco años de experiencia con Microsoft 365, Azure y automatización.</p>
-                <p data-i18n="f_p2">Además de webs y tiendas, armo sistemas de gestión a medida: CRMs que ordenan las consultas, las tareas y los cobros de un equipo.</p>
-                <p data-i18n="f_p3">De cada proyecto me encargo de la primera reunión a la puesta en marcha: un solo responsable, con nombre. Cuando el alcance lo requiere, sumo especialistas.</p>
-                <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Empezar un proyecto</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="transform: rotate(-45deg);" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Caja de herramientas: marquee de chips; corre al revés que la cinta de marcas -->
-          <div class="bcard b-tools">
-            <div class="bcard-in">
-              <h3 data-i18n="tools_h">Herramientas de trabajo</h3>
-              <div class="marquee chips-mq rev">
-                <div class="mtrack">
-                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
-                </div>
-                <div class="mtrack" aria-hidden="true" inert>
-                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 7b. TESTIMONIOS ============ -->
-    <!-- Oculta hasta cargar reviews reales: sacar `hidden` y el display:none, y reemplazar los [REEMPLAZAR]. -->
-    <section id="testimonios" hidden style="display:none">
-      <div class="wrap" style="text-align: center;">
-        <h2 class="h2" data-i18n="test_h">Resultados, no promesas.</h2>
-
-        <!-- Review destacada -->
-        <figure class="review">
-          <svg class="review-q" width="30" height="22" viewBox="0 0 30 22" fill="currentColor" aria-hidden="true"><path d="M0 22V11.6C0 4.9 4 .8 10.7 0l1.2 3.4c-3.8.9-5.7 3-5.9 6.2H12V22H0Zm18 0V11.6C18 4.9 22 .8 28.7 0L30 3.4c-3.9.9-5.8 3-6 6.2h6.1V22H18Z"/></svg>
-          <!-- [REEMPLAZAR] review real destacada -->
-          <p>“Antes se me escapaban consultas todos los fines de semana. Ahora el bot las responde al toque, me agenda la reunión y yo solo entro a cerrar. Se pagó solo el primer mes.”</p>
-          <figcaption class="review-who">
-            <span class="avatar" aria-hidden="true">M</span>
-            <span><strong>[REEMPLAZAR] Nombre</strong> · dueño de comercio, Salta</span>
-            <span class="verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0 15 3.5 19.5 2.6 20.4 7.1 24.6 9 22.5 13 24.6 17 20.4 18.9 19.5 23.4 15 22.5 12 26 9 22.5 4.5 23.4 3.6 18.9-.6 17 1.5 13-.6 9 3.6 7.1 4.5 2.6 9 3.5Z" transform="scale(.9)"/><path d="m9.5 12.8 2 2 4-4.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Cliente verificado</span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <!-- Marquee lento de testimonios (~55s). [REEMPLAZAR] todos por reales. -->
-      <div class="marquee t-marquee" data-cursor="← Arrastrá →" data-cursor-en="← Drag →">
-        <div class="mtrack">
-          <div class="t-card"><p>“Me armó el sistema de presupuestos y cobros. Lo que antes era una planilla infernal ahora son dos clics.” [REEMPLAZAR]</p><div class="who"><span class="avatar">L</span>Lucía · estudio contable</div></div>
-          <div class="t-card"><p>“El bot atiende mejor que yo un lunes a la mañana. Los clientes ni se dan cuenta de que es IA.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--amber)">J</span>Julián · agencia de viajes</div></div>
-          <div class="t-card"><p>“Migró todo nuestro offboarding a Azure. Cero errores desde entonces.” [REEMPLAZAR]</p><div class="who"><span class="avatar">R</span>Rodrigo · IT manager</div></div>
-          <div class="t-card"><p>“Entendió el negocio antes de escribir una línea de código. Eso no es común.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--pink)">C</span>Carla · e-commerce</div></div>
-          <div class="t-card"><p>“Respuesta a leads en segundos, demos agendadas solas. Duplicamos consultas atendidas.” [REEMPLAZAR]</p><div class="who"><span class="avatar">F</span>Federico · freelancer</div></div>
-          <div class="t-card"><p>“El portal del cliente nos sacó el 80% de los mails de '¿cómo va mi proyecto?'.” [REEMPLAZAR]</p><div class="who"><span class="avatar">S</span>Sofía · consultora</div></div>
-        </div>
-        <div class="mtrack" aria-hidden="true" inert>
-          <div class="t-card"><p>“Me armó el sistema de presupuestos y cobros. Lo que antes era una planilla infernal ahora son dos clics.” [REEMPLAZAR]</p><div class="who"><span class="avatar">L</span>Lucía · estudio contable</div></div>
-          <div class="t-card"><p>“El bot atiende mejor que yo un lunes a la mañana. Los clientes ni se dan cuenta de que es IA.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--amber)">J</span>Julián · agencia de viajes</div></div>
-          <div class="t-card"><p>“Migró todo nuestro offboarding a Azure. Cero errores desde entonces.” [REEMPLAZAR]</p><div class="who"><span class="avatar">R</span>Rodrigo · IT manager</div></div>
-          <div class="t-card"><p>“Entendió el negocio antes de escribir una línea de código. Eso no es común.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--pink)">C</span>Carla · e-commerce</div></div>
-          <div class="t-card"><p>“Respuesta a leads en segundos, demos agendadas solas. Duplicamos consultas atendidas.” [REEMPLAZAR]</p><div class="who"><span class="avatar">F</span>Federico · freelancer</div></div>
-          <div class="t-card"><p>“El portal del cliente nos sacó el 80% de los mails de '¿cómo va mi proyecto?'.” [REEMPLAZAR]</p><div class="who"><span class="avatar">S</span>Sofía · consultora</div></div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ 7b. MARCAS ============
          Logos monocromos por mask-image + currentColor: heredan el color
          del tema, asi que no hacen falta variantes claro/oscuro. Fila
@@ -693,6 +581,118 @@
       </div>
     </section>
 
+    <!-- ============ 7. SOBRE MÍ — BENTO GRID (franja invertida estilo Stökt) ============ -->
+    <section class="bento-sec" id="sobre-mi">
+      <div class="wrap">
+        <div class="sec-head" data-rv="down">
+          <h2 class="h2" data-i18n="about_h">La persona detrás del sistema.</h2>
+        </div>
+
+        <div class="bento">
+          <!-- Columna de stats con count-up (IntersectionObserver, ~1s) -->
+          <div class="b-stats">
+            <div class="bcard b-stat"><div class="bcard-in"><b data-count="5" data-suffix="+">5+</b><span data-i18n="st1">Años en sistemas</span></div></div>
+            <div class="bcard b-stat"><div class="bcard-in"><b>AR · MX</b><span data-i18n="st3">Webs en Argentina y México</span></div></div>
+          </div>
+
+          <!-- Globo punteado en canvas con Salta marcada (estilo Stökt) -->
+          <div class="bcard b-globe">
+            <div class="bcard-in">
+              <h3 data-i18n="globe_h">Basado en Salta, Argentina</h3>
+              <span class="avail"><i class="dotlive" aria-hidden="true"></i> <span data-i18n="avail">DISPONIBLE · TRABAJO REMOTO</span></span>
+              <div class="globe-wrap">
+                <canvas id="globeCanvas" role="img" aria-label="Globo terráqueo punteado con Salta, Argentina, marcada"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card founder (la grande) — con border beam sincronizado -->
+          <div class="bcard b-founder beam-card">
+            <div class="bcard-in founder">
+              <!-- PROMPT HIGGSFIELD (desde una foto tuya): "Retrato editorial duotono:
+                   sombras #0a0a0a y luces celeste #52BFFE, alto contraste, grano fino,
+                   fondo liso oscuro, encuadre cuadrado 1:1, estilo tech minimalista, 800x800" -->
+              <figure class="founder-fig pf-card">
+                <img src="assets/founder.jpg" width="800" height="800" alt="David Taranto" loading="lazy">
+                <!-- Capas del efecto holografico (ver styles.css §21). Van sobre la
+                     foto y debajo del nombre; puramente decorativas. -->
+                <span class="pf-shine" aria-hidden="true"></span>
+                <span class="pf-glare" aria-hidden="true"></span>
+                <figcaption class="founder-id">
+                  <h3>David Taranto</h3>
+                  <span class="role" data-i18n="f_role">Fundador · DT System</span>
+                </figcaption>
+              </figure>
+              <div class="founder-txt">
+                <h4 data-i18n="f_h">Quién está detrás</h4>
+                <p data-i18n="f_p1">Ingeniero de identidad y accesos en DXC Technology, empresa global de servicios de tecnología, y estudiante de Ingeniería Informática. Más de cinco años de experiencia con Microsoft 365, Azure y automatización.</p>
+                <p data-i18n="f_p2">Además de webs y tiendas, armo sistemas de gestión a medida: CRMs que ordenan las consultas, las tareas y los cobros de un equipo.</p>
+                <p data-i18n="f_p3">De cada proyecto me encargo de la primera reunión a la puesta en marcha: un solo responsable, con nombre. Cuando el alcance lo requiere, sumo especialistas.</p>
+                <a class="founder-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener"><span data-i18n="f_cta">Empezar un proyecto</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="transform: rotate(-45deg);" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caja de herramientas: marquee de chips; corre al revés que la cinta de marcas -->
+          <div class="bcard b-tools">
+            <div class="bcard-in">
+              <h3 data-i18n="tools_h">Herramientas de trabajo</h3>
+              <div class="marquee chips-mq rev">
+                <div class="mtrack">
+                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
+                </div>
+                <div class="mtrack" aria-hidden="true" inert>
+                  <span class="chip" title="React"><svg viewBox="-12 -12 24 24" width="30" height="30" role="img" aria-label="React"><g stroke="#61DAFB" stroke-width="1.1" fill="none"><ellipse rx="10.5" ry="4.2"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(60)"></ellipse><ellipse rx="10.5" ry="4.2" transform="rotate(120)"></ellipse></g><circle r="1.9" fill="#61DAFB"></circle></svg></span><span class="chip" title="TypeScript"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="TypeScript"><rect width="24" height="24" rx="4" fill="#3178C6"></rect><text x="12" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FFFFFF">TS</text></svg></span><span class="chip chip-word" title="Next.js">NEXT.js</span><span class="chip" title="Tailwind CSS"><svg viewBox="0 0 24 24" width="30" height="30" role="img" aria-label="Tailwind CSS"><path d="M12 6c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C15.4 7.1 14.3 6 12 6ZM7 12c-2.7 0-4.3 1.3-5 4 1-1.3 2.2-1.8 3.5-1.5.75.2 1.3.7 1.9 1.4.9 1 2 2.1 4.3 2.1 2.7 0 4.3-1.3 5-4-1 1.3-2.2 1.8-3.5 1.5-.75-.2-1.3-.7-1.9-1.4C10.4 13.1 9.3 12 7 12Z" fill="#38BDF8"></path></svg></span><span class="chip" title="Node.js"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Node.js"><path d="M12 1.6 21.2 6.9v10.2L12 22.4 2.8 17.1V6.9Z" fill="#539E43"></path><text x="12" y="15.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">JS</text></svg></span><span class="chip" title="Python"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Python"><path d="M11.9 1.5c-2.6 0-4.4 1.1-4.4 3v2.9h4.5v.9H5c-2 0-3.5 1.6-3.5 4.2S3 16.7 5 16.7h2.2v-2.6c0-1.9 1.7-3.4 3.7-3.4h4.6c1.7 0 3-1.4 3-3.1V4.5c0-1.9-1.9-3-6.6-3ZM9.7 3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" fill="#3776AB"></path><path d="M12.1 22.5c2.6 0 4.4-1.1 4.4-3v-2.9H12v-.9h7c2 0 3.5-1.6 3.5-4.2S21 7.3 19 7.3h-2.2v2.6c0 1.9-1.7 3.4-3.7 3.4H8.5c-1.7 0-3 1.4-3 3.1v3.1c0 1.9 1.9 3 6.6 3Zm2.2-1.9a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#FFD43B"></path></svg></span><span class="chip" title="PowerShell"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="PowerShell"><rect width="24" height="24" rx="4" fill="#2671BE"></rect><path d="m6 7 5 5-5 5" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.5 17h5.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path></svg></span><span class="chip" title="Microsoft Azure"><svg viewBox="0 0 24 24" width="27" height="27" role="img" aria-label="Microsoft Azure"><path d="M13.6 2.5 5.2 19.8c-.2.4.1.9.6.9h4.1c.3 0 .5-.2.6-.4l1.6-4 4.7 4.2c.1.1.3.2.5.2h5c.5 0 .8-.6.5-1L13.6 2.5Z" fill="#0078D4"></path><path d="M13.6 2.5c-.2-.5-.9-.5-1.1 0L8.9 11l3.2 8.5 1.5-3.9-3-3.6 3.9-9.5Z" fill="#5EA0EF"></path></svg></span><span class="chip" title="Microsoft 365"><svg viewBox="0 0 24 24" width="26" height="26" role="img" aria-label="Microsoft 365"><rect x="2" y="2" width="9.4" height="9.4" fill="#F25022"></rect><rect x="12.6" y="2" width="9.4" height="9.4" fill="#7FBA00"></rect><rect x="2" y="12.6" width="9.4" height="9.4" fill="#00A4EF"></rect><rect x="12.6" y="12.6" width="9.4" height="9.4" fill="#FFB900"></rect></svg></span><span class="chip" title="Claude (Anthropic)"><svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Claude"><path d="M12 2.2l1.3 6 4.4-4.3-2.9 5.4 6-.9-5.4 2.9 5.4 2.9-6-.9 2.9 5.4-4.4-4.3-1.3 6-1.3-6-4.4 4.3 2.9-5.4-6 .9 5.4-2.9-5.4-2.9 6 .9-2.9-5.4 4.4 4.3z" fill="#D97757"></path></svg></span><span class="chip chip-word" title="GitHub">GitHub</span><span class="chip chip-word" title="Railway">Railway</span><span class="chip chip-word" title="Turso" style="color: var(--turso);">turso</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7b. TESTIMONIOS ============ -->
+    <!-- Oculta hasta cargar reviews reales: sacar `hidden` y el display:none, y reemplazar los [REEMPLAZAR]. -->
+    <section id="testimonios" hidden style="display:none">
+      <div class="wrap" style="text-align: center;">
+        <h2 class="h2" data-i18n="test_h">Resultados, no promesas.</h2>
+
+        <!-- Review destacada -->
+        <figure class="review">
+          <svg class="review-q" width="30" height="22" viewBox="0 0 30 22" fill="currentColor" aria-hidden="true"><path d="M0 22V11.6C0 4.9 4 .8 10.7 0l1.2 3.4c-3.8.9-5.7 3-5.9 6.2H12V22H0Zm18 0V11.6C18 4.9 22 .8 28.7 0L30 3.4c-3.9.9-5.8 3-6 6.2h6.1V22H18Z"/></svg>
+          <!-- [REEMPLAZAR] review real destacada -->
+          <p>“Antes se me escapaban consultas todos los fines de semana. Ahora el bot las responde al toque, me agenda la reunión y yo solo entro a cerrar. Se pagó solo el primer mes.”</p>
+          <figcaption class="review-who">
+            <span class="avatar" aria-hidden="true">M</span>
+            <span><strong>[REEMPLAZAR] Nombre</strong> · dueño de comercio, Salta</span>
+            <span class="verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0 15 3.5 19.5 2.6 20.4 7.1 24.6 9 22.5 13 24.6 17 20.4 18.9 19.5 23.4 15 22.5 12 26 9 22.5 4.5 23.4 3.6 18.9-.6 17 1.5 13-.6 9 3.6 7.1 4.5 2.6 9 3.5Z" transform="scale(.9)"/><path d="m9.5 12.8 2 2 4-4.5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Cliente verificado</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- Marquee lento de testimonios (~55s). [REEMPLAZAR] todos por reales. -->
+      <div class="marquee t-marquee" data-cursor="← Arrastrá →" data-cursor-en="← Drag →">
+        <div class="mtrack">
+          <div class="t-card"><p>“Me armó el sistema de presupuestos y cobros. Lo que antes era una planilla infernal ahora son dos clics.” [REEMPLAZAR]</p><div class="who"><span class="avatar">L</span>Lucía · estudio contable</div></div>
+          <div class="t-card"><p>“El bot atiende mejor que yo un lunes a la mañana. Los clientes ni se dan cuenta de que es IA.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--amber)">J</span>Julián · agencia de viajes</div></div>
+          <div class="t-card"><p>“Migró todo nuestro offboarding a Azure. Cero errores desde entonces.” [REEMPLAZAR]</p><div class="who"><span class="avatar">R</span>Rodrigo · IT manager</div></div>
+          <div class="t-card"><p>“Entendió el negocio antes de escribir una línea de código. Eso no es común.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--pink)">C</span>Carla · e-commerce</div></div>
+          <div class="t-card"><p>“Respuesta a leads en segundos, demos agendadas solas. Duplicamos consultas atendidas.” [REEMPLAZAR]</p><div class="who"><span class="avatar">F</span>Federico · freelancer</div></div>
+          <div class="t-card"><p>“El portal del cliente nos sacó el 80% de los mails de '¿cómo va mi proyecto?'.” [REEMPLAZAR]</p><div class="who"><span class="avatar">S</span>Sofía · consultora</div></div>
+        </div>
+        <div class="mtrack" aria-hidden="true" inert>
+          <div class="t-card"><p>“Me armó el sistema de presupuestos y cobros. Lo que antes era una planilla infernal ahora son dos clics.” [REEMPLAZAR]</p><div class="who"><span class="avatar">L</span>Lucía · estudio contable</div></div>
+          <div class="t-card"><p>“El bot atiende mejor que yo un lunes a la mañana. Los clientes ni se dan cuenta de que es IA.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--amber)">J</span>Julián · agencia de viajes</div></div>
+          <div class="t-card"><p>“Migró todo nuestro offboarding a Azure. Cero errores desde entonces.” [REEMPLAZAR]</p><div class="who"><span class="avatar">R</span>Rodrigo · IT manager</div></div>
+          <div class="t-card"><p>“Entendió el negocio antes de escribir una línea de código. Eso no es común.” [REEMPLAZAR]</p><div class="who"><span class="avatar" style="background:var(--pink)">C</span>Carla · e-commerce</div></div>
+          <div class="t-card"><p>“Respuesta a leads en segundos, demos agendadas solas. Duplicamos consultas atendidas.” [REEMPLAZAR]</p><div class="who"><span class="avatar">F</span>Federico · freelancer</div></div>
+          <div class="t-card"><p>“El portal del cliente nos sacó el 80% de los mails de '¿cómo va mi proyecto?'.” [REEMPLAZAR]</p><div class="who"><span class="avatar">S</span>Sofía · consultora</div></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 9. CTA FINAL (gigante, estilo Stökt) ============ -->
     <section id="contacto" class="cta-final">
       <div class="wrap sec-head" data-rv="zoom">
@@ -790,6 +790,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261023p" defer></script>
+  <script src="main.js?v=20261023q" defer></script>
 </body>
 </html>
