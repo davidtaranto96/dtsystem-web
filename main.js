@@ -300,6 +300,41 @@
     });
   }
 
+  /* Cards de sistemas: un recorrido grabado del CRM. Con mouse arranca al
+     entrar y se pausa al salir; en el celular, mientras la card está a la
+     vista. El video se pide recién la primera vez, nunca al cargar. */
+  const vidShots = reduced ? [] : $$(".demo-shot[data-video]");
+  const montarVideo = (shot) => {
+    let v = shot.querySelector("video");
+    if (!v) {
+      v = document.createElement("video");
+      v.className = "vid"; v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute("aria-hidden", "true");
+      v.addEventListener("playing", () => shot.classList.add("sonando"));
+      v.src = shot.dataset.video;
+      shot.append(v);
+    }
+    return v;
+  };
+  const sonar = (shot) => { montarVideo(shot).play().catch(() => {}); };
+  const callar = (shot) => {
+    const v = shot.querySelector("video");
+    shot.classList.remove("sonando");
+    if (v) v.pause();
+  };
+  if (vidShots.length && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    vidShots.forEach((shot) => {
+      const card = shot.closest(".demo");
+      card.addEventListener("pointerenter", () => sonar(shot));
+      card.addEventListener("pointerleave", () => callar(shot));
+    });
+  } else if (vidShots.length && "IntersectionObserver" in window && !navigator.connection?.saveData) {
+    const vio = new IntersectionObserver((ents) => {
+      ents.forEach((en) => (en.isIntersecting ? sonar(en.target) : callar(en.target)));
+    }, { threshold: 0.6 });
+    vidShots.forEach((shot) => vio.observe(shot));
+  }
+
   /* ---------- 5. PARALLAX de los screenshots flotantes ----------
      data-depth 2..4 → desplazamiento máx ~18px. Batched con rAF. */
   const floats = $$(".float");
@@ -748,10 +783,10 @@
     c13s: "Real-estate development · Salta",
     c14s: "Real-estate portal · Salta",
     c19s: "Real-estate portal linked to the system · Salta",
-    c28s: "Demo with made-up data",
+    c28s: "Inquiries, listings and visits",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
-    c29s: "Demo with made-up data",
+    c29s: "Tasks, projects, schedule and payments",
     c16s: "Yucatán chukum · bilingual",
     c4s: "Trilingual corporate site · agri",
     c5s: "Gated community · real estate",
@@ -772,6 +807,10 @@
     af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
     af_idea: "Your idea, in a few words",
     cs_mas: "See all projects",
+    sys_h: "Management systems",
+    sys_sub: "Custom CRMs that keep a team's inquiries, tasks and payments in order. Shown with made-up data.",
+    app_h: "Mobile apps",
+    app_sub: "My own apps, published on the store.",
     af_hint: "Opens WhatsApp with your message ready to send.",
     af_send: "Send inquiry",
     f_tag: "Custom websites and systems for businesses that want to grow in an orderly way.",
