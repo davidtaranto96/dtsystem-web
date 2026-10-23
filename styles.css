@@ -1159,6 +1159,15 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
   font-size: 0.8125rem; color: var(--it); text-decoration: none;
 }
 @media (hover: hover) { .founder-cta:hover { color: var(--accent-ink); } }
+/* LinkedIn para verificar lo que dice el texto: discreto, mismo gris que los párrafos */
+.founder-in {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; margin: -6px 0 -10px;
+  font-size: 0.8125rem; color: var(--imut); text-decoration: none;
+  transition: color var(--fx-rapido) var(--fx-ease);
+}
+.founder-in svg { flex: none; }
+@media (hover: hover) { .founder-in:hover { color: var(--accent-ink); } }
 
 /* Card del globo (Stökt): título + disponibilidad arriba, globo punteado
    en canvas abajo, recortado por overflow para que "asome" del card. */

@@ -786,6 +786,7 @@
     f_p2: "Besides websites and stores, I build custom management systems: CRMs that keep a team's inquiries, tasks and payments in order.",
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
+    f_in: "See my LinkedIn profile",
     f_h: "Who’s behind it",
     st1: "Years in systems", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
