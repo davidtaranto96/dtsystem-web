@@ -329,9 +329,28 @@
       card.addEventListener("pointerleave", () => callar(shot));
     });
   } else if (vidShots.length && "IntersectionObserver" in window && !navigator.connection?.saveData) {
+    // suena uno solo: de los que se ven en más de un 60 %, el más cerca del
+    // centro de la pantalla (las dos cards caben enteras en un celular alto)
+    const vistos = new Map();
+    const elegir = () => {
+      let mejor = null, dist = Infinity;
+      vistos.forEach((r, shot) => {
+        if (r < 0.6) return;
+        const b = shot.getBoundingClientRect();
+        const d = Math.abs(b.top + b.height / 2 - innerHeight / 2);
+        if (d < dist) { mejor = shot; dist = d; }
+      });
+      vidShots.forEach((shot) => (shot === mejor ? sonar(shot) : callar(shot)));
+    };
     const vio = new IntersectionObserver((ents) => {
-      ents.forEach((en) => (en.isIntersecting ? sonar(en.target) : callar(en.target)));
-    }, { threshold: 0.6 });
+      ents.forEach((en) => vistos.set(en.target, en.intersectionRatio));
+      elegir();
+    }, { threshold: [0, 0.6, 0.8, 1] });
+    let pend = 0;
+    addEventListener("scroll", () => {
+      if (pend || ![...vistos.values()].some((r) => r >= 0.6)) return;
+      pend = setTimeout(() => { pend = 0; elegir(); }, 150);
+    }, { passive: true });
     vidShots.forEach((shot) => vio.observe(shot));
   }
 
