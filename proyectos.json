@@ -57,24 +57,6 @@
       }
     },
     {
-      "id": "crm-molins",
-      "nombre": "CRM Molins",
-      "cat": "sys",
-      "url": "",
-      "estado": "en-uso",
-      "i18n": "c27s",
-      "origen": "cliente",
-      "sub": {
-        "es": "CRM inmobiliario que alimenta los portales · Salta",
-        "en": "Real-estate CRM that feeds the portals · Salta"
-      },
-      "alt": "Pantalla de consultas de un CRM inmobiliario: cada contacto con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderlo",
-      "cursor": {
-        "es": "",
-        "en": ""
-      }
-    },
-    {
       "id": "melou",
       "nombre": "melou.",
       "cat": "web",
@@ -109,24 +91,6 @@
         "en": "Visit ↗"
       },
       "origen": "cliente"
-    },
-    {
-      "id": "crm-bf",
-      "nombre": "BF Studio",
-      "cat": "sys",
-      "url": "",
-      "estado": "en-uso",
-      "i18n": "c26s",
-      "origen": "cliente",
-      "sub": {
-        "es": "CRM de un estudio creativo · Salta",
-        "en": "CRM for a creative studio · Salta"
-      },
-      "alt": "Tablero de inicio del CRM de BF Studio con las tareas del día, las que vencen, la agenda y los proyectos activos",
-      "cursor": {
-        "es": "",
-        "en": ""
-      }
     },
     {
       "id": "saurium",
