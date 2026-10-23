@@ -121,6 +121,13 @@ def tarjeta(c):
            f'alt="{c["alt"]}" loading="lazy"></div>')
     if c["estado"] == "live":
         badge = '<span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>'
+    elif c["estado"] == "en-uso":
+        # sistema privado que el cliente usa todos los dias: no tiene link publico
+        badge = '<span class="live"><i aria-hidden="true"></i> <span data-i18n="st_uso">En uso</span></span>'
+    elif c["estado"] == "demo":
+        # propuesta publicada en el dominio de David: se visita, pero no es un sitio entregado
+        badge = ('<span class="live es-demo"><i aria-hidden="true"></i> '
+                 '<span data-i18n="st_demo">Demo</span></span>')
     elif c["estado"] == "en-trabajo":
         # sin link y con su foto: la vista previa de lo que todavia no se publico
         badge = ('<span class="live off"><i aria-hidden="true"></i> '
@@ -178,7 +185,7 @@ def build(doc):
 
     js = JS.read_text(encoding="utf-8")
     i18n = "\n".join(f'    {c["i18n"]}: "{c["sub"]["en"]}",' for c in casos)
-    i18n += '\n    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live",'
+    i18n += '\n    or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live", st_demo: "Demo", st_uso: "In use",'
     js = entre_marcadores(js, "// CASOS:INICIO", "// CASOS:FIN", i18n, "el i18n en main.js")
     JS.write_text(js, encoding="utf-8")
 
@@ -187,10 +194,12 @@ def build(doc):
 
 
 def numeros(casos):
-    vivos = sum(1 for c in casos if c["url"].startswith("http"))
-    propios = sum(1 for c in casos
-                  if c["url"] and "github.io" not in c["url"] and "railway.app" not in c["url"])
-    return len(casos), vivos, propios
+    # cuentan los trabajos para clientes; las demos no son sitios entregados
+    clientes = [c for c in casos if c.get("origen") != "propio"]
+    vivos = sum(1 for c in clientes if c["estado"] == "live" and c["url"].startswith("http"))
+    propios = sum(1 for c in clientes if c["estado"] == "live" and c["url"]
+                  and "github.io" not in c["url"] and "railway.app" not in c["url"])
+    return len(clientes), vivos, propios
 
 
 # ---------------------------------------------------------------- og
