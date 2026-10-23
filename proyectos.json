@@ -165,24 +165,6 @@
       "origen": "cliente"
     },
     {
-      "id": "panel-mavenz",
-      "nombre": "Panel MAVENZ",
-      "cat": "sys",
-      "url": "",
-      "estado": "en-uso",
-      "i18n": "c23s",
-      "origen": "cliente",
-      "sub": {
-        "es": "Panel para editar la web · Salta",
-        "en": "Website editing panel · Salta"
-      },
-      "alt": "Listado de proyectos del panel de MAVENZ: cada proyecto inmobiliario con su foto, su estado en la web o en la revista y el botón para agregar uno nuevo",
-      "cursor": {
-        "es": "",
-        "en": ""
-      }
-    },
-    {
       "id": "aires",
       "nombre": "Aires de San Lorenzo",
       "cat": "web",
@@ -216,42 +198,6 @@
       "cursor": {
         "es": "Visitar ↗",
         "en": "Visit ↗"
-      }
-    },
-    {
-      "id": "crm-taranto",
-      "nombre": "Estudio Taranto",
-      "cat": "sys",
-      "url": "",
-      "estado": "demo",
-      "i18n": "c24s",
-      "origen": "cliente",
-      "sub": {
-        "es": "CRM para un estudio contable",
-        "en": "CRM for an accounting firm"
-      },
-      "alt": "Tablero del CRM de un estudio contable con indicadores de clientes, trámites y vencimientos, un gráfico de facturación cobrada contra pendiente y el rendimiento del equipo",
-      "cursor": {
-        "es": "",
-        "en": ""
-      }
-    },
-    {
-      "id": "apunto",
-      "nombre": "Apunto",
-      "cat": "app",
-      "url": "",
-      "estado": "en-uso",
-      "i18n": "c25s",
-      "origen": "propio",
-      "sub": {
-        "es": "App de tareas y hábitos · Android",
-        "en": "Tasks and habits app · Android"
-      },
-      "alt": "Dos pantallas de la app Apunto: el calendario del mes con las tareas marcadas y el seguimiento de hábitos con la racha de la semana",
-      "cursor": {
-        "es": "",
-        "en": ""
       }
     },
     {
