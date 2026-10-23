@@ -57,6 +57,24 @@
       }
     },
     {
+      "id": "crm-inmo",
+      "nombre": "CRM inmobiliario",
+      "cat": "sys",
+      "url": "",
+      "estado": "demo",
+      "i18n": "c28s",
+      "origen": "propio",
+      "sub": {
+        "es": "Demo con datos inventados",
+        "en": "Demo with made-up data"
+      },
+      "alt": "Demo de un CRM inmobiliario con datos inventados: cada consulta con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderla",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
+    },
+    {
       "id": "melou",
       "nombre": "melou.",
       "cat": "web",
@@ -91,6 +109,24 @@
         "en": "Visit ↗"
       },
       "origen": "cliente"
+    },
+    {
+      "id": "crm-estudio",
+      "nombre": "CRM de un estudio",
+      "cat": "sys",
+      "url": "",
+      "estado": "demo",
+      "i18n": "c29s",
+      "origen": "propio",
+      "sub": {
+        "es": "Demo con datos inventados",
+        "en": "Demo with made-up data"
+      },
+      "alt": "Demo del tablero de inicio de un CRM para estudios con datos inventados: tareas del día, vencimientos, agenda y proyectos activos",
+      "cursor": {
+        "es": "",
+        "en": ""
+      }
     },
     {
       "id": "saurium",
