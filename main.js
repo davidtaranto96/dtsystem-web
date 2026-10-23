@@ -729,7 +729,7 @@
     lap_sub: "A walkthrough of a system in use, with sample data.",
     about_h: "The person behind the system.",
     f_p1: "Identity & Access Engineer at DXC Technology, a global IT services company, and Computer Engineering student. Over five years of experience with Microsoft 365, Azure and automation.",
-    f_p2: "Today I maintain two custom management systems in daily use: one powers a real estate portal and the other runs the daily work of a firm.",
+    f_p2: "Besides websites and stores, I build custom management systems: CRMs that keep a team's inquiries, tasks and payments in order.",
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
     f_h: "Who’s behind it",
