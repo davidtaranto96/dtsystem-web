@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023u">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023v">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023u">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261023v">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261023u">
+  <link rel="stylesheet" href="styles.css?v=20261023v">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -498,13 +498,32 @@
           </a>
 
           <div class="demo" data-cat="web">
-            <div class="demo-shot"><img src="assets/casos/case-casamiento.jpg" width="960" height="600" alt="Invitación web de casamiento con confirmación de asistencia" loading="lazy"></div>
+            <div class="demo-shot" data-video="assets/casos/video-casamiento.mp4"><img src="assets/casos/case-casamiento.jpg" width="960" height="600" alt="Invitación web de casamiento con confirmación de asistencia" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>Nos Casamos</h3><small data-i18n="c22s">Invitación web con confirmación</small></div>
+              <div><h3>Nos Casamos</h3><small data-i18n="c22s">Invitaciones digitales para casamientos</small></div>
               <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
             </div>
           </div>
 
+          <!-- En trabajo: va sin link hasta que se publique. -->
+          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://mavenz.com.ar" target="_blank" rel="noopener">
+            <div class="demo-shot" data-full="assets/casos/full-mavenz.webp"><img src="assets/casos/case-mavenz.jpg" width="960" height="600" alt="Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>MAVENZ</h3><small data-i18n="c12s">Comercializadora inmobiliaria · Salta</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
+          </a>
+          <!-- CASOS:FIN -->
+        </div>
+        <button class="btn btn-sec cs-mas" id="csMas" type="button" hidden data-i18n="cs_mas">Ver todos los proyectos</button>
+
+        <!-- BLOQUES:INICIO -->
+        <div class="sys-head" data-rv="fade">
+          <h3 class="sys-h" data-i18n="wip_h">Próximos en salir</h3>
+          <p class="sub" data-i18n="wip_sub">Trabajos para clientes que estoy haciendo ahora.</p>
+        </div>
+        <div class="demo-grid cs-grid sys-grid" id="wipGrid">
           <div class="demo" data-cat="web">
             <div class="demo-shot" data-full="assets/casos/full-casapora.webp"><img src="assets/casos/case-casapora.jpg" width="960" height="600" alt="Demo del sitio de Casa Porã, lodge de campo en San Javier, Misiones" loading="lazy"></div>
             <div class="demo-info">
@@ -520,16 +539,6 @@
               <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
-
-          <!-- En trabajo: va sin link hasta que se publique. -->
-          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://mavenz.com.ar" target="_blank" rel="noopener">
-            <div class="demo-shot" data-full="assets/casos/full-mavenz.webp"><img src="assets/casos/case-mavenz.jpg" width="960" height="600" alt="Vista previa del sitio de MAVENZ, comercializadora inmobiliaria de Salta" loading="lazy"></div>
-            <div class="demo-info">
-              <div><h3>MAVENZ</h3><small data-i18n="c12s">Comercializadora inmobiliaria · Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
-            </div>
-            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
-          </a>
 
           <!-- En trabajo: va sin link hasta que se publique. -->
           <div class="demo" data-cat="web">
@@ -548,11 +557,8 @@
               <span class="live es-wip"><span data-i18n="st_wip">En desarrollo</span><span class="wip-bar" aria-hidden="true"></span></span>
             </div>
           </div>
-          <!-- CASOS:FIN -->
         </div>
-        <button class="btn btn-sec cs-mas" id="csMas" type="button" hidden data-i18n="cs_mas">Ver todos los proyectos</button>
 
-        <!-- BLOQUES:INICIO -->
         <div class="sys-head" data-rv="fade">
           <h3 class="sys-h" data-i18n="sys_h">Sistemas de gestión</h3>
           <p class="sub" data-i18n="sys_sub">CRMs a medida para ordenar las consultas, las tareas y los cobros de un equipo. Se muestran con datos inventados.</p>
@@ -789,6 +795,6 @@
 
   <script src="assets/land-data.js" defer></script>
   <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261023u" defer></script>
+  <script src="main.js?v=20261023v" defer></script>
 </body>
 </html>
