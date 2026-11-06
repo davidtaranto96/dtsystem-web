@@ -1329,6 +1329,8 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
     border: 1px solid var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); color: var(--text);
   }
   .f-contacto a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .f-servicios ul { flex-wrap: wrap; gap: 0 18px; }
+  .f-servicios a { width: auto; height: auto; min-height: 44px; border: 0; border-radius: 0; background: none; color: var(--muted); }
   .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 22px 0 calc(28px + env(safe-area-inset-bottom)); }
   .footer-bottom .status { order: -1; }
   .made { margin-left: 0; }
@@ -1783,3 +1785,40 @@ html.nav-lejos .hdr-pill {
 .faq-item p { color: var(--muted); max-width: 640px; padding: 0 0 18px; margin: 0; }
 @media (hover: hover) { .faq-item summary:hover { color: var(--accent-ink); } }
 @media (prefers-reduced-motion: reduce) { .faq-mas::before, .faq-mas::after { transition: none; } }
+
+/* ============ Páginas de servicio (/diseno-web/, ...) ============ */
+.svc-hero { padding: 72px 0 48px; }
+.svc-bread { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.svc-bread a { color: var(--muted); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+@media (hover: hover) { .svc-bread a:hover { color: var(--accent-ink); } }
+.svc-h1 { font-size: clamp(2.25rem, 7vw, 4.25rem); line-height: 1.04; letter-spacing: -0.025em; font-weight: 500; margin: 12px 0 20px; max-width: 16ch; text-wrap: balance; }
+.svc-lead { font-size: clamp(1.0625rem, 2vw, 1.25rem); line-height: 1.55; color: var(--muted); max-width: 62ch; }
+.svc-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.svc-sec { padding: 64px 0; }
+.svc-sec .h2 { margin-top: 0; }
+.svc-grid { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: 1fr; gap: 14px; }
+.svc-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 20px 22px; }
+.svc-card h3 { font-size: 1.0625rem; font-weight: 500; margin: 0 0 6px; }
+.svc-card p { color: var(--muted); margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+.svc-para { margin-top: 28px; max-width: 62ch; color: var(--muted); line-height: 1.6; }
+.svc-para b { color: var(--text); font-weight: 500; }
+.svc-para a, .svc-lead a { color: var(--accent-ink); }
+.svc-pasos { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+.svc-pasos li { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.svc-n { grid-row: span 2; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent-ink); padding-top: 4px; }
+.svc-pasos h3 { font-size: 1.0625rem; font-weight: 500; margin: 0 0 4px; }
+.svc-pasos p { color: var(--muted); margin: 0; line-height: 1.5; }
+.svc-faq { margin-left: 0; }
+.svc-fin { text-align: left; }
+.svc-otros { margin-top: 48px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; }
+.svc-otros > span { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); width: 100%; }
+.svc-otro { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; font-weight: 500; }
+@media (hover: hover) { .svc-otro:hover { color: var(--accent-ink); } }
+.svc-page .cs-grid { margin-top: 28px; }
+@media (min-width: 720px) {
+  .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .svc-pasos { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; border-top: 0; }
+  .svc-pasos li { grid-template-columns: 1fr; border-bottom: 0; border-top: 1px solid var(--line); padding-top: 20px; }
+  .svc-n { grid-row: auto; margin-bottom: 10px; }
+}
+@media (min-width: 1024px) { .svc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .svc-hero { padding: 104px 0 56px; } }

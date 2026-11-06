@@ -19,6 +19,10 @@
 ## Enlaces
 
 - [Sitio y proyectos](https://dtsystem.com.ar/): portfolio con webs, tiendas y sistemas en uso.
+- [Diseño de páginas web](https://dtsystem.com.ar/diseno-web/): webs institucionales y landings a medida.
+- [Tiendas online](https://dtsystem.com.ar/tiendas-online/): tiendas en Shopify con theme propio.
+- [Sistemas de gestión](https://dtsystem.com.ar/sistemas-de-gestion/): CRM y sistemas internos a medida.
+- [Automatizaciones](https://dtsystem.com.ar/automatizaciones/): procesos repetitivos resueltos con n8n.
 - [Preguntas frecuentes](https://dtsystem.com.ar/#preguntas)
 - [Contacto](https://dtsystem.com.ar/#contacto): WhatsApp +54 9 387 545-4070, contacto@dtsystem.com.ar
 - [LinkedIn de David Taranto](https://www.linkedin.com/in/david-taranto/)

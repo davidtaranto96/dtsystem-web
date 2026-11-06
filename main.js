@@ -815,6 +815,7 @@
     srv_h: "Choose where to start.",
     srv_it: "<b>I also handle the technical side:</b> your own domain and email, Microsoft 365 or Google Workspace, backups and access.",
     faq_h: "Frequently asked questions.",
+    lk_web: "Web design", lk_tienda: "Online stores", lk_sys: "About this service", lk_auto: "About this service", f_serv: "Services",
     faq_q1: "How much does a website or a system cost?",
     faq_a1: "It depends on the scope. Before starting I send you a quote split into stages, with what it includes and what it doesn't, paid in three installments.",
     faq_q2: "How long does it take?",
