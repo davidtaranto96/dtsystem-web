@@ -1822,3 +1822,30 @@ html.nav-lejos .hdr-pill {
   .svc-n { grid-row: auto; margin-bottom: 10px; }
 }
 @media (min-width: 1024px) { .svc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .svc-hero { padding: 104px 0 56px; } }
+
+/* Aviso de cookies: una línea, abajo a la izquierda en escritorio y barra al pie
+   en el celular. Lo monta medicion.js colgando de <body>. */
+.ck {
+  position: fixed; z-index: 90; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 14px; padding: 10px 10px 10px 16px;
+  background: var(--card); color: var(--text); border: 1px solid var(--card-border);
+  border-radius: 14px; box-shadow: var(--shadow);
+  transform: translateY(calc(100% + 24px)); opacity: 0;
+  transition: transform var(--fx-lento) var(--fx-ease), opacity var(--fx-lento) var(--fx-ease);
+}
+.ck.is-on { transform: none; opacity: 1; }
+.ck-t { margin: 0; flex: 1 1 auto; font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
+.ck-t b { color: var(--text); font-weight: 600; }
+.ck-ok {
+  flex: 0 0 auto; min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--accent); color: #0E0F12; font: 600 0.8125rem/1 var(--font-head);
+  transition: transform var(--fx-tap) var(--fx-ease);
+}
+.ck-ok:active { transform: scale(0.97); }
+.ck-ok:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+@media (min-width: 720px) {
+  .ck { right: auto; left: 20px; bottom: 20px; max-width: 520px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ck { transition: opacity var(--fx-rapido) linear; transform: none; }
+}
