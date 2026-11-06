@@ -808,25 +808,40 @@
     acc_casos: "See projects",
     hero_foto: "Founder of DT System",
     hero_casos: "Recent projects",
-    hero_sub: "I build websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to ongoing support.",
+    hero_sub: "I design websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to ongoing support.",
     cta_hero: "Chat on WhatsApp \u2192",
     cta_work: "See projects",
     mob_h: "Most of your customers arrive on their phone. Every project is designed for that screen first.",
     srv_h: "Choose where to start.",
     srv_it: "<b>I also handle the technical side:</b> your own domain and email, Microsoft 365 or Google Workspace, backups and access.",
-    srv_sub: "Four services that work together. Start with one and add the others when the business calls for it.",
+    faq_h: "Frequently asked questions.",
+    faq_q1: "How much does a website or a system cost?",
+    faq_a1: "It depends on the scope. Before starting I send you a quote split into stages, with what it includes and what it doesn't, paid in three installments.",
+    faq_q2: "How long does it take?",
+    faq_a2: "That also depends on the scope. Each stage of the quote has its own deadline, so from day one you know when you'll see each part working.",
+    faq_q3: "Do you only work with clients in Salta?",
+    faq_a3: "No. I'm based in Salta and work with clients across Argentina and abroad, over video calls and WhatsApp.",
+    faq_q4: "Can I change the texts and photos myself?",
+    faq_a4: "Yes. Websites come with a simple panel to change texts, prices, photos and dates without touching code.",
+    faq_q5: "Do you build Shopify stores?",
+    faq_a5: "Yes. I build the store with a custom design, payments, shipping and the catalog loaded, and it stays in your name.",
+    faq_q6: "What is a custom management system?",
+    faq_a6: "A CRM or panel built for your business: clients, quotes, payments, stock or bookings, with the permissions each person needs. It works on computer and phone.",
+    faq_q7: "What happens after delivery?",
+    faq_a7: "I stay available for support and changes. If you want, a monthly plan covers maintenance, the domain and adjustments.",
+    srv_sub: "Web design, online stores, management systems and automations, built to measure. Start with one and add the others when the business calls for it.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
     s1_tag: "Your business presented with care, with a clear path from visit to inquiry.",
-    s1_l1: "Custom corporate site or landing page",
-    s1_l2: "Online store with payments and shipping",
+    s1_l1: "Custom corporate website or landing page design",
+    s1_l2: "Shopify online store with payments and shipping",
     s1_l3: "Ready to show up on Google and receive inquiries on WhatsApp",
     price: "Quote: <b>by scope</b>",
     see_more: "Get in touch →",
     acc_pill: "See details \u2192",
     acc_reset: "\u2715 Close details",
     s2_h: "Management systems",
-    s2_tag: "Your own system to keep clients, sales and payments in one place.",
+    s2_tag: "Your own CRM or management system to keep clients, sales and payments in one place.",
     s2_l1: "Client and opportunity management",
     s2_l2: "Quotes, invoicing and reports",
     s2_l3: "Access portal for your clients",
@@ -1422,8 +1437,8 @@
     ink.setAttribute("aria-hidden", "true");
     nav.appendChild(ink);
     // Marcas cuenta como Proyectos: es la misma conversación (con quién trabajé)
-    const alias = { marcas: "proyectos", testimonios: "sobre-mi" };
-    const ids = ["top", "servicios", "marcas", "proyectos", "sobre-mi", "testimonios", "contacto"];
+    const alias = { marcas: "proyectos", preguntas: "contacto" };
+    const ids = ["top", "servicios", "marcas", "proyectos", "sobre-mi", "preguntas", "contacto"];
     const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
     let actual = "";
     const pintar = (id) => {
