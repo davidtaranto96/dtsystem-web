@@ -2099,3 +2099,24 @@ html.nav-lejos .hdr-pill {
 .af-err { font-size: 0.8125rem; color: var(--err); }
 .af-err:empty { display: none; }
 .ai-form [aria-invalid] { border-color: var(--err); }
+
+/* Ronda 12/11 (tarde): la grilla de todos los proyectos pasa a 3 por fila,
+   con la tarjeta mas compacta; "en desarrollo" en amarillo de obra */
+:root { --wip: oklch(0.80 0.15 85); --wip-ink: oklch(0.50 0.11 75); }
+[data-theme="dark"] { --wip-ink: oklch(0.85 0.14 88); }
+@media (min-width: 981px) {
+  #csGrid.demo-grid.cs-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px; }
+  /* los bloques de abajo (proximos, sistemas) van de a 3, cada tarjeta una columna */
+  .demo-grid.cs-grid.sys-grid:not(#tdGrid) { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .cs-grid.sys-grid .demo { grid-column: auto; }
+  .cs-grid .demo-info { padding: 14px 18px 16px; gap: 8px; }
+  .cs-grid .demo-info h3 { font-size: 1.0625rem; }
+  .cs-grid .demo-info small { font-size: 0.8125rem; }
+  .cs-grid .live { font-size: 0.6875rem; padding: 2px 8px; }
+}
+@media (min-width: 721px) and (max-width: 980px) {
+  #csGrid.demo-grid.cs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.live.es-wip { color: var(--wip-ink); border-color: color-mix(in oklch, var(--wip) 70%, transparent); background: color-mix(in oklch, var(--wip) 12%, transparent); }
+.live.es-wip .wip-bar { background: color-mix(in oklch, var(--wip) 30%, transparent); }
+.live.es-wip .wip-bar::after { background: var(--wip); }

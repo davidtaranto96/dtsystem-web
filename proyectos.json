@@ -187,7 +187,7 @@
       "nombre": "Nos Casamos",
       "cat": "web",
       "url": "https://demo-privada/",
-      "estado": "live",
+      "estado": "demo",
       "i18n": "c22s",
       "origen": "cliente",
       "sub": {
@@ -356,7 +356,7 @@
       "nombre": "Sistema de una imprenta",
       "cat": "sys",
       "url": "",
-      "estado": "en-uso",
+      "estado": "demo",
       "i18n": "c30s",
       "origen": "cliente",
       "no_cuenta": false,
@@ -368,7 +368,8 @@
       "cursor": {
         "es": "",
         "en": ""
-      }
+      },
+      "sin_link": true
     }
   ]
 }
