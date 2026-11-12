@@ -1774,9 +1774,9 @@ html.nav-lejos .hdr-pill {
 .bar a::after { inset: -14px -4px; }
 .bar-x::after { inset: -8px; }
 .logo::after { inset: -14px -4px; }
-.tgl::after { inset: -5px; }
+.tgl::after { inset: -6px; }
 .menu summary::after { inset: -3px; }
-.founder-cta::after { inset: -12px -4px; }
+.founder-cta::after { inset: -13px -4px; }
 .marcas a::after { inset: -12px -6px; }
 /* Horizonte corto (celular acostado, zoom de 400%): sin barra de anuncio
    (su enlace repite el del header) y el header más bajo */
