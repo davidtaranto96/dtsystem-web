@@ -895,10 +895,10 @@
     c13s: "Real-estate development · Salta",
     c14s: "Real-estate portal · Salta",
     c19s: "Real-estate portal linked to the system · Salta",
-    c28s: "Inquiries, listings and visits",
+    c28s: "Real-estate agency · Salta",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
-    c29s: "Tasks, projects, schedule and payments",
+    c29s: "Accounting firm · Salta",
     c16s: "Yucatán chukum · bilingual",
     c4s: "Trilingual corporate site · agri",
     c5s: "Gated community · real estate",
@@ -906,9 +906,12 @@
     c20s: "Countryside lodge · Misiones",
     c21s: "Insurance advisors · Salta",
     c12s: "Real-estate brokerage · Salta",
+    c31s: "Apartments and bookings · La Paz",
+    c32s: "Journalist and host · podcast",
     c17s: "Original artwork shop · Barcelona",
     c18s: "Bags made from textile waste · Salta",
     c3d1: "3D model with every unit's status",
+    c30s: "Print shop · Orán",
     or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live", st_demo: "Demo", st_uso: "In use",
     // CASOS:FIN
     cta_h: "Let’s talk.",
@@ -1269,7 +1272,7 @@
      que se baja recien cuando el pie se acerca): base con bisel, tapa mas
      angosta, materiales y luces de estudio. La fisica es propia y en 2D (Verlet
      con choques entre circulos): cada tecla choca como un circulo un poco mas
-     grande que su cara. Ocho llevan las letras de HABLEMOS. Corre solo con el
+     grande que su cara. Siete forman DT y SALTA. Corre solo con el
      pie en pantalla y se duerme cuando todo quedo quieto. Sin WebGL, las teclas
      se dibujan con las imagenes de assets/teclas/; con movimiento reducido, la
      pila aparece ya asentada. */
@@ -1284,7 +1287,8 @@
     let W = 0, H = 0, teclas = [], raf = 0, visible = false, quietos = 0, soltadas = false, listo = false;
     const mouse = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
     const TIPOS = ["gris", "blanca", "grafito", "gris", "blanca", "acrilico", "gris", "grafito", "blanca", "celeste"];
-    const LETRAS = "HABLEMOS";
+    // las letras forman DT y SALTA (ronda del 12/11 15:12); el espacio no es tecla
+    const LETRAS = "DTSALTA";
     const fuente = getComputedStyle(document.querySelector("h2, h1") || document.body).fontFamily;
 
     // ---- fisica (la misma para el 3D y para el respaldo plano)
@@ -1295,12 +1299,14 @@
       const r = lado * 0.6;
       // el lienzo es mas alto que el foso (las teclas entran cayendo): se cuenta solo el foso
       const foso = Math.max(160, H - 220);
-      const n = Math.round(Math.min(chico ? 30 : 80, (W * foso * 0.8) / (lado * lado * 1.3)));
+      const n = Math.round(Math.min(chico ? 22 : 44, (W * foso * 0.45) / (lado * lado * 1.3)));
       teclas = Array.from({ length: n }, (_, i) => {
         const tipo = TIPOS[i % TIPOS.length];
-        // las de HABLEMOS caen ultimas, asi quedan arriba de la pila
+        // las de las letras caen ultimas, asi quedan arriba del monticulo
         const letra = i >= n - LETRAS.length ? LETRAS[i - (n - LETRAS.length)] : "";
-        const x = r + Math.random() * (W - 2 * r);
+        // caen desde el centro, asi se amontonan en un monticulo y no tapizan el piso
+        const gauss = (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+        const x = Math.max(r, Math.min(W - r, W / 2 + gauss * W * (chico ? 0.34 : 0.26)));
         const y = -r - Math.random() * H * 1.4 - (letra ? H * 0.6 : 0);
         const a0 = (Math.random() - 0.5) * 0.6;
         // giro en el aire: cada tecla cae dando vueltas y se acomoda al apoyarse
@@ -1316,7 +1322,9 @@
         b.x += vx; b.y += vy + G;
         // una tecla no rueda: cabecea con el golpe y vuelve a su angulo
         b.a += vx / (b.r * 4); b.a += (b.a0 - b.a) * 0.02;
-        const rapida = Math.abs(vx) + Math.abs(vy) > 1.2;
+        // apoyada (piso u otra tecla) y lenta: deja de girar y se endereza
+        const rapida = Math.abs(vx) + Math.abs(vy) > 1.2 && !(b.toca > 0 && Math.abs(vy) < 3);
+        if (b.toca > 0) b.toca--;
         b.vgx *= rapida ? 0.995 : 0.85; b.vgy *= rapida ? 0.995 : 0.85;
         b.gx += b.vgx; b.gy += b.vgy;
         if (!rapida) { b.gx += (Math.round(b.gx / 6.2832) * 6.2832 - b.gx) * 0.12; b.gy += (Math.round(b.gy / 6.2832) * 6.2832 - b.gy) * 0.12; }
@@ -1337,11 +1345,14 @@
             if (d2 < min * min && d2 > 0.0001) {
               const d = Math.sqrt(d2), sobra = (min - d) / 2, nx = dx / d, ny = dy / d;
               a.x -= nx * sobra; a.y -= ny * sobra; b.x += nx * sobra; b.y += ny * sobra;
+              // rozamiento entre teclas: frena el deslizamiento de costado, asi la pila se sostiene
+              a.px = a.x - (a.x - a.px) * 0.92; b.px = b.x - (b.x - b.px) * 0.92;
+              a.toca = b.toca = 4;
             }
           }
           // contra la pared se corre un poco: si no, se apilan en torre perfecta
           if (a.x < a.r) a.x = a.r + Math.random() * 1.5; else if (a.x > W - a.r) a.x = W - a.r - Math.random() * 1.5;
-          if (a.y > H - a.r) { a.y = H - a.r; a.px = a.x - (a.x - a.px) * 0.9; }
+          if (a.y > H - a.r) { a.y = H - a.r; a.px = a.x - (a.x - a.px) * 0.5; a.toca = 4; }
           // una vez adentro, el borde de arriba del lienzo es techo: no se corta
           if (a.y > a.r) a.entro = true; else if (a.entro) { a.y = a.r; a.py = a.r; }
         }
@@ -1551,28 +1562,48 @@
     });
   })();
 
+  /* ---------- 22d. Saltos dentro de la pagina ----------
+     Con la portada fija (sticky), Safari a veces no salta al ancla: "Ver
+     proyectos" dejaba la pagina arriba. Se calcula la posicion real y se
+     baja a mano, descontando el menu. */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href").length < 2 || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+    const destino = document.getElementById(a.getAttribute("href").slice(1));
+    if (!destino) return;
+    e.preventDefault();
+    const y = destino.getBoundingClientRect().top + scrollY - 96;
+    scrollTo({ top: Math.max(0, y), behavior: reduced ? "auto" : "smooth" });
+    history.pushState(null, "", a.getAttribute("href"));
+  });
+
   /* ---------- 22c. Escultura "dt/" de la portada ----------
-     Video de Higgsfield con el fondo ya pintado del color de la pagina, una
-     version por tema y una mas chica para el celular. Corre en loop mientras
-     la portada esta en pantalla; con movimiento reducido queda el poster. */
-  const heroV = $(".hero-obj");
-  if (heroV) {
-    const chicoH = matchMedia("(max-width: 980px)");
-    const temaH = () => (root.dataset.theme === "dark" ? "oscuro" : "claro");
-    const ponerH = () => {
-      const poster = "assets/srv/dt-" + temaH() + ".jpg";
-      if (heroV.getAttribute("poster") !== poster) heroV.setAttribute("poster", poster);
-      if (reduced || navigator.connection?.saveData) return;
-      const src = "assets/srv/dt-" + temaH() + (chicoH.matches ? "-cel" : "") + ".mp4";
-      if (heroV.dataset.src !== src) { heroV.dataset.src = src; heroV.src = src; }
-      heroV.play().catch(() => {});
+     Imagen con fondo transparente. Con mouse se inclina hacia el puntero con un
+     resorte sin rebote (arranca desde donde esta, se puede cortar y revertir). */
+  const dt3d = $(".dt3d");
+  if (dt3d && !reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const hero = dt3d.closest(".hero");
+    const v = { rx: 0, ry: 0 }, o = { rx: 0, ry: 0 }, vel = { rx: 0, ry: 0 };
+    let raf = 0, t0 = 0;
+    const paso = (t) => {
+      const dt = Math.min(0.032, (t - (t0 || t)) / 1000) || 0.016; t0 = t;
+      const w = 2 * Math.PI / 0.5; let quieto = true;
+      for (const k of ["rx", "ry"]) {
+        vel[k] += (w * w * (o[k] - v[k]) - 2 * w * vel[k]) * dt; v[k] += vel[k] * dt;
+        if (Math.abs(o[k] - v[k]) > 0.01 || Math.abs(vel[k]) > 0.01) quieto = false;
+      }
+      dt3d.style.setProperty("--rx", v.rx.toFixed(2) + "deg");
+      dt3d.style.setProperty("--ry", v.ry.toFixed(2) + "deg");
+      raf = quieto ? 0 : requestAnimationFrame(paso);
     };
-    ponerH();
-    new MutationObserver(ponerH).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-    chicoH.addEventListener("change", ponerH);
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(([e]) => { if (e.isIntersecting) ponerH(); else heroV.pause(); }).observe(heroV);
-    }
+    const mover = () => { if (!raf) { t0 = 0; raf = requestAnimationFrame(paso); } };
+    hero.addEventListener("pointermove", (e) => {
+      const r = dt3d.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width)));
+      const y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height)));
+      o.ry = x * 16; o.rx = -y * 10; mover();
+    });
+    hero.addEventListener("pointerleave", () => { o.rx = o.ry = 0; mover(); });
   }
 
   /* ---------- 22. Objetos animados del acordeon ----------

@@ -63,10 +63,10 @@
       "url": "",
       "estado": "demo",
       "i18n": "c28s",
-      "origen": "propio",
+      "origen": "cliente",
       "sub": {
-        "es": "Consultas, propiedades y visitas",
-        "en": "Inquiries, listings and visits"
+        "es": "Inmobiliaria · Salta",
+        "en": "Real-estate agency · Salta"
       },
       "alt": "Demo de un CRM inmobiliario con datos inventados: cada consulta con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderla",
       "cursor": {
@@ -117,10 +117,10 @@
       "url": "",
       "estado": "demo",
       "i18n": "c29s",
-      "origen": "propio",
+      "origen": "cliente",
       "sub": {
-        "es": "Tareas, proyectos, agenda y cobros",
-        "en": "Tasks, projects, schedule and payments"
+        "es": "Estudio contable · Salta",
+        "en": "Accounting firm · Salta"
       },
       "alt": "Demo del tablero de inicio de un CRM para estudios con datos inventados: tareas del día, vencimientos, agenda y proyectos activos",
       "cursor": {
@@ -259,6 +259,42 @@
       "nota": "En trabajo: va sin link hasta que se publique."
     },
     {
+      "id": "kawsay",
+      "nombre": "Kawsay Apart",
+      "cat": "web",
+      "url": "https://demo-privada",
+      "estado": "live",
+      "i18n": "c31s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Departamentos y reservas · La Paz",
+        "en": "Apartments and bookings · La Paz"
+      },
+      "alt": "Sitio de Kawsay Apart, departamentos en El Prado, La Paz, con reserva directa",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
+      "id": "juangnarra",
+      "nombre": "Juan Gnarra",
+      "cat": "web",
+      "url": "https://juangnarra.dtsystem.com.ar",
+      "estado": "live",
+      "i18n": "c32s",
+      "origen": "cliente",
+      "sub": {
+        "es": "Periodista y locutor · podcast",
+        "en": "Journalist and host · podcast"
+      },
+      "alt": "Sitio personal de Juan Gnarra, periodista y locutor, con su podcast y sus escritos",
+      "cursor": {
+        "es": "Visitar ↗",
+        "en": "Visit ↗"
+      }
+    },
+    {
       "id": "josi",
       "nombre": "Josi Compagnucci",
       "cat": "web",
@@ -313,6 +349,25 @@
       "cursor": {
         "es": "Recorrer ↗",
         "en": "Explore ↗"
+      }
+    },
+    {
+      "id": "crm-mix",
+      "nombre": "Sistema de una imprenta",
+      "cat": "sys",
+      "url": "",
+      "estado": "en-uso",
+      "i18n": "c30s",
+      "origen": "cliente",
+      "no_cuenta": false,
+      "sub": {
+        "es": "Imprenta gráfica · Orán",
+        "en": "Print shop · Orán"
+      },
+      "alt": "Tablero del sistema de una imprenta, mostrado con datos inventados: presupuestos esperando, trabajos y cobros",
+      "cursor": {
+        "es": "",
+        "en": ""
       }
     }
   ]

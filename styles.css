@@ -1986,6 +1986,9 @@ html.nav-lejos .hdr-pill {
 .tapa > .hero .ha-grid { row-gap: 0; }
 /* lo que tapa: fondo propio, esquinas de arriba redondeadas y una sombra hacia arriba */
 .tapa > section:not(.hero) { position: relative; z-index: 1; background: var(--bg); }
+/* entre clientes y destacados quedaba una franja de 14 px sin fondo por donde
+   asomaba la portada fija: el fondo de los destacados sube a taparla */
+.tapa > #proyectos { box-shadow: 0 -40px 0 0 var(--bg); }
 .tapa > #marcas {
   border-radius: 28px 28px 0 0;
   border-top: 1px solid var(--card-border);
@@ -1993,11 +1996,30 @@ html.nav-lejos .hdr-pill {
 }
 .ha-grid { grid-template-areas: "txt foto"; align-items: center; }
 .ha-obj { grid-area: foto; position: relative; }
-.hero-obj {
-  display: block; width: 128%; max-width: none; height: auto; margin-left: -14%;
-  -webkit-mask-image: radial-gradient(closest-side, #000 74%, transparent);
-          mask-image: radial-gradient(closest-side, #000 74%, transparent);
+.dt3d {
+  position: relative; width: 112%; margin-left: -6%;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  animation: dt-flota 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
+@keyframes dt-flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.dt-img { display: block; width: 100%; height: auto; }
+.dt-oscuro { display: none; }
+[data-theme="dark"] .dt-claro { display: none; }
+[data-theme="dark"] .dt-oscuro { display: block; }
+/* el brillo: una franja de luz que cruza la escultura, recortada con la misma
+   imagen como mascara, asi solo toca el metal y el vidrio */
+.dt-brillo {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.9) 48%, transparent 58%) no-repeat;
+  background-size: 260% 100%; background-position: 130% 0;
+  -webkit-mask: url(assets/srv/dt-claro.webp) center / 100% 100% no-repeat;
+          mask: url(assets/srv/dt-claro.webp) center / 100% 100% no-repeat;
+  animation: dt-brillo 6s cubic-bezier(0.4, 0, 0.2, 1) infinite 1s;
+}
+[data-theme="dark"] .dt-brillo {
+  -webkit-mask-image: url(assets/srv/dt-oscuro.webp); mask-image: url(assets/srv/dt-oscuro.webp); mix-blend-mode: overlay;
+}
+@keyframes dt-brillo { 0% { background-position: 130% 0; } 45%, 100% { background-position: -30% 0; } }
 
 /* Botones de pildora: chicos, en mono y mayusculas, con flecha */
 .hero-ctas { justify-content: flex-start; gap: 10px; }
@@ -2031,7 +2053,7 @@ html.nav-lejos .hdr-pill {
 @media (max-width: 980px) {
   .ha-grid { grid-template-areas: "foto" "txt"; }
   .tapa > .hero { min-height: auto; padding-bottom: 88px; }
-  .hero-obj { width: 116%; margin-left: -8%; }
+  .dt3d { width: 100%; margin-left: 0; }
   .ha-bajar { left: 20px; bottom: 22px; }
   /* en el celular la escultura va entre el texto y los botones (pedido de David, 12/11) */
   .tapa .ha-grid { display: flex; flex-direction: column; align-items: stretch; }
@@ -2046,3 +2068,28 @@ html.nav-lejos .hdr-pill {
   .tapa > .hero { position: relative; }
   .ha-bajar svg { animation: none; }
 }
+
+/* Titulo de los celulares: aparece de una, sin la entrada palabra por palabra
+   (pedido de David, 12/11 15:12). Las filas de celulares siguen pasando. */
+.h2-quieto .w, html.fx-on .h2-quieto .w { opacity: 1 !important; transform: none !important; transition: none !important; filter: none !important; }
+
+@media (prefers-reduced-motion: reduce) { .dt3d, .dt-brillo { animation: none; } }
+
+/* Texto que rueda al pasar el mouse, como los botones de wearestokt.com: el
+   texto sube y la copia (una sombra de texto 1,5em abajo) ocupa su lugar */
+.pill-txt { display: inline-block; overflow: hidden; height: 1.5em; line-height: 1.5em; }
+.pill-txt > span { display: block; text-shadow: 0 1.5em 0 currentColor; transition: translate 0.42s cubic-bezier(0.65, 0, 0.35, 1); }
+@media (hover: hover) { .pill:hover .pill-txt > span { translate: 0 -1.5em; } }
+@media (prefers-reduced-motion: reduce) { .pill-txt > span { transition: none; } }
+
+/* Sistemas: tres, uno al lado del otro (ronda 12/11 15:12) */
+.demo-grid.sys-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sys-grid .demo { grid-column: auto; }
+@media (max-width: 980px) { .demo-grid.sys-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Hablemos: el campo de la idea con mas presencia, como una caja para escribir */
+.ai-form textarea {
+  min-height: 92px; padding: 12px 14px; border: 1px solid var(--card-border); border-radius: 12px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); line-height: 1.45;
+}
+.ai-form textarea:focus-visible { border-color: var(--accent); }

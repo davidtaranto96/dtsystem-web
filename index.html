@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112h">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112k">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112h">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112k">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261112h">
+  <link rel="stylesheet" href="styles.css?v=20261112k">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -225,15 +225,20 @@
           <!-- Botones como los de wearestokt.com: píldoras chicas en mono, una clara
                y una oscura, con la flecha que avanza al pasar el mouse -->
           <div class="hero-ctas">
-            <a class="pill pill-claro" href="#proyectos"><span data-i18n="cta_work">Ver proyectos</span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <a class="pill pill-oscuro" href="#contacto"><span data-i18n="cta_cont">Contactar</span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="pill pill-claro" href="#proyectos"><span class="pill-txt"><span data-i18n="cta_work">Ver proyectos</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="pill pill-oscuro" href="#contacto"><span class="pill-txt"><span data-i18n="cta_cont">Contactar</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
-        <!-- La marca "dt/" como escultura 3D (Higgsfield), igual de hiperrealista
-             que los objetos de servicios. Video en loop con el fondo ya pintado
-             del color de la página, una versión por tema (main.js, 22c). -->
+        <!-- La marca "dt/" como escultura 3D (Higgsfield), con fondo transparente:
+             se apoya sobre el fondo real de la pagina, sin caja. No es video (el
+             video deformaba las letras): flota, se inclina hacia el puntero y un
+             brillo la recorre (main.js, 22c). Una imagen por tema. -->
         <div class="ha-obj" aria-hidden="true">
-          <video class="hero-obj" width="1280" height="800" muted loop playsinline preload="none" poster="assets/srv/dt-claro.jpg"></video>
+          <div class="dt3d">
+            <img class="dt-img dt-claro" src="assets/srv/dt-claro.webp" srcset="assets/srv/dt-claro-cel.webp 700w, assets/srv/dt-claro.webp 1400w" sizes="(max-width: 980px) 90vw, 640px" width="1400" height="891" alt="" fetchpriority="high">
+            <img class="dt-img dt-oscuro" src="assets/srv/dt-oscuro.webp" srcset="assets/srv/dt-oscuro-cel.webp 700w, assets/srv/dt-oscuro.webp 1400w" sizes="(max-width: 980px) 90vw, 640px" width="1400" height="891" alt="" loading="lazy">
+            <span class="dt-brillo"></span>
+          </div>
         </div>
         <a class="ha-bajar" href="#marcas"><span data-i18n="bajar">Bajá para ver más</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M8 3v9M4 8.5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
@@ -325,7 +330,7 @@
     <!-- ============ 4. MOBILE SHOWCASE ============ -->
     <section class="mobile-sec">
       <div class="mobile-head wrap">
-        <h2 class="h2" data-rv="up" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
+        <h2 class="h2 h2-quieto" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
       </div>
 
       <!-- Marquee infinito: el track se duplica con aria-hidden="true"
@@ -712,6 +717,24 @@
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
+
+          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://demo-privada" target="_blank" rel="noopener">
+            <div class="demo-shot"><img src="assets/casos/case-kawsay.jpg" width="960" height="600" alt="Sitio de Kawsay Apart, departamentos en El Prado, La Paz, con reserva directa" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>Kawsay Apart</h3><small data-i18n="c31s">Departamentos y reservas · La Paz</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
+          </a>
+
+          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://juangnarra.dtsystem.com.ar" target="_blank" rel="noopener">
+            <div class="demo-shot"><img src="assets/casos/case-juangnarra.jpg" width="960" height="600" alt="Sitio personal de Juan Gnarra, periodista y locutor, con su podcast y sus escritos" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>Juan Gnarra</h3><small data-i18n="c32s">Periodista y locutor · podcast</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
+          </a>
           <!-- CASOS:FIN -->
         </div>
         <button class="btn btn-sec cs-mas" id="csMas" type="button" hidden data-i18n="cs_mas">Ver todos los proyectos</button>
@@ -765,8 +788,7 @@
           <div class="demo" data-cat="sys">
             <div class="demo-shot" data-video="assets/casos/video-crm-inmo.mp4" data-video-cel="assets/casos/video-crm-inmo-cel.mp4"><img src="assets/casos/case-crm-inmo.jpg" width="960" height="600" alt="Demo de un CRM inmobiliario con datos inventados: cada consulta con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderla" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>CRM inmobiliario</h3><small data-i18n="c28s">Consultas, propiedades y visitas</small></div>
-              <span class="origen" data-i18n="or_p">Propio</span>
+              <div><h3>CRM inmobiliario</h3><small data-i18n="c28s">Inmobiliaria · Salta</small></div>
               <span class="live es-demo"><i aria-hidden="true"></i> <span data-i18n="st_demo">Demo</span></span>
             </div>
           </div>
@@ -774,9 +796,16 @@
           <div class="demo" data-cat="sys">
             <div class="demo-shot" data-video="assets/casos/video-crm-estudio.mp4" data-video-cel="assets/casos/video-crm-estudio-cel.mp4"><img src="assets/casos/case-crm-estudio.jpg" width="960" height="600" alt="Demo del tablero de inicio de un CRM para estudios con datos inventados: tareas del día, vencimientos, agenda y proyectos activos" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>CRM de un estudio</h3><small data-i18n="c29s">Tareas, proyectos, agenda y cobros</small></div>
-              <span class="origen" data-i18n="or_p">Propio</span>
+              <div><h3>CRM de un estudio</h3><small data-i18n="c29s">Estudio contable · Salta</small></div>
               <span class="live es-demo"><i aria-hidden="true"></i> <span data-i18n="st_demo">Demo</span></span>
+            </div>
+          </div>
+
+          <div class="demo" data-cat="sys">
+            <div class="demo-shot"><img src="assets/casos/case-crm-mix.jpg" width="960" height="600" alt="Tablero del sistema de una imprenta, mostrado con datos inventados: presupuestos esperando, trabajos y cobros" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>Sistema de una imprenta</h3><small data-i18n="c30s">Imprenta gráfica · Orán</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_uso">En uso</span></span>
             </div>
           </div>
         </div>
@@ -900,7 +929,6 @@
   <!-- ============ 10. FOOTER ============ -->
   <footer class="footer">
     <!-- Wordmark gigante detrás del contenido -->
-    <span class="footer-giant" aria-hidden="true">DT SYSTEM</span>
     <div class="wrap">
       <!-- Novedades por Instagram: sin lista de correo que mantener -->
       <div class="nl-bar">
@@ -944,7 +972,7 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="main.js?v=20261112h" defer></script>
-  <script src="medicion.js?v=20261112h" defer></script>
+  <script src="main.js?v=20261112k" defer></script>
+  <script src="medicion.js?v=20261112k" defer></script>
 </body>
 </html>
