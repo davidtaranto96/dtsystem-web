@@ -1334,7 +1334,7 @@
       const r = lado * 0.6;
       // el lienzo es mas alto que el foso (las teclas entran cayendo): se cuenta solo el foso
       const foso = Math.max(160, H - 220);
-      const n = Math.round(Math.min(chico ? 22 : 44, (W * foso * 0.45) / (lado * lado * 1.3)));
+      const n = Math.round(Math.min(chico ? 20 : 40, (W * foso * 0.62) / (lado * lado * 1.3)));
       teclas = Array.from({ length: n }, (_, i) => {
         const tipo = TIPOS[i % TIPOS.length];
         // las de las letras caen ultimas, asi quedan arriba del monticulo

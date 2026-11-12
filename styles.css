@@ -1935,7 +1935,7 @@ html.nav-lejos .hdr-pill {
 
 /* Teclas del pie (main.js, seccion 24): detras del contenido, delante del
    wordmark gigante; el canvas no recibe clics, el pie escucha el puntero */
-.footer { --foso: clamp(300px, 36vw, 520px); padding-bottom: calc(var(--foso) + env(safe-area-inset-bottom)); }
+.footer { --foso: clamp(210px, 24vw, 340px); padding-bottom: calc(var(--foso) + env(safe-area-inset-bottom)); }
 /* el foso: una franja propia abajo de todo el contenido, asi las teclas no tapan nada */
 .teclas-pie { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--foso) + 220px); z-index: 0; pointer-events: none; }
 
@@ -2121,3 +2121,14 @@ html.nav-lejos .hdr-pill {
 .live.es-wip { color: var(--wip-ink); border-color: color-mix(in oklch, var(--wip) 70%, transparent); background: color-mix(in oklch, var(--wip) 12%, transparent); }
 .live.es-wip .wip-bar { background: color-mix(in oklch, var(--wip) 30%, transparent); }
 .live.es-wip .wip-bar::after { background: var(--wip); }
+
+/* En desarrollo (ronda 12/11 16:44): en lugar del punto, un cuadradito de
+   cinta de obra amarilla y negra que corre despacio */
+.live.es-wip { padding-bottom: 3px; }
+.live.es-wip .obra {
+  width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+  background: repeating-linear-gradient(-45deg, var(--wip) 0 3px, oklch(0.22 0.01 85) 3px 6px);
+  background-size: 8.5px 8.5px; animation: obra 1.2s linear infinite;
+}
+@keyframes obra { to { background-position: 8.5px 0; } }
+@media (prefers-reduced-motion: reduce) { .live.es-wip .obra { animation: none; } }
