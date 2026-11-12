@@ -453,10 +453,47 @@
       ta.style.height = "auto";
       ta.style.height = Math.min(ta.scrollHeight, 180) + "px";
     });
+    // Validacion propia: campos vacios al abrir, todo obligatorio, el nombre
+    // solo con letras (los numeros no entran ni pegados). Los errores salen
+    // debajo de cada campo, en el idioma de la pagina.
+    const T = () => lang === "en"
+      ? { nombre: "Write your name, letters only.", corto: "Write your full name.", idea: "Tell me your idea in a few words.", tipo: "Choose what you need." }
+      : { nombre: "Escribí tu nombre, solo con letras.", corto: "Escribí tu nombre completo.", idea: "Contame tu idea en pocas palabras.", tipo: "Elegí qué necesitás." };
+    const inNombre = aiForm.nombre, inIdea = aiForm.idea;
+    const errDe = { nombre: $("#afErrNombre"), idea: $("#afErrIdea"), tipo: $("#afErrTipo") };
+    const marcar = (clave, campo, msg) => {
+      if (errDe[clave]) errDe[clave].textContent = msg || "";
+      if (campo) { campo.setCustomValidity(msg || ""); campo.toggleAttribute("aria-invalid", !!msg); }
+    };
+    const SIN_LETRA = /[^A-Za-zÀ-ÖØ-öø-ÿ'’ .\-]/g;
+    const revisar = () => {
+      const t = T(), n = inNombre.value.trim(), idea = inIdea.value.trim();
+      const letras = n.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, "").length;
+      const errN = !letras ? t.nombre : letras < 2 ? t.corto : "";
+      const errI = idea.length < 8 ? t.idea : "";
+      const errT = $(".af-chip.on[data-val]", aiForm) ? "" : t.tipo;
+      marcar("nombre", inNombre, errN); marcar("idea", inIdea, errI); marcar("tipo", null, errT);
+      return !errN && !errI && !errT;
+    };
+    inNombre.addEventListener("input", () => {
+      const v = inNombre.value, limpio = v.replace(SIN_LETRA, "");
+      if (limpio !== v) {
+        const pos = Math.max(0, (inNombre.selectionStart || 0) - (v.length - limpio.length));
+        inNombre.value = limpio;
+        inNombre.setSelectionRange(pos, pos);
+      }
+      if (aiForm.classList.contains("tried")) revisar();
+    });
+    inIdea.addEventListener("input", () => { if (aiForm.classList.contains("tried")) revisar(); });
+    $$(".af-chip[data-val]", aiForm).forEach((ch) => ch.addEventListener("click", () => { if (aiForm.classList.contains("tried")) revisar(); }));
     aiForm.addEventListener("submit", (e) => {
       e.preventDefault();
       aiForm.classList.add("tried");
-      if (!aiForm.checkValidity()) { aiForm.reportValidity(); return; }
+      if (!revisar()) {
+        const primero = $("[aria-invalid]", aiForm) || $(".af-chip[data-val]", aiForm);
+        primero?.focus();
+        return;
+      }
       const btn = $(".af-send", aiForm);
       if (btn.classList.contains("is-loading")) return;
       const nombre = aiForm.nombre.value.trim();
@@ -818,8 +855,6 @@
     cta_cont: "Contact",
     bajar: "Scroll for more",
     dest_sub: "Some of the sites I built, live and in use.",
-    af_ph_n: "Jane Smith",
-    af_ph_i: "A website for my real-estate agency, with listings and WhatsApp inquiries",
     mob_h: "Most of your customers arrive on their phone. Every project is designed for that screen first.",
     srv_h: "Choose where to start.",
     srv_it: "<b>I also handle the technical side:</b> your own domain and email, Microsoft 365 or Google Workspace, backups and access.",
