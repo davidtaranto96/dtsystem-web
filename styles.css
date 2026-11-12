@@ -2033,6 +2033,12 @@ html.nav-lejos .hdr-pill {
   .tapa > .hero { min-height: auto; padding-bottom: 88px; }
   .hero-obj { width: 116%; margin-left: -8%; }
   .ha-bajar { left: 20px; bottom: 22px; }
+  /* en el celular la escultura va entre el texto y los botones (pedido de David, 12/11) */
+  .tapa .ha-grid { display: flex; flex-direction: column; align-items: stretch; }
+  .tapa .ha-txt { display: contents; }
+  .tapa .ha-lugar { order: 1; } .tapa .ha h1 { order: 2; } .tapa .ha-sub { order: 3; }
+  .tapa .ha-obj { order: 4; margin: 4px 0 18px; }
+  .tapa .hero-ctas { order: 5; }
   .tapa .hero-ctas { flex-direction: row; flex-wrap: nowrap; gap: 8px; }
   .tapa .hero-ctas .pill { padding: 0 14px; flex: 0 0 auto; }
 }
