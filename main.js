@@ -1399,7 +1399,7 @@
     };
 
     const tresD = async () => {
-      const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js");
+      const THREE = await import(new URL("assets/vendor/three-0.160.0.module.min.js", document.baseURI).href);
       const renderer = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true, powerPreference: "low-power" });
       renderer.setPixelRatio(dpr);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
