@@ -943,8 +943,6 @@
     c12s: "Real-estate brokerage · Salta",
     c31s: "Apartments and bookings · La Paz",
     c32s: "Journalist and host · podcast",
-    c17s: "Original artwork shop · Barcelona",
-    c18s: "Bags made from textile waste · Salta",
     c3d1: "3D model with every unit's status",
     c30s: "Print shop · Orán",
     or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live", st_demo: "Demo", st_uso: "In use",
@@ -1971,7 +1969,7 @@
         const y = scrollY, d = y - ultimo;
         if (Math.abs(d) < 8) return;
         ultimo = y;
-        top.classList.toggle("oculta", chico.matches && d > 0 && y > 160 && !$(".menu[open]", top));
+        top.classList.toggle("oculta", d > 0 && y > 160 && !$(".menu[open]", top));
       });
     }, { passive: true });
   })();
