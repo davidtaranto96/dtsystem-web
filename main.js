@@ -1616,7 +1616,8 @@
      Imagen con fondo transparente. Con mouse se inclina hacia el puntero con un
      resorte sin rebote (arranca desde donde esta, se puede cortar y revertir). */
   const dt3d = $(".dt3d");
-  if (dt3d && !reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  // Apagado el 12/11 (grabacion 15:55, 0:00): la escultura queda quieta, fija
+  if (false && dt3d) {
     const hero = dt3d.closest(".hero");
     const v = { rx: 0, ry: 0 }, o = { rx: 0, ry: 0 }, vel = { rx: 0, ry: 0 };
     let raf = 0, t0 = 0;
@@ -1695,7 +1696,8 @@
      Cada valor persigue su objetivo con un resorte criticamente amortiguado,
      sin rebote: arranca desde donde esta, asi se puede cortar y revertir en
      cualquier momento sin salto. Solo transform, por el compositor. */
-  if (!reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  // Apagado el 12/11 (grabacion 15:55, 0:19): David quiere los objetos fijos, sin inclinarse
+  if (false) {
     $$(".acc-p").forEach((panel) => {
       const objeto = () => $(panel.classList.contains("open") ? ".acc-img video.srv-obj" : ".acc-cover video.srv-obj", panel);
       const K = ["rx", "ry", "tx", "ty", "s"];

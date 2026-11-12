@@ -2001,7 +2001,6 @@ html.nav-lejos .hdr-pill {
 .dt3d {
   position: relative; width: 112%; margin-left: -6%;
   transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  animation: dt-flota 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 @keyframes dt-flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 .dt-img { display: block; width: 100%; height: auto; }
