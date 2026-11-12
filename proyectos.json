@@ -61,7 +61,7 @@
       "nombre": "CRM inmobiliario",
       "cat": "sys",
       "url": "",
-      "estado": "demo",
+      "estado": "en-uso",
       "i18n": "c28s",
       "origen": "cliente",
       "sub": {
@@ -115,7 +115,7 @@
       "nombre": "CRM de un estudio",
       "cat": "sys",
       "url": "",
-      "estado": "demo",
+      "estado": "en-uso",
       "i18n": "c29s",
       "origen": "cliente",
       "sub": {
