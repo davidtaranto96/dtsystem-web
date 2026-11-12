@@ -1879,3 +1879,59 @@ html.nav-lejos .hdr-pill {
 @media (prefers-reduced-motion: reduce) {
   .ck { transition: opacity var(--fx-rapido) linear; transform: none; }
 }
+
+/* ============================================================
+   TRABAJOS DESTACADOS — las tarjetas se apilan al bajar
+   Como el "Featured work" de wearestokt.com: cada tarjeta queda
+   pegada arriba y la siguiente sube y la tapa; la de abajo se achica
+   y se oscurece un poco (el JS mueve --p de 0 a 1). Solo transform y
+   filter. Las escenas: scripts/escena.py.
+   ============================================================ */
+.dest { position: relative; margin-top: clamp(32px, 4vw, 56px); }
+.dest-card {
+  --p: 0;
+  position: sticky; top: calc(104px + var(--i) * 12px);
+  display: block; overflow: hidden; border-radius: 20px;
+  aspect-ratio: 16 / 9; margin-bottom: clamp(48px, 9vh, 96px);
+  background: var(--card); box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.35);
+  transform: scale(calc(1 - var(--p) * 0.06)); transform-origin: 50% 0;
+  filter: brightness(calc(1 - var(--p) * 0.35));
+}
+.dest-card:last-child { margin-bottom: 0; }
+.dest-card img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) 50%; display: block;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.dest-info {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(18px, 2.4vw, 32px);
+  display: flex; align-items: baseline; gap: 6px 16px; flex-wrap: wrap;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0));
+  color: #fff;
+}
+.dest-info h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem); font-weight: 400; letter-spacing: -0.01em; }
+.dest-info small { font-size: 0.875rem; opacity: 0.82; }
+.dest-ver {
+  position: absolute; top: clamp(14px, 2vw, 24px); right: clamp(14px, 2vw, 24px);
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: rgb(255 255 255 / 0.92); color: #0E0F12; font-size: 1.05rem;
+  transform: scale(0.8); opacity: 0; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s;
+}
+@media (hover: hover) {
+  .dest-card:hover img { transform: scale(1.035); }
+  .dest-card:hover .dest-ver { transform: none; opacity: 1; }
+}
+.dest-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.dest-todos { margin: clamp(56px, 8vw, 104px) 0 20px; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); font-weight: 400; letter-spacing: -0.02em; text-align: center; }
+/* En el celular la escena se recorta a 4:3, centrada en la pantalla del sitio */
+@media (max-width: 980px) {
+  .dest-card { aspect-ratio: 4 / 3; top: calc(84px + var(--i) * 8px); border-radius: 16px; margin-bottom: 40px; }
+  .dest-ver { opacity: 1; transform: none; width: 40px; height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dest-card { position: relative; top: auto; transform: none; filter: none; }
+  .dest-card img { transition: none; }
+}
+
+/* Teclas del pie (main.js, seccion 24): detras del contenido, delante del
+   wordmark gigante; el canvas no recibe clics, el pie escucha el puntero */
+.footer { --foso: clamp(240px, 30vw, 400px); padding-bottom: calc(var(--foso) + env(safe-area-inset-bottom)); }
+/* el foso: una franja propia abajo de todo el contenido, asi las teclas no tapan nada */
+.teclas-pie { position: absolute; left: 0; right: 0; bottom: 0; height: var(--foso); z-index: 0; pointer-events: none; }

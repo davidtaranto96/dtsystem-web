@@ -914,6 +914,7 @@
     af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t6: "3D project", af_t5: "Other",
     af_idea: "Your idea, in a few words",
     cs_mas: "See all projects",
+    cs_todos: "All projects",
     wip_h: "Next to launch",
     wip_sub: "Client work I'm building right now.",
     sys_h: "Management systems",
@@ -1230,6 +1231,181 @@
       csCards.forEach((c) => c.classList.add("fx-visto"));
     }
   }
+
+  /* ---------- 8b. Trabajos destacados que se apilan ----------
+     Cada tarjeta queda pegada arriba (sticky); mientras la siguiente sube a
+     taparla, esta se achica y se oscurece. --p va de 0 a 1 segun cuanto de
+     la siguiente ya llego. Un solo listener de scroll con rAF. */
+  const dest = $$(".dest-card");
+  if (dest.length > 1 && !reduced) {
+    let pend = false;
+    const medir = () => {
+      pend = false;
+      for (let i = 0; i < dest.length - 1; i++) {
+        const a = dest[i].getBoundingClientRect(), b = dest[i + 1].getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, 1 - (b.top - a.top) / a.height));
+        dest[i].style.setProperty("--p", p.toFixed(3));
+      }
+    };
+    addEventListener("scroll", () => { if (!pend) { pend = true; requestAnimationFrame(medir); } }, { passive: true });
+    addEventListener("resize", medir);
+    medir();
+  }
+
+  /* ---------- 24. Teclas del pie ----------
+     Como las pelotitas del pie de wearestokt.com, pero con teclas (las mismas
+     del objeto de Webs y Tiendas, generadas con Higgsfield en assets/teclas/):
+     al llegar al pie caen, se apilan y se empujan con el mouse o el dedo.
+     Ocho llevan las letras de HABLEMOS. La tecla choca como un circulo un
+     poco mas grande que su cara: se apilan sueltas y no se enciman. Fisica propia (Verlet con
+     choques entre circulos), sin librerias. Corre solo mientras el pie esta
+     en pantalla y se duerme cuando todo quedo quieto. Con movimiento reducido
+     se dibuja la pila ya asentada, sin animar. */
+  (() => {
+    const pie = $(".footer");
+    if (!pie) return;
+    const cv = document.createElement("canvas");
+    cv.className = "teclas-pie";
+    cv.setAttribute("aria-hidden", "true");
+    pie.prepend(cv);
+    const ctx = cv.getContext("2d");
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    let W = 0, H = 0, bolas = [], raf = 0, visible = false, quietos = 0, soltadas = false;
+    const mouse = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
+    const TIPOS = ["gris", "blanca", "grafito", "gris", "blanca", "acrilico", "gris", "grafito", "blanca", "celeste"];
+    const LETRAS = "HABLEMOS";
+    const fuente = getComputedStyle(document.querySelector("h2, h1") || document.body).fontFamily;
+    const imgs = {};
+    const cargar = () => Promise.all([...new Set(TIPOS)].map((t) => new Promise((ok) => {
+      const im = new Image(); im.onload = im.onerror = () => { imgs[t] = im; ok(); };
+      im.src = "assets/teclas/" + t + ".png";
+    })));
+
+    // cada tecla se pinta una vez: la imagen y, si toca, su letra en la cara
+    const sprite = (tipo, lado, letra) => {
+      const c = document.createElement("canvas");
+      const s = Math.ceil(lado * dpr);
+      c.width = c.height = s;
+      const g = c.getContext("2d");
+      if (imgs[tipo] && imgs[tipo].width) g.drawImage(imgs[tipo], 0, 0, s, s);
+      if (letra) {
+        g.fillStyle = tipo === "grafito" || tipo === "celeste" ? "rgba(255,255,255,.92)" : "rgba(28,30,34,.82)";
+        g.font = "500 " + Math.round(s * 0.34) + "px " + fuente;
+        g.textAlign = "center"; g.textBaseline = "middle";
+        g.fillText(letra, s * 0.5, s * 0.47);
+      }
+      return c;
+    };
+
+    const armar = () => {
+      W = pie.clientWidth; H = cv.clientHeight || 300;
+      cv.width = W * dpr; cv.height = H * dpr;
+      const chico = W < 720;
+      const lado = chico ? 46 : 70;
+      const r = lado * 0.6;                           // radio de choque
+      const n = Math.round(Math.min(chico ? 36 : 90, (W * H * 0.8) / (lado * lado * 1.3)));
+      const cache = {};
+      bolas = Array.from({ length: n }, (_, i) => {
+        const tipo = TIPOS[i % TIPOS.length];
+        // las de HABLEMOS caen primero, para que queden arriba de la pila
+        const letra = i >= n - LETRAS.length ? LETRAS[i - (n - LETRAS.length)] : "";
+        const k = tipo + letra;
+        cache[k] = cache[k] || sprite(tipo, lado, letra);
+        const x = r + Math.random() * (W - 2 * r);
+        const y = -r - Math.random() * H * 1.4 - (letra ? H * 0.6 : 0);
+        const a0 = (Math.random() - 0.5) * 0.7;
+        return { x, y, px: x, py: y, r, img: cache[k], a: a0, a0 };
+      });
+    };
+
+    const paso = () => {
+      const G = 0.5, AMORT = 0.992;
+      for (const b of bolas) {
+        const vx = (b.x - b.px) * AMORT, vy = (b.y - b.py) * AMORT;
+        b.px = b.x; b.py = b.y;
+        b.x += vx; b.y += vy + G;
+        // una tecla no rueda: cabecea con el golpe y vuelve a su angulo
+        b.a += vx / (b.r * 4); b.a += (b.a0 - b.a) * 0.02;
+        // el puntero empuja
+        const dx = b.x - mouse.x, dy = b.y - mouse.y, d = Math.hypot(dx, dy), lim = b.r + 46;
+        if (d < lim && d > 0.01) {
+          const f = (lim - d) / lim;
+          b.x += (dx / d) * f * 6 + mouse.vx * 0.25 * f;
+          b.y += (dy / d) * f * 6 + mouse.vy * 0.25 * f;
+        }
+      }
+      for (let it = 0; it < 3; it++) {
+        for (let i = 0; i < bolas.length; i++) {
+          const a = bolas[i];
+          for (let j = i + 1; j < bolas.length; j++) {
+            const b = bolas[j];
+            const dx = b.x - a.x, dy = b.y - a.y, min = a.r + b.r, d2 = dx * dx + dy * dy;
+            if (d2 < min * min && d2 > 0.0001) {
+              const d = Math.sqrt(d2), sobra = (min - d) / 2, nx = dx / d, ny = dy / d;
+              a.x -= nx * sobra; a.y -= ny * sobra; b.x += nx * sobra; b.y += ny * sobra;
+            }
+          }
+          // paredes y piso (el techo queda abierto para que entren)
+          if (a.x < a.r) { a.x = a.r; } else if (a.x > W - a.r) { a.x = W - a.r; }
+          if (a.y > H - a.r) { a.y = H - a.r; a.px = a.x - (a.x - a.px) * 0.9; }
+        }
+      }
+    };
+
+    const pintar = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      for (const b of bolas) {
+        if (b.y < -b.r) continue;
+        ctx.save();
+        ctx.translate(b.x, b.y); ctx.rotate(b.a);
+        const s = b.img.width / dpr;
+        ctx.drawImage(b.img, -s / 2, -s / 2, s, s);
+        ctx.restore();
+      }
+    };
+
+    const vuelta = () => {
+      paso(); pintar();
+      // energia: si nada se mueve un buen rato, se duerme hasta el proximo empujon
+      let e = 0;
+      for (const b of bolas) e += Math.abs(b.x - b.px) + Math.abs(b.y - b.py);
+      quietos = e / bolas.length < 0.02 ? quietos + 1 : 0;
+      raf = visible && quietos < 90 ? requestAnimationFrame(vuelta) : 0;
+    };
+    const despertar = () => { quietos = 0; if (!raf && visible) raf = requestAnimationFrame(vuelta); };
+
+    cargar().then(() => {
+    armar();
+    if (reduced) {
+      for (let i = 0; i < 900; i++) paso();
+      pintar();
+      return;
+    }
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) { soltadas = true; despertar(); }
+      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    }, { threshold: 0.15 }).observe(pie);
+    const mover = (e) => {
+      const r = cv.getBoundingClientRect(), t = performance.now();
+      const x = e.clientX - r.left, y = e.clientY - r.top, dt = Math.max(16, t - mouse.t);
+      mouse.vx = ((x - mouse.x) / dt) * 16; mouse.vy = ((y - mouse.y) / dt) * 16;
+      if (Math.abs(mouse.vx) > 60) mouse.vx = 0;
+      if (Math.abs(mouse.vy) > 60) mouse.vy = 0;
+      mouse.x = x; mouse.y = y; mouse.t = t;
+      if (soltadas) despertar();
+    };
+    pie.addEventListener("pointermove", mover, { passive: true });
+    pie.addEventListener("pointerdown", mover, { passive: true });
+    pie.addEventListener("pointerleave", () => { mouse.x = mouse.y = -1e4; });
+    let ancho = innerWidth;
+    addEventListener("resize", () => {
+      if (Math.abs(innerWidth - ancho) < 40) return;   // la barra del celular no rearma
+      ancho = innerWidth; armar(); if (soltadas) despertar();
+    });
+    });
+  })();
 
   /* ---------- 22. Objetos animados del acordeon ----------
      Desde el 2026-11-12 son videos generados con Higgsfield (imagen con GPT
