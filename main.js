@@ -833,14 +833,13 @@
     faq_a6: "A CRM or panel built for your business: clients, quotes, payments, stock or bookings, with the permissions each person needs. It works on computer and phone.",
     faq_q7: "What happens after delivery?",
     faq_a7: "I stay available for support and changes. If you want, a monthly plan covers maintenance, the domain and adjustments.",
-    srv_sub: "Web design, online stores, management systems and automations, built to measure. Start with one and add the others when the business calls for it.",
+    srv_sub: "Five services, all built for your business. Start with one and add another when you need it.",
     ribbon: "Most requested",
     s1_h: "Webs & Stores",
-    s1_tag: "Your business presented with care, with a clear path from visit to inquiry.",
+    s1_tag: "Your business well presented, and a short path from visit to inquiry.",
     s1_l1: "Custom corporate website or landing page design",
     s1_l2: "Shopify online store with payments and shipping",
     s1_l3: "Ready to show up on Google and receive inquiries on WhatsApp",
-    price: "Quote: <b>by scope</b>",
     see_more: "Get in touch →",
     acc_pill: "See details \u2192",
     acc_reset: "\u2715 Close details",
@@ -858,6 +857,14 @@
     s4_tag: "The tasks repeated by hand every day, handled without anyone touching them.",
     s4_l2: "Automated tasks in Outlook, Excel and Teams",
     s4_l3: "Connecting the tools you already use",
+    s5_h: "3D projects",
+    s5_tag: "3D models of buildings, land lots and houses, to show the project before it's finished.",
+    s5_l1: "A model you explore in the browser, built from the plans",
+    s5_l2: "Every unit or lot with its status: available, reserved or sold",
+    s5_l3: "For developers, engineers and real-estate agents",
+    lk_3d: "About this service",
+    td_h: "3D projects",
+    td_sub: "Models you explore in the browser, built from the plans.",
     lap_h: "This is how a custom system works.",
     lap_sub: "A walkthrough of a system in use, with sample data.",
     about_h: "The person behind the system.",
@@ -872,7 +879,7 @@
     avail: "AVAILABLE \u00b7 REMOTE WORK",
     tools_h: "Tools I work with",
     test_h: "Results, not promises.",
-    mk_h: "Companies that trust DT System",
+    mk_h: "Some of my clients",
     f_role: "Founder · DT System",
     cs_h: "Projects.",
     cs_sub: "Websites and stores that are live, plus demos of what I'm building.",
@@ -895,6 +902,7 @@
     c12s: "Real-estate brokerage · Salta",
     c17s: "Original artwork shop · Barcelona",
     c18s: "Bags made from textile waste · Salta",
+    c3d1: "3D model with every unit's status",
     or_c: "Client", or_p: "Own", st_wip: "In progress", st_live: "Live", st_demo: "Demo", st_uso: "In use",
     // CASOS:FIN
     cta_h: "Let’s talk.",
@@ -903,7 +911,7 @@
     af_name: "Your name",
     af_via: "Send via",
     af_type: "What do you need?",
-    af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t5: "Other",
+    af_t1: "Web / Store", af_t2: "Management system", af_t3: "Mobile app", af_t4: "Automation", af_t6: "3D project", af_t5: "Other",
     af_idea: "Your idea, in a few words",
     cs_mas: "See all projects",
     wip_h: "Next to launch",
@@ -914,7 +922,7 @@
     app_sub: "My own apps, published on the store.",
     af_hint: "Opens WhatsApp with your message ready to send.",
     af_send: "Send inquiry",
-    f_tag: "Custom websites and systems for businesses that want to grow in an orderly way.",
+    f_tag: "Custom websites, stores and systems, made in Salta.",
     nl_h: "News & new work",
     nl_p: "What I’m launching, first on Instagram.",
     nl_btn: "Follow on Instagram \u2197",
@@ -1224,60 +1232,112 @@
   }
 
   /* ---------- 22. Objetos animados del acordeon ----------
-     Se resuelven en vivo sobre un <canvas>, no son video ni WebP: asi la
-     animacion corre a la tasa de refresco real de la pantalla y el dibujo
-     sale nitido a cualquier densidad. 48 KB los cuatro modulos.
-     Cada panel tiene DOS canvas del mismo objeto: el del cover (quieto en
-     su frame mas legible; anima al hover) y el del detalle, que corre en
-     loop continuo mientras el panel esta abierto — como la referencia de
-     wearestokt.com, donde el objeto sigue vivo en la card expandida. */
-  const REPOSO = { web: 18, sys: 18, app: 17, ia: 9 };
-  $$(".acc-p").forEach((panel) => {
-    // El lienzo base es de 720x450: se dobla solo si se muestra grande y la
-    // pantalla es densa. A x3 eran ~93 MB de canvas en el celular.
-    const dpr = window.devicePixelRatio || 1;
-    const instanciar = (cv) => {
-      const crear = cv && window.DTAnim && window.DTAnim[cv.dataset.obj];
-      if (!crear) return null;
-      const escala = cv.getBoundingClientRect().width * dpr > 720 ? Math.min(2, dpr) : 1;
-      try { return crear(cv, { q: "scale=" + escala, reposo: REPOSO[cv.dataset.obj] || 0 }); }
-      catch (e) { return null; }
+     Desde el 2026-11-12 son videos generados con Higgsfield (imagen con GPT
+     Image, movimiento con Kling) en la linea de wearestokt.com. No hay video
+     con alfa que ande en Safari, asi que cada objeto viene en dos versiones con
+     el fondo ya pintado del color exacto de la tarjeta: claro y oscuro. Al
+     cambiar el tema se cambia el archivo. En el celular baja uno mas chico.
+     Corren en loop mientras el panel esta en pantalla; afuera, en pausa. Con
+     movimiento reducido o ahorro de datos queda el poster quieto. */
+  const vids = $$(".acc-p video.srv-obj");
+  if (vids.length) {
+    const chico = matchMedia("(max-width: 980px)");
+    const quieto = reduced || navigator.connection?.saveData;
+    const tema = () => (root.dataset.theme === "dark" ? "oscuro" : "claro");
+    const archivo = (v) => "assets/srv/" + v.dataset.obj + "-" + tema() + (chico.matches ? "-cel" : "") + ".mp4";
+    const poster = (v) => "assets/srv/" + v.dataset.obj + "-" + tema() + ".jpg";
+    const enPantalla = new WeakSet();
+    // el de la tarjeta corre si el panel esta cerrado; el del detalle, si esta abierto
+    const toca = (v) => {
+      const panel = v.closest(".acc-p");
+      const abierto = panel.classList.contains("open");
+      return enPantalla.has(panel) && (v.closest(".acc-img") ? abierto : !abierto);
     };
-    const cover = instanciar($(".acc-cover canvas.srv-obj", panel));
-    // el del detalle se crea recién la primera vez que se abre el panel
-    let detalle = null;
-    const cvDetalle = $(".acc-img canvas.srv-obj", panel);
-    if ("MutationObserver" in window) {
-      new MutationObserver(() => {
-        if (panel.classList.contains("open")) {
-          detalle = detalle || instanciar(cvDetalle);
-          if (!reduced) { cover && cover.stop(); detalle && detalle.start(); }
-        } else detalle && detalle.stop();
-      }).observe(panel, { attributes: true, attributeFilter: ["class"] });
-    }
-    if (reduced) return;                  // quedan los frames quietos
+    const actualizar = (v) => {
+      if (v.getAttribute("poster") !== poster(v)) v.setAttribute("poster", poster(v));
+      if (quieto) return;
+      if (toca(v)) {
+        if (v.dataset.src !== archivo(v)) { v.dataset.src = archivo(v); v.src = v.dataset.src; }
+        v.play().catch(() => {});
+      } else if (!v.paused) v.pause();
+    };
+    const todos = () => vids.forEach(actualizar);
+    todos();
+    new MutationObserver(todos).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    chico.addEventListener("change", todos);
+    const io = "IntersectionObserver" in window
+      ? new IntersectionObserver((es) => es.forEach((e) => {
+          if (e.isIntersecting) enPantalla.add(e.target); else enPantalla.delete(e.target);
+          $$("video.srv-obj", e.target).forEach(actualizar);
+        }), { rootMargin: "120px 0px" })
+      : null;
+    $$(".acc-p").forEach((panel) => {
+      if (io) io.observe(panel); else enPantalla.add(panel);
+      new MutationObserver(() => $$("video.srv-obj", panel).forEach(actualizar))
+        .observe(panel, { attributes: true, attributeFilter: ["class"] });
+    });
+    todos();
+  }
 
-    // cover: anima al hover, solo mientras el panel este cerrado
-    if (cover) {
-      const entra = () => { if (!panel.classList.contains("open")) cover.start(); };
-      panel.addEventListener("pointerenter", entra);
-      panel.addEventListener("pointerleave", cover.stop);
-      panel.addEventListener("focusin", entra);
-      panel.addEventListener("focusout", cover.stop);
-    }
-    // detalle: loop continuo mientras el panel este abierto (lo maneja el
-    // MutationObserver de arriba, que mira la clase .open y cubre el reset)
-    // fuera del viewport nadie dibuja; al volver, el detalle retoma si
-    // el panel sigue abierto
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver((es) => {
-        es.forEach((e) => {
-          if (!e.isIntersecting) { cover && cover.stop(); detalle && detalle.stop(); }
-          else if (detalle && panel.classList.contains("open")) detalle.start();
-        });
-      }, { rootMargin: "120px 0px" }).observe(panel);
-    }
-  });
+  /* ---------- 22a. El objeto responde al puntero ----------
+     Con mouse, el objeto del panel se inclina hacia el puntero, se corre un
+     poco en sentido contrario (paralaje) y se acerca; al apretar se hunde.
+     Cada valor persigue su objetivo con un resorte criticamente amortiguado,
+     sin rebote: arranca desde donde esta, asi se puede cortar y revertir en
+     cualquier momento sin salto. Solo transform, por el compositor. */
+  if (!reduced && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    $$(".acc-p").forEach((panel) => {
+      const objeto = () => $(panel.classList.contains("open") ? ".acc-img video.srv-obj" : ".acc-cover video.srv-obj", panel);
+      const K = ["rx", "ry", "tx", "ty", "s"];
+      const val = { rx: 0, ry: 0, tx: 0, ty: 0, s: 1 }, vel = { rx: 0, ry: 0, tx: 0, ty: 0, s: 0 };
+      const obj = { ...val };
+      let raf = 0, ult = 0, actual = null, apretado = false;
+      const pintar = (el) => {
+        el.style.setProperty("--rx", val.rx.toFixed(2) + "deg");
+        el.style.setProperty("--ry", val.ry.toFixed(2) + "deg");
+        el.style.setProperty("--tx", val.tx.toFixed(1) + "px");
+        el.style.setProperty("--ty", val.ty.toFixed(1) + "px");
+        el.style.setProperty("--s", val.s.toFixed(4));
+      };
+      const paso = (t) => {
+        const dt = Math.min(0.032, (t - (ult || t)) / 1000) || 0.016;
+        ult = t;
+        // resorte con amortiguacion critica: respuesta ~0,35 s
+        const w = 2 * Math.PI / 0.35;
+        let quieto = true;
+        for (const k of K) {
+          const a = w * w * (obj[k] - val[k]) - 2 * w * vel[k];
+          vel[k] += a * dt; val[k] += vel[k] * dt;
+          if (Math.abs(obj[k] - val[k]) > 0.002 || Math.abs(vel[k]) > 0.002) quieto = false;
+        }
+        const el = objeto();
+        if (actual && actual !== el) { K.forEach((k) => actual.style.removeProperty("--" + k)); }
+        actual = el;
+        if (el) pintar(el);
+        raf = quieto ? 0 : requestAnimationFrame(paso);
+      };
+      const mover = () => { if (!raf) { ult = 0; raf = requestAnimationFrame(paso); } };
+      const escala = () => (apretado ? 0.97 : panel.classList.contains("open") ? 1.02 : 1.07);
+      panel.addEventListener("pointermove", (e) => {
+        const el = objeto();
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
+        const y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
+        obj.ry = x * 14; obj.rx = -y * 10;
+        obj.tx = -x * 10; obj.ty = -y * 8;
+        obj.s = escala();
+        mover();
+      });
+      panel.addEventListener("pointerleave", () => {
+        apretado = false;
+        Object.assign(obj, { rx: 0, ry: 0, tx: 0, ty: 0, s: 1 });
+        mover();
+      });
+      panel.addEventListener("pointerdown", () => { apretado = true; obj.s = escala(); mover(); });
+      addEventListener("pointerup", () => { if (apretado) { apretado = false; obj.s = escala(); mover(); } });
+    });
+  }
 
   /* ---------- 22b. Filas de celulares sin huecos ----------
      Cada track tiene que medir más que la pantalla más ancha: si no, al final
@@ -1440,9 +1500,9 @@
     ink.className = "nav-ink";
     ink.setAttribute("aria-hidden", "true");
     nav.appendChild(ink);
-    // Marcas cuenta como Proyectos: es la misma conversación (con quién trabajé)
-    const alias = { marcas: "proyectos", preguntas: "contacto" };
-    const ids = ["top", "servicios", "marcas", "proyectos", "sobre-mi", "preguntas", "contacto"];
+    // Marcas va debajo de Servicios desde el 2026-11-12 (orden de Stökt: trabajos primero)
+    const alias = { marcas: "servicios", preguntas: "contacto" };
+    const ids = ["top", "proyectos", "servicios", "marcas", "sobre-mi", "preguntas", "contacto"];
     const secs = ids.map((id) => document.getElementById(id)).filter(Boolean);
     let actual = "";
     const pintar = (id) => {

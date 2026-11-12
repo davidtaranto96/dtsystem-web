@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112a">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112b">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112a">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261112b">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,7 +38,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261112a">
+  <link rel="stylesheet" href="styles.css?v=20261112b">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -78,7 +78,7 @@
         "https://www.instagram.com/david.taranto/"
       ]
     },
-    "knowsAbout": ["Diseño web", "Desarrollo web", "Tiendas online", "Shopify", "Sistemas de gestión", "CRM a medida", "Apps móviles", "Automatización"]
+    "knowsAbout": ["Diseño web", "Desarrollo web", "Tiendas online", "Shopify", "Sistemas de gestión", "CRM a medida", "Apps móviles", "Automatización", "Maquetas 3D interactivas"]
   }
   </script>
   <script type="application/ld+json">
@@ -173,8 +173,8 @@
         <a class="logo" href="#top">dt<b>/</b>system</a>
         <nav class="nav" aria-label="Principal" data-i18n-aria="nav">
           <a href="#top"><span class="nl"><span data-i18n="nav_inicio">Inicio</span><span aria-hidden="true" data-i18n="nav_inicio">Inicio</span></span></a>
-          <a href="#servicios"><span class="nl"><span data-i18n="nav_prod">Servicios</span><span aria-hidden="true" data-i18n="nav_prod">Servicios</span></span></a>
           <a href="#proyectos"><span class="nl"><span data-i18n="nav_proy">Proyectos</span><span aria-hidden="true" data-i18n="nav_proy">Proyectos</span></span></a>
+          <a href="#servicios"><span class="nl"><span data-i18n="nav_prod">Servicios</span><span aria-hidden="true" data-i18n="nav_prod">Servicios</span></span></a>
           <a href="#sobre-mi"><span class="nl"><span data-i18n="nav_sobre">Sobre mí</span><span aria-hidden="true" data-i18n="nav_sobre">Sobre mí</span></span></a>
           <a href="#contacto"><span class="nl"><span data-i18n="nav_contacto">Contacto</span><span aria-hidden="true" data-i18n="nav_contacto">Contacto</span></span></a>
         </nav>
@@ -199,8 +199,8 @@
           </summary>
           <div class="menu-pop">
             <a href="#top" style="--i:0" data-i18n="nav_inicio">Inicio</a>
-            <a href="#servicios" style="--i:1" data-i18n="nav_prod">Servicios</a>
-            <a href="#proyectos" style="--i:2" data-i18n="nav_proy">Proyectos</a>
+            <a href="#proyectos" style="--i:1" data-i18n="nav_proy">Proyectos</a>
+            <a href="#servicios" style="--i:2" data-i18n="nav_prod">Servicios</a>
             <a href="#sobre-mi" style="--i:3" data-i18n="nav_sobre">Sobre mí</a>
             <a href="#contacto" style="--i:4" data-i18n="nav_contacto">Contacto</a>
           </div>
@@ -243,232 +243,6 @@
           </ul>
         </div>
       </div>
-    </section>
-
-    <!-- ============ 4. MOBILE SHOWCASE ============ -->
-    <section class="mobile-sec">
-      <div class="mobile-head wrap">
-        <h2 class="h2" data-rv="up" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
-      </div>
-
-      <!-- Marquee infinito: el track se duplica con aria-hidden="true"
-           y anima translateX(-100%) → loop perfecto sin salto. -->
-      <div class="marquee" style="--speed: 10s;">
-        <div class="mtrack">
-          <div class="phone"><img src="assets/mobile-1.jpg" width="360" height="780" alt="melou en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-5.jpg" width="360" height="780" alt="Edificio La Torre en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-2.jpg" width="360" height="780" alt="Tienda BAZA en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-9.jpg" width="360" height="780" alt="Cañada Húmeda en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-10.jpg" width="360" height="780" alt="MAVENZ en el celular" loading="lazy"></div>
-        </div>
-        <div class="mtrack" aria-hidden="true" inert>
-          <div class="phone"><img src="assets/mobile-1.jpg" width="360" height="780" alt="melou en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-5.jpg" width="360" height="780" alt="Edificio La Torre en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-2.jpg" width="360" height="780" alt="Tienda BAZA en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-9.jpg" width="360" height="780" alt="Cañada Húmeda en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-10.jpg" width="360" height="780" alt="MAVENZ en el celular" loading="lazy"></div>
-        </div>
-      </div>
-      <!-- Segunda fila: otros sitios, dirección opuesta y velocidad distinta -->
-      <div class="marquee rev" style="--speed: 13s;">
-        <div class="mtrack">
-          <div class="phone"><img src="assets/mobile-7.jpg?v=2" width="360" height="780" alt="Saurium en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-8.jpg" width="360" height="780" alt="Portal de Francisco Molins en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-4.jpg" width="360" height="780" alt="Aires de San Lorenzo en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-11.jpg" width="360" height="780" alt="Josi Compagnucci en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-12.jpg" width="360" height="780" alt="RETAZOS en el celular" loading="lazy"></div>
-        </div>
-        <div class="mtrack" aria-hidden="true" inert>
-          <div class="phone"><img src="assets/mobile-7.jpg?v=2" width="360" height="780" alt="Saurium en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-8.jpg" width="360" height="780" alt="Portal de Francisco Molins en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-4.jpg" width="360" height="780" alt="Aires de San Lorenzo en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-11.jpg" width="360" height="780" alt="Josi Compagnucci en el celular" loading="lazy"></div>
-          <div class="phone"><img src="assets/mobile-12.jpg" width="360" height="780" alt="RETAZOS en el celular" loading="lazy"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 5. SERVICIOS ============ -->
-    <section id="servicios">
-      <div class="wrap">
-        <div class="sec-head" data-rv="up">
-          <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
-          <p class="sub" data-i18n="srv_sub">Diseño web, tiendas online, sistemas de gestión y automatizaciones a medida. Podés empezar por uno y sumar los demás cuando el negocio lo pida.</p>
-          <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
-        </div>
-
-        <!-- Acordeón horizontal estilo Stökt (full-bleed): el panel abierto
-             crece y su contenido entra en cascada; los cerrados son franjas
-             con el título vertical. -->
-        <div class="acc" data-rv="fade" id="acc">
-          <article class="acc-p">
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s1_h">Webs y Tiendas</span></button>
-            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
-            <div class="acc-cover" aria-hidden="true">
-              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
-              <canvas class="srv-obj" data-obj="web" width="720" height="450"
-                      aria-hidden="true"></canvas>
-              <h3 data-i18n="s1_h">Webs y Tiendas</h3>
-            </div>
-            <div class="acc-body">
-              <div class="acc-txt">
-                <span class="srv-num">01</span>
-                <h3 data-i18n="s1_h">Webs y Tiendas</h3>
-                <p class="srv-tag" data-i18n="s1_tag">Tu negocio presentado con seriedad, con un camino claro de la visita a la consulta.</p>
-                <ul class="acc-list">
-                  <li data-i18n="s1_l1">Diseño de página web institucional o landing a medida</li>
-                  <li data-i18n="s1_l2">Tienda online en Shopify, con pagos y envíos</li>
-                  <li data-i18n="s1_l3">Preparada para aparecer en Google y recibir consultas por WhatsApp</li>
-                </ul>
-                <div class="acc-pie">
-                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <a class="srv-casos" href="/diseno-web/" data-i18n="lk_web">Diseño web</a>
-                  <a class="srv-casos" href="/tiendas-online/" data-i18n="lk_tienda">Tiendas online</a>
-                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
-                </div>
-              </div>
-              <div class="acc-img">
-                <canvas class="srv-obj" data-obj="web" width="720" height="450"
-                        aria-hidden="true"></canvas>
-              </div>
-            </div>
-          </article>
-
-          <article class="acc-p">
-            <span class="ribbon" data-i18n="ribbon">Más pedido</span>
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s2_h">Sistemas de gestión</span></button>
-            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
-            <div class="acc-cover" aria-hidden="true">
-              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
-              <canvas class="srv-obj" data-obj="sys" width="720" height="450"
-                      aria-hidden="true"></canvas>
-              <h3 data-i18n="s2_h">Sistemas de gestión</h3>
-            </div>
-            <div class="acc-body">
-              <div class="acc-txt">
-                <span class="srv-num">02</span>
-                <h3 data-i18n="s2_h">Sistemas de gestión</h3>
-                <p class="srv-tag" data-i18n="s2_tag">Un CRM o sistema de gestión propio para ordenar clientes, ventas y cobros en un solo lugar.</p>
-                <ul class="acc-list">
-                  <li data-i18n="s2_l1">Gestión de clientes y oportunidades</li>
-                  <li data-i18n="s2_l2">Presupuestos, facturación y reportes</li>
-                  <li data-i18n="s2_l3">Portal de acceso para tus clientes</li>
-                </ul>
-                <div class="acc-pie">
-                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <a class="srv-casos" href="/sistemas-de-gestion/" data-i18n="lk_sys">Ver el servicio</a>
-                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
-                </div>
-              </div>
-              <div class="acc-img">
-                <canvas class="srv-obj" data-obj="sys" width="720" height="450"
-                        aria-hidden="true"></canvas>
-              </div>
-            </div>
-          </article>
-
-          <article class="acc-p">
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s3_h">Apps móviles</span></button>
-            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
-            <div class="acc-cover" aria-hidden="true">
-              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
-              <canvas class="srv-obj" data-obj="app" width="720" height="450"
-                      aria-hidden="true"></canvas>
-              <h3 data-i18n="s3_h">Apps móviles</h3>
-            </div>
-            <div class="acc-body">
-              <div class="acc-txt">
-                <span class="srv-num">03</span>
-                <h3 data-i18n="s3_h">Apps móviles</h3>
-                <p class="srv-tag" data-i18n="s3_tag">Aplicaciones para Android y iPhone, del prototipo a la publicación.</p>
-                <ul class="acc-list">
-                  <li data-i18n="s3_l1">Diseño y prototipo navegable</li>
-                  <li data-i18n="s3_l2">Una sola app para Android y iPhone</li>
-                  <li data-i18n="s3_l3">Publicación en Google Play y App Store</li>
-                </ul>
-                <div class="acc-pie">
-                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
-                </div>
-              </div>
-              <div class="acc-img">
-                <canvas class="srv-obj" data-obj="app" width="720" height="450"
-                        aria-hidden="true"></canvas>
-              </div>
-            </div>
-          </article>
-
-          <article class="acc-p">
-            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s4_h">Automatizaciones</span></button>
-            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
-            <div class="acc-cover" aria-hidden="true">
-              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
-              <canvas class="srv-obj" data-obj="ia" width="720" height="450"
-                      aria-hidden="true"></canvas>
-              <h3 data-i18n="s4_h">Automatizaciones</h3>
-            </div>
-            <div class="acc-body">
-              <div class="acc-txt">
-                <span class="srv-num">04</span>
-                <h3 data-i18n="s4_h">Automatizaciones</h3>
-                <p class="srv-tag" data-i18n="s4_tag">Las tareas que hoy se repiten a mano todos los días, resueltas sin que nadie las toque.</p>
-                <ul class="acc-list">
-                  <li data-i18n="s4_l2">Tareas automáticas en Outlook, Excel y Teams</li>
-                  <li data-i18n="s4_l3">Conexión entre las herramientas que ya usás</li>
-                </ul>
-                <div class="acc-pie">
-                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
-                  <a class="srv-casos" href="/automatizaciones/" data-i18n="lk_auto">Ver el servicio</a>
-                  <p class="srv-price" data-i18n="price">Presupuesto: <b>según alcance</b></p>
-                </div>
-              </div>
-              <div class="acc-img">
-                <canvas class="srv-obj" data-obj="ia" width="720" height="450"
-                        aria-hidden="true"></canvas>
-              </div>
-            </div>
-          </article>
-        </div>
-        <!-- Lo técnico alrededor de la web: solo lo que David hace de verdad -->
-        <p class="srv-it" data-rv="fade" data-i18n="srv_it"><b>También me ocupo de la parte técnica:</b> dominio y correos propios, Microsoft 365 o Google Workspace, copias de seguridad y accesos.</p>
-      </div>
-    </section>
-
-    <!-- ============ 7b. MARCAS ============
-         Logos monocromos por mask-image + currentColor: heredan el color
-         del tema, asi que no hacen falta variantes claro/oscuro. Fila
-         estatica a proposito — un marquee sumaria loops infinitos. -->
-    <section id="marcas" class="marcas-sec">
-      <div class="wrap">
-        <p class="marcas-h" data-rv="down" data-i18n="mk_h">Empresas que confían en DT System</p>
-        <div class="marcas-carrusel marquee">
-          <ul class="marcas mtrack">
-              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
-              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
-              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
-              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
-              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
-              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
-              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
-              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
-              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
-              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
-              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
-          </ul>
-          <ul class="marcas mtrack" aria-hidden="true" inert>
-              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
-              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
-              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
-              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
-              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
-              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
-              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
-              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
-              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
-              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
-              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
-          </ul>
-        </div>      </div>
     </section>
 
     <!-- ============ 8. CASOS — TRABAJO ENTREGADO ============
@@ -649,8 +423,266 @@
             </div>
           </div>
         </div>
+
+        <div class="sys-head" data-rv="fade">
+          <h3 class="sys-h" data-i18n="td_h">Proyectos en 3D</h3>
+          <p class="sub" data-i18n="td_sub">Maquetas que se recorren en el navegador, armadas desde los planos.</p>
+        </div>
+        <div class="demo-grid cs-grid sys-grid" id="tdGrid">
+          <a class="demo" data-cat="3d" data-cursor="Recorrer ↗" data-cursor-en="Explore ↗" href="https://edificiolatorre.com/3d/" target="_blank" rel="noopener">
+            <div class="demo-shot"><img src="assets/casos/case-latorre-3d.jpg" width="960" height="600" alt="Maqueta 3D del Edificio La Torre, con vistas de cámara y el estado de cada unidad" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>La Torre en 3D</h3><small data-i18n="c3d1">Maqueta 3D con el estado de cada unidad</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Recorrer ↗</span></div>
+          </a>
+        </div>
         <!-- BLOQUES:FIN -->
       </div>
+    </section>
+
+    <!-- ============ 4. MOBILE SHOWCASE ============ -->
+    <section class="mobile-sec">
+      <div class="mobile-head wrap">
+        <h2 class="h2" data-rv="up" data-i18n="mob_h">La mayoría de tus clientes llega desde el celular. Cada proyecto se diseña primero para esa pantalla.</h2>
+      </div>
+
+      <!-- Marquee infinito: el track se duplica con aria-hidden="true"
+           y anima translateX(-100%) → loop perfecto sin salto. -->
+      <div class="marquee" style="--speed: 10s;">
+        <div class="mtrack">
+          <div class="phone"><img src="assets/mobile-1.jpg" width="360" height="780" alt="melou en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-5.jpg" width="360" height="780" alt="Edificio La Torre en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-2.jpg" width="360" height="780" alt="Tienda BAZA en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-9.jpg" width="360" height="780" alt="Cañada Húmeda en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-10.jpg" width="360" height="780" alt="MAVENZ en el celular" loading="lazy"></div>
+        </div>
+        <div class="mtrack" aria-hidden="true" inert>
+          <div class="phone"><img src="assets/mobile-1.jpg" width="360" height="780" alt="melou en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-5.jpg" width="360" height="780" alt="Edificio La Torre en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-2.jpg" width="360" height="780" alt="Tienda BAZA en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-9.jpg" width="360" height="780" alt="Cañada Húmeda en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-10.jpg" width="360" height="780" alt="MAVENZ en el celular" loading="lazy"></div>
+        </div>
+      </div>
+      <!-- Segunda fila: otros sitios, dirección opuesta y velocidad distinta -->
+      <div class="marquee rev" style="--speed: 13s;">
+        <div class="mtrack">
+          <div class="phone"><img src="assets/mobile-7.jpg?v=2" width="360" height="780" alt="Saurium en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-8.jpg" width="360" height="780" alt="Portal de Francisco Molins en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-4.jpg" width="360" height="780" alt="Aires de San Lorenzo en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-11.jpg" width="360" height="780" alt="Josi Compagnucci en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-12.jpg" width="360" height="780" alt="RETAZOS en el celular" loading="lazy"></div>
+        </div>
+        <div class="mtrack" aria-hidden="true" inert>
+          <div class="phone"><img src="assets/mobile-7.jpg?v=2" width="360" height="780" alt="Saurium en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-8.jpg" width="360" height="780" alt="Portal de Francisco Molins en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-4.jpg" width="360" height="780" alt="Aires de San Lorenzo en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-11.jpg" width="360" height="780" alt="Josi Compagnucci en el celular" loading="lazy"></div>
+          <div class="phone"><img src="assets/mobile-12.jpg" width="360" height="780" alt="RETAZOS en el celular" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. SERVICIOS ============ -->
+    <section id="servicios">
+      <div class="wrap">
+        <div class="sec-head" data-rv="up">
+          <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
+          <p class="sub" data-i18n="srv_sub">Cinco servicios, todos hechos para tu negocio. Arrancá por uno y sumá otro cuando lo necesites.</p>
+          <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
+        </div>
+
+        <!-- Acordeón horizontal estilo Stökt (full-bleed): el panel abierto
+             crece y su contenido entra en cascada; los cerrados son franjas
+             con el título vertical. -->
+        <div class="acc" data-rv="fade" id="acc">
+          <article class="acc-p">
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s1_h">Webs y Tiendas</span></button>
+            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
+            <div class="acc-cover" aria-hidden="true">
+              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
+              <video class="srv-obj" data-obj="web" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/web-claro.jpg"></video>
+              <h3 data-i18n="s1_h">Webs y Tiendas</h3>
+            </div>
+            <div class="acc-body">
+              <div class="acc-txt">
+                <span class="srv-num">01</span>
+                <h3 data-i18n="s1_h">Webs y Tiendas</h3>
+                <p class="srv-tag" data-i18n="s1_tag">Tu negocio bien presentado, y un camino corto de la visita a la consulta.</p>
+                <ul class="acc-list">
+                  <li data-i18n="s1_l1">Diseño de página web institucional o landing a medida</li>
+                  <li data-i18n="s1_l2">Tienda online en Shopify, con pagos y envíos</li>
+                  <li data-i18n="s1_l3">Preparada para aparecer en Google y recibir consultas por WhatsApp</li>
+                </ul>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <a class="srv-casos" href="/diseno-web/" data-i18n="lk_web">Diseño web</a>
+                  <a class="srv-casos" href="/tiendas-online/" data-i18n="lk_tienda">Tiendas online</a>
+                </div>
+              </div>
+              <div class="acc-img">
+                <video class="srv-obj" data-obj="web" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/web-claro.jpg"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="acc-p">
+            <span class="ribbon" data-i18n="ribbon">Más pedido</span>
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s2_h">Sistemas de gestión</span></button>
+            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
+            <div class="acc-cover" aria-hidden="true">
+              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
+              <video class="srv-obj" data-obj="sys" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/sys-claro.jpg"></video>
+              <h3 data-i18n="s2_h">Sistemas de gestión</h3>
+            </div>
+            <div class="acc-body">
+              <div class="acc-txt">
+                <span class="srv-num">02</span>
+                <h3 data-i18n="s2_h">Sistemas de gestión</h3>
+                <p class="srv-tag" data-i18n="s2_tag">Un CRM o sistema de gestión propio para ordenar clientes, ventas y cobros en un solo lugar.</p>
+                <ul class="acc-list">
+                  <li data-i18n="s2_l1">Gestión de clientes y oportunidades</li>
+                  <li data-i18n="s2_l2">Presupuestos, facturación y reportes</li>
+                  <li data-i18n="s2_l3">Portal de acceso para tus clientes</li>
+                </ul>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <a class="srv-casos" href="/sistemas-de-gestion/" data-i18n="lk_sys">Ver el servicio</a>
+                </div>
+              </div>
+              <div class="acc-img">
+                <video class="srv-obj" data-obj="sys" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/sys-claro.jpg"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="acc-p">
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s3_h">Apps móviles</span></button>
+            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
+            <div class="acc-cover" aria-hidden="true">
+              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
+              <video class="srv-obj" data-obj="app" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/app-claro.jpg"></video>
+              <h3 data-i18n="s3_h">Apps móviles</h3>
+            </div>
+            <div class="acc-body">
+              <div class="acc-txt">
+                <span class="srv-num">03</span>
+                <h3 data-i18n="s3_h">Apps móviles</h3>
+                <p class="srv-tag" data-i18n="s3_tag">Aplicaciones para Android y iPhone, del prototipo a la publicación.</p>
+                <ul class="acc-list">
+                  <li data-i18n="s3_l1">Diseño y prototipo navegable</li>
+                  <li data-i18n="s3_l2">Una sola app para Android y iPhone</li>
+                  <li data-i18n="s3_l3">Publicación en Google Play y App Store</li>
+                </ul>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                </div>
+              </div>
+              <div class="acc-img">
+                <video class="srv-obj" data-obj="app" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/app-claro.jpg"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="acc-p">
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s4_h">Automatizaciones</span></button>
+            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
+            <div class="acc-cover" aria-hidden="true">
+              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
+              <video class="srv-obj" data-obj="ia" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/ia-claro.jpg"></video>
+              <h3 data-i18n="s4_h">Automatizaciones</h3>
+            </div>
+            <div class="acc-body">
+              <div class="acc-txt">
+                <span class="srv-num">04</span>
+                <h3 data-i18n="s4_h">Automatizaciones</h3>
+                <p class="srv-tag" data-i18n="s4_tag">Las tareas que hoy se repiten a mano todos los días, resueltas sin que nadie las toque.</p>
+                <ul class="acc-list">
+                  <li data-i18n="s4_l2">Tareas automáticas en Outlook, Excel y Teams</li>
+                  <li data-i18n="s4_l3">Conexión entre las herramientas que ya usás</li>
+                </ul>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <a class="srv-casos" href="/automatizaciones/" data-i18n="lk_auto">Ver el servicio</a>
+                </div>
+              </div>
+              <div class="acc-img">
+                <video class="srv-obj" data-obj="ia" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/ia-claro.jpg"></video>
+              </div>
+            </div>
+          </article>
+
+          <article class="acc-p">
+            <button class="acc-tab" type="button" aria-expanded="false" data-cursor="Ver detalle →" data-cursor-en="See details →"><span class="acc-vert" data-i18n="s5_h">Proyectos en 3D</span></button>
+            <!-- Cover: lo que se ve en la grilla inicial (imagen animada + título) -->
+            <div class="acc-cover" aria-hidden="true">
+              <span class="acc-pill" data-i18n="acc_pill">Ver detalle →</span>
+              <video class="srv-obj" data-obj="edif" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/edif-claro.jpg"></video>
+              <h3 data-i18n="s5_h">Proyectos en 3D</h3>
+            </div>
+            <div class="acc-body">
+              <div class="acc-txt">
+                <span class="srv-num">05</span>
+                <h3 data-i18n="s5_h">Proyectos en 3D</h3>
+                <p class="srv-tag" data-i18n="s5_tag">Maquetas 3D de edificios, loteos y casas, para mostrar el proyecto antes de que esté terminado.</p>
+                <ul class="acc-list">
+                  <li data-i18n="s5_l1">Maqueta que se recorre en el navegador, armada desde los planos</li>
+                  <li data-i18n="s5_l2">Cada unidad o lote con su estado: libre, reservado o vendido</li>
+                  <li data-i18n="s5_l3">Para desarrolladoras, ingenieros e inmobiliarias</li>
+                </ul>
+                <div class="acc-pie">
+                  <a class="srv-cta" href="https://wa.me/5493875454070" target="_blank" rel="noopener" data-i18n="see_more">Consultar →</a>
+                  <a class="srv-casos" href="/proyectos-3d/" data-i18n="lk_3d">Ver el servicio</a>
+                </div>
+              </div>
+              <div class="acc-img">
+                <video class="srv-obj" data-obj="edif" width="960" height="600" muted loop playsinline preload="none" aria-hidden="true" poster="assets/srv/edif-claro.jpg"></video>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!-- Lo técnico alrededor de la web: solo lo que David hace de verdad -->
+        <p class="srv-it" data-rv="fade" data-i18n="srv_it"><b>También me ocupo de la parte técnica:</b> dominio y correos propios, Microsoft 365 o Google Workspace, copias de seguridad y accesos.</p>
+      </div>
+    </section>
+
+    <!-- ============ 7b. MARCAS ============
+         Logos monocromos por mask-image + currentColor: heredan el color
+         del tema, asi que no hacen falta variantes claro/oscuro. Fila
+         estatica a proposito — un marquee sumaria loops infinitos. -->
+    <section id="marcas" class="marcas-sec">
+      <div class="wrap">
+        <p class="marcas-h" data-rv="down" data-i18n="mk_h">Algunos de mis clientes</p>
+        <div class="marcas-carrusel marquee">
+          <ul class="marcas mtrack">
+              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
+              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
+              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
+              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
+              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
+              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
+              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
+              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
+              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
+              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
+              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
+          </ul>
+          <ul class="marcas mtrack" aria-hidden="true" inert>
+              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
+              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
+              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
+              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
+              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
+              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
+              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
+              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
+              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
+              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
+              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
+          </ul>
+        </div>      </div>
     </section>
 
     <!-- ============ 7. SOBRE MÍ — BENTO GRID (franja invertida estilo Stökt) ============ -->
@@ -794,6 +826,7 @@
               <button type="button" aria-pressed="false" class="af-chip" data-val="Sistema de gestión" data-i18n="af_t2">Sistema de gestión</button>
               <button type="button" aria-pressed="false" class="af-chip" data-val="App móvil" data-i18n="af_t3">App móvil</button>
               <button type="button" aria-pressed="false" class="af-chip" data-val="Automatización" data-i18n="af_t4">Automatización</button>
+              <button type="button" aria-pressed="false" class="af-chip" data-val="Proyecto en 3D" data-i18n="af_t6">Proyecto en 3D</button>
               <button type="button" aria-pressed="false" class="af-chip" data-val="Otro" data-i18n="af_t5">Otro</button>
             </div>
           </div>
@@ -839,7 +872,7 @@
       <div class="footer-cols">
         <div class="f-brand">
           <a class="logo" href="#top">dt<b>/</b>system</a>
-          <p data-i18n="f_tag">Webs y sistemas a medida para negocios que quieren crecer con orden.</p>
+          <p data-i18n="f_tag">Webs, tiendas y sistemas a medida, hechos desde Salta.</p>
         </div>
         <div class="f-contacto f-servicios">
           <h3 data-i18n="f_serv">Servicios</h3>
@@ -848,6 +881,7 @@
             <li><a href="/tiendas-online/" data-i18n="lk_tienda">Tiendas online</a></li>
             <li><a href="/sistemas-de-gestion/" data-i18n="s2_h">Sistemas de gestión</a></li>
             <li><a href="/automatizaciones/" data-i18n="s4_h">Automatizaciones</a></li>
+            <li><a href="/proyectos-3d/" data-i18n="s5_h">Proyectos en 3D</a></li>
           </ul>
         </div>
         <div class="f-contacto">
@@ -869,8 +903,7 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="objetos.js" defer></script>
-  <script src="main.js?v=20261112a" defer></script>
-  <script src="medicion.js?v=20261112a" defer></script>
+  <script src="main.js?v=20261112b" defer></script>
+  <script src="medicion.js?v=20261112b" defer></script>
 </body>
 </html>

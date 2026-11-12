@@ -1049,3 +1049,152 @@ DTAnim.ia = function (_cv, _opts) {
   return { start: start, stop: stop, drawFrame: drawFrame, anim: window.ANIM };
 
 };
+
+/* Edificio en 3D — el objeto de "Proyectos en 3D". No sale de Claude Design:
+   se escribio a mano con la misma interfaz que los otros (start, stop,
+   drawFrame) y la misma paleta. Dos torres que se arman piso por piso sobre
+   el terreno, giran un poco y prenden sus unidades: celeste libre, violeta
+   reservada, gris vendida, como en el 3D de La Torre. */
+DTAnim.edif = function (_cv, _opts) {
+  _opts = _opts || {};
+  "use strict";
+  var Q = new URLSearchParams(_opts.q || "");
+  var W = 720, H = 450, DUR = 4, FRAMES = 48;              // 12 fps
+  var SCALE = Math.max(1, Math.min(4, parseFloat(Q.get("scale") || "1") || 1));
+  var TAU = Math.PI * 2;
+  var ACC = "#52BFFE", VIO = "#8B7CF6";
+  var cv = _cv;
+  cv.width = W * SCALE; cv.height = H * SCALE;
+  var ctx = cv.getContext("2d");
+  var CX = W / 2, CY = 340, F = 1100, PITCH = -0.5, K = 1.55;
+  var cl = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var eBack = function (p) { var c = 1.4, q = p - 1; return 1 + (c + 1) * q * q * q + c * q * q; };
+  var eOut = function (p) { return 1 - Math.pow(1 - p, 3); };
+
+  var PISOS = 6, ALTO = 25;
+  // dos torres: x, z, ancho, fondo; las unidades van de a dos por piso y por torre
+  var TORRES = [{ x: -78, z: 10, w: 104, d: 84 }, { x: 52, z: -18, w: 92, d: 74 }];
+  // estado de cada unidad, fijo para que el dibujo no cambie entre vueltas
+  var EST = "LLRLLVLLRLLLLVLLRLLLLLRL";
+  function estado(t, p, u) { return EST.charAt((t * 12 + p * 2 + u) % EST.length); }
+
+  function vista(x, y, z, yaw) {
+    var c = Math.cos(yaw), s = Math.sin(yaw);
+    var x1 = x * c - z * s, z1 = x * s + z * c;
+    var cp = Math.cos(PITCH), sp = Math.sin(PITCH);
+    var y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
+    var k = K * F / (F + z2);
+    return [CX + x1 * k, CY - y2 * k, z2];
+  }
+  function poly(pts, fill, stroke, lw) {
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 1; ctx.stroke(); }
+  }
+  // la cara se ve si su normal, girada, apunta a la camara
+  function seVe(nx, ny, nz, yaw) {
+    var c = Math.cos(yaw), s = Math.sin(yaw);
+    var z1 = nx * s + nz * c;
+    return ny * Math.sin(PITCH) + z1 * Math.cos(PITCH) < 0;
+  }
+  function mezcla(a, b, k) { return a + (b - a) * k; }
+
+  // un piso de una torre: caja con ventanas en las dos caras largas
+  function piso(T, ti, p, y0, alfa, luz, yaw) {
+    var x0 = T.x - T.w / 2, x1 = T.x + T.w / 2, z0 = T.z - T.d / 2, z1 = T.z + T.d / 2, y1 = y0 + ALTO - 3;
+    var V = function (x, y, z) { return vista(x, y, z, yaw); };
+    ctx.globalAlpha = alfa;
+    var caras = [
+      { n: [0, 0, -1], q: [[x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0]], tono: 0.82, larga: true, eje: "x", fijo: z0 },
+      { n: [0, 0, 1], q: [[x1, y0, z1], [x0, y0, z1], [x0, y1, z1], [x1, y1, z1]], tono: 0.6, larga: true, eje: "x", fijo: z1 },
+      { n: [-1, 0, 0], q: [[x0, y0, z1], [x0, y0, z0], [x0, y1, z0], [x0, y1, z1]], tono: 0.55 },
+      { n: [1, 0, 0], q: [[x1, y0, z0], [x1, y0, z1], [x1, y1, z1], [x1, y1, z0]], tono: 0.7 },
+      { n: [0, 1, 0], q: [[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]], tono: 1 }
+    ];
+    for (var i = 0; i < caras.length; i++) {
+      var f = caras[i];
+      if (!seVe(f.n[0], f.n[1], f.n[2], yaw)) continue;
+      var pts = f.q.map(function (v) { return V(v[0], v[1], v[2]); });
+      var g = Math.round(mezcla(26, 58, f.tono));
+      poly(pts, "rgb(" + g + "," + (g + 4) + "," + (g + 12) + ")", "rgba(160,200,255,.22)", 1);
+      if (!f.larga) continue;
+      // dos unidades por cara larga, cada una con su ventanal
+      for (var u = 0; u < 2; u++) {
+        var e = estado(ti, p, u + (f.fijo === z0 ? 0 : 2));
+        var col = e === "L" ? ACC : e === "R" ? VIO : "#4A5361";
+        var a0 = x0 + (u + 0.14) * T.w / 2, a1 = x0 + (u + 0.86) * T.w / 2;
+        var w = [V(a0, y0 + 5, f.fijo), V(a1, y0 + 5, f.fijo), V(a1, y1 - 4, f.fijo), V(a0, y1 - 4, f.fijo)];
+        var brillo = e === "V" ? 0.35 : 0.35 + 0.65 * luz;
+        ctx.save();
+        ctx.globalAlpha = alfa * brillo;
+        if (e !== "V") { ctx.shadowColor = col; ctx.shadowBlur = 14 * luz * SCALE; }
+        poly(w, col);
+        ctx.restore();
+        ctx.globalAlpha = alfa;
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function terreno(yaw, t) {
+    var R = 165, Z = 88;
+    var esq = [[-R, 0, -Z], [R, 0, -Z], [R, 0, Z], [-R, 0, Z]].map(function (v) { return vista(v[0], v[1], v[2], yaw); });
+    var g = ctx.createRadialGradient(CX, CY, 20, CX, CY, 260);
+    g.addColorStop(0, "rgba(82,191,254,.14)"); g.addColorStop(1, "rgba(82,191,254,0)");
+    poly(esq, g);
+    // la cuadricula del lote
+    ctx.strokeStyle = "rgba(82,191,254,.14)"; ctx.lineWidth = 1;
+    for (var i = -R; i <= R; i += 38) {
+      var a = vista(i, 0, -Z, yaw), b = vista(i, 0, Z, yaw);
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    }
+    for (var j = -Z; j <= Z; j += 40) {
+      var c = vista(-R, 0, j, yaw), d = vista(R, 0, j, yaw);
+      ctx.beginPath(); ctx.moveTo(c[0], c[1]); ctx.lineTo(d[0], d[1]); ctx.stroke();
+    }
+    // el borde del lote, punteado y corriendo
+    ctx.save();
+    ctx.setLineDash([7, 7]); ctx.lineDashOffset = -t * 14;
+    poly(esq, null, "rgba(82,191,254,.55)", 1.4);
+    ctx.restore();
+  }
+
+  function render(t) {
+    ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    var yaw = -0.55 + 0.22 * Math.sin(t / DUR * TAU);
+    terreno(yaw, t);
+    // cada piso baja a su lugar al empezar y se levanta al terminar la vuelta
+    var orden = TORRES.map(function (T, i) { return { T: T, i: i, z: vista(T.x, 0, T.z, yaw)[2] }; })
+      .sort(function (a, b) { return b.z - a.z; });
+    for (var o = 0; o < orden.length; o++) {
+      var T = orden[o].T, ti = orden[o].i;
+      for (var p = 0; p < PISOS; p++) {
+        var k = ti * 0.12 + p * 0.16;
+        var entra = cl((t - k) / 0.55, 0, 1);
+        var sale = cl((t - (DUR - 0.75) - (PISOS - 1 - p) * 0.08) / 0.4, 0, 1);
+        if (entra <= 0 || sale >= 1) continue;
+        var cae = (1 - eBack(entra)) * 70 + eOut(sale) * 60;
+        var luz = cl((t - 1.4 - p * 0.12 - ti * 0.2) / 0.5, 0, 1) * (1 - sale);
+        piso(T, ti, p, p * ALTO + cae, cl(entra * 1.6, 0, 1) * (1 - sale), luz, yaw);
+      }
+    }
+  }
+  function drawFrame(f) {
+    f = ((Math.round(f) % FRAMES) + FRAMES) % FRAMES;
+    render(f * DUR / FRAMES);
+    cv.setAttribute("data-frame", String(f));
+  }
+  var _raf = null, _t0 = null;
+  function _loop(ts) {
+    if (_t0 === null) _t0 = ts;
+    render(((ts - _t0) / 1000) % DUR);
+    _raf = requestAnimationFrame(_loop);
+  }
+  function start() { if (_raf === null) { _t0 = null; _raf = requestAnimationFrame(_loop); } }
+  function stop()  { if (_raf !== null) { cancelAnimationFrame(_raf); _raf = null; } }
+  drawFrame(_opts.reposo || 0);
+  return { start: start, stop: stop, drawFrame: drawFrame, anim: { frames: FRAMES, fps: FRAMES / DUR, duration: DUR, width: W, height: H } };
+};
