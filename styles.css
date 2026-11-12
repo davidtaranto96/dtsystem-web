@@ -459,7 +459,6 @@ section { padding: 96px 0; }
 .marquee + .marquee { margin-top: 34px; }
 .mtrack { display: flex; gap: 28px; flex-shrink: 0; animation: mscroll var(--speed, 10s) linear infinite; padding-right: 28px; }
 .marquee.rev .mtrack { animation-direction: reverse; }
-.marquee:hover .mtrack, .marquee:focus-within .mtrack { animation-play-state: paused; }
 .eyebrow.rebota { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
   .eyebrow.rebota { animation: rebota 1.8s ease-in-out infinite; }

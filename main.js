@@ -233,7 +233,10 @@
         $$(".ha-casos a").forEach((a) => {
           const i = SITIOS.findIndex(([d]) => a.href.includes(d));
           if (i < 0) return;
-          a.addEventListener("pointerenter", () => {
+          // el mouse tiene que quedarse un momento sobre el trabajo: pasar de largo no cambia la ventana
+          let pide = 0;
+          a.addEventListener("pointerenter", () => { clearTimeout(pide); pide = setTimeout(traer, 450); });
+          const traer = () => {
             fijo = true; cortar();
             wins.forEach((v) => { v.w.classList.remove("sale"); v.url.classList.remove("escribe"); });
             poner(wins[i]);
@@ -244,8 +247,8 @@
             const pos = orden.indexOf(i);
             orden = [...orden.slice(pos), ...orden.slice(0, pos)];
             wins.forEach(aCero); ubicar();
-          });
-          a.addEventListener("pointerleave", () => { fijo = false; vuelta(); });
+          };
+          a.addEventListener("pointerleave", () => { clearTimeout(pide); if (fijo) { fijo = false; vuelta(); } });
         });
       }
     }
