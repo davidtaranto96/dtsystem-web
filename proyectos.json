@@ -263,7 +263,7 @@
       "nombre": "Kawsay Apart",
       "cat": "web",
       "url": "https://demo-privada",
-      "estado": "live",
+      "estado": "en-trabajo",
       "i18n": "c31s",
       "origen": "cliente",
       "sub": {
@@ -274,7 +274,8 @@
       "cursor": {
         "es": "Visitar ↗",
         "en": "Visit ↗"
-      }
+      },
+      "sin_link": true
     },
     {
       "id": "juangnarra",
