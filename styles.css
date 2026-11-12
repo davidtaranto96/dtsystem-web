@@ -1775,6 +1775,7 @@ html.nav-lejos .hdr-pill {
 .bar-x::after { inset: -8px; }
 .logo::after { inset: -14px -4px; }
 .tgl::after { inset: -6px; }
+.tgl.lang::after { inset: -8px -6px; }
 .menu summary::after { inset: -3px; }
 .founder-cta::after { inset: -13px -4px; }
 .marcas a::after { inset: -12px -6px; }
