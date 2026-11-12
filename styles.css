@@ -1932,6 +1932,111 @@ html.nav-lejos .hdr-pill {
 
 /* Teclas del pie (main.js, seccion 24): detras del contenido, delante del
    wordmark gigante; el canvas no recibe clics, el pie escucha el puntero */
-.footer { --foso: clamp(240px, 30vw, 400px); padding-bottom: calc(var(--foso) + env(safe-area-inset-bottom)); }
+.footer { --foso: clamp(300px, 36vw, 520px); padding-bottom: calc(var(--foso) + env(safe-area-inset-bottom)); }
 /* el foso: una franja propia abajo de todo el contenido, asi las teclas no tapan nada */
-.teclas-pie { position: absolute; left: 0; right: 0; bottom: 0; height: var(--foso); z-index: 0; pointer-events: none; }
+.teclas-pie { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--foso) + 220px); z-index: 0; pointer-events: none; }
+
+/* ============================================================
+   RONDA DEL 12/11 (14:30): orden, bloque 3D, Hablemos compacto
+   ============================================================ */
+/* debajo de los destacados, el acceso a la grilla completa (que ahora va al final) */
+.dest-pie { display: flex; justify-content: center; margin-top: clamp(32px, 4vw, 48px); }
+
+/* Proyectos en 3D: una tarjeta horizontal del alto de una comun, no una gigante */
+#tdGrid { display: block; max-width: 920px; margin-inline: auto; }
+#tdGrid .demo { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; }
+#tdGrid .demo-shot { aspect-ratio: auto; height: 100%; min-height: 240px; }
+#tdGrid .demo-info { flex-direction: column; align-items: flex-start; justify-content: center; gap: 14px; padding: 28px 32px; }
+#tdGrid .demo-info > div { flex-basis: auto; }
+#tdGrid .demo-info .live { margin-left: 0; }
+@media (max-width: 720px) {
+  #tdGrid .demo { grid-template-columns: minmax(0, 1fr); }
+  #tdGrid .demo-shot { aspect-ratio: 16 / 10; min-height: 0; }
+  #tdGrid .demo-info { padding: 20px 22px 22px; }
+}
+
+/* Hablemos: el titulo grande y el formulario lado a lado en la computadora,
+   con menos aire; en el celular, apilados como antes */
+.cta-final { padding-block: clamp(56px, 7vw, 96px); }
+.cta-sub { margin: 0 auto 28px; }
+@media (min-width: 981px) {
+  .cta-final .wrap.sec-head {
+    display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap: clamp(40px, 5vw, 80px); align-items: center; text-align: left;
+  }
+  .cta-final .cta-giant { grid-column: 1; grid-row: 1; align-self: end; margin: 0 0 14px; font-size: clamp(3.5rem, 6.4vw, 6rem); }
+  .cta-final .cta-sub { grid-column: 1; grid-row: 2; align-self: start; margin: 0; max-width: 420px; }
+  .cta-final .ai-form { grid-column: 2; grid-row: 1 / span 2; max-width: none; margin: 0; }
+}
+.ai-form { gap: 16px; padding: 22px 24px 20px; }
+
+/* ============================================================
+   PORTADA COMO LA DE WEARESTOKT.COM (grabación del 12/11, 14:42)
+   Titulo y botones a la izquierda, la escultura "dt/" a la derecha,
+   "Bajá para ver más" abajo, y la portada queda fija mientras los
+   clientes y los destacados suben tapándola.
+   ============================================================ */
+.tapa { position: relative; }
+.tapa > .hero {
+  position: sticky; top: 0; z-index: 0;
+  /* arranca debajo de la barra y el menu (119 px): asi entra justa en la primera vista */
+  min-height: calc(100svh - 120px); display: flex; flex-direction: column; justify-content: center;
+  padding: 24px 0 84px;
+}
+.tapa > .hero .ha-grid { row-gap: 0; }
+/* lo que tapa: fondo propio, esquinas de arriba redondeadas y una sombra hacia arriba */
+.tapa > section:not(.hero) { position: relative; z-index: 1; background: var(--bg); }
+.tapa > #marcas {
+  border-radius: 28px 28px 0 0;
+  border-top: 1px solid var(--card-border);
+  box-shadow: 0 -24px 60px -28px rgb(0 0 0 / 0.28), 0 -1px 0 0 color-mix(in srgb, var(--text) 6%, transparent);
+}
+.ha-grid { grid-template-areas: "txt foto"; align-items: center; }
+.ha-obj { grid-area: foto; position: relative; }
+.hero-obj {
+  display: block; width: 128%; max-width: none; height: auto; margin-left: -14%;
+  -webkit-mask-image: radial-gradient(closest-side, #000 74%, transparent);
+          mask-image: radial-gradient(closest-side, #000 74%, transparent);
+}
+
+/* Botones de pildora: chicos, en mono y mayusculas, con flecha */
+.hero-ctas { justify-content: flex-start; gap: 10px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px;
+  border-radius: 10px; text-decoration: none;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s, box-shadow 0.2s;
+}
+.pill-claro { background: color-mix(in srgb, var(--text) 8%, var(--card)); color: var(--text); border: 1px solid var(--card-border); }
+.pill-oscuro { background: var(--text); color: var(--bg); }
+.pill-fl { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (hover: hover) {
+  .pill:hover .pill-fl { transform: translateX(3px); }
+  .pill-claro:hover { background: color-mix(in srgb, var(--text) 13%, var(--card)); }
+  .pill-oscuro:hover { box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--text) 60%, transparent); }
+}
+.pill:active { transform: scale(0.97); }
+.pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* "Bajá para ver más": abajo a la izquierda, con un vaivén leve */
+.ha-bajar {
+  position: absolute; left: max(20px, calc((100vw - 1320px) / 2 + 20px)); bottom: 28px;
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-size: 0.875rem; color: var(--muted); text-decoration: none;
+}
+.ha-bajar svg { animation: bajar 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+@keyframes bajar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@media (hover: hover) { .ha-bajar:hover { color: var(--text); } }
+
+@media (max-width: 980px) {
+  .ha-grid { grid-template-areas: "foto" "txt"; }
+  .tapa > .hero { min-height: auto; padding-bottom: 88px; }
+  .hero-obj { width: 116%; margin-left: -8%; }
+  .ha-bajar { left: 20px; bottom: 22px; }
+  .tapa .hero-ctas { flex-direction: row; flex-wrap: nowrap; gap: 8px; }
+  .tapa .hero-ctas .pill { padding: 0 14px; flex: 0 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tapa > .hero { position: relative; }
+  .ha-bajar svg { animation: none; }
+}
