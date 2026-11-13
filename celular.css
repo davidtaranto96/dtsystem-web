@@ -1,0 +1,134 @@
+/* ============================================================
+   celular.css — la version para el dedo (hasta 720 px)
+   Se carga con media="(max-width: 720px)": de 721 para arriba este
+   archivo no existe, asi que el escritorio no se puede mover.
+   Mismo HTML y mismos datos que la computadora; cambia la forma:
+   tiras que se pasan con el dedo, lista compacta, portada de una
+   pantalla. Referencia: wearestokt.com en el celular (12/11).
+   De 19,4 pantallas a ~11.
+   ============================================================ */
+
+/* ---------- 1. Barra de arriba: solo la marca y el menu ---------- */
+.bar { display: none; }
+.hdr { padding-block: 8px; }
+.hdr-pill { padding: 5px 6px 5px 18px; border-radius: 16px; }
+/* idioma y tema viven adentro del menu: aparecen al abrirlo */
+.hdr-pill:not(:has(.menu[open])) .tgl { display: none; }
+.menu summary { width: 44px; height: 44px; }
+html { scroll-padding-top: 72px; }
+
+/* ---------- 2. Portada: una pantalla, botones arriba, la escultura apoyada abajo ---------- */
+.tapa > .hero {
+  min-height: calc(100svh - 70px); padding: 14px 0 0;
+  justify-content: flex-start; overflow: hidden;
+}
+.tapa > .hero .ha-grid { flex: 1 1 auto; width: 100%; }
+.tapa .ha-lugar { margin-bottom: 18px; }
+.tapa .ha-sub { order: 3; margin-bottom: 22px; }
+.tapa .hero-ctas { order: 4; flex-wrap: wrap; }
+.tapa .ha-obj { order: 5; margin: auto -20px 0; padding-top: 28px; }
+.tapa .dt3d { width: 104%; margin: 0 0 -2.5% -2%; }
+.tapa .ha-nombre { font-size: 3.25rem; }
+.tapa .ha-linea { font-size: 1.75rem; margin-top: 14px; }
+/* la imagen del tema oscuro viene mas ajustada al borde: se achica para que la "d" no se corte */
+[data-theme="dark"] .tapa .dt3d { width: 90%; margin: 0 0 -1% 5%; }
+.ha-bajar { display: none; }
+
+/* ---------- 3. Celulares: una sola tira, mas baja ---------- */
+.mobile-sec { padding-block: 44px 36px; }
+.mobile-sec .h2 { font-size: 1.3125rem; line-height: 1.25; }
+.mobile-sec .mobile-head { margin-bottom: 22px; }
+.mobile-sec .marquee ~ .marquee { display: none; }
+.mobile-sec .phone { width: 138px; height: auto; padding: 6px; border-radius: 22px; }
+.mobile-sec .phone img { border-radius: 16px; }
+.mobile-sec .marquee { height: auto; }
+
+/* ---------- 4. Servicios: una tira que se pasa con el dedo ---------- */
+section#servicios { padding-block: 52px 44px; }
+#acc {
+  flex-direction: row; align-items: flex-start; gap: 12px;
+  margin-inline: -20px; padding: 4px 20px 16px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+#acc::-webkit-scrollbar { display: none; }
+#acc .acc-p { flex: 0 0 76% !important; scroll-snap-align: start; }
+#acc .acc-p.open { flex-basis: 88% !important; }
+#acc .acc-cover :is(img, video) { width: 100%; height: auto; }
+.srv-it { margin-top: 18px; font-size: 0.875rem; }
+
+/* ---------- 5. Sobre mi: cifras en fila, globo recortado, bio plegada ---------- */
+.bento-sec { padding-block: 52px 44px; }
+.bento { gap: 10px; }
+.b-stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.b-stat .bcard-in { padding: 16px 16px 14px; }
+.b-stat b { font-size: 1.75rem; }
+.b-globe h3 { margin-top: 4px; }
+.globe-wrap { width: min(300px, 100%); height: 205px; margin-top: 4px; }
+.founder { gap: 18px; }
+.bcard-in.founder { padding: 14px 14px 20px; }
+.founder-fig img { aspect-ratio: 4 / 3; object-position: 50% 22%; }
+.founder-txt { gap: 12px; padding: 0 6px; }
+.founder-txt h4 { margin-bottom: 0; }
+.founder-txt:not(.abierto) p ~ p { display: none; }
+.leer-mas {
+  display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent-ink); background: none; border: 0; padding: 0; cursor: pointer;
+}
+.leer-mas .lm-b, .leer-mas[aria-expanded="true"] .lm-a { display: none; }
+.leer-mas[aria-expanded="true"] .lm-b { display: inline; }
+.leer-mas:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- 6. Todos los proyectos: lista compacta y tiras ---------- */
+.todos-sec { padding-block: 52px 40px; }
+#csGrid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+#csGrid > .demo, #csGrid.plegada > .demo:nth-child(n+5) {
+  display: grid; grid-template-columns: 108px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+  background: none; box-shadow: none;
+  opacity: 1; transform: none; animation: none;
+}
+#csGrid > .demo[hidden] { display: none; }
+#csGrid .demo-shot { aspect-ratio: 16 / 10; min-height: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); }
+#csGrid .demo-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+#csGrid .demo-info { padding: 0; flex-direction: column; align-items: flex-start; gap: 6px; }
+#csGrid .demo-info h3 { font-size: 1.0625rem; }
+#csGrid .demo-ov, #csGrid .demo-info > .live { display: none; }
+/* lo que esta en linea no lleva etiqueta: la flecha dice que se abre; "en desarrollo" si se muestra */
+#csGrid > a.demo::after { content: "\2197"; color: var(--muted); font-size: 1.0625rem; padding-right: 4px; }
+#csGrid > .demo:active { background: color-mix(in srgb, var(--text) 5%, transparent); }
+#csMas { display: none !important; }
+
+.sys-head { margin-top: 40px; }
+#wipGrid, #sysGrid {
+  display: flex; align-items: stretch; gap: 12px;
+  margin-inline: -20px; padding: 4px 20px 16px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+#wipGrid::-webkit-scrollbar, #sysGrid::-webkit-scrollbar { display: none; }
+#wipGrid > .demo, #sysGrid > .demo {
+  flex: 0 0 78%; scroll-snap-align: start;
+  opacity: 1; transform: none; animation: none;
+}
+
+/* ---------- 7. Pie mas corto ---------- */
+.footer { padding-top: 40px; }
+
+/* ---------- 8. Lo que se pasa con el dedo lo avisa: un borde que asoma ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #acc, #wipGrid, #sysGrid { scroll-behavior: auto; }
+}
+
+/* ---------- 9. Menu: renglones numerados con flecha, de borde a borde ---------- */
+.menu[open] .menu-pop { counter-reset: m; }
+.menu-pop a { display: flex; align-items: baseline; gap: 14px; counter-increment: m; }
+.menu-pop a::before {
+  content: "0" counter(m); flex: none; width: 2.2em;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted);
+}
+.menu-pop a::after { content: "\2192"; margin-left: auto; font-size: 1.25rem; color: var(--muted); }
+.menu-pop a[aria-current="true"]::after { color: var(--accent-ink); }

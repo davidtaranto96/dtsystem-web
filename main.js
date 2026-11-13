@@ -914,6 +914,8 @@
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
     f_in: "See my LinkedIn profile",
+    leer_mas: "Read more",
+    leer_menos: "Show less",
     f_h: "Who’s behind it",
     st1: "Years in systems", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
@@ -1954,6 +1956,16 @@
     new MutationObserver(mover).observe(nav, { subtree: true, characterData: true, childList: true });
     if (document.fonts) document.fonts.ready.then(mover);
     calcular();
+  })();
+  /* ---------- Bio plegada en el celular: "Leer mas" ---------- */
+  (() => {
+    const b = $(".leer-mas"), caja = $(".founder-txt");
+    if (!b || !caja) return;
+    b.addEventListener("click", () => {
+      const abre = !caja.classList.contains("abierto");
+      caja.classList.toggle("abierto", abre);
+      b.setAttribute("aria-expanded", String(abre));
+    });
   })();
   /* ---------- La barra de arriba se esconde al bajar (celular) ---------- */
   (() => {
