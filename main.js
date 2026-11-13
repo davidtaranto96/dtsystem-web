@@ -2098,6 +2098,73 @@
     }).observe(mq);
   })();
 
+  /* ---------- Contacto en una hoja (celular) ----------
+     En el celular el formulario no vive al final de la pagina: sube desde
+     abajo en una hoja, desde cualquier "Contactar". Es el mismo formulario
+     (se muda de lugar, no se duplica). Cierra con la X, tocando afuera, con
+     Escape y con el atras del telefono. */
+  (() => {
+    const form = $("#aiForm");
+    if (!form) return;
+    const cel = matchMedia("(max-width: 720px)");
+    let hoja = null, velo = null, ancla = null, vuelve = null;
+    const en = () => document.documentElement.lang === "en";
+    const cerrar = (desdeAtras) => {
+      if (!root.classList.contains("hoja-on")) return;
+      root.classList.remove("hoja-on");
+      if (!desdeAtras && history.state && history.state.hoja) history.back();
+      vuelve?.focus({ preventScroll: true });
+    };
+    const armar = () => {
+      if (hoja) return;
+      ancla = document.createComment("formulario");
+      form.before(ancla);
+      velo = document.createElement("div"); velo.className = "hoja-velo";
+      hoja = document.createElement("div"); hoja.className = "hoja";
+      hoja.setAttribute("role", "dialog"); hoja.setAttribute("aria-modal", "true"); hoja.tabIndex = -1;
+      const barra = document.createElement("div"); barra.className = "hoja-barra";
+      const t = document.createElement("b"); t.textContent = $("#contacto .cta-giant")?.textContent || "Hablemos.";
+      const x = document.createElement("button"); x.type = "button"; x.className = "hoja-x";
+      x.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+      barra.append(t, x); hoja.append(barra, form);
+      document.body.append(velo, hoja);
+      x.addEventListener("click", () => cerrar());
+      velo.addEventListener("click", () => cerrar());
+      hoja._titulo = t; hoja._x = x;
+    };
+    const desarmar = () => {
+      if (!hoja) return;
+      root.classList.remove("hoja-on");
+      ancla.replaceWith(form); hoja.remove(); velo.remove();
+      hoja = velo = ancla = null;
+    };
+    const abrir = (desde) => {
+      armar();
+      vuelve = desde || null;
+      hoja._titulo.textContent = $("#contacto .cta-giant")?.textContent || "Hablemos.";
+      hoja._x.setAttribute("aria-label", en() ? "Close" : "Cerrar");
+      hoja.setAttribute("aria-label", en() ? "Contact" : "Contacto");
+      hoja.scrollTop = 0;
+      root.classList.add("hoja-on");
+      history.pushState({ hoja: 1 }, "");
+      hoja.focus({ preventScroll: true });
+    };
+    if (cel.matches) armar();
+    cel.addEventListener("change", (e) => (e.matches ? armar() : desarmar()));
+    // cualquier enlace a #contacto abre la hoja (antes que el salto dentro de la pagina)
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest('a[href="#contacto"]');
+      if (!a || !cel.matches) return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      $("#menu")?.removeAttribute("open");
+      abrir(a);
+    }, true);
+    addEventListener("popstate", () => cerrar(true));
+    addEventListener("keydown", (e) => { if (e.key === "Escape") cerrar(); });
+    // quien llega con /#contacto (desde una pagina de servicio) la encuentra abierta
+    if (cel.matches && location.hash === "#contacto") setTimeout(() => abrir(null), 500);
+  })();
+
   /* ---------- Bio plegada en el celular: "Leer mas" ---------- */
   (() => {
     const b = $(".leer-mas"), caja = $(".founder-txt");

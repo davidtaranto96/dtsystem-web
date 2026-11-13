@@ -1179,6 +1179,11 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .leer-mas { display: none; }
 /* redes al pie del menu: solo en el celular (celular.css) */
 .menu-redes { display: none; }
+/* solo del celular (celular.css): el boton que abre la hoja de contacto y el enlace a la pagina de proyectos */
+a.cta-abrir, .dest-pie .dest-pag { display: none; }
+/* pagina /proyectos/: la ruta arriba de la grilla */
+.pro-ruta { padding-top: clamp(28px, 4vw, 48px); }
+.pro-ruta + .todos-sec { padding-top: clamp(20px, 3vw, 36px); }
 /* la escena vertical de los destacados entra por <picture>: no cambia la caja */
 .dest-card picture { display: contents; }
 /* menu ya abierto: cambiar idioma o tema no vuelve a hacer entrar los renglones */
