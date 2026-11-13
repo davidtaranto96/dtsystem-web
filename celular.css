@@ -2,10 +2,11 @@
    celular.css — la version para el dedo (hasta 720 px)
    Se carga con media="(max-width: 720px)": de 721 para arriba este
    archivo no existe, asi que el escritorio no se puede mover.
-   Mismo HTML y mismos datos que la computadora; cambia la forma:
-   tiras que se pasan con el dedo, lista compacta, portada de una
-   pantalla. Referencia: wearestokt.com en el celular (12/11).
-   De 19,4 pantallas a ~11.
+   Mismo HTML y mismos datos que la computadora; cambia la forma.
+   Referencia: wearestokt.com en el celular.
+   Ronda del 13/11 (videos de David): menu de vidrio, clientes que
+   se arrastran, destacados altos que se traban, servicios abiertos,
+   proyectos en tiras centradas.
    ============================================================ */
 
 /* ---------- 1. Barra de arriba: solo la marca y el menu ---------- */
@@ -17,7 +18,40 @@
 .menu summary { width: 44px; height: 44px; }
 html { scroll-padding-top: 72px; }
 
-/* ---------- 2. Portada: una pantalla, botones arriba, la escultura apoyada abajo ---------- */
+/* ---------- 2. Menu: un panel de vidrio que baja de la barra ----------
+   La pagina sigue viendose atras, desenfocada (como el de Stökt). Los
+   renglones numerados quedan; abajo, las redes y el mail. */
+.hdr-pill:has(.menu[open]) { background: color-mix(in srgb, var(--bg) 62%, transparent); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.menu[open] .menu-pop {
+  inset: calc(var(--menu-top, 70px) + 8px) max(14px, env(safe-area-inset-right)) auto max(14px, env(safe-area-inset-left));
+  z-index: 1; display: flex; flex-direction: column;
+  padding: 4px 20px 16px; max-height: calc(100svh - var(--menu-top, 70px) - 24px);
+  background: color-mix(in srgb, var(--bg) 54%, transparent);
+  backdrop-filter: blur(28px) saturate(1.6); -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  border: 1px solid color-mix(in srgb, var(--text) 13%, transparent); border-radius: 18px;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #FFFFFF 26%, transparent), 0 28px 60px -26px rgb(0 0 0 / 0.5);
+  counter-reset: m;
+}
+.menu-pop > a {
+  display: flex; align-items: baseline; gap: 14px; counter-increment: m;
+  font-size: 1.5rem; padding: 13px 0;
+  border-bottom-color: color-mix(in srgb, var(--text) 12%, transparent);
+}
+.menu-pop > a::before {
+  content: "0" counter(m); flex: none; width: 2.2em;
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted);
+}
+.menu-pop > a::after { content: "\2192"; margin-left: auto; font-size: 1.125rem; color: var(--muted); }
+.menu-pop > a[aria-current="true"]::after { color: var(--accent-ink); }
+.menu-redes { display: flex; flex-wrap: wrap; gap: 0 20px; padding-top: 10px; }
+.menu-pop .menu-redes a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0;
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); opacity: 1; transform: none; animation: none;
+}
+.menu-pop .menu-redes .menu-mail { flex-basis: 100%; text-transform: none; letter-spacing: 0.02em; color: var(--text); }
+
+/* ---------- 3. Portada: una pantalla, botones arriba, la escultura apoyada abajo ---------- */
 .tapa > .hero {
   min-height: calc(100svh - 70px); padding: 14px 0 0;
   justify-content: flex-start; overflow: hidden;
@@ -34,7 +68,25 @@ html { scroll-padding-top: 72px; }
 [data-theme="dark"] .tapa .dt3d { width: 90%; margin: 0 0 -1% 5%; }
 .ha-bajar { display: none; }
 
-/* ---------- 3. Celulares: una sola tira, mas baja ---------- */
+/* ---------- 4. Clientes: pegados a la portada; la cinta se arrastra y no frena ---------- */
+.marcas-sec { padding: 30px 0 34px !important; }
+.marcas-h { margin-bottom: 16px; }
+.marcas-carrusel.arrastra { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
+.marcas-carrusel.arrastra::-webkit-scrollbar { display: none; }
+.marcas-carrusel.arrastra .mtrack { animation: none; }
+
+/* ---------- 5. Destacados: tarjetas altas que se traban y la que sigue las tapa ---------- */
+#proyectos .sec-head { text-align: left; margin-inline: 0; }
+#proyectos .sec-head .sub { margin-inline: 0; }
+.dest { margin-top: 26px; }
+.dest-card {
+  aspect-ratio: auto; height: min(70svh, 580px);
+  top: calc(74px + var(--i) * 9px); margin-bottom: 26px; border-radius: 18px;
+}
+.dest-card img { object-position: 50% 45%; }
+.dest-info h3 { font-size: 1.375rem; }
+
+/* ---------- 6. Celulares: una sola tira, mas baja ---------- */
 .mobile-sec { padding-block: 44px 36px; }
 .mobile-sec .h2 { font-size: 1.3125rem; line-height: 1.25; }
 .mobile-sec .mobile-head { margin-bottom: 22px; }
@@ -43,24 +95,48 @@ html { scroll-padding-top: 72px; }
 .mobile-sec .phone img { border-radius: 16px; }
 .mobile-sec .marquee { height: auto; }
 
-/* ---------- 4. Servicios: una tira que se pasa con el dedo ---------- */
-section#servicios { padding-block: 52px 44px; }
-#acc {
-  flex-direction: row; align-items: flex-start; gap: 12px;
-  margin-inline: -20px; padding: 4px 20px 16px;
+/* ---------- 7. Tiras que se pasan con el dedo: la tarjeta activa queda al medio ---------- */
+#acc, #csGrid, #wipGrid, #sysGrid {
+  display: flex; flex-direction: row; align-items: stretch; gap: 12px;
+  margin-inline: -20px; padding: 4px 9vw 16px;
   overflow-x: auto; overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
-#acc::-webkit-scrollbar { display: none; }
-#acc .acc-p { flex: 0 0 76% !important; scroll-snap-align: start; }
-#acc .acc-p.open { flex-basis: 88% !important; }
-#acc .acc-cover :is(img, video) { width: 100%; height: auto; }
+#acc::-webkit-scrollbar, #csGrid::-webkit-scrollbar, #wipGrid::-webkit-scrollbar, #sysGrid::-webkit-scrollbar { display: none; }
+#csGrid > .demo, #wipGrid > .demo, #sysGrid > .demo,
+#csGrid.plegada > .demo:nth-child(n+5):not([hidden]) {
+  display: block; flex: 0 0 82vw; scroll-snap-align: center;
+  opacity: 1; transform: none; animation: none;
+}
+#csGrid > .demo[hidden] { display: none; }
+#csMas { display: none !important; }
+.sys-head { margin-top: 40px; }
+/* la tarjeta del medio muestra su recorrido: la pagina baja y vuelve a subir */
+.cs-grid .demo.activa .demo-shot.lista .full {
+  animation: tira-recorre var(--dur, 8s) cubic-bezier(0.45, 0, 0.55, 1) 0.5s infinite alternate;
+}
+@keyframes tira-recorre { to { transform: translateY(calc(-100% + 100cqh)); } }
+
+/* ---------- 8. Servicios: tarjetas grandes y ya abiertas, el objeto arriba y el texto abajo ---------- */
+section#servicios { padding-block: 52px 44px; }
+#acc .acc-p { flex: 0 0 82vw !important; scroll-snap-align: center; }
+#acc .acc-cover, #acc .acc-tab, #accReset { display: none !important; }
+#acc .acc-body {
+  display: flex; flex-direction: column; gap: 6px; padding: 14px 20px 22px;
+  opacity: 1; pointer-events: auto;
+}
+#acc .acc-img { order: -1; opacity: 1; scale: 1; align-self: stretch; }
+#acc .acc-txt { flex: 1; }
+#acc .acc-txt > * { opacity: 1; translate: none; }
+#acc .acc-txt h3 { font-size: 1.5rem; }
+#acc .ribbon { opacity: 1; }
 .srv-it { margin-top: 18px; font-size: 0.875rem; }
 
-/* ---------- 5. Sobre mi: cifras en fila, globo recortado, bio plegada ---------- */
+/* ---------- 9. Sobre mi: el globo primero, cifras en fila, bio plegada ---------- */
 .bento-sec { padding-block: 52px 44px; }
 .bento { gap: 10px; }
+.b-globe { order: -1; }
 .b-stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
 .b-stat .bcard-in { padding: 16px 16px 14px; }
 .b-stat b { font-size: 1.75rem; }
@@ -81,54 +157,16 @@ section#servicios { padding-block: 52px 44px; }
 .leer-mas[aria-expanded="true"] .lm-b { display: inline; }
 .leer-mas:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-/* ---------- 6. Todos los proyectos: lista compacta y tiras ---------- */
+/* ---------- 10. Todos los proyectos ---------- */
 .todos-sec { padding-block: 52px 40px; }
-#csGrid { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
-#csGrid > .demo, #csGrid.plegada > .demo:nth-child(n+5) {
-  display: grid; grid-template-columns: 108px minmax(0, 1fr) auto; align-items: center; gap: 14px;
-  padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
-  background: none; box-shadow: none;
-  opacity: 1; transform: none; animation: none;
-}
-#csGrid > .demo[hidden] { display: none; }
-#csGrid .demo-shot { aspect-ratio: 16 / 10; min-height: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); }
-#csGrid .demo-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
-#csGrid .demo-info { padding: 0; flex-direction: column; align-items: flex-start; gap: 6px; }
-#csGrid .demo-info h3 { font-size: 1.0625rem; }
-#csGrid .demo-ov, #csGrid .demo-info > .live { display: none; }
-/* lo que esta en linea no lleva etiqueta: la flecha dice que se abre; "en desarrollo" si se muestra */
-#csGrid > a.demo::after { content: "\2197"; color: var(--muted); font-size: 1.0625rem; padding-right: 4px; }
-#csGrid > .demo:active { background: color-mix(in srgb, var(--text) 5%, transparent); }
-#csMas { display: none !important; }
 
-.sys-head { margin-top: 40px; }
-#wipGrid, #sysGrid {
-  display: flex; align-items: stretch; gap: 12px;
-  margin-inline: -20px; padding: 4px 20px 16px;
-  overflow-x: auto; overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
-  scrollbar-width: none; -webkit-overflow-scrolling: touch;
-}
-#wipGrid::-webkit-scrollbar, #sysGrid::-webkit-scrollbar { display: none; }
-#wipGrid > .demo, #sysGrid > .demo {
-  flex: 0 0 78%; scroll-snap-align: start;
-  opacity: 1; transform: none; animation: none;
-}
+/* ---------- 11. Contacto: menos botones (cuatro tipos y siempre por WhatsApp) ---------- */
+.af-chip[data-val="Automatización"], .af-chip[data-val="Proyecto en 3D"], .af-via { display: none; }
 
-/* ---------- 7. Pie mas corto ---------- */
-.footer { padding-top: 40px; }
+/* ---------- 12. Pie: el foso de teclas mas grande, para jugar con el dedo ---------- */
+.footer { --foso: 330px; padding-top: 40px; touch-action: pan-y; }
 
-/* ---------- 8. Lo que se pasa con el dedo lo avisa: un borde que asoma ---------- */
 @media (prefers-reduced-motion: reduce) {
-  #acc, #wipGrid, #sysGrid { scroll-behavior: auto; }
+  #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
+  .cs-grid .demo.activa .demo-shot.lista .full { animation: none; }
 }
-
-/* ---------- 9. Menu: renglones numerados con flecha, de borde a borde ---------- */
-.menu[open] .menu-pop { counter-reset: m; }
-.menu-pop a { display: flex; align-items: baseline; gap: 14px; counter-increment: m; }
-.menu-pop a::before {
-  content: "0" counter(m); flex: none; width: 2.2em;
-  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted);
-}
-.menu-pop a::after { content: "\2192"; margin-left: auto; font-size: 1.25rem; color: var(--muted); }
-.menu-pop a[aria-current="true"]::after { color: var(--accent-ink); }

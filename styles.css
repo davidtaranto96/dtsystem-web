@@ -1177,6 +1177,12 @@ html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 
 .founder-txt h4 { font-size: 1.375rem; font-weight: 500; margin-bottom: 8px; }
 /* el boton de plegar la bio es solo del celular (celular.css) */
 .leer-mas { display: none; }
+/* redes al pie del menu: solo en el celular (celular.css) */
+.menu-redes { display: none; }
+/* la escena vertical de los destacados entra por <picture>: no cambia la caja */
+.dest-card picture { display: contents; }
+/* menu ya abierto: cambiar idioma o tema no vuelve a hacer entrar los renglones */
+.menu.asentado .menu-pop a { animation: none; opacity: 1; transform: none; }
 .founder-txt p { font-family: var(--font-head); font-size: 0.9375rem; line-height: 1.55; color: var(--imut); max-width: 62ch; }
 .founder-cta {
   margin-top: auto; align-self: flex-end;

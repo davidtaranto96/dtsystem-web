@@ -28,7 +28,9 @@
     const x = btn.left + btn.width / 2;
     const y = btn.top + btn.height / 2;
 
-    if (document.startViewTransition && !reduced) {
+    if ($(".menu[open]")) {
+      applyTheme(next);
+    } else if (document.startViewTransition && !reduced) {
       // Guardamos el origen del reveal en variables (--theme-toggle-x/y)
       root.style.setProperty("--theme-toggle-x", x + "px");
       root.style.setProperty("--theme-toggle-y", y + "px");
@@ -331,7 +333,7 @@
       card.addEventListener("pointerenter", () => sonar(shot));
       card.addEventListener("pointerleave", () => callar(shot));
     });
-  } else if (vidShots.length && "IntersectionObserver" in window && !navigator.connection?.saveData) {
+  } else if (vidShots.length && "IntersectionObserver" in window && !navigator.connection?.saveData && !matchMedia("(max-width: 720px)").matches) {
     // suena uno solo: de los que se ven en más de un 60 %, el más cerca del
     // centro de la pantalla (las dos cards caben enteras en un celular alto)
     const vistos = new Map();
@@ -564,6 +566,13 @@
     menu.style.setProperty("--menu-top", `${Math.round($(".hdr-pill").getBoundingClientRect().bottom)}px`);
   });
   menu?.addEventListener("toggle", () => fondo.forEach((el) => { el.inert = menu.open; }));
+  // una vez que los renglones entraron quedan quietos: cambiar idioma o tema no los reinicia
+  let asienta = 0;
+  menu?.addEventListener("toggle", () => {
+    clearTimeout(asienta);
+    if (menu.open) asienta = setTimeout(() => menu.classList.add("asentado"), 650);
+    else menu.classList.remove("asentado");
+  });
   $$(".menu-pop a", menu || document).forEach((a) =>
     a.addEventListener("click", () => menu?.removeAttribute("open"))
   );
@@ -1016,7 +1025,7 @@
     if (!reduced) $$(".h2[data-i18n]").forEach((hEl) => { splitH2(hEl); hEl.classList.add("in"); });
     // Efecto de cambio: cada texto traducido entra con blur+fade (suave,
     // menos abrupto que el reveal del tema pero visible)
-    if (animate && !reduced) {
+    if (animate && !reduced && !$(".menu[open]")) {
       root.classList.add("lang-swap");
       setTimeout(() => root.classList.remove("lang-swap"), 650);
     }
@@ -1066,6 +1075,15 @@
     // El detalle cerrado queda invisible: inert lo saca del Tab y del lector
     const cerrarDetalle = (p) => { const b = $(".acc-body", p); if (b) b.inert = true; };
     $$(".acc-p", acc).forEach(cerrarDetalle);
+    // en el celular las cinco tarjetas van abiertas (pedido de David, 13/11): sin acordeon
+    const accCel = matchMedia("(max-width: 720px)");
+    const todoAbierto = () => $$(".acc-p", acc).forEach((p) => {
+      p.classList.toggle("open", accCel.matches);
+      const b = $(".acc-body", p); if (b) b.inert = !accCel.matches;
+      $(".acc-tab", p)?.setAttribute("aria-expanded", String(accCel.matches));
+    });
+    if (accCel.matches) todoAbierto();
+    accCel.addEventListener("change", () => { acc.classList.remove("has-open"); accReset?.setAttribute("hidden", ""); todoAbierto(); });
     const closeAll = () => {
       $$(".acc-p", acc).forEach((p) => {
         p.classList.remove("open");
@@ -1590,6 +1608,36 @@
     pie.addEventListener("pointermove", mover, { passive: true });
     pie.addEventListener("pointerdown", mover, { passive: true });
     pie.addEventListener("pointerleave", () => { mouse.x = mouse.y = -1e4; });
+    // con el dedo (13/11): un toque hace saltar las teclas de alrededor, y al
+    // pasar la pagina se sacuden un poco. En Verlet el impulso es correr la
+    // posicion anterior.
+    if (matchMedia("(hover: none), (pointer: coarse)").matches && !reduced) {
+      pie.addEventListener("pointerdown", (e) => {
+        if (!listo) return;
+        const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+        teclas.forEach((b) => {
+          const dx = b.x - x, dy = b.y - y, d = Math.hypot(dx, dy) || 1;
+          if (d > 170) return;
+          const f = (1 - d / 170) * 26;
+          b.px -= (dx / d) * f; b.py -= (dy / d) * f - f * 0.6;
+          b.vgx += (Math.random() - 0.5) * 0.5; b.vgy += (Math.random() - 0.5) * 0.5;
+        });
+        despertar();
+      }, { passive: true });
+      let ys = scrollY, pendS = false;
+      addEventListener("scroll", () => {
+        if (pendS || !visible || !listo) return;
+        pendS = true;
+        requestAnimationFrame(() => {
+          pendS = false;
+          const d = scrollY - ys; ys = scrollY;
+          if (Math.abs(d) < 6) return;
+          const f = Math.min(9, Math.abs(d) * 0.12);
+          teclas.forEach((b) => { if (Math.random() < 0.5) { b.py += f * (0.4 + Math.random()); b.px += (Math.random() - 0.5) * f; } });
+          despertar();
+        });
+      }, { passive: true });
+    }
     let ancho = innerWidth;
     addEventListener("resize", () => {
       if (!listo || Math.abs(innerWidth - ancho) < 40) return;   // la barra del celular no rearma
@@ -1957,6 +2005,99 @@
     if (document.fonts) document.fonts.ready.then(mover);
     calcular();
   })();
+  /* ---------- Tiras del celular: la tarjeta del medio muestra su recorrido ----------
+     En cada tira (proyectos, proximos, sistemas) la tarjeta mas cerca del
+     centro es la activa: si tiene video, suena; si tiene la pagina entera,
+     baja y vuelve a subir. Una sola a la vez por tira, y solo con la tira a la vista. */
+  if (!reduced && matchMedia("(max-width: 720px)").matches) {
+    const tiras = $$("#csGrid, #wipGrid, #sysGrid");
+    const vistas = new WeakSet();
+    const prender = (card) => {
+      const shot = $(".demo-shot", card);
+      if (!shot) return;
+      if (shot.dataset.video) { if (!navigator.connection?.saveData) sonar(shot); return; }
+      if (!shot.dataset.full || shot.querySelector(".full")) return;
+      const im = new Image();
+      im.className = "full"; im.alt = ""; im.decoding = "async";
+      im.onload = () => {
+        const viaje = im.offsetHeight - shot.offsetHeight;
+        shot.style.setProperty("--dur", Math.min(14, Math.max(3, viaje / 220)).toFixed(1) + "s");
+        shot.classList.add("lista");
+      };
+      im.src = shot.dataset.full;
+      shot.append(im);
+    };
+    const apagar = (card) => { const shot = $(".demo-shot", card); if (shot?.dataset.video) callar(shot); };
+    const activar = (tira) => {
+      const c = tira.getBoundingClientRect(), medio = c.left + c.width / 2;
+      let mejor = null, dist = Infinity;
+      const cards = $$(":scope > .demo", tira);
+      if (vistas.has(tira)) cards.forEach((card) => {
+        if (card.hidden) return;
+        const r = card.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - medio);
+        if (d < dist) { dist = d; mejor = card; }
+      });
+      cards.forEach((card) => {
+        const on = card === mejor;
+        if (card.classList.contains("activa") === on) return;
+        card.classList.toggle("activa", on);
+        (on ? prender : apagar)(card);
+      });
+    };
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) vistas.add(e.target); else vistas.delete(e.target);
+      activar(e.target);
+    }), { threshold: 0.35 });
+    tiras.forEach((tira) => {
+      io.observe(tira);
+      let pend = 0;
+      tira.addEventListener("scroll", () => {
+        if (pend) return;
+        pend = setTimeout(() => { pend = 0; activar(tira); }, 120);
+      }, { passive: true });
+    });
+    $$("#csFilter .af-chip").forEach((ch) => ch.addEventListener("click", () => {
+      const g = $("#csGrid"); if (!g) return;
+      g.scrollTo({ left: 0 }); setTimeout(() => activar(g), 60);
+    }));
+  }
+
+  /* ---------- Cinta de clientes en el celular: se arrastra y no frena ----------
+     La cinta pasa a ser un scroll de verdad que avanza sola: el dedo la lleva
+     para cualquier lado y, al soltar, sigue. Da la vuelta sin salto porque
+     el segundo tramo es copia del primero. */
+  (() => {
+    const mq = $(".marcas-carrusel");
+    const t0 = mq && $(".mtrack", mq);
+    if (!t0 || reduced || !matchMedia("(max-width: 720px)").matches) return;
+    mq.classList.add("arrastra");
+    let x = 0, puesto = 0, ult = 0, tocando = false, visible = false, raf = 0;
+    const vuelta = (t) => {
+      raf = 0;
+      const dt = Math.min(48, t - (ult || t)); ult = t;
+      const ciclo = t0.getBoundingClientRect().width;
+      if (ciclo > 0) {
+        const real = mq.scrollLeft;
+        // si el dedo (o la inercia) la movio, se sigue desde donde quedo
+        if (tocando || Math.abs(real - puesto) > 1.5) x = real;
+        else x += dt * 0.032;
+        if (x >= ciclo) x -= ciclo;
+        if (x <= 0.5 && (tocando || real < puesto)) x += ciclo;
+        if (!tocando || Math.abs(x - real) > ciclo / 2) { mq.scrollLeft = x; }
+        puesto = mq.scrollLeft;
+      }
+      if (visible) raf = requestAnimationFrame(vuelta);
+    };
+    mq.addEventListener("touchstart", () => { tocando = true; }, { passive: true });
+    const soltar = () => { tocando = false; };
+    mq.addEventListener("touchend", soltar, { passive: true });
+    mq.addEventListener("touchcancel", soltar, { passive: true });
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !raf) { ult = 0; raf = requestAnimationFrame(vuelta); }
+    }).observe(mq);
+  })();
+
   /* ---------- Bio plegada en el celular: "Leer mas" ---------- */
   (() => {
     const b = $(".leer-mas"), caja = $(".founder-txt");

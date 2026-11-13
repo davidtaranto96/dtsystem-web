@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261113a">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261113b">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261113a">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261113b">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -38,8 +38,8 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261113a">
-  <link rel="stylesheet" href="celular.css?v=20261113a" media="(max-width: 720px)">
+  <link rel="stylesheet" href="styles.css?v=20261113b">
+  <link rel="stylesheet" href="celular.css?v=20261113b" media="(max-width: 720px)">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -204,6 +204,12 @@
             <a href="#servicios" style="--i:2" data-i18n="nav_prod">Servicios</a>
             <a href="#sobre-mi" style="--i:3" data-i18n="nav_sobre">Sobre mí</a>
             <a href="#contacto" style="--i:4" data-i18n="nav_contacto">Contacto</a>
+            <div class="menu-redes">
+              <a href="https://wa.me/5493875454070" target="_blank" rel="noopener">WhatsApp</a>
+              <a href="https://www.instagram.com/david.taranto/" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.linkedin.com/in/david-taranto/" target="_blank" rel="noopener">LinkedIn</a>
+              <a class="menu-mail" href="mailto:contacto@dtsystem.com.ar">contacto@dtsystem.com.ar</a>
+            </div>
           </div>
         </details>
       </div>
@@ -298,27 +304,27 @@
              (scripts/escena.py) y las tarjetas se apilan al bajar -->
         <div class="dest" id="dest">
           <a class="dest-card" style="--i:0;--fx:51%" href="https://edificiolatorre.com" target="_blank" rel="noopener" data-cursor="Visitar ↗" data-cursor-en="Visit ↗">
-            <img src="assets/casos/escena-latorre.jpg?v=2" srcset="assets/casos/escena-latorre-cel.jpg?v=2 800w, assets/casos/escena-latorre.jpg?v=2 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Edificio La Torre en pantalla" loading="lazy" decoding="async">
+            <picture><source media="(max-width: 720px)" srcset="assets/casos/escena-latorre-vert.jpg" width="1100" height="1637"><img src="assets/casos/escena-latorre.jpg?v=2" srcset="assets/casos/escena-latorre-cel.jpg?v=2 800w, assets/casos/escena-latorre.jpg?v=2 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Edificio La Torre en pantalla" loading="lazy" decoding="async"></picture>
             <div class="dest-info"><h3>Edificio La Torre</h3><small data-i18n="c13s">Emprendimiento inmobiliario · Salta</small></div>
             <span class="dest-ver" aria-hidden="true">↗</span>
           </a>
           <a class="dest-card" style="--i:1;--fx:50%" href="https://melou.com.ar" target="_blank" rel="noopener" data-cursor="Visitar ↗" data-cursor-en="Visit ↗">
-            <img src="assets/casos/escena-melou.jpg" srcset="assets/casos/escena-melou-cel.jpg 800w, assets/casos/escena-melou.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="melou. en pantalla" loading="lazy" decoding="async">
+            <picture><source media="(max-width: 720px)" srcset="assets/casos/escena-melou-vert.jpg" width="1100" height="1637"><img src="assets/casos/escena-melou.jpg" srcset="assets/casos/escena-melou-cel.jpg 800w, assets/casos/escena-melou.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="melou. en pantalla" loading="lazy" decoding="async"></picture>
             <div class="dest-info"><h3>melou.</h3><small data-i18n="c1s">Web + reservas · retiros en Salta</small></div>
             <span class="dest-ver" aria-hidden="true">↗</span>
           </a>
           <a class="dest-card" style="--i:2;--fx:50%" href="https://baza.com.ar" target="_blank" rel="noopener" data-cursor="Visitar ↗" data-cursor-en="Visit ↗">
-            <img src="assets/casos/escena-baza.jpg" srcset="assets/casos/escena-baza-cel.jpg 800w, assets/casos/escena-baza.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="BAZA en pantalla" loading="lazy" decoding="async">
+            <picture><source media="(max-width: 720px)" srcset="assets/casos/escena-baza-vert.jpg" width="1100" height="1637"><img src="assets/casos/escena-baza.jpg" srcset="assets/casos/escena-baza-cel.jpg 800w, assets/casos/escena-baza.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="BAZA en pantalla" loading="lazy" decoding="async"></picture>
             <div class="dest-info"><h3>BAZA</h3><small data-i18n="c2s">Tienda a medida · atelier de cuero</small></div>
             <span class="dest-ver" aria-hidden="true">↗</span>
           </a>
           <a class="dest-card" style="--i:3;--fx:62%" href="https://franciscomolins.com" target="_blank" rel="noopener" data-cursor="Visitar ↗" data-cursor-en="Visit ↗">
-            <img src="assets/casos/escena-fmolins.jpg" srcset="assets/casos/escena-fmolins-cel.jpg 800w, assets/casos/escena-fmolins.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Francisco Molins en pantalla" loading="lazy" decoding="async">
+            <picture><source media="(max-width: 720px)" srcset="assets/casos/escena-fmolins-vert.jpg" width="1100" height="1637"><img src="assets/casos/escena-fmolins.jpg" srcset="assets/casos/escena-fmolins-cel.jpg 800w, assets/casos/escena-fmolins.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Francisco Molins en pantalla" loading="lazy" decoding="async"></picture>
             <div class="dest-info"><h3>Francisco Molins</h3><small data-i18n="c14s">Portal inmobiliario · Salta</small></div>
             <span class="dest-ver" aria-hidden="true">↗</span>
           </a>
           <a class="dest-card" style="--i:4;--fx:36%" href="https://sauriumchukum.com" target="_blank" rel="noopener" data-cursor="Visitar ↗" data-cursor-en="Visit ↗">
-            <img src="assets/casos/escena-saurium.jpg" srcset="assets/casos/escena-saurium-cel.jpg 800w, assets/casos/escena-saurium.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Saurium en pantalla" loading="lazy" decoding="async">
+            <picture><source media="(max-width: 720px)" srcset="assets/casos/escena-saurium-vert.jpg" width="1100" height="1637"><img src="assets/casos/escena-saurium.jpg" srcset="assets/casos/escena-saurium-cel.jpg 800w, assets/casos/escena-saurium.jpg 1600w" sizes="(max-width: 980px) 100vw, 1320px" width="1600" height="905" alt="Saurium en pantalla" loading="lazy" decoding="async"></picture>
             <div class="dest-info"><h3>Saurium</h3><small data-i18n="c16s">Chukum de Yucatán · bilingüe</small></div>
             <span class="dest-ver" aria-hidden="true">↗</span>
           </a>
@@ -958,7 +964,7 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="main.js?v=20261113a" defer></script>
-  <script src="medicion.js?v=20261113a" defer></script>
+  <script src="main.js?v=20261113b" defer></script>
+  <script src="medicion.js?v=20261113b" defer></script>
 </body>
 </html>
