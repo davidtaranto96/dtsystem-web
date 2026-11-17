@@ -925,6 +925,14 @@
     f_in: "See my LinkedIn profile",
     leer_mas: "Read more",
     leer_menos: "Show less",
+    pv_tag: "A game of my own, for your phone",
+    pv_sub: "Games for before going out. Everyone on their own phone, nothing to install.",
+    pv_m1: "Find the mafiosos before they take over the neighborhood. 5 to 12 players, each with their phone.",
+    pv_m2h: "Cards",
+    pv_m2: "Questions, dares, votes and forfeits. One phone passed from hand to hand.",
+    pv_cta: "Play now",
+    pv_cta2: "Play the cards",
+    pv_nota: "It is in testing (Spanish only for now): at the end of each game you can leave your feedback.",
     f_h: "Who’s behind it",
     st1: "Years in systems", st3: "Sites in Argentina and Mexico",
     globe_h: "Based in Salta, Argentina",
@@ -2163,6 +2171,20 @@
     addEventListener("keydown", (e) => { if (e.key === "Escape") cerrar(); });
     // quien llega con /#contacto (desde una pagina de servicio) la encuentra abierta
     if (cel.matches && location.hash === "#contacto") setTimeout(() => abrir(null), 500);
+  })();
+
+  /* ---------- La Previa: el video de la previa corre solo mientras se ve ----------
+     Se pide recien cuando el bloque se acerca; con movimiento reducido o
+     ahorro de datos queda la imagen quieta. */
+  (() => {
+    const v = $(".previa-vid");
+    if (!v || reduced || navigator.connection?.saveData || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        if (!v.src) v.src = v.dataset.src;
+        v.play().catch(() => {});
+      } else if (!v.paused) v.pause();
+    }, { rootMargin: "200px 0px" }).observe(v);
   })();
 
   /* ---------- Bio plegada en el celular: "Leer mas" ---------- */

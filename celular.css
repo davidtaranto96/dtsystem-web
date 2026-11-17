@@ -212,6 +212,14 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--accent) 14%, transparent) 50%, color-mix(in srgb, var(--accent) 34%, transparent) 100%);
 }
 
+/* ---------- 13. La Previa: el bloque del juego, compacto ---------- */
+.previa-sec { padding-block: 36px 28px; }
+.previa { border-radius: 22px; padding: 36px 20px 0; gap: 22px; }
+.previa-h { margin: 12px 0 10px; }
+.previa-modos { margin: 20px 0 22px; }
+.previa-ctas a { flex: 1 1 100%; }
+.previa-vista { width: min(240px, 70%); }
+
 @media (prefers-reduced-motion: reduce) {
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
   .cs-grid .demo.activa .demo-shot.lista .full { animation: none; }

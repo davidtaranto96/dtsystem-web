@@ -6,6 +6,11 @@
 
 /* ---------- 1. Tokens de tema ---------- */
 :root {
+  /* La Previa (bloque del juego propio): la paleta del juego, igual en los dos temas */
+  --pv-tinta: #120A20; --pv-fondo: #1A0F2E; --pv-fondo-2: #2A1547; --pv-borde: #4A3670;
+  --pv-texto: #F4ECFF; --pv-texto-2: #C9BEE0;
+  --pv-rosa: #FF3E9A; --pv-rosa-brillo: rgb(255 62 154 / 0.55);
+  --pv-agua: #3EE6C1; --pv-oro: #FFD23F; --pv-lila: #A98BFF;
   --bg: oklch(0.968 0.005 240); /* blanco apagado, apenas hacia el celeste de la marca: el blanco puro cansaba */
   --text: #333333;
   --muted: rgba(51, 51, 51, 0.76);   /* 4,5:1 sobre el fondo y las tarjetas */
@@ -2145,3 +2150,86 @@ html.nav-lejos .hdr-pill {
 }
 @keyframes obra { to { background-position: 8.5px 0; } }
 @media (prefers-reduced-motion: reduce) { .live.es-wip .obra { animation: none; } }
+
+/* ============================================================
+   LA PREVIA — el juego propio (17/11). Un bloque con la estetica del
+   juego: violeta de noche, titulo en Bungee rosa, guirnalda de luces y
+   el video de la previa adentro de una pantalla de celular.
+   ============================================================ */
+.previa-sec { padding-block: clamp(48px, 7vw, 96px); }
+.previa {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center;
+  gap: clamp(28px, 5vw, 72px); padding: clamp(40px, 5vw, 64px) clamp(28px, 5vw, 72px) 0;
+  border-radius: 28px; color: var(--pv-texto);
+  background:
+    radial-gradient(120% 90% at 85% 15%, color-mix(in srgb, var(--pv-rosa) 22%, transparent), transparent 60%),
+    radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--pv-agua) 14%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--pv-fondo-2), var(--pv-fondo));
+  border: 1px solid var(--pv-borde);
+  box-shadow: 0 40px 80px -40px rgb(26 15 46 / 0.8);
+}
+/* la guirnalda: cinco luces de colores colgando del borde de arriba */
+.previa::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 34px; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(circle at 6% 60%, var(--pv-rosa) 0 4px, transparent 5px),
+    radial-gradient(circle at 22% 80%, var(--pv-oro) 0 4px, transparent 5px),
+    radial-gradient(circle at 38% 62%, var(--pv-agua) 0 4px, transparent 5px),
+    radial-gradient(circle at 54% 82%, var(--pv-lila) 0 4px, transparent 5px),
+    radial-gradient(circle at 70% 60%, var(--pv-rosa) 0 4px, transparent 5px),
+    radial-gradient(circle at 86% 80%, var(--pv-oro) 0 4px, transparent 5px);
+  filter: drop-shadow(0 0 6px rgb(255 255 255 / 0.55));
+}
+/* textura de pixel: una grilla muy tenue */
+.previa::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.06;
+  background-image: linear-gradient(var(--pv-texto) 1px, transparent 1px), linear-gradient(90deg, var(--pv-texto) 1px, transparent 1px);
+  background-size: 8px 8px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 70%); mask-image: linear-gradient(180deg, #000, transparent 70%);
+}
+.previa-txt { padding-bottom: clamp(40px, 5vw, 64px); }
+.previa-tag { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--pv-texto-2); }
+.previa-punto { width: 8px; height: 8px; border-radius: 50%; background: var(--pv-agua); box-shadow: 0 0 10px var(--pv-agua); }
+.previa-h {
+  margin: 16px 0 14px; font-family: Bungee, var(--font-head), sans-serif; font-weight: 400; text-transform: uppercase;
+  font-size: clamp(3rem, 2rem + 4.2vw, 5.5rem); line-height: 0.95; letter-spacing: 0.01em;
+  color: var(--pv-rosa); text-shadow: 0 0 28px var(--pv-rosa-brillo), 0 4px 0 rgb(18 10 32 / 0.9);
+}
+.previa-sub { font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); line-height: 1.45; color: var(--pv-texto); max-width: 34ch; }
+.previa-modos { list-style: none; display: grid; gap: 14px; margin: 26px 0 30px; max-width: 46ch; }
+.previa-modos li { display: grid; gap: 4px; padding-left: 16px; border-left: 2px solid var(--pv-borde); }
+.previa-modos li:first-child { border-left-color: var(--pv-rosa); }
+.previa-modos li:last-child { border-left-color: var(--pv-agua); }
+.previa-modos b { font-family: Bungee, var(--font-head), sans-serif; font-weight: 400; text-transform: uppercase; font-size: 0.9375rem; letter-spacing: 0.02em; }
+.previa-modos span { font-size: 0.9375rem; line-height: 1.5; color: var(--pv-texto-2); }
+.previa-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.previa-btn, .previa-btn2 {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px;
+  border-radius: 14px; text-decoration: none; font-family: Bungee, var(--font-head), sans-serif; font-weight: 400;
+  text-transform: uppercase; font-size: 0.9375rem; letter-spacing: 0.02em;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
+}
+.previa-btn { background: var(--pv-rosa); color: var(--pv-fondo); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 10px 26px -10px var(--pv-rosa-brillo); }
+.previa-btn2 { color: var(--pv-agua); box-shadow: inset 0 0 0 2px var(--pv-agua); }
+@media (hover: hover) {
+  .previa-btn:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4), 0 16px 32px -10px var(--pv-rosa-brillo); }
+  .previa-btn2:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--pv-agua) 10%, transparent); }
+}
+.previa-btn:active, .previa-btn2:active { transform: scale(0.97); }
+.previa-btn:focus-visible, .previa-btn2:focus-visible { outline: 2px solid var(--pv-oro); outline-offset: 3px; }
+.previa-nota { margin-top: 18px; font-size: 0.8125rem; color: var(--pv-texto-2); }
+/* la pantalla: el video de la previa en un celular, apoyado en el borde de abajo */
+.previa-vista { position: relative; align-self: end; justify-self: center; display: block; width: min(330px, 100%); }
+.previa-pantalla {
+  display: block; aspect-ratio: 540 / 958; overflow: hidden;
+  border-radius: 34px 34px 0 0; border: 8px solid var(--pv-tinta); border-bottom: 0;
+  box-shadow: 0 0 0 1px var(--pv-borde), 0 -10px 60px -10px var(--pv-rosa-brillo);
+  background: var(--pv-fondo);
+}
+.previa-vid { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 860px) {
+  .previa { grid-template-columns: minmax(0, 1fr); padding-top: 44px; }
+  .previa-txt { padding-bottom: 0; }
+  .previa-vista { width: min(280px, 78%); }
+}
