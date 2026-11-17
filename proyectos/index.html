@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://dtsystem.com.ar/proyectos/">
   <meta property="og:site_name" content="DT System">
   <meta property="og:locale" content="es_AR">
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117h">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117j">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
-  <link rel="stylesheet" href="/styles.css?v=20261117h">
-  <link rel="stylesheet" href="/celular.css?v=20261117h" media="(max-width: 720px)">
+  <link rel="stylesheet" href="/styles.css?v=20261117j">
+  <link rel="stylesheet" href="/celular.css?v=20261117j" media="(max-width: 720px)">
   <script>
     (function () {
       var t = null; try { t = localStorage.getItem("dt-theme"); } catch (e) {}
@@ -82,8 +82,50 @@
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
           <h1 class="h2" data-i18n="cs_todos">Todos los proyectos.</h1>
-          <p class="sub" data-i18n="cs_sub">Webs y tiendas en línea, y las demos de lo que estoy armando.</p>
+          <p class="sub" data-i18n="cs_sub">Lo que está en línea, lo que sale pronto, los sistemas y mis propios juegos y apps.</p>
         </div>
+
+        <!-- Clientes: arriba de las pestanas (antes iban pegados a la portada) -->
+        <div id="marcas" class="marcas-sec">
+          <p class="marcas-h" data-rv="down" data-i18n="mk_h">Algunos de mis clientes</p>
+        <div class="marcas-carrusel marquee">
+          <ul class="marcas mtrack">
+              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
+              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
+              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
+              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
+              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
+              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
+              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
+              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
+              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
+              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
+              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
+          </ul>
+          <ul class="marcas mtrack" aria-hidden="true" inert>
+              <li><a href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou"><span class="marca m-melou"></span></a></li>
+              <li><a href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA Atelier"><span class="marca m-baza"></span></a></li>
+              <li><a href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda"><span class="marca m-canada"></span></a></li>
+              <li><a href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo"><span class="marca m-aires"></span></a></li>
+              <li><a href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium"><span class="marca m-saurium"></span></a></li>
+              <li><a href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre"><span class="marca m-latorre"></span></a></li>
+              <li><a href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins Real Estate"><span class="marca m-molins"></span></a></li>
+              <li><span class="marca-txt marca-par"><span class="marca m-bf"></span>BF Studio</span></li>
+              <li><span class="marca m-mavenz" role="img" aria-label="MAVENZ"></span></li>
+              <li><span class="marca m-josi" role="img" aria-label="Josi Compagnucci"></span></li>
+              <li><span class="marca m-retazos" role="img" aria-label="RETAZOS"></span></li>
+          </ul>
+        </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Proyectos por tipo" data-i18n-aria="tabs" hidden>
+          <button class="tab" type="button" role="tab" id="t-linea" aria-controls="p-linea" aria-selected="true"><span data-i18n="tab_linea">En línea</span><span class="tab-n"></span></button>
+          <button class="tab" type="button" role="tab" id="t-wip" aria-controls="p-wip" aria-selected="false" tabindex="-1"><span data-i18n="tab_wip">Por salir</span><span class="tab-n"></span></button>
+          <button class="tab" type="button" role="tab" id="t-sys" aria-controls="p-sys" aria-selected="false" tabindex="-1"><span data-i18n="tab_sys">Sistemas</span><span class="tab-n"></span></button>
+          <button class="tab" type="button" role="tab" id="t-juegos" aria-controls="p-juegos" aria-selected="false" tabindex="-1"><span data-i18n="tab_juegos">Juegos y apps</span><span class="tab-n"></span></button>
+        </div>
+
+        <div class="tab-panel" id="p-linea" role="tabpanel" aria-labelledby="t-linea">
 
         <div class="af-chips cs-filter" id="csFilter" role="group" aria-label="Filtrar proyectos por tipo" data-i18n-aria="cs_filtro">
           <button type="button" aria-pressed="true" class="af-chip on" data-f="all" data-i18n="cs_f0">Todos</button>
@@ -188,8 +230,10 @@
           <!-- CASOS:FIN -->
         </div>
         <button class="btn btn-sec cs-mas" id="csMas" type="button" hidden data-i18n="cs_mas">Ver todos los proyectos</button>
+        </div>
 
         <!-- BLOQUES:INICIO -->
+        <div class="tab-panel" id="p-wip" role="tabpanel" aria-labelledby="t-wip">
         <div class="sys-head" data-rv="fade">
           <h3 class="sys-h" data-i18n="wip_h">Próximos en salir</h3>
           <p class="sub" data-i18n="wip_sub">Trabajos para clientes que estoy haciendo ahora.</p>
@@ -227,7 +271,9 @@
             </div>
           </div>
         </div>
+        </div>
 
+        <div class="tab-panel" id="p-sys" role="tabpanel" aria-labelledby="t-sys">
         <div class="sys-head" data-rv="fade">
           <h3 class="sys-h" data-i18n="sys_h">Sistemas de gestión</h3>
           <p class="sub" data-i18n="sys_sub">CRMs a medida para ordenar las consultas, las tareas y los cobros de un equipo. Se muestran con datos inventados.</p>
@@ -257,115 +303,115 @@
             </div>
           </div>
         </div>
-
-        <div class="sys-head" data-rv="fade">
-          <h3 class="sys-h" data-i18n="td_h">Proyectos en 3D</h3>
-          <p class="sub" data-i18n="td_sub">Maquetas que se recorren en el navegador, armadas desde los planos.</p>
-        </div>
-        <div class="demo-grid cs-grid sys-grid" id="tdGrid">
-          <a class="demo" data-cat="3d" data-cursor="Recorrer ↗" data-cursor-en="Explore ↗" href="https://edificiolatorre.com/3d/" target="_blank" rel="noopener">
-            <div class="demo-shot"><img src="/assets/casos/case-latorre-3d.jpg" width="960" height="600" alt="Maqueta 3D del Edificio La Torre, con vistas de cámara y el estado de cada unidad" loading="lazy"></div>
-            <div class="demo-info">
-              <div><h3>La Torre en 3D</h3><small data-i18n="c3d1">Maqueta 3D con el estado de cada unidad</small></div>
-              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
-            </div>
-            <div class="demo-ov" aria-hidden="true"><span>Recorrer ↗</span></div>
-          </a>
         </div>
         <!-- BLOQUES:FIN -->
+
+        <div class="tab-panel" id="p-juegos" role="tabpanel" aria-labelledby="t-juegos">
+        <!-- ============ 3b. LA PREVIA ============
+             Producto propio (pedido de David, 17/11): un bloque con la estetica del
+             juego, en la parte de proyectos, que invita a jugarlo. El arte y el
+             video son del juego (propio/la-previa/server/web), achicados. -->
+        <div class="previa-sec" id="la-previa">
+          <div class="wrap">
+            <div class="previa" data-rv="up">
+              <div class="previa-txt">
+                <p class="previa-tag"><span class="previa-punto" aria-hidden="true"></span><span data-i18n="pv_tag">Un juego propio, para el celular</span></p>
+                <h2 class="previa-h" id="previaH">La Previa</h2>
+                <p class="previa-sub" data-i18n="pv_sub">Juegos para antes de salir. Cada uno con su celular, sin instalar nada.</p>
+                <ul class="previa-modos">
+                  <li><a href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener"><b>La Mafia</b></a><span data-i18n="pv_m1">Encontrá a los mafiosos antes de que copen el barrio. De 5 a 12, cada uno con su celular.</span></li>
+                  <li><a href="https://la-previa.dtsystem.com.ar/cartas.html" target="_blank" rel="noopener"><b data-i18n="pv_m2h">Cartas</b></a><span data-i18n="pv_m2">Preguntas, retos, votaciones y prendas. Un solo celular que pasa de mano en mano.</span></li>
+                </ul>
+                <div class="previa-ctas">
+                  <a class="previa-btn" href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener" data-i18n="pv_cta">Jugar ahora</a>
+                  <a class="previa-btn2" href="https://la-previa.dtsystem.com.ar/cartas.html" target="_blank" rel="noopener" data-i18n="pv_cta2">Jugar a las cartas</a>
+                </div>
+                <p class="previa-nota" data-i18n="pv_nota">Está en pruebas: al final de cada partida podés dejar tu opinión.</p>
+              </div>
+              <a class="previa-vista" href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <span class="previa-pantalla">
+                  <video class="previa-vid" muted loop playsinline preload="none" poster="/assets/previa/escena-previa.webp" width="540" height="958" data-src="/assets/previa/escena-previa.mp4"></video>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ 3c. APPS A MEDIDA ============
+             Pedido de David (17/11): sus apps propias, tipo publicidad, sin
+             descarga: invitan a pedir una a medida. Marcador va con una
+             animacion (no es una grabacion real: armada desde su interfaz);
+             en las capturas de Apunto y Sencillo los datos son inventados. -->
+        <div class="apps-sec" id="apps">
+          <div class="wrap">
+            <div class="sec-head" data-rv="up">
+              <h2 class="h2" id="appsH" data-i18n="ap_h">Apps a tu medida.</h2>
+              <p class="sub" data-i18n="ap_sub">Estas las armé para mi trabajo y mi día a día. No se descargan: son mías. Si querés una así para tu negocio, la hacemos a tu medida.</p>
+            </div>
+
+            <article class="app app-ancha" data-rv="up">
+              <div class="app-txt">
+                <div class="app-cab"><img class="app-ico" src="/assets/apps/icono-marcador.png" width="160" height="160" alt="">
+                  <div><h3>Marcador</h3><span class="app-plat" data-i18n="ap_m_plat">Mac · barra de menú</span></div></div>
+                <p class="app-lema" data-i18n="ap_m_lema">Grabá las correcciones de una web en vez de escribirlas.</p>
+                <ul class="app-lista">
+                  <li data-i18n="ap_m_1">Pantalla, voz y dibujos sobre cualquier ventana.</li>
+                  <li data-i18n="ap_m_2">Cada marca queda guardada con su segundo y una foto.</li>
+                  <li data-i18n="ap_m_3">La uso todos los días con las correcciones de mis clientes.</li>
+                </ul>
+                <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+              </div>
+              <div class="app-mac" aria-hidden="true">
+                <video class="app-vid" muted loop playsinline preload="none" poster="/assets/apps/marcador.jpg" width="1280" height="800" data-src="/assets/apps/marcador.mp4" data-src-cel="/assets/apps/marcador-cel.mp4"></video>
+              </div>
+            </article>
+
+            <div class="apps-par">
+              <article class="app" data-rv="up">
+                <div class="app-cab"><img class="app-ico recorte" src="/assets/apps/icono-apunto.png?v=2" width="160" height="160" alt="">
+                  <div><h3>Apunto</h3><span class="app-plat">Android</span></div></div>
+                <p class="app-lema" data-i18n="ap_a_lema">Tareas, hábitos y enfoque en un solo lugar.</p>
+                <ul class="app-lista">
+                  <li data-i18n="ap_a_1">El día ordenado por lo importante.</li>
+                  <li data-i18n="ap_a_2">Rachas de hábitos y estadísticas.</li>
+                  <li data-i18n="ap_a_3">Calendario, proyectos y sesiones de enfoque.</li>
+                </ul>
+                <div class="app-tels" aria-hidden="true">
+                  <span class="app-tel lado"><img src="/assets/apps/anotalo-habitos.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                  <span class="app-tel"><img src="/assets/apps/anotalo-hoy.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                  <span class="app-tel lado"><img src="/assets/apps/anotalo-calendario.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                </div>
+                <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+              </article>
+              <article class="app" data-rv="up">
+                <div class="app-cab"><img class="app-ico recorte" src="/assets/apps/icono-sencillo.png" width="160" height="160" alt="">
+                  <div><h3>Sencillo</h3><span class="app-plat">Android</span></div></div>
+                <p class="app-lema" data-i18n="ap_s_lema">Las finanzas personales, sin planillas.</p>
+                <ul class="app-lista">
+                  <li data-i18n="ap_s_1">El balance del mes y cuánto vas a gastar.</li>
+                  <li data-i18n="ap_s_2">Lee el resumen de la tarjeta en PDF.</li>
+                  <li data-i18n="ap_s_3">Gastos compartidos con amigos.</li>
+                </ul>
+                <div class="app-tels" aria-hidden="true">
+                  <span class="app-tel lado"><img src="/assets/apps/sencillo-inicio.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                  <span class="app-tel"><img src="/assets/apps/sencillo-balance.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                  <span class="app-tel lado"><img src="/assets/apps/sencillo-escaner.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+                </div>
+                <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+              </article>
+            </div>
+
+            <div class="apps-pie" data-rv="up">
+              <p data-i18n="ap_pie">¿Te sirve algo así para tu negocio?</p>
+              <a class="pill pill-oscuro apps-cta" href="/#contacto" data-tipo="App móvil"><span class="pill-txt"><span data-i18n="ap_cta">Quiero una app a medida</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        </div>
       </div>
     </section>
 
-    <section class="previa-sec" id="la-previa" aria-labelledby="previaH">
-      <div class="wrap">
-        <div class="previa" data-rv="up">
-          <div class="previa-txt">
-            <p class="previa-tag"><span class="previa-punto" aria-hidden="true"></span><span data-i18n="pv_tag">Un juego propio, para el celular</span></p>
-            <h2 class="previa-h" id="previaH">La Previa</h2>
-            <p class="previa-sub" data-i18n="pv_sub">Juegos para antes de salir. Cada uno con su celular, sin instalar nada.</p>
-            <ul class="previa-modos">
-              <li><a href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener"><b>La Mafia</b></a><span data-i18n="pv_m1">Encontrá a los mafiosos antes de que copen el barrio. De 5 a 12, cada uno con su celular.</span></li>
-              <li><a href="https://la-previa.dtsystem.com.ar/cartas.html" target="_blank" rel="noopener"><b data-i18n="pv_m2h">Cartas</b></a><span data-i18n="pv_m2">Preguntas, retos, votaciones y prendas. Un solo celular que pasa de mano en mano.</span></li>
-            </ul>
-            <div class="previa-ctas">
-              <a class="previa-btn" href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener" data-i18n="pv_cta">Jugar ahora</a>
-              <a class="previa-btn2" href="https://la-previa.dtsystem.com.ar/cartas.html" target="_blank" rel="noopener" data-i18n="pv_cta2">Jugar a las cartas</a>
-            </div>
-            <p class="previa-nota" data-i18n="pv_nota">Está en pruebas: al final de cada partida podés dejar tu opinión.</p>
-          </div>
-          <a class="previa-vista" href="https://la-previa.dtsystem.com.ar/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-            <span class="previa-pantalla">
-              <video class="previa-vid" muted loop playsinline preload="none" poster="/assets/previa/escena-previa.webp" width="540" height="958" data-src="/assets/previa/escena-previa.mp4"></video>
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
-    <section class="apps-sec" id="apps" aria-labelledby="appsH">
-      <div class="wrap">
-        <div class="sec-head" data-rv="up">
-          <h2 class="h2" id="appsH" data-i18n="ap_h">Apps a tu medida.</h2>
-          <p class="sub" data-i18n="ap_sub">Estas las armé para mi trabajo y mi día a día. No se descargan: son mías. Si querés una así para tu negocio, la hacemos a tu medida.</p>
-        </div>
-
-        <article class="app app-ancha" data-rv="up">
-          <div class="app-txt">
-            <div class="app-cab"><img class="app-ico" src="/assets/apps/icono-marcador.png" width="160" height="160" alt="">
-              <div><h3>Marcador</h3><span class="app-plat" data-i18n="ap_m_plat">Mac · barra de menú</span></div></div>
-            <p class="app-lema" data-i18n="ap_m_lema">Grabá las correcciones de una web en vez de escribirlas.</p>
-            <ul class="app-lista">
-              <li data-i18n="ap_m_1">Pantalla, voz y dibujos sobre cualquier ventana.</li>
-              <li data-i18n="ap_m_2">Cada marca queda guardada con su segundo y una foto.</li>
-              <li data-i18n="ap_m_3">La uso todos los días con las correcciones de mis clientes.</li>
-            </ul>
-            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
-          </div>
-          <div class="app-mac" aria-hidden="true">
-            <video class="app-vid" muted loop playsinline preload="none" poster="/assets/apps/marcador.jpg" width="1280" height="800" data-src="/assets/apps/marcador.mp4" data-src-cel="/assets/apps/marcador-cel.mp4"></video>
-          </div>
-        </article>
-
-        <div class="apps-par">
-          <article class="app" data-rv="up">
-            <div class="app-cab"><img class="app-ico recorte" src="/assets/apps/icono-apunto.png?v=2" width="160" height="160" alt="">
-              <div><h3>Apunto</h3><span class="app-plat">Android</span></div></div>
-            <p class="app-lema" data-i18n="ap_a_lema">Tareas, hábitos y enfoque en un solo lugar.</p>
-            <ul class="app-lista">
-              <li data-i18n="ap_a_1">El día ordenado por lo importante.</li>
-              <li data-i18n="ap_a_2">Rachas de hábitos y estadísticas.</li>
-              <li data-i18n="ap_a_3">Calendario, proyectos y sesiones de enfoque.</li>
-            </ul>
-            <div class="app-tels" aria-hidden="true">
-              <span class="app-tel lado"><img src="/assets/apps/anotalo-habitos.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-              <span class="app-tel"><img src="/assets/apps/anotalo-hoy.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-              <span class="app-tel lado"><img src="/assets/apps/anotalo-calendario.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-            </div>
-            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
-          </article>
-          <article class="app" data-rv="up">
-            <div class="app-cab"><img class="app-ico recorte" src="/assets/apps/icono-sencillo.png" width="160" height="160" alt="">
-              <div><h3>Sencillo</h3><span class="app-plat">Android</span></div></div>
-            <p class="app-lema" data-i18n="ap_s_lema">Las finanzas personales, sin planillas.</p>
-            <ul class="app-lista">
-              <li data-i18n="ap_s_1">El balance del mes y cuánto vas a gastar.</li>
-              <li data-i18n="ap_s_2">Lee el resumen de la tarjeta en PDF.</li>
-              <li data-i18n="ap_s_3">Gastos compartidos con amigos.</li>
-            </ul>
-            <div class="app-tels" aria-hidden="true">
-              <span class="app-tel lado"><img src="/assets/apps/sencillo-inicio.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-              <span class="app-tel"><img src="/assets/apps/sencillo-balance.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-              <span class="app-tel lado"><img src="/assets/apps/sencillo-escaner.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
-            </div>
-            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
-          </article>
-        </div>
-
-        <div class="apps-pie" data-rv="up">
-          <p data-i18n="ap_pie">¿Te sirve algo así para tu negocio?</p>
-          <a class="pill pill-oscuro apps-cta" href="/#contacto" data-tipo="App móvil"><span class="pill-txt"><span data-i18n="ap_cta">Quiero una app a medida</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-    </section>
     <section class="svc-sec svc-fin">
       <div class="wrap">
         <h2 class="h2">Contame qué necesitás.</h2>
@@ -426,6 +472,6 @@
       try { localStorage.setItem("dt-theme", t); } catch (e) {}
     });
   </script>
-  <script src="/medicion.js?v=20261117h" defer></script>
+  <script src="/medicion.js?v=20261117j" defer></script>
 </body>
 </html>

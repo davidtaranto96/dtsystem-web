@@ -960,7 +960,11 @@
     mk_h: "Some of my clients",
     f_role: "Founder · DT System",
     cs_h: "Projects.",
-    cs_sub: "Websites and stores that are live, plus demos of what I'm building.",
+    cs_sub: "What is live, what is coming soon, the systems, and my own games and apps.",
+    tab_linea: "Live",
+    tab_wip: "Coming soon",
+    tab_sys: "Systems",
+    tab_juegos: "Games & apps",
     cs_f0: "All", cs_f1: "Sites & stores", cs_f2: "Management systems",
     cs_f3: "Mobile apps", cs_f4: "Automation",
     // CASOS:INICIO
@@ -2219,6 +2223,46 @@
     const chip = $(`.af-chip[data-val="${a.dataset.tipo}"]`);
     if (chip && !chip.classList.contains("on")) chip.click();
   });
+
+  /* ---------- Todos los proyectos en pestanas ----------
+     En linea, Por salir, Sistemas y Juegos y apps. Sin JS la barra queda
+     escondida y se ven todos los paneles; una pestana sin panel (un bloque
+     que hoy no tiene casos) se saca. Flechas para moverse entre pestanas. */
+  (() => {
+    const todos = $("#todos"), barra = todos && $(".tabs", todos);
+    if (!barra) return;
+    const panel = (t) => document.getElementById(t.getAttribute("aria-controls"));
+    $$('[role="tab"]', barra).forEach((t) => {
+      const p = panel(t);
+      if (!p) { t.remove(); return; }
+      const n = $$(".demo", p).length + $$(".previa, .app", p).length;
+      const s = $(".tab-n", t); if (s && n) s.textContent = n;
+    });
+    const pestanas = $$('[role="tab"]', barra);
+    if (!pestanas.length) return;
+    const elegir = (t, foco) => {
+      pestanas.forEach((x) => {
+        const on = x === t;
+        x.setAttribute("aria-selected", String(on));
+        x.tabIndex = on ? 0 : -1;
+        panel(x).hidden = !on;
+      });
+      if (foco) t.focus();
+      revelarVisibles();
+    };
+    pestanas.forEach((t) => t.addEventListener("click", () => elegir(t)));
+    barra.addEventListener("keydown", (e) => {
+      const i = pestanas.indexOf(document.activeElement);
+      if (i < 0) return;
+      const j = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : e.key === "Home" ? 0 : e.key === "End" ? pestanas.length - 1 : null;
+      if (j === null) return;
+      e.preventDefault();
+      elegir(pestanas[(j + pestanas.length) % pestanas.length], true);
+    });
+    barra.hidden = false;
+    todos.classList.add("tabs-on");
+    elegir(pestanas[0]);
+  })();
 
   /* ---------- Bio plegada en el celular: "Leer mas" ---------- */
   (() => {

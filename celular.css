@@ -166,10 +166,16 @@ section#servicios { padding-block: 52px 44px; }
 .leer-mas:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- 10. Todos los proyectos: en el celular viven en su pagina (/proyectos/) ---------- */
-.todos-sec { padding-block: 28px 40px; }
-.todos-sec:not(.todos-pag) { display: none; }
-.dest-pie .dest-ancla { display: none; }
-.dest-pie .dest-pag { display: inline-flex; }
+.todos-sec { padding-block: 40px 36px; }
+/* las pestanas se pasan con el dedo si no entran */
+.tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin: 4px -20px 22px; padding: 2px 20px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; padding: 0 15px; font-size: 0.875rem; }
+.todos-sec .marcas-sec { padding: 22px 0 18px !important; }
+.todos-sec .marcas-carrusel .marcas { zoom: 0.9; }
+/* la maqueta 3D es apaisada: que se vea la pantalla */
+.dest-card img.d3 { object-position: 56% 30%; }
+
 
 /* ---------- 11b. Contacto: el formulario se abre en una hoja que sube desde abajo ---------- */
 a.cta-abrir { display: inline-flex; margin-top: 4px; }

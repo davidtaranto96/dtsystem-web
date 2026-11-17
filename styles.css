@@ -1454,7 +1454,6 @@ html.fx-on .cs-grid .demo.fx-visto { opacity: 1; transform: none; }
    lo pone currentColor a traves de mask-image. Por eso no hacen falta
    variantes para claro y oscuro, y el hover es solo un cambio de opacidad. */
 .marcas-sec { padding: 84px 0 !important; }
-.marcas-sec + #proyectos { padding-top: 0; }
 /* Rótulo de la sección, en minúscula como los .eyebrow */
 .marcas-h {
   text-align: center; font-size: 1rem; letter-spacing: 0.02em;
@@ -2009,8 +2008,8 @@ html.nav-lejos .hdr-pill {
 .tapa > section:not(.hero) { position: relative; z-index: 1; background: var(--bg); }
 /* entre clientes y destacados quedaba una franja de 14 px sin fondo por donde
    asomaba la portada fija: el fondo de los destacados sube a taparla */
-.tapa > #proyectos { box-shadow: 0 -40px 0 0 var(--bg); }
-.tapa > #marcas {
+/* los destacados son lo primero que tapa la portada (los clientes bajaron a Todos los proyectos) */
+.tapa > #proyectos {
   border-radius: 28px 28px 0 0;
   border-top: 1px solid var(--card-border);
   box-shadow: 0 -24px 60px -28px rgb(0 0 0 / 0.28), 0 -1px 0 0 color-mix(in srgb, var(--text) 6%, transparent);
@@ -2285,3 +2284,44 @@ html.nav-lejos .hdr-pill {
   .app-ancha { grid-template-columns: minmax(0, 1fr); }
   .apps-par { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ============================================================
+   ORDEN DEL 17/11: los clientes y todos los proyectos en pestanas
+   (En linea, Por salir, Sistemas, Juegos y apps) y la seccion de los
+   celulares mas chica. Sin JS (o en /proyectos/) se ven todos los
+   paneles uno abajo del otro y la barra de pestanas no aparece.
+   ============================================================ */
+.todos-sec .marcas-sec { padding: clamp(28px, 3vw, 40px) 0 clamp(24px, 3vw, 36px) !important; }
+.todos-sec .marcas-h { margin-bottom: 10px; font-size: 0.875rem; }
+/* aca los logos son una fila de presentacion, no un protagonista */
+.todos-sec .marcas-carrusel .marcas { zoom: 0.8; }
+.mobile-sec .marquee { height: auto; }
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 6px 0 clamp(26px, 3vw, 40px); }
+.tab {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; border: 1px solid var(--card-border); background: var(--card); color: var(--text);
+  font-size: 0.9375rem; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.tab-n { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.tab-n:empty { display: none; }
+.tab[aria-selected="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.tab[aria-selected="true"] .tab-n { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+@media (hover: hover) { .tab:not([aria-selected="true"]):hover { border-color: var(--accent); } }
+.tab:active { transform: scale(0.97); }
+.tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.tab-panel[hidden] { display: none; }
+.tabs-on .tab-panel .sys-h { display: none; }
+.tabs-on .tab-panel > .sys-head:first-child { margin-top: 0; }
+.tab-panel + .tab-panel { margin-top: 48px; }
+.tabs-on .tab-panel + .tab-panel { margin-top: 0; }
+.tab-panel .previa-sec, .tab-panel .apps-sec { padding-block: 0; }
+.tab-panel .apps-sec { margin-top: clamp(24px, 3vw, 40px); }
+.tab-panel .apps-sec .h2 { font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem); }
+/* los celulares: titulo mas chico, una fila y telefonos mas bajos */
+.mobile-sec { padding-block: clamp(48px, 6vw, 88px); }
+.mobile-head { margin-bottom: clamp(24px, 3vw, 40px); }
+.mobile-head .h2 { font-size: clamp(1.5rem, 1rem + 1.6vw, 2.375rem); max-width: 32ch; margin-inline: auto; }
+.mobile-sec .marquee ~ .marquee { display: none; }
+.mobile-sec .phone { width: 150px; border-radius: 26px; padding: 7px; }
+.mobile-sec .phone::after { border-radius: 26px; }
+.mobile-sec .phone img { border-radius: 19px; }
