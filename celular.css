@@ -212,13 +212,29 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--accent) 14%, transparent) 50%, color-mix(in srgb, var(--accent) 34%, transparent) 100%);
 }
 
-/* ---------- 13. La Previa: el bloque del juego, compacto ---------- */
-.previa-sec { padding-block: 36px 28px; }
-.previa { border-radius: 22px; padding: 36px 20px 0; gap: 22px; }
-.previa-h { margin: 12px 0 10px; }
-.previa-modos { margin: 20px 0 22px; }
-.previa-ctas a { flex: 1 1 100%; }
-.previa-vista { width: min(240px, 70%); }
+/* ---------- 13. La Previa: compacto, entra en una pantalla (pedido de David, 17/11) ----------
+   El titulo arriba a todo el ancho; la bajada y los dos juegos al lado de un
+   celular chico con el video; los botones abajo. Sin la nota ni las descripciones largas. */
+.previa-sec { padding-block: 24px 16px; }
+.previa {
+  grid-template-columns: minmax(0, 1fr) 96px;
+  grid-template-areas: "tag tag" "h h" "sub vista" "modos vista" "ctas ctas";
+  column-gap: 16px; row-gap: 0; align-items: start;
+  border-radius: 22px; padding: 36px 18px 20px;
+}
+.previa-txt { display: contents; }
+.previa-tag { grid-area: tag; font-size: 0.75rem; }
+.previa-h { grid-area: h; margin: 8px 0 10px; font-size: 2.875rem; }
+.previa-sub { grid-area: sub; font-size: 0.9375rem; line-height: 1.4; }
+.previa-modos { grid-area: modos; align-self: end; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+.previa-modos li { padding: 5px 10px; border: 0; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--pv-rosa); }
+.previa-modos li:last-child { box-shadow: inset 0 0 0 1.5px var(--pv-agua); }
+.previa-modos b { font-size: 0.6875rem; }
+.previa-modos span, .previa-nota { display: none; }
+.previa-vista { grid-area: vista; align-self: start; justify-self: end; width: 96px; }
+.previa-pantalla { border-radius: 18px; border: 4px solid var(--pv-tinta); }
+.previa-ctas { grid-area: ctas; margin-top: 18px; gap: 8px; }
+.previa-ctas a { flex: 1 1 100%; min-height: 46px; font-size: 0.875rem; }
 
 @media (prefers-reduced-motion: reduce) {
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
