@@ -212,29 +212,37 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--accent) 14%, transparent) 50%, color-mix(in srgb, var(--accent) 34%, transparent) 100%);
 }
 
-/* ---------- 13. La Previa: compacto, entra en una pantalla (pedido de David, 17/11) ----------
-   El titulo arriba a todo el ancho; la bajada y los dos juegos al lado de un
-   celular chico con el video; los botones abajo. Sin la nota ni las descripciones largas. */
+/* ---------- 13. La Previa: como el menu del propio juego (pedido de David, 17/11) ----------
+   La previa en movimiento grande arriba, con el titulo encima; abajo la bajada
+   y los dos juegos como pildoras (rosa y agua), igual que en el juego. Entra
+   en una pantalla. */
 .previa-sec { padding-block: 24px 16px; }
 .previa {
-  grid-template-columns: minmax(0, 1fr) 96px;
-  grid-template-areas: "tag tag" "h h" "sub vista" "modos vista" "ctas ctas";
-  column-gap: 16px; row-gap: 0; align-items: start;
-  border-radius: 22px; padding: 36px 18px 20px;
+  grid-template-columns: minmax(0, 1fr); grid-template-areas: "media" "sub" "modos";
+  gap: 0; padding: 0 0 22px; border-radius: 22px;
 }
+.previa::before { display: none; }
 .previa-txt { display: contents; }
-.previa-tag { grid-area: tag; font-size: 0.75rem; }
-.previa-h { grid-area: h; margin: 8px 0 10px; font-size: 2.875rem; }
-.previa-sub { grid-area: sub; font-size: 0.9375rem; line-height: 1.4; }
-.previa-modos { grid-area: modos; align-self: end; display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
-.previa-modos li { padding: 5px 10px; border: 0; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--pv-rosa); }
-.previa-modos li:last-child { box-shadow: inset 0 0 0 1.5px var(--pv-agua); }
-.previa-modos b { font-size: 0.6875rem; }
-.previa-modos span, .previa-nota { display: none; }
-.previa-vista { grid-area: vista; align-self: start; justify-self: end; width: 96px; }
-.previa-pantalla { border-radius: 18px; border: 4px solid var(--pv-tinta); }
-.previa-ctas { grid-area: ctas; margin-top: 18px; gap: 8px; }
-.previa-ctas a { flex: 1 1 100%; min-height: 46px; font-size: 0.875rem; }
+.previa-vista { grid-area: media; position: relative; width: 100%; justify-self: stretch; align-self: stretch; aspect-ratio: 1 / 1.04; }
+.previa-pantalla { height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; box-shadow: none; }
+.previa-vid { object-position: 50% 28%; }
+.previa-vista::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--pv-fondo) 70%, transparent) 0%, transparent 24%, transparent 52%, var(--pv-fondo) 100%);
+}
+.previa-tag { grid-area: media; align-self: start; position: relative; z-index: 1; padding: 16px 18px 0; font-size: 0.75rem; color: var(--pv-texto); }
+.previa-h { grid-area: media; align-self: end; position: relative; z-index: 1; margin: 0; padding: 0 18px 2px; font-size: 3.5rem; line-height: 0.92; }
+.previa-sub { grid-area: sub; padding: 10px 18px 0; font-size: 1rem; line-height: 1.4; }
+.previa-modos { grid-area: modos; display: flex; gap: 10px; margin: 16px 18px 0; }
+.previa-modos li { display: block; padding: 0; border: 0; }
+.previa-modos a {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border-radius: 999px;
+  background: var(--pv-rosa); color: var(--pv-fondo); box-shadow: 0 8px 22px -10px var(--pv-rosa-brillo);
+}
+.previa-modos li:last-child a { background: var(--pv-agua); box-shadow: 0 8px 22px -10px var(--pv-agua); }
+.previa-modos b { font-size: 0.9375rem; }
+.previa-modos a:active { transform: scale(0.97); }
+.previa-modos span, .previa-ctas, .previa-nota { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }

@@ -2202,6 +2202,9 @@ html.nav-lejos .hdr-pill {
 .previa-modos li:first-child { border-left-color: var(--pv-rosa); }
 .previa-modos li:last-child { border-left-color: var(--pv-agua); }
 .previa-modos b { font-family: Bungee, var(--font-head), sans-serif; font-weight: 400; text-transform: uppercase; font-size: 0.9375rem; letter-spacing: 0.02em; }
+.previa-modos a { color: inherit; text-decoration: none; justify-self: start; }
+@media (hover: hover) { .previa-modos a:hover b { color: var(--pv-oro); } }
+.previa-modos a:focus-visible { outline: 2px solid var(--pv-oro); outline-offset: 3px; border-radius: 4px; }
 .previa-modos span { font-size: 0.9375rem; line-height: 1.5; color: var(--pv-texto-2); }
 .previa-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 .previa-btn, .previa-btn2 {
