@@ -2183,6 +2183,9 @@
       if (!a || !cel.matches) return;
       e.preventDefault(); e.stopImmediatePropagation();
       $("#menu")?.removeAttribute("open");
+      // un boton con data-tipo deja ese tipo elegido (el listener general no llega: lo frena este)
+      const chip = a.dataset.tipo && $(`.af-chip[data-val="${a.dataset.tipo}"]`);
+      if (chip && !chip.classList.contains("on")) chip.click();
       abrir(a);
     }, true);
     addEventListener("popstate", () => cerrar(true));
