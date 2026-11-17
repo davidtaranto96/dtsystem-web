@@ -246,6 +246,24 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
 .previa-modos a:active { transform: scale(0.97); }
 .previa-modos span, .previa-ctas, .previa-nota { display: none; }
 
+/* ---------- 14. Apps a medida: compactas, el video arriba en Marcador ---------- */
+.apps-sec { padding-block: 40px 28px; }
+.app { padding: 20px 18px 18px; border-radius: 20px; }
+.app-ancha { gap: 18px; margin-top: 24px; }
+.app-ancha .app-mac { order: -1; margin: -6px -6px 0; border-radius: 12px; }
+.app-lema { margin-top: 14px; }
+.app-lista { gap: 6px; margin-top: 12px; font-size: 0.875rem; }
+.app-tels { height: 250px; margin-top: 20px; }
+/* Apunto y Sencillo en una tira que se pasa con el dedo, como el resto */
+.apps-par {
+  display: flex; gap: 12px; margin-inline: -20px; padding: 2px 9vw 8px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.apps-par::-webkit-scrollbar { display: none; }
+.apps-par > .app { flex: 0 0 82vw; scroll-snap-align: center; }
+.apps-pie { flex-direction: column; text-align: center; }
+.apps-pie .pill { min-height: 48px; }
+
 @media (prefers-reduced-motion: reduce) {
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
   .cs-grid .demo.activa .demo-shot.lista .full { animation: none; }

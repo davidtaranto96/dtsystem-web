@@ -926,6 +926,24 @@
     leer_mas: "Read more",
     leer_menos: "Show less",
     pv_tag: "A game of my own, for your phone",
+    ap_h: "Apps made for you.",
+    ap_sub: "I built these for my work and my daily life. They are not for download: they are mine. If you want one like this for your business, we build it to fit.",
+    ap_m_plat: "Mac · menu bar",
+    ap_m_lema: "Record a website's corrections instead of writing them.",
+    ap_m_1: "Screen, voice and drawings over any window.",
+    ap_m_2: "Each mark is saved with its second and a photo.",
+    ap_m_3: "I use it every day with my clients' corrections.",
+    ap_nota: "Personal use · not for download",
+    ap_a_lema: "Tasks, habits and focus in one place.",
+    ap_a_1: "Your day sorted by what matters.",
+    ap_a_2: "Habit streaks and stats.",
+    ap_a_3: "Calendar, projects and focus sessions.",
+    ap_s_lema: "Personal finances, without spreadsheets.",
+    ap_s_1: "The month's balance and what you will spend.",
+    ap_s_2: "Reads your card statement PDF.",
+    ap_s_3: "Expenses shared with friends.",
+    ap_pie: "Could something like this help your business?",
+    ap_cta: "I want a custom app",
     pv_sub: "Games for before going out. Everyone on their own phone, nothing to install.",
     pv_m1: "Find the mafiosos before they take over the neighborhood. 5 to 12 players, each with their phone.",
     pv_m2h: "Cards",
@@ -2177,15 +2195,27 @@
      Se pide recien cuando el bloque se acerca; con movimiento reducido o
      ahorro de datos queda la imagen quieta. */
   (() => {
-    const v = $(".previa-vid");
-    if (!v || reduced || navigator.connection?.saveData || !("IntersectionObserver" in window)) return;
-    new IntersectionObserver(([e]) => {
+    // tambien el de Marcador (apps a medida); en el celular baja la version chica
+    const vids = $$(".previa-vid, .app-vid");
+    if (!vids.length || reduced || navigator.connection?.saveData || !("IntersectionObserver" in window)) return;
+    const chico = matchMedia("(max-width: 720px)").matches;
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target;
       if (e.isIntersecting) {
-        if (!v.src) v.src = v.dataset.src;
+        if (!v.src) v.src = (chico && v.dataset.srcCel) || v.dataset.src;
         v.play().catch(() => {});
       } else if (!v.paused) v.pause();
-    }, { rootMargin: "200px 0px" }).observe(v);
+    }), { rootMargin: "200px 0px" });
+    vids.forEach((v) => io.observe(v));
   })();
+
+  /* ---------- Un boton que lleva al formulario con el tipo ya elegido ---------- */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[data-tipo]");
+    if (!a) return;
+    const chip = $(`.af-chip[data-val="${a.dataset.tipo}"]`);
+    if (chip && !chip.classList.contains("on")) chip.click();
+  });
 
   /* ---------- Bio plegada en el celular: "Leer mas" ---------- */
   (() => {

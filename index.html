@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117d">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117f">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117d">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261117f">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -39,8 +39,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261117d">
-  <link rel="stylesheet" href="celular.css?v=20261117d" media="(max-width: 720px)">
+  <link rel="stylesheet" href="styles.css?v=20261117f">
+  <link rel="stylesheet" href="celular.css?v=20261117f" media="(max-width: 720px)">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -361,6 +361,77 @@
               <video class="previa-vid" muted loop playsinline preload="none" poster="assets/previa/escena-previa.webp" width="540" height="958" data-src="assets/previa/escena-previa.mp4"></video>
             </span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3c. APPS A MEDIDA ============
+         Pedido de David (17/11): sus apps propias, tipo publicidad, sin
+         descarga: invitan a pedir una a medida. Marcador va con una
+         animacion (no es una grabacion real: armada desde su interfaz);
+         en las capturas de Apunto y Sencillo los datos son inventados. -->
+    <section class="apps-sec" id="apps" aria-labelledby="appsH">
+      <div class="wrap">
+        <div class="sec-head" data-rv="up">
+          <h2 class="h2" id="appsH" data-i18n="ap_h">Apps a tu medida.</h2>
+          <p class="sub" data-i18n="ap_sub">Estas las armé para mi trabajo y mi día a día. No se descargan: son mías. Si querés una así para tu negocio, la hacemos a tu medida.</p>
+        </div>
+
+        <article class="app app-ancha" data-rv="up">
+          <div class="app-txt">
+            <div class="app-cab"><img class="app-ico" src="assets/apps/icono-marcador.png" width="160" height="160" alt="">
+              <div><h3>Marcador</h3><span class="app-plat" data-i18n="ap_m_plat">Mac · barra de menú</span></div></div>
+            <p class="app-lema" data-i18n="ap_m_lema">Grabá las correcciones de una web en vez de escribirlas.</p>
+            <ul class="app-lista">
+              <li data-i18n="ap_m_1">Pantalla, voz y dibujos sobre cualquier ventana.</li>
+              <li data-i18n="ap_m_2">Cada marca queda guardada con su segundo y una foto.</li>
+              <li data-i18n="ap_m_3">La uso todos los días con las correcciones de mis clientes.</li>
+            </ul>
+            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+          </div>
+          <div class="app-mac" aria-hidden="true">
+            <video class="app-vid" muted loop playsinline preload="none" poster="assets/apps/marcador.jpg" width="1280" height="800" data-src="assets/apps/marcador.mp4" data-src-cel="assets/apps/marcador-cel.mp4"></video>
+          </div>
+        </article>
+
+        <div class="apps-par">
+          <article class="app" data-rv="up">
+            <div class="app-cab"><img class="app-ico recorte" src="assets/apps/icono-apunto.png" width="160" height="160" alt="">
+              <div><h3>Apunto</h3><span class="app-plat">Android</span></div></div>
+            <p class="app-lema" data-i18n="ap_a_lema">Tareas, hábitos y enfoque en un solo lugar.</p>
+            <ul class="app-lista">
+              <li data-i18n="ap_a_1">El día ordenado por lo importante.</li>
+              <li data-i18n="ap_a_2">Rachas de hábitos y estadísticas.</li>
+              <li data-i18n="ap_a_3">Calendario, proyectos y sesiones de enfoque.</li>
+            </ul>
+            <div class="app-tels" aria-hidden="true">
+              <span class="app-tel lado"><img src="assets/apps/anotalo-habitos.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+              <span class="app-tel"><img src="assets/apps/anotalo-hoy.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+              <span class="app-tel lado"><img src="assets/apps/anotalo-calendario.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+            </div>
+            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+          </article>
+          <article class="app" data-rv="up">
+            <div class="app-cab"><img class="app-ico recorte" src="assets/apps/icono-sencillo.png" width="160" height="160" alt="">
+              <div><h3>Sencillo</h3><span class="app-plat">Android</span></div></div>
+            <p class="app-lema" data-i18n="ap_s_lema">Las finanzas personales, sin planillas.</p>
+            <ul class="app-lista">
+              <li data-i18n="ap_s_1">El balance del mes y cuánto vas a gastar.</li>
+              <li data-i18n="ap_s_2">Lee el resumen de la tarjeta en PDF.</li>
+              <li data-i18n="ap_s_3">Gastos compartidos con amigos.</li>
+            </ul>
+            <div class="app-tels" aria-hidden="true">
+              <span class="app-tel lado"><img src="assets/apps/sencillo-inicio.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+              <span class="app-tel"><img src="assets/apps/sencillo-balance.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+              <span class="app-tel lado"><img src="assets/apps/sencillo-escaner.webp" width="540" height="1170" alt="" loading="lazy" decoding="async"></span>
+            </div>
+            <p class="app-nota" data-i18n="ap_nota">Uso propio · no se descarga</p>
+          </article>
+        </div>
+
+        <div class="apps-pie" data-rv="up">
+          <p data-i18n="ap_pie">¿Te sirve algo así para tu negocio?</p>
+          <a class="pill pill-oscuro apps-cta" href="#contacto" data-tipo="App móvil"><span class="pill-txt"><span data-i18n="ap_cta">Quiero una app a medida</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -996,7 +1067,7 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="main.js?v=20261117d" defer></script>
-  <script src="medicion.js?v=20261117d" defer></script>
+  <script src="main.js?v=20261117f" defer></script>
+  <script src="medicion.js?v=20261117f" defer></script>
 </body>
 </html>
