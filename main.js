@@ -923,6 +923,7 @@
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
     f_in: "See my LinkedIn profile",
+    f_cv: "See my resume",
     leer_mas: "Read more",
     pedir_t: "Got something in mind? I will send you a quote in stages.",
     pedir_cta: "Ask for a quote",

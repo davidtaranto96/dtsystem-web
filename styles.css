@@ -2416,3 +2416,9 @@ html.nav-lejos .hdr-pill {
   .acc-cover :is(img, video) { width: 100%; max-width: 220px; margin: 0 auto 4px; }
   .acc-cover h3, .acc-frase, .acc-pill { grid-column: 1; grid-row: auto; }
 }
+
+/* bio: LinkedIn y CV en una fila, los dos discretos */
+.founder-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: -6px 0 -10px; }
+.founder-links .founder-in { margin: 0; }
+.footer-bottom a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; justify-content: center; margin: -14px -12px; }
+@media (hover: hover) { .footer-bottom a:hover { color: var(--accent-ink); } }
