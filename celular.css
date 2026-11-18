@@ -29,7 +29,7 @@ html { scroll-padding-top: 72px; }
   background: color-mix(in srgb, var(--bg) 54%, transparent);
   backdrop-filter: blur(28px) saturate(1.6); -webkit-backdrop-filter: blur(28px) saturate(1.6);
   border: 1px solid color-mix(in srgb, var(--text) 13%, transparent); border-radius: 18px;
-  box-shadow: inset 0 1px 0 color-mix(in srgb, #FFFFFF 26%, transparent), 0 28px 60px -26px rgb(0 0 0 / 0.5);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--c-ffffff) 26%, transparent), 0 28px 60px -26px var(--c-00000080);
   counter-reset: m;
 }
 /* se despliega desde la barra, como el de Stökt: baja recortado y los renglones entran despues */
@@ -42,19 +42,19 @@ html { scroll-padding-top: 72px; }
 @keyframes menu-redes { from { opacity: 0; } }
 .menu-pop > a {
   display: flex; align-items: baseline; gap: 14px; counter-increment: m;
-  font-size: 1.5rem; padding: 13px 0;
+  font-size: var(--t-5); padding: 13px 0;
   border-bottom-color: color-mix(in srgb, var(--text) 12%, transparent);
 }
 .menu-pop > a::before {
   content: "0" counter(m); flex: none; width: 2.2em;
-  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted);
+  font-family: var(--font-mono); font-size: var(--t-1); letter-spacing: 0.08em; color: var(--muted);
 }
-.menu-pop > a::after { content: "\2192"; margin-left: auto; font-size: 1.125rem; color: var(--muted); }
+.menu-pop > a::after { content: "\2192"; margin-left: auto; font-size: var(--t-4); color: var(--muted); }
 .menu-pop > a[aria-current="true"]::after { color: var(--accent-ink); }
 .menu-redes { display: flex; flex-wrap: wrap; gap: 0 20px; padding-top: 10px; }
 .menu-pop .menu-redes a {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0;
-  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: var(--t-1); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--muted); opacity: 1; transform: none; animation: none;
 }
 .menu-pop .menu-redes .menu-mail { flex-basis: 100%; text-transform: none; letter-spacing: 0.02em; color: var(--text); }
@@ -70,8 +70,8 @@ html { scroll-padding-top: 72px; }
 .tapa .hero-ctas { order: 4; flex-wrap: wrap; }
 .tapa .ha-obj { order: 5; margin: auto -20px 0; padding-top: 28px; }
 .tapa .dt3d { width: 104%; margin: 0 0 -2.5% -2%; }
-.tapa .ha-nombre { font-size: 3.25rem; }
-.tapa .ha-linea { font-size: 1.75rem; margin-top: 14px; }
+.tapa .ha-nombre { font-size: var(--t-8); }
+.tapa .ha-linea { font-size: var(--t-6); margin-top: 14px; }
 /* la imagen del tema oscuro viene mas ajustada al borde: se achica para que la "d" no se corte */
 [data-theme="dark"] .tapa .dt3d { width: 90%; margin: 0 0 -1% 5%; }
 .ha-bajar { display: none; }
@@ -88,15 +88,15 @@ html { scroll-padding-top: 72px; }
 #proyectos .sec-head .sub { margin-inline: 0; }
 .dest { margin-top: 26px; }
 .dest-card {
-  aspect-ratio: auto; height: min(70svh, 580px);
+  aspect-ratio: auto; height: min(56svh, 470px);
   top: calc(74px + var(--i) * 9px); margin-bottom: 26px; border-radius: 18px;
 }
 .dest-card img { object-position: 50% 45%; }
-.dest-info h3 { font-size: 1.375rem; }
+.dest-info h3 { font-size: var(--t-5); }
 
 /* ---------- 6. Celulares: una sola tira, mas baja ---------- */
 .mobile-sec { padding-block: 44px 36px; }
-.mobile-sec .h2 { font-size: 1.3125rem; line-height: 1.25; }
+.mobile-sec .h2 { font-size: var(--t-5); line-height: 1.25; }
 .mobile-sec .mobile-head { margin-bottom: 22px; }
 .mobile-sec .marquee ~ .marquee { display: none; }
 .mobile-sec .phone { width: 138px; height: auto; padding: 6px; border-radius: 22px; }
@@ -137,9 +137,9 @@ section#servicios { padding-block: 52px 44px; }
 #acc .acc-img { order: -1; opacity: 1; scale: 1; align-self: stretch; }
 #acc .acc-txt { flex: 1; }
 #acc .acc-txt > * { opacity: 1; translate: none; }
-#acc .acc-txt h3 { font-size: 1.5rem; }
+#acc .acc-txt h3 { font-size: var(--t-5); }
 #acc .ribbon { opacity: 1; }
-.srv-it { margin-top: 18px; font-size: 0.875rem; }
+.srv-it { margin-top: 18px; font-size: var(--t-2); }
 
 /* ---------- 9. Sobre mi: el globo primero, cifras en fila, bio plegada ---------- */
 .bento-sec { padding-block: 52px 44px; }
@@ -147,7 +147,7 @@ section#servicios { padding-block: 52px 44px; }
 .b-globe { order: -1; }
 .b-stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
 .b-stat .bcard-in { padding: 16px 16px 14px; }
-.b-stat b { font-size: 1.75rem; }
+.b-stat b { font-size: var(--t-6); }
 .b-globe h3 { margin-top: 4px; }
 .globe-wrap { width: min(300px, 100%); height: 205px; margin-top: 4px; }
 .founder { gap: 18px; }
@@ -158,7 +158,7 @@ section#servicios { padding-block: 52px 44px; }
 .founder-txt:not(.abierto) p ~ p { display: none; }
 .leer-mas {
   display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start;
-  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: var(--t-1); letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--accent-ink); background: none; border: 0; padding: 0; cursor: pointer;
 }
 .leer-mas .lm-b, .leer-mas[aria-expanded="true"] .lm-a { display: none; }
@@ -170,7 +170,7 @@ section#servicios { padding-block: 52px 44px; }
 /* las pestanas se pasan con el dedo si no entran */
 .tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin: 4px -20px 22px; padding: 2px 20px; scrollbar-width: none; }
 .tabs::-webkit-scrollbar { display: none; }
-.tab { flex: none; padding: 0 15px; font-size: 0.875rem; }
+.tab { flex: none; padding: 0 15px; font-size: var(--t-2); }
 .todos-sec .marcas-sec { padding: 22px 0 18px !important; }
 .todos-sec .marcas-carrusel .marcas { zoom: 0.9; }
 /* la maqueta 3D es apaisada: que se vea la pantalla */
@@ -181,7 +181,7 @@ section#servicios { padding-block: 52px 44px; }
 a.cta-abrir { display: inline-flex; margin-top: 4px; }
 .cta-final { padding-block: 56px 60px; }
 .hoja-velo {
-  position: fixed; inset: 0; z-index: 300; background: rgb(8 9 12 / 0.5);
+  position: fixed; inset: 0; z-index: 300; background: var(--c-08090c80);
   backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
@@ -190,7 +190,7 @@ a.cta-abrir { display: inline-flex; margin-top: 4px; }
   max-height: 92svh; overflow-y: auto; overscroll-behavior: contain;
   background: var(--bg); border-radius: 22px 22px 0 0;
   border-top: 1px solid var(--card-border);
-  box-shadow: 0 -24px 60px -20px rgb(0 0 0 / 0.45);
+  box-shadow: 0 -24px 60px -20px var(--c-00000073);
   padding: 8px 14px calc(16px + env(safe-area-inset-bottom));
   transform: translateY(104%); visibility: hidden;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.45s;
@@ -199,7 +199,7 @@ html.hoja-on { overflow: hidden; }
 html.hoja-on .hoja-velo { opacity: 1; pointer-events: auto; }
 html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s; }
 .hoja-barra { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 6px 10px; }
-.hoja-barra b { font-family: var(--font-head); font-size: 1.375rem; font-weight: 500; }
+.hoja-barra b { font-family: var(--font-head); font-size: var(--t-5); font-weight: 500; }
 .hoja-x {
   width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px;
   background: none; border: 0; color: var(--text); cursor: pointer;
@@ -238,9 +238,9 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, color-mix(in srgb, var(--pv-fondo) 70%, transparent) 0%, transparent 24%, transparent 52%, var(--pv-fondo) 100%);
 }
-.previa-tag { grid-area: media; align-self: start; position: relative; z-index: 1; padding: 16px 18px 0; font-size: 0.75rem; color: var(--pv-texto); }
-.previa-h { grid-area: media; align-self: end; position: relative; z-index: 1; margin: 0; padding: 0 18px 2px; font-size: 3.5rem; line-height: 0.92; }
-.previa-sub { grid-area: sub; padding: 10px 18px 0; font-size: 1rem; line-height: 1.4; }
+.previa-tag { grid-area: media; align-self: start; position: relative; z-index: 1; padding: 16px 18px 0; font-size: var(--t-1); color: var(--pv-texto); }
+.previa-h { grid-area: media; align-self: end; position: relative; z-index: 1; margin: 0; padding: 0 18px 2px; font-size: var(--t-8); line-height: 0.92; }
+.previa-sub { grid-area: sub; padding: 10px 18px 0; font-size: var(--t-3); line-height: 1.4; }
 .previa-modos { grid-area: modos; display: flex; gap: 10px; margin: 16px 18px 0; }
 .previa-modos li { display: block; padding: 0; border: 0; }
 .previa-modos a {
@@ -248,7 +248,7 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   background: var(--pv-rosa); color: var(--pv-fondo); box-shadow: 0 8px 22px -10px var(--pv-rosa-brillo);
 }
 .previa-modos li:last-child a { background: var(--pv-agua); box-shadow: 0 8px 22px -10px var(--pv-agua); }
-.previa-modos b { font-size: 0.9375rem; }
+.previa-modos b { font-size: var(--t-3); }
 .previa-modos a:active { transform: scale(0.97); }
 .previa-modos span, .previa-ctas, .previa-nota { display: none; }
 
@@ -258,7 +258,7 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
 .app-ancha { gap: 18px; margin-top: 24px; }
 .app-ancha .app-mac { order: -1; margin: -6px -6px 0; border-radius: 12px; }
 .app-lema { margin-top: 14px; }
-.app-lista { gap: 6px; margin-top: 12px; font-size: 0.875rem; }
+.app-lista { gap: 6px; margin-top: 12px; font-size: var(--t-2); }
 .app-tels { height: 250px; margin-top: 20px; }
 /* Apunto y Sencillo en una tira que se pasa con el dedo, como el resto */
 .apps-par {
@@ -271,6 +271,8 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
 .apps-pie .pill { min-height: 48px; }
 
 @media (prefers-reduced-motion: reduce) {
+  /* sin el apilado, las tarjetas no se corren: el top de arriba las desplazaba sobre lo que sigue */
+  .dest-card { top: auto; }
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
   .cs-grid .demo.activa .demo-shot.lista .full { animation: none; }
   .menu[open] .menu-pop, .menu[open] .menu-redes { animation: none; }
