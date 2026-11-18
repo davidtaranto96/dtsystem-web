@@ -1051,7 +1051,7 @@
     // la pestaña y la descripción también cambian de idioma
     const desc = $('meta[name="description"]');
     if (titleEs === undefined) { titleEs = document.title; descEs = desc?.content; }
-    document.title = l === "en" ? "David Taranto — Custom websites and systems | DT System, Salta" : titleEs;
+    document.title = l === "en" ? "David Taranto" : titleEs;
     if (desc) desc.content = l === "en" ? "Custom websites, online stores and management systems for companies and ventures. I take care of the whole project, from the first sketch to support. Made in Salta, Argentina." : descEs;
     $$("[data-i18n]").forEach((el) => {
       const k = el.dataset.i18n;
