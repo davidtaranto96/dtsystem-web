@@ -2618,6 +2618,60 @@ html.nav-lejos .hdr-pill {
   mask-image: linear-gradient(90deg, transparent, var(--c-000000) 4%, var(--c-000000) 96%, transparent);
 }
 .clientes-banda .marcas { zoom: 1.35; gap: 0 56px; padding-right: 56px; }
-@media (min-width: 768px) { .clientes-banda .marcas { zoom: 1.75; gap: 0 64px; padding-right: 64px; } }
+@media (min-width: 768px) { .clientes-banda .marcas { zoom: 1.05; gap: 0 64px; padding-right: 64px; } }
 .clientes-banda .marcas a, .clientes-banda .marcas li > .marca { opacity: 0.85; }
-@media (max-width: 767px) { .clientes-banda .marcas-carrusel .marcas { zoom: 1.6; gap: 0 40px; padding-right: 40px; } }
+@media (max-width: 767px) { .clientes-banda .marcas-carrusel .marcas { zoom: 0.96; gap: 0 40px; padding-right: 40px; } }
+
+/* Clientes: tamanos parejos (18/11). Cada logo ocupa la misma "tinta":
+   alto = raiz(K / (proporcion x raiz(tinta))), con K = 1500 y la tinta medida
+   en cada PNG (pixeles llenos sobre su caja). Los apilados (La Torre, Molins,
+   Canada) con tope de 46 de alto para que no se paren por encima del resto.
+   Mismos valores en el celular: la diferencia es solo el zoom de la cinta. */
+.clientes-banda .m-melou   { width: 106px; height: 32px; }
+.clientes-banda .m-baza    { width: 78px;  height: 36px; }
+.clientes-banda .m-canada  { width: 40px;  height: 46px; }
+.clientes-banda .m-aires   { width: 155px; height: 22px; }
+.clientes-banda .m-saurium { width: 80px;  height: 26px; }
+.clientes-banda .m-latorre { width: 40px;  height: 46px; }
+.clientes-banda .m-molins  { width: 42px;  height: 46px; }
+.clientes-banda .m-josi    { width: 141px; height: 14px; }
+.clientes-banda .m-mavenz  { width: 123px; height: 18px; }
+.clientes-banda .m-retazos { width: 152px; height: 17px; }
+.clientes-banda .m-bf      { width: 28px;  height: 28px; }
+.clientes-banda .marca-par { gap: 9px; font-size: 13px; letter-spacing: 0.12em; }
+.clientes-banda .marcas a, .clientes-banda .marcas li > .marca, .clientes-banda .marca-txt { opacity: 0.8; }
+
+/* ============================================================
+   CLIENTES EN RANURAS (18/11): en vez de la cinta corrida, casillas fijas
+   que cambian de logo de a una, con un deslizamiento vertical. Se ven todos
+   sin que ninguno quede cortado en el borde. Lo arma main.js (seccion 25);
+   sin JS queda la cinta. Con movimiento reducido: todos quietos, en filas.
+   ============================================================ */
+.clientes-banda.cl-on .marcas-carrusel { display: none; }
+.cl-ranuras {
+  --cl-zoom: 0.96;
+  display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  width: min(var(--pill), 1320px); margin-inline: auto;
+}
+@media (min-width: 768px) { .cl-ranuras { --cl-zoom: 1.05; } }
+.cl-ranura {
+  position: relative; display: grid; place-items: center; height: 76px; overflow: hidden;
+  border-left: 1px solid var(--line);
+}
+.cl-ranura.fila-ini { border-left: 0; }
+.cl-ranura.fila-2 { border-top: 1px solid var(--line); }
+.cl-item {
+  grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; zoom: var(--cl-zoom);
+  transition: transform 700ms var(--fx-ease), opacity 700ms var(--fx-ease), filter 700ms var(--fx-ease);
+}
+.cl-item.entra { transform: translateY(85%); opacity: 0; filter: blur(5px); }
+.cl-item.sale  { transform: translateY(-85%); opacity: 0; filter: blur(5px); }
+.cl-item > a, .cl-item > .marca, .cl-item > .marca-txt { display: block; opacity: 0.8; color: var(--text); transition: opacity var(--fx-rapido) var(--fx-ease); }
+.cl-item > .marca-par { display: flex; align-items: center; gap: 9px; font-size: 13px; letter-spacing: 0.12em; }
+@media (hover: hover) { .cl-item > a:hover { opacity: 1; } }
+.cl-item > a { min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; }
+.cl-item > a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; opacity: 1; }
+/* movimiento reducido: todos los logos quietos, en filas */
+.cl-ranuras.cl-todos { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); row-gap: 8px; }
+.cl-ranuras.cl-todos .cl-ranura { border-left: 0; }
+@media (prefers-reduced-motion: reduce) { .cl-item { transition: none; } }
