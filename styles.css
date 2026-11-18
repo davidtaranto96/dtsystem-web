@@ -2758,3 +2758,44 @@ html.nav-lejos .hdr-pill {
 @media (prefers-reduced-motion: reduce) { .t-card { transition: none; } }
 [data-theme="dark"] .t-card { background: var(--card); color: var(--text); border: 1px solid var(--card-border); }
 .cl-izq { white-space: pre; }
+
+/* ============================================================
+   CLIENTES EN CARRUSEL (18/11, 12:10, como wearestokt.com): una fila que
+   corre sola (main.js, 25b), logos negros, mismo tamano, bien espaciados.
+   ============================================================ */
+.cl-carrusel { padding: clamp(32px, 4vw, 56px) 0 clamp(40px, 5vw, 72px); border-block: 0; }
+.cl-carrusel .cl-rotulo, .dest-head .cl-rotulo { justify-content: flex-start; margin-bottom: clamp(18px, 2.4vw, 30px); text-transform: lowercase; color: var(--muted); font-size: var(--t-2); }
+.cl-cinta {
+  display: flex; overflow: hidden; width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--c-000000) 6%, var(--c-000000) 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, var(--c-000000) 6%, var(--c-000000) 94%, transparent);
+}
+.cl-pista {
+  flex: none; display: flex; align-items: center; list-style: none; margin: 0; padding: 0;
+  gap: clamp(56px, 7vw, 112px); padding-right: clamp(56px, 7vw, 112px); will-change: transform;
+}
+.cl-pista li { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+.cl-pista a { display: flex; align-items: center; min-height: 44px; color: var(--text); text-decoration: none; transition: opacity var(--fx-rapido) var(--fx-ease); }
+.cl-pista .marca, .cl-pista .marca-par { color: var(--text); opacity: 1; zoom: 1.05; }
+.cl-pista .marca-par { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+@media (hover: hover) { .cl-cinta:hover .cl-pista a { opacity: 0.55; } .cl-cinta:hover .cl-pista a:hover { opacity: 1; } }
+.cl-pista a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
+/* con movimiento reducido: quieta, se pasa con el dedo o la rueda */
+.cl-cinta.cl-quieta { overflow-x: auto; scrollbar-width: none; }
+.cl-cinta.cl-quieta .cl-pista[aria-hidden="true"] { display: none; }
+@media (max-width: 720px) {
+  .cl-pista { gap: 48px; padding-right: 48px; }
+  .cl-pista .marca, .cl-pista .marca-par { zoom: 0.9; }
+  .cl-carrusel .cl-rotulo { justify-content: flex-start; }
+}
+
+/* Destacados: rotulo y titulo a la izquierda, como "Featured work / Good things in motion" */
+.dest-head { text-align: left; margin-inline: 0; }
+.dest-head .h2 { max-width: none; }
+/* el rubro de cada destacado como etiquetas */
+.dest-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.dest-tags span {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 999px; background: color-mix(in oklch, var(--c-ffffff-2) 16%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}

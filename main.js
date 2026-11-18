@@ -963,14 +963,16 @@
     avail: "AVAILABLE \u00b7 REMOTE WORK",
     tools_h: "Tools I work with",
     test_h: "Results, not promises.",
-    mk_h: "Some of my clients",
+    mk_h: "Moving forward together",
+    mk_aria: "Some of my clients",
+    dest_rot: "Featured work",
     st_cl_live: "live",
     st_cl_uso: "in use",
     st_cl_wip: "in progress",
     cl_tuya: "Yours?",
     cl_esc: "Get in touch →",
     f_role: "Founder · DT System",
-    cs_h: "Projects.",
+    cs_h: "Good things in motion.",
     cs_sub: "Websites, systems, games and apps.",
     tab_linea: "Live",
     tab_wip: "Coming soon",
@@ -1388,6 +1390,61 @@
       paso();
     }, { threshold: 0.6 });
     io.observe(el);
+  })();
+
+  /* ---------- 25b. Clientes en carrusel (como wearestokt.com) ----------
+     Una fila que corre sola. Al pasar el mouse (o el foco) baja la velocidad
+     de a poco hasta un cuarto, sin pararse, y al salir vuelve. Se frena fuera
+     de pantalla. Con movimiento reducido queda quieta y se pasa con el dedo. */
+  (() => {
+    const cinta = $(".cl-cinta");
+    const pistas = cinta ? $$(".cl-pista", cinta) : [];
+    if (pistas.length < 2) return;
+    if (reduced) { cinta.classList.add("cl-quieta"); return; }
+    const VEL = 38;                     // px por segundo
+    let x = 0, v = VEL, meta = VEL, ancho = 0, t0 = 0, raf = 0, visible = false;
+    const medir = () => { ancho = pistas[0].getBoundingClientRect().width; };
+    const cuadro = (t) => {
+      const dt = Math.min(0.05, (t - (t0 || t)) / 1000); t0 = t;
+      v += (meta - v) * Math.min(1, dt * 4);   // frena y acelera suave
+      x -= v * dt;
+      if (ancho && -x >= ancho) x += ancho;
+      pistas.forEach((p) => { p.style.transform = `translate3d(${x}px,0,0)`; });
+      raf = visible && !document.hidden ? requestAnimationFrame(cuadro) : 0;
+    };
+    const andar = () => { if (!raf && visible && !document.hidden) { t0 = 0; raf = requestAnimationFrame(cuadro); } };
+    const lento = () => { meta = VEL * 0.25; };
+    const normal = () => { meta = VEL; };
+    cinta.addEventListener("pointerenter", lento);
+    cinta.addEventListener("pointerleave", normal);
+    cinta.addEventListener("focusin", lento);
+    cinta.addEventListener("focusout", normal);
+    document.addEventListener("visibilitychange", andar);
+    addEventListener("resize", medir);
+    medir();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => { visible = es[0].isIntersecting; andar(); }).observe(cinta);
+    } else { visible = true; andar(); }
+  })();
+
+  /* ---------- 25c. Destacados: el rubro como etiquetas ----------
+     "Emprendimiento inmobiliario · Salta" se muestra como dos etiquetas, como
+     las de wearestokt.com. El texto original queda para lectores de pantalla
+     y para el cambio de idioma: si cambia, se rearman. */
+  (() => {
+    $$(".dest-info small").forEach((sm) => {
+      const tags = document.createElement("span");
+      tags.className = "dest-tags";
+      tags.setAttribute("aria-hidden", "true");
+      sm.after(tags);
+      sm.classList.add("sr-only");
+      const armar = () => {
+        const partes = sm.textContent.split("\u00b7").map((p) => p.trim()).filter(Boolean);
+        tags.replaceChildren(...partes.map((p) => { const e = document.createElement("span"); e.textContent = p; return e; }));
+      };
+      armar();
+      new MutationObserver(armar).observe(sm, { childList: true, characterData: true, subtree: true });
+    });
   })();
 
   /* ---------- 26. Testimonios ----------
