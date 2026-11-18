@@ -171,3 +171,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-ink); ou
   .cv-job ul { gap: 3pt; margin-top: 5pt; }
   a { text-decoration: none; }
 }
+
+/* foto (18/11): redonda, al lado del nombre; en el celular, arriba */
+.cv-head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(16px, 3vw, 32px); }
+.cv-foto { width: clamp(88px, 12vw, 128px); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; display: block; box-shadow: 0 0 0 1px var(--line); }
+@media (max-width: 520px) { .cv-head { grid-template-columns: minmax(0, 1fr); } .cv-foto { width: 96px; } }
+@media print { .cv-foto { width: 26mm; } .cv-head { gap: 6mm; } }
