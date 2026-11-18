@@ -21,6 +21,7 @@
     if (quieto) return;
     if (visibles.has(v)) {
       if (v.dataset.actual !== archivo(v)) { v.dataset.actual = archivo(v); v.src = v.dataset.actual; }
+      v.muted = true;
       v.play().catch(() => {});
     } else if (!v.paused) v.pause();
   };

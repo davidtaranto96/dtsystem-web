@@ -2596,3 +2596,11 @@ html.nav-lejos .hdr-pill {
 @media (hover: hover) { .founder-hace a:hover { border-color: var(--accent); } }
 .founder-hace a:active { transform: scale(0.97); }
 @media (max-width: 720px) { .founder-hace a { min-height: 44px; } }
+/* el objeto 3D del hero suelto, sin caja: el video trae pintado el color de la tarjeta,
+   asi que los bordes se funden con una mascara radial y queda solo el objeto moviendose */
+.svc-obj-caja {
+  background: none; border: 0; box-shadow: none; border-radius: 0; overflow: visible;
+  -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 50%, var(--c-000000) 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse closest-side at 50% 50%, var(--c-000000) 58%, transparent 100%);
+}
+@media (max-width: 720px) { .svc-obj-caja { border-radius: 0; } }
