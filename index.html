@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118j">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118k">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118j">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118k">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -39,8 +39,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261118j">
-  <link rel="stylesheet" href="celular.css?v=20261118j" media="(max-width: 720px)">
+  <link rel="stylesheet" href="styles.css?v=20261118k">
+  <link rel="stylesheet" href="celular.css?v=20261118k" media="(max-width: 720px)">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -240,6 +240,30 @@
          Grilla filtrable de proyectos reales. Cada card reusa .demo (misma
          card que los demos de abajo); el filtro es por data-cat y se aplica
          con el atributo `hidden` para no romper el flujo del grid. -->
+    <!-- ============ CLIENTES: fila de logos despues de la portada, como en wearestokt.com (18/11) ============ -->
+    <section class="clientes-banda cl-fila" aria-label="Clientes" id="marcas">
+      <div class="wrap">
+        <p class="cl-rotulo">
+          <span class="cl-izq"><span class="cl-par" aria-hidden="true">( </span><span class="cl-t" data-i18n="mk_h">Algunos de mis clientes</span><span class="cl-par" aria-hidden="true"> ) ↓</span></span>
+          <span class="cl-datos">[11] · <span class="cl-punto" aria-hidden="true"></span><b>8</b> <span data-i18n="st_cl_live">en línea</span></span>
+        </p>
+        <div class="cl-ficha" data-rv="up">
+          <a class="cas" style="--i:0" href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou, Web + reservas · retiros en Salta"><span class="logo marca m-melou" role="img" aria-label="melou"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">melou.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:1" href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA, Tienda a medida · atelier de cuero"><span class="logo marca m-baza" role="img" aria-label="BAZA"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">baza.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:2" href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda, Institucional trilingüe · agro"><span class="logo marca m-canada" role="img" aria-label="Cañada Húmeda"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">canadahumeda.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:3" href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo, Barrio privado · inmobiliario"><span class="logo marca m-aires" role="img" aria-label="Aires de San Lorenzo"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">airesdesanlorenzo.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:4" href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium, Chukum de Yucatán · bilingüe"><span class="logo marca m-saurium" role="img" aria-label="Saurium"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">sauriumchukum.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:5" href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre, Emprendimiento inmobiliario · Salta"><span class="logo marca m-latorre" role="img" aria-label="Edificio La Torre"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">edificiolatorre.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <a class="cas" style="--i:6" href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins, Portal inmobiliario · Salta"><span class="logo marca m-molins" role="img" aria-label="Francisco Molins"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">franciscomolins.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <div class="cas" style="--i:7"><span class="logo marca-par"><span class="marca m-bf"></span>BF Studio</span><span class="dato"><span class="cl-punto uso" aria-hidden="true"></span><span data-i18n="st_cl_uso">en uso</span></span></div>
+          <a class="cas" style="--i:8" href="https://mavenz.com.ar" target="_blank" rel="noopener" aria-label="MAVENZ, Comercializadora inmobiliaria · Salta"><span class="logo marca m-mavenz" role="img" aria-label="MAVENZ"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">mavenz.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
+          <div class="cas" style="--i:9"><span class="logo marca m-josi" role="img" aria-label="Josi Compagnucci"></span><span class="dato"><span class="cl-punto wip" aria-hidden="true"></span><span data-i18n="st_cl_wip">en desarrollo</span></span></div>
+          <div class="cas" style="--i:10"><span class="logo marca m-retazos" role="img" aria-label="RETAZOS"></span><span class="dato"><span class="cl-punto wip" aria-hidden="true"></span><span data-i18n="st_cl_wip">en desarrollo</span></span></div>
+          <a class="cas tuya" style="--i:11" href="#contacto" data-tipo="Página web"><span class="tuya-t" data-i18n="cl_tuya">¿La tuya?</span><span class="dato" data-i18n="cl_esc">Escribime →</span></a>
+        </div>
+      </div>
+    </section>
+
     <section id="proyectos">
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
@@ -555,34 +579,26 @@
       </div>
     </section>
 
+    <!-- ============ TESTIMONIOS (18/11, como los de wearestokt.com) ============
+         Se arma con el JSON de abajo. Vacio, la seccion no se muestra. Cada uno:
+         {"texto": "...", "nombre": "...", "rol": "Negocio · Ciudad", "url": "https://... (opcional)"}
+         Solo textos reales, con el nombre y el permiso de cada cliente. Para ver
+         como queda con ejemplos marcados: /?muestra=testimonios -->
+    <section id="testimonios" class="testi-sec" hidden>
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 class="h2" data-i18n="testi_h">No lo digo yo.</h2>
+          <span class="astnote" data-i18n="testi_ast">*Lo dicen mis clientes</span>
+        </div>
+      </div>
+      <div class="testi-pista" tabindex="0" role="region" aria-label="Testimonios" data-i18n-aria="testi_pista"></div>
+      <script type="application/json" id="testiDatos">[]</script>
+    </section>
+
     <!-- ============ 8a. TODOS LOS PROYECTOS ============
          Pedido de David (grabación del 12/11, 14:30): la grilla completa, lo
          que está por salir, los sistemas y el 3D van al final, antes de las
          preguntas. Arriba quedan solo los destacados que se apilan. -->
-    <!-- ============ CLIENTES: franja propia antes de todos los proyectos (ronda 18/11) ============ -->
-    <section class="clientes-banda" aria-label="Clientes" id="marcas">
-      <div class="wrap">
-        <p class="cl-rotulo">
-          <span class="cl-t" data-i18n="mk_h">Algunos de mis clientes</span><span class="cl-cursor" aria-hidden="true"></span>
-          <span class="cl-datos">[11] · <span class="cl-punto" aria-hidden="true"></span><b>8</b> <span data-i18n="st_cl_live">en línea</span></span>
-        </p>
-        <div class="cl-ficha" data-rv="up">
-          <a class="cas" style="--i:0" href="https://melou.com.ar" target="_blank" rel="noopener" aria-label="melou, Web + reservas · retiros en Salta"><span class="logo marca m-melou" role="img" aria-label="melou"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">melou.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:1" href="https://baza.com.ar" target="_blank" rel="noopener" aria-label="BAZA, Tienda a medida · atelier de cuero"><span class="logo marca m-baza" role="img" aria-label="BAZA"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">baza.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:2" href="https://canadahumeda.com.ar" target="_blank" rel="noopener" aria-label="Cañada Húmeda, Institucional trilingüe · agro"><span class="logo marca m-canada" role="img" aria-label="Cañada Húmeda"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">canadahumeda.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:3" href="https://airesdesanlorenzo.com" target="_blank" rel="noopener" aria-label="Aires de San Lorenzo, Barrio privado · inmobiliario"><span class="logo marca m-aires" role="img" aria-label="Aires de San Lorenzo"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">airesdesanlorenzo.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:4" href="https://sauriumchukum.com" target="_blank" rel="noopener" aria-label="Saurium, Chukum de Yucatán · bilingüe"><span class="logo marca m-saurium" role="img" aria-label="Saurium"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">sauriumchukum.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:5" href="https://edificiolatorre.com" target="_blank" rel="noopener" aria-label="Edificio La Torre, Emprendimiento inmobiliario · Salta"><span class="logo marca m-latorre" role="img" aria-label="Edificio La Torre"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">edificiolatorre.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <a class="cas" style="--i:6" href="https://franciscomolins.com" target="_blank" rel="noopener" aria-label="Francisco Molins, Portal inmobiliario · Salta"><span class="logo marca m-molins" role="img" aria-label="Francisco Molins"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">franciscomolins.com</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <div class="cas" style="--i:7"><span class="logo marca-par"><span class="marca m-bf"></span>BF Studio</span><span class="dato"><span class="cl-punto uso" aria-hidden="true"></span><span data-i18n="st_cl_uso">en uso</span></span></div>
-          <a class="cas" style="--i:8" href="https://mavenz.com.ar" target="_blank" rel="noopener" aria-label="MAVENZ, Comercializadora inmobiliaria · Salta"><span class="logo marca m-mavenz" role="img" aria-label="MAVENZ"></span><span class="dato"><span class="cl-punto" aria-hidden="true"></span><span class="d-largo">mavenz.com.ar</span><span class="d-corto" data-i18n="st_cl_live">en línea</span></span></a>
-          <div class="cas" style="--i:9"><span class="logo marca m-josi" role="img" aria-label="Josi Compagnucci"></span><span class="dato"><span class="cl-punto wip" aria-hidden="true"></span><span data-i18n="st_cl_wip">en desarrollo</span></span></div>
-          <div class="cas" style="--i:10"><span class="logo marca m-retazos" role="img" aria-label="RETAZOS"></span><span class="dato"><span class="cl-punto wip" aria-hidden="true"></span><span data-i18n="st_cl_wip">en desarrollo</span></span></div>
-          <a class="cas tuya" style="--i:11" href="#contacto" data-tipo="Página web"><span class="tuya-t" data-i18n="cl_tuya">¿La tuya?</span><span class="dato" data-i18n="cl_esc">Escribime →</span></a>
-        </div>
-      </div>
-    </section>
-
     <section id="todos" class="todos-sec">
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
@@ -882,22 +898,6 @@
       </div>
     </section>
 
-    <!-- ============ 8a2. TESTIMONIOS ============
-         Armado y escondido (hidden) hasta tener 3 o 4 textos reales de clientes,
-         con su nombre y su permiso. Para publicar: completar cada <figure>,
-         borrar las que sobren y sacar el atributo hidden de la seccion.
-         Nunca un testimonio inventado. -->
-    <section id="testimonios" class="testi-sec" hidden>
-      <div class="wrap">
-        <div class="sec-head"><h2 class="h2" data-i18n="testi_h">Lo que dicen.</h2></div>
-        <div class="testi">
-          <figure class="testi-card"><blockquote>TEXTO DEL CLIENTE</blockquote><figcaption><b>Nombre</b><span>Negocio · Ciudad</span></figcaption></figure>
-          <figure class="testi-card"><blockquote>TEXTO DEL CLIENTE</blockquote><figcaption><b>Nombre</b><span>Negocio · Ciudad</span></figcaption></figure>
-          <figure class="testi-card"><blockquote>TEXTO DEL CLIENTE</blockquote><figcaption><b>Nombre</b><span>Negocio · Ciudad</span></figcaption></figure>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ 8b. PREGUNTAS FRECUENTES ============ -->
     <section id="preguntas" class="faq-sec">
       <div class="wrap">
@@ -1052,8 +1052,8 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="main.js?v=20261118j" defer></script>
-  <script src="teclas.js?v=20261118j" defer></script>
-  <script src="medicion.js?v=20261118j" defer></script>
+  <script src="main.js?v=20261118k" defer></script>
+  <script src="teclas.js?v=20261118k" defer></script>
+  <script src="medicion.js?v=20261118k" defer></script>
 </body>
 </html>

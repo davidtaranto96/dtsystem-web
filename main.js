@@ -927,7 +927,9 @@
     leer_mas: "Read more",
     pedir_t: "Got something in mind? I will send you a quote in stages.",
     pedir_cta: "Ask for a quote",
-    testi_h: "What they say.",
+    testi_h: "Don't take my word for it.",
+    testi_ast: "*Take my clients'",
+    testi_pista: "Testimonials",
     leer_menos: "Show less",
     pv_tag: "A game of my own, for your phone",
     ap_h: "Apps made for you.",
@@ -1386,6 +1388,46 @@
       paso();
     }, { threshold: 0.6 });
     io.observe(el);
+  })();
+
+  /* ---------- 26. Testimonios ----------
+     Salen del JSON #testiDatos; vacio, la seccion queda escondida. Con
+     ?muestra=testimonios se ven cuatro ejemplos marcados como tales, para
+     revisar el diseno sin publicar nada inventado. La pista se arrastra con
+     el mouse; en el celular se pasa con el dedo (scroll nativo). */
+  (() => {
+    const sec = $("#testimonios");
+    const pista = sec && $(".testi-pista", sec);
+    if (!pista) return;
+    let datos = [];
+    try { datos = JSON.parse($("#testiDatos").textContent || "[]"); } catch { datos = []; }
+    const muestra = new URLSearchParams(location.search).get("muestra") === "testimonios";
+    if (!datos.length && muestra) {
+      const t = "Acá va el texto del cliente: qué necesitaba, cómo fue trabajar juntos y qué cambió en su negocio después.";
+      datos = [1, 2, 3, 4, 5].map((n) => ({ texto: t, nombre: "Nombre del cliente", rol: "Negocio · Ciudad", ejemplo: true }));
+    }
+    if (!datos.length) return;
+    const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    const ini = (n) => n.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join("").toUpperCase();
+    const comillas = '<svg class="t-comillas" viewBox="0 0 32 24" width="30" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 24V14C0 6 4 1.5 12 0l1.5 3.2C9 4.6 7 7.4 7 11h6v13H0zm19 0V14c0-8 4-12.5 12-14l1.5 3.2C28 4.6 26 7.4 26 11h6v13H19z"/></svg>';
+    pista.innerHTML = datos.map((d) => `<figure class="t-card">${d.ejemplo ? '<span class="t-ejemplo">Ejemplo</span>' : ""}<blockquote>${esc(d.texto)}</blockquote><figcaption><span class="t-ini" aria-hidden="true">${esc(ini(d.nombre))}</span><span class="t-quien"><b>${d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.nombre)}</a>` : esc(d.nombre)}</b><span>${esc(d.rol)}</span></span>${comillas}</figcaption></figure>`).join("");
+    sec.hidden = false;
+    // arrastre con el mouse (el dedo ya hace scroll nativo)
+    let x0 = 0, s0 = 0, movio = false;
+    pista.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse") return;
+      x0 = e.clientX; s0 = pista.scrollLeft; movio = false;
+      pista.classList.add("arrastrando"); pista.setPointerCapture(e.pointerId);
+    });
+    pista.addEventListener("pointermove", (e) => {
+      if (!pista.classList.contains("arrastrando")) return;
+      const dx = e.clientX - x0; if (Math.abs(dx) > 4) movio = true;
+      pista.scrollLeft = s0 - dx;
+    });
+    const soltar = () => pista.classList.remove("arrastrando");
+    pista.addEventListener("pointerup", soltar);
+    pista.addEventListener("pointercancel", soltar);
+    pista.addEventListener("click", (e) => { if (movio) { e.preventDefault(); e.stopPropagation(); } }, true);
   })();
 
   /* ---------- 24. Teclas del pie: viven en teclas.js (las usan tambien las paginas de servicio) ---------- */
