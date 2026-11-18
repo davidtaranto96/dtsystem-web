@@ -18,13 +18,13 @@
   <meta property="og:locale:alternate" content="en_US">
   <!-- La URL de la imagen social DEBE ser absoluta: los scrapers de
        LinkedIn/WhatsApp no resuelven rutas relativas. -->
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118p">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118q">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="DT System: webs, tiendas y sistemas a medida hechos por David Taranto en Salta">
   <link rel="canonical" href="https://dtsystem.com.ar/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118p">
+  <meta name="twitter:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118q">
   <!-- Favicon: marca "dt/" en SVG inline (sin archivo extra) -->
   <!-- ?v=2 fuerza a los navegadores a descartar el favicon viejo cacheado -->
   <link rel="icon" href="assets/brand/favicon-64.png?v=2" type="image/png" sizes="64x64">
@@ -39,8 +39,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
 
-  <link rel="stylesheet" href="styles.css?v=20261118p">
-  <link rel="stylesheet" href="celular.css?v=20261118p" media="(max-width: 720px)">
+  <link rel="stylesheet" href="styles.css?v=20261118q">
+  <link rel="stylesheet" href="celular.css?v=20261118q" media="(max-width: 720px)">
 
   <!-- Tema inicial ANTES del primer paint (evita flash):
        localStorage manda; si no hay, respeta prefers-color-scheme. -->
@@ -302,6 +302,7 @@
     <!-- ============ 4. MOBILE SHOWCASE ============ -->
     <section class="mobile-sec">
       <div class="mobile-head wrap">
+        <p class="rotulo" data-i18n="rot_cel">Celular primero</p>
         <h2 class="h2 h2-quieto" data-i18n="mob_h">Hechas primero para el celular.</h2>
       </div>
 
@@ -346,6 +347,7 @@
     <section id="servicios">
       <div class="wrap">
         <div class="sec-head" data-rv="up">
+          <p class="rotulo" data-i18n="rot_srv">Servicios</p>
           <h2 class="h2" data-i18n="srv_h">Elegí por dónde empezar.</h2>
           <p class="sub" data-i18n="srv_sub">Arrancá por uno y sumá otro cuando lo necesites.</p>
           <button class="acc-reset" id="accReset" hidden data-i18n="acc_reset">✕ Cerrar detalle</button>
@@ -491,6 +493,7 @@
     <section class="bento-sec" id="sobre-mi">
       <div class="wrap">
         <div class="sec-head" data-rv="down">
+          <p class="rotulo" data-i18n="rot_yo">Quién soy</p>
           <h2 class="h2" data-i18n="about_h">Sobre mí.</h2>
         </div>
 
@@ -575,7 +578,8 @@
     <section id="testimonios" class="testi-sec" hidden>
       <div class="wrap">
         <div class="sec-head">
-          <h2 class="h2" data-i18n="testi_h">No lo digo yo.</h2>
+          <p class="rotulo" data-i18n="rot_testi">Testimonios</p>
+          <h2 class="h2 testi-h"><span data-i18n="testi_h">No lo digo yo</span><span class="ast" aria-hidden="true">*</span></h2>
           <span class="astnote" data-i18n="testi_ast">*Lo dicen mis clientes</span>
         </div>
       </div>
@@ -590,6 +594,7 @@
     <section id="todos" class="todos-sec">
       <div class="wrap">
         <div class="sec-head" data-rv="fade">
+          <p class="rotulo" data-i18n="rot_todos">Portfolio</p>
           <h2 class="h2" data-i18n="cs_todos">Todos los proyectos.</h2>
           <p class="sub" data-i18n="cs_sub">Webs, sistemas, juegos y apps.</p>
         </div>
@@ -822,6 +827,7 @@
         <div class="apps-sec" id="apps">
           <div class="wrap">
             <div class="sec-head" data-rv="up">
+              <p class="rotulo" data-i18n="rot_apps">Hecho a medida</p>
               <h2 class="h2" id="appsH" data-i18n="ap_h">Apps a tu medida.</h2>
               <p class="sub" data-i18n="ap_sub">Las armé para mi trabajo y para mi día a día, y no se descargan. Si necesitás una así para tu negocio, te armo la tuya.</p>
             </div>
@@ -890,6 +896,7 @@
     <section id="preguntas" class="faq-sec">
       <div class="wrap">
         <div class="sec-head" data-rv="down">
+          <p class="rotulo" data-i18n="rot_faq">Preguntas</p>
           <h2 class="h2" data-i18n="faq_h">Preguntas frecuentes.</h2>
         </div>
         <div class="faq-list">
@@ -920,6 +927,7 @@
     <!-- ============ 9. CTA FINAL (gigante, estilo Stökt) ============ -->
     <section id="contacto" class="cta-final">
       <div class="wrap sec-head" data-rv="zoom">
+        <p class="rotulo" data-i18n="rot_cont">Contacto</p>
         <h2 class="h2 cta-giant" data-i18n="cta_h">Hablemos.</h2>
         <p class="sub cta-sub" data-i18n="cta_sub">Contame qué necesitás. Te queda el mensaje listo para mandarlo.</p>
         <a class="pill pill-oscuro cta-abrir" href="#contacto"><span class="pill-txt"><span data-i18n="cta_cont">Contactar</span></span><svg class="pill-fl" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1040,9 +1048,9 @@
   </footer>
 
   <script src="assets/land-data.js" defer></script>
-  <script src="main.js?v=20261118p" defer></script>
-  <script src="teclas.js?v=20261118p" defer></script>
-  <script src="previas.js?v=20261118p" defer></script>
-  <script src="medicion.js?v=20261118p" defer></script>
+  <script src="main.js?v=20261118q" defer></script>
+  <script src="teclas.js?v=20261118q" defer></script>
+  <script src="previas.js?v=20261118q" defer></script>
+  <script src="medicion.js?v=20261118q" defer></script>
 </body>
 </html>

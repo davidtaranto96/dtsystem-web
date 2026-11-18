@@ -2814,3 +2814,23 @@ html.nav-lejos .hdr-pill {
 .app-tel .app-capa { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 500ms var(--fx-ease); }
 .app-tel.cambia .app-capa { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .app-tel .app-capa { display: none; } }
+
+/* ============================================================
+   ROTULOS SEPARADORES (18/11, como wearestokt.com): "[ TEXTO ]" en mono,
+   en mayusculas y en gris arriba de cada titulo. Los de clientes y
+   destacados ("( texto ) ↓") llevan la misma letra.
+   ============================================================ */
+.rotulo {
+  display: block; margin: 0 0 clamp(10px, 1.4vw, 16px);
+  font-family: var(--font-mono); font-size: clamp(0.8125rem, 0.75rem + 0.25vw, 1rem); font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.rotulo::before { content: "[ "; }
+.rotulo::after { content: " ]"; }
+.cl-carrusel .cl-rotulo, .dest-head .cl-rotulo, .cl-rotulo {
+  text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(0.8125rem, 0.75rem + 0.25vw, 1rem); color: var(--muted);
+}
+.cl-rotulo .cl-t { color: inherit; }
+.testi-h .ast { color: var(--accent-ink); margin-left: 0.02em; }
+.cta-final .rotulo { text-align: left; }
+@media (min-width: 981px) { .cta-final .rotulo { grid-column: 1; grid-row: 1; align-self: start; margin: 0; } }
