@@ -2604,3 +2604,20 @@ html.nav-lejos .hdr-pill {
   mask-image: radial-gradient(ellipse closest-side at 50% 50%, var(--c-000000) 58%, transparent 100%);
 }
 @media (max-width: 720px) { .svc-obj-caja { border-radius: 0; } }
+
+/* ============================================================
+   CLIENTES (18/11): franja propia entre la bio y todos los proyectos.
+   Logos mas grandes, del ancho del menu, con el borde apenas fundido.
+   ============================================================ */
+.clientes-banda { padding: clamp(40px, 5vw, 64px) 0; border-block: 1px solid var(--line); }
+.clientes-banda .marcas-sec { padding: 0 !important; }
+.clientes-banda .marcas-h { margin: 0 0 clamp(18px, 2vw, 28px); font-size: var(--t-4); color: var(--text); text-align: center; }
+.clientes-banda .marcas-carrusel {
+  width: var(--pill); margin-inline: auto;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--c-000000) 4%, var(--c-000000) 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, var(--c-000000) 4%, var(--c-000000) 96%, transparent);
+}
+.clientes-banda .marcas { zoom: 1.35; gap: 0 56px; padding-right: 56px; }
+@media (min-width: 768px) { .clientes-banda .marcas { zoom: 1.75; gap: 0 64px; padding-right: 64px; } }
+.clientes-banda .marcas a, .clientes-banda .marcas li > .marca { opacity: 0.85; }
+@media (max-width: 767px) { .clientes-banda .marcas-carrusel .marcas { zoom: 1.6; gap: 0 40px; padding-right: 40px; } }
