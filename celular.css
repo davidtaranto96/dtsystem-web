@@ -99,8 +99,8 @@ html { scroll-padding-top: 72px; }
 .mobile-sec .h2 { font-size: var(--t-5); line-height: 1.25; }
 .mobile-sec .mobile-head { margin-bottom: 22px; }
 .mobile-sec .marquee ~ .marquee { display: none; }
-.mobile-sec .phone { width: 138px; height: auto; padding: 6px; border-radius: 22px; }
-.mobile-sec .phone img { border-radius: 16px; }
+.mobile-sec .phone { width: 150px; height: auto; padding: 3px; border-radius: 20px; }
+.mobile-sec .phone img { border-radius: 17px; }
 .mobile-sec .marquee { height: auto; }
 
 /* ---------- 7. Tiras que se pasan con el dedo: la tarjeta activa queda al medio ---------- */
@@ -155,7 +155,7 @@ section#servicios { padding-block: 52px 44px; }
 .founder-fig img { aspect-ratio: 4 / 3; object-position: 50% 22%; }
 .founder-txt { gap: 12px; padding: 0 6px; }
 .founder-txt h4 { margin-bottom: 0; }
-.founder-txt:not(.abierto) p ~ p { display: none; }
+/* ronda 18/11: la bio son dos parrafos cortos y se ven los dos, sin "leer mas" */
 .leer-mas {
   display: inline-flex; align-items: center; min-height: 44px; align-self: flex-start;
   font-family: var(--font-mono); font-size: var(--t-1); letter-spacing: 0.08em; text-transform: uppercase;
@@ -172,7 +172,7 @@ section#servicios { padding-block: 52px 44px; }
 .tabs::-webkit-scrollbar { display: none; }
 .tab { flex: none; padding: 0 15px; font-size: var(--t-2); }
 .todos-sec .marcas-sec { padding: 22px 0 18px !important; }
-.todos-sec .marcas-carrusel .marcas { zoom: 0.9; }
+.todos-sec .marcas-carrusel .marcas { zoom: 1; }
 /* la maqueta 3D es apaisada: que se vea la pantalla */
 .dest-card img.d3 { object-position: 56% 30%; }
 

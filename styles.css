@@ -2357,9 +2357,9 @@ html.nav-lejos .hdr-pill {
    paneles uno abajo del otro y la barra de pestanas no aparece.
    ============================================================ */
 .todos-sec .marcas-sec { padding: clamp(28px, 3vw, 40px) 0 clamp(24px, 3vw, 36px) !important; }
-.todos-sec .marcas-h { margin-bottom: 10px; font-size: var(--t-2); }
+.todos-sec .marcas-h { margin-bottom: 14px; font-size: var(--t-3); }
 /* aca los logos son una fila de presentacion, no un protagonista */
-.todos-sec .marcas-carrusel .marcas { zoom: 0.8; }
+.todos-sec .marcas-carrusel .marcas { zoom: 1; }
 /* con el zoom chico, cada logo igual tiene 44 px para el dedo */
 .todos-sec .marcas a { display: flex; align-items: center; justify-content: center; min-width: 56px; min-height: 56px; }
 .mobile-sec .marquee { height: auto; }
@@ -2387,17 +2387,32 @@ html.nav-lejos .hdr-pill {
 /* los celulares: titulo mas chico, una fila y telefonos mas bajos */
 .mobile-sec { padding-block: clamp(48px, 6vw, 88px); }
 .mobile-head { margin-bottom: clamp(24px, 3vw, 40px); }
-.mobile-head .h2 { font-size: var(--t-5); max-width: 32ch; margin-inline: auto; }
+.mobile-head .h2 { font-size: var(--t-6); max-width: 32ch; margin-inline: auto; }
 .mobile-sec .marquee ~ .marquee { display: none; }
-.mobile-sec .phone { width: 150px; border-radius: 26px; padding: 7px; }
-.mobile-sec .phone::after { border-radius: 26px; }
-.mobile-sec .phone img { border-radius: 19px; }
+/* ronda 18/11: telefonos del alto de las tarjetas de servicios, y sin muesca ni bisel de
+   iPhone: la muesca tapaba el menu de cada sitio. Un borde fino y neutro, nada mas. */
+.mobile-sec .mtrack { gap: clamp(20px, 2vw, 32px); padding-right: clamp(20px, 2vw, 32px); }
+.mobile-sec .phone {
+  width: clamp(170px, 14.5vw, 216px); padding: 4px; border-radius: 24px;
+  background: var(--c-0e0f12); border: 1px solid var(--line);
+}
+.mobile-sec .phone::before { display: none; }
+.mobile-sec .phone::after { border-radius: 24px; }
+.mobile-sec .phone img { border-radius: 20px; }
 
 /* ============================================================
    CRITERIO, RONDA 1 (18/11): menos texto y menos largo.
    ============================================================ */
 /* destacados mas bajos: el apilado sigue, cada tarjeta ocupa menos alto */
-.dest-card { aspect-ratio: auto; height: min(50svh, 500px); margin-bottom: clamp(24px, 4vh, 44px); }
+/* ronda 18/11: la escena entera, sin recorte (la compu y el celular se ven completos).
+   La tarjeta guarda la proporcion de la imagen (1600x905) y el tamano sale del ancho:
+   como mucho 66 % del alto de la pantalla. Fuera de la capa del celular. */
+.dest-card {
+  aspect-ratio: 1600 / 905; height: auto;
+  width: min(100%, calc(min(66svh, 640px) * 1600 / 905)); margin-inline: auto;
+  margin-bottom: clamp(32px, 5vh, 56px);
+}
+@media (max-width: 980px) { .dest-card { aspect-ratio: 1600 / 905; } }
 /* dentro de una pestana la etiqueta repite su nombre ("En linea" dentro de En linea) */
 .tabs-on .tab-panel .live { display: none; }
 /* pedir presupuesto a mitad de pagina */
@@ -2422,3 +2437,45 @@ html.nav-lejos .hdr-pill {
 .founder-links .founder-in { margin: 0; }
 .footer-bottom a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; justify-content: center; margin: -14px -12px; }
 @media (hover: hover) { .footer-bottom a:hover { color: var(--accent-ink); } }
+
+/* ronda 18/11: Marcador. El texto quedaba chico y flotando al costado del video:
+   columnas mas parejas, texto mas grande y arrancando a la altura del video. */
+@media (min-width: 981px) {
+  .app-ancha { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; }
+  .app-ancha .app-txt { padding-top: clamp(4px, 1vw, 14px); }
+  .app-ancha .app-ico { width: 64px; height: 64px; }
+  .app-ancha .app-cab h3 { font-size: var(--t-6); }
+  .app-ancha .app-lema { margin-top: 22px; font-size: var(--t-5); }
+  .app-ancha .app-lista { gap: 12px; margin-top: 20px; font-size: var(--t-4); }
+}
+
+/* ronda 18/11: pie ordenado. Arriba las novedades con su campo de correo; abajo tres
+   columnas parejas (marca, servicios, contacto) con las listas en vertical. */
+.nl-form { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; flex: 1 1 360px; max-width: 520px; }
+.nl-form input[type="email"] {
+  flex: 1 1 220px; min-width: 0; min-height: 46px; padding: 0 16px;
+  border: 1px solid var(--card-border); border-radius: 999px; background: var(--bg); color: var(--text);
+  font: inherit; font-size: var(--t-2);
+}
+.nl-form input[type="email"]::placeholder { color: var(--muted); }
+.nl-form input[type="email"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.nl-form .nl-btn { min-height: 46px; }
+.nl-form .nl-btn:disabled { opacity: 0.6; cursor: wait; }
+.nl-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.nl-msg { flex-basis: 100%; min-height: 1.2em; margin: 0; font-size: var(--t-1); font-family: var(--font-mono); color: var(--ok-ink); }
+.nl-msg.nl-error { color: var(--err); }
+.nl-msg:empty { display: none; }
+@media (min-width: 721px) {
+  .footer-cols {
+    display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px clamp(24px, 4vw, 64px); padding-bottom: 56px;
+  }
+  .f-contacto ul { flex-direction: column; flex-wrap: nowrap; gap: 0; margin-top: 12px; }
+  .f-contacto a { min-height: 44px; }
+  .f-brand p { max-width: 280px; }
+}
+@media (max-width: 720px) {
+  .nl-form { flex: none; max-width: none; width: 100%; }
+  .nl-form .nl-btn { flex: 1 1 100%; }
+  .nl-msg { text-align: center; }
+}

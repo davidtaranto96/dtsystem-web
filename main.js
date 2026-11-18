@@ -918,8 +918,8 @@
     lap_h: "This is how a custom system works.",
     lap_sub: "A walkthrough of a system in use, with sample data.",
     about_h: "About me.",
-    f_p1: "I'm an identity and access engineer at DXC Technology and I study Computer Engineering. I take care of every project myself, from the first meeting to launch: one person in charge, with a name.",
-    f_p2: "Besides websites and stores, I build custom management systems: CRMs that keep a team's inquiries, tasks and payments in order.",
+    f_p1: "I'm an identity and access engineer at DXC Technology and I study Computer Engineering. I've spent more than five years working with Microsoft 365, Azure and automation.",
+    f_p2: "Through DT System I build websites, online stores, management systems and automations, and I connect Claude to the systems a business already uses. I take care of every project myself, from the first meeting to launch: one person in charge, with a name.",
     f_p3: "I handle every project from the first meeting to launch: one person in charge, by name. When the scope calls for it, I bring in specialists.",
     f_cta: "Start a project",
     f_in: "See my LinkedIn profile",
@@ -1012,8 +1012,10 @@
     af_send: "Send inquiry",
     f_tag: "Custom websites, stores and systems, made in Salta.",
     nl_h: "News & new work",
-    nl_p: "What I’m launching, first on Instagram.",
-    nl_btn: "Follow on Instagram \u2197",
+    nl_p: "One email when I launch something new. That's all.",
+    nl_btn: "Subscribe",
+    nl_lbl: "Your email",
+    nl_ph: "you@email.com",
     f_cont: "Contact",
     f_wa: "WhatsApp", f_status: "Available for projects",
     made: "Made in Salta, Argentina"
@@ -2296,4 +2298,37 @@
       });
     }, { passive: true });
   })();
+})();
+
+/* Novedades del pie: manda el correo a /api/novedades (Worker dt-correo-entrante). */
+(() => {
+  const form = document.getElementById("nlForm");
+  if (!form) return;
+  const msg = document.getElementById("nlMsg");
+  const en = () => document.documentElement.lang === "en";
+  const decir = (es, ing, error) => { msg.textContent = en() ? ing : es; msg.classList.toggle("nl-error", !!error); };
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const correo = form.correo.value.trim();
+    if (!correo || !form.correo.checkValidity()) {
+      decir("Revisá el correo: parece que le falta algo.", "Check the email: something seems to be missing.", true);
+      form.correo.focus();
+      return;
+    }
+    const boton = form.querySelector("button");
+    boton.disabled = true;
+    try {
+      const r = await fetch("/api/novedades", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ correo, web: form.web.value, idioma: en() ? "en" : "es" }),
+      });
+      if (!r.ok) throw new Error(String(r.status));
+      form.reset();
+      decir("Listo, te aviso cuando haya algo nuevo.", "Done, I'll let you know when there's something new.");
+    } catch {
+      decir("No se pudo guardar. Probá de nuevo en un rato.", "It couldn't be saved. Please try again later.", true);
+    } finally {
+      boton.disabled = false;
+    }
+  });
 })();
