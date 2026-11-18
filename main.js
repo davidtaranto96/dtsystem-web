@@ -333,31 +333,8 @@
       card.addEventListener("pointerenter", () => sonar(shot));
       card.addEventListener("pointerleave", () => callar(shot));
     });
-  } else if (vidShots.length && "IntersectionObserver" in window && !navigator.connection?.saveData && !matchMedia("(max-width: 720px)").matches) {
-    // suena uno solo: de los que se ven en más de un 60 %, el más cerca del
-    // centro de la pantalla (las dos cards caben enteras en un celular alto)
-    const vistos = new Map();
-    const elegir = () => {
-      let mejor = null, dist = Infinity;
-      vistos.forEach((r, shot) => {
-        if (r < 0.6) return;
-        const b = shot.getBoundingClientRect();
-        const d = Math.abs(b.top + b.height / 2 - innerHeight / 2);
-        if (d < dist) { mejor = shot; dist = d; }
-      });
-      vidShots.forEach((shot) => (shot === mejor ? sonar(shot) : callar(shot)));
-    };
-    const vio = new IntersectionObserver((ents) => {
-      ents.forEach((en) => vistos.set(en.target, en.intersectionRatio));
-      elegir();
-    }, { threshold: [0, 0.6, 0.8, 1] });
-    let pend = 0;
-    addEventListener("scroll", () => {
-      if (pend || ![...vistos.values()].some((r) => r >= 0.6)) return;
-      pend = setTimeout(() => { pend = 0; elegir(); }, 150);
-    }, { passive: true });
-    vidShots.forEach((shot) => vio.observe(shot));
   }
+  /* sin mouse, los recorridos arrancan al tocar la tarjeta: previas.js (18/11) */
 
   /* ---------- 5. PARALLAX de los screenshots flotantes ----------
      data-depth 2..4 → desplazamiento máx ~18px. Batched con rAF. */
@@ -1885,7 +1862,7 @@
         const on = card === mejor;
         if (card.classList.contains("activa") === on) return;
         card.classList.toggle("activa", on);
-        (on ? prender : apagar)(card);
+        if (!on) apagar(card);   // 18/11: no arranca sola; se toca la tarjeta (previas.js)
       });
     };
     const io = new IntersectionObserver((es) => es.forEach((e) => {

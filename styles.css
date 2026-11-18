@@ -2801,18 +2801,16 @@ html.nav-lejos .hdr-pill {
 }
 
 /* ============================================================
-   MINI VISTAS PREVIAS (18/11, previas.js): la pagina entera baja,
-   espera abajo y vuelve, en loop, mientras la tarjeta esta a la vista.
+   MINI VISTAS PREVIAS (18/11, previas.js): a pedido. Con el mouse se
+   usa el :hover de siempre; con el dedo, la tarjeta tocada lleva .viendo.
    ============================================================ */
-.demo-shot.navega .full { opacity: 1; animation: previaNavega var(--ciclo, 18s) cubic-bezier(0.45, 0, 0.55, 1) infinite; }
-.demo-shot.navega.quieta .full { animation-play-state: paused; }
-@keyframes previaNavega {
-  0%, 10% { transform: translateY(0); }
-  48%, 60% { transform: translateY(calc(-100% + 100cqh)); }
-  100% { transform: translateY(0); }
+.cs-grid .demo.viendo .demo-shot.lista .full {
+  transform: translateY(calc(-100% + 100cqh));
+  transition: opacity 0.3s, transform var(--dur, 8s) cubic-bezier(0.45, 0, 0.55, 1);
 }
+.cs-grid .demo.viendo .demo-ov { opacity: 1; }
 /* apps: la pantalla nueva entra encima con un fundido */
 .app-tel { position: relative; }
 .app-tel .app-capa { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 500ms var(--fx-ease); }
 .app-tel.cambia .app-capa { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .demo-shot.navega .full { animation: none; } .app-tel .app-capa { display: none; } }
+@media (prefers-reduced-motion: reduce) { .app-tel .app-capa { display: none; } }
