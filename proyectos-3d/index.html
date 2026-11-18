@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://dtsystem.com.ar/proyectos-3d/">
   <meta property="og:site_name" content="DT System">
   <meta property="og:locale" content="es_AR">
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118e">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118f">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
-  <link rel="stylesheet" href="/styles.css?v=20261118e">
-  <link rel="stylesheet" href="/celular.css?v=20261118e" media="(max-width: 720px)">
+  <link rel="stylesheet" href="/styles.css?v=20261118f">
+  <link rel="stylesheet" href="/celular.css?v=20261118f" media="(max-width: 720px)">
   <script>
     (function () {
       var t = null; try { t = localStorage.getItem("dt-theme"); } catch (e) {}
@@ -77,13 +77,18 @@
 
   <main id="main">
     <section class="svc-hero">
-      <div class="wrap">
+      <div class="wrap svc-hero-in">
+        <div class="svc-hero-txt">
         <nav class="svc-bread" aria-label="Ruta"><a href="/">Inicio</a> <span aria-hidden="true">/</span> <a href="/#servicios">Servicios</a> <span aria-hidden="true">/</span> <span aria-current="page">Proyectos en 3D</span></nav>
         <h1 class="svc-h1">Maquetas 3D interactivas para edificios, loteos y casas</h1>
         <p class="svc-lead">Convierto los planos de un proyecto en una maqueta 3D que se recorre desde el celular o la computadora: se gira, se ve de día y de noche, y se toca cada unidad para ver si está libre, reservada o vendida. Sirve para vender antes de que la obra esté terminada y para que el comprador entienda dónde queda lo que está mirando. Trabajo desde Salta con desarrolladoras, ingenieros e inmobiliarias.</p>
         <div class="svc-ctas">
           <a class="btn btn-pri" href="https://wa.me/5493875454070?text=Hola%20David%2C%20quiero%20consultar%20por%20una%20maqueta%203D%20de%20un%20proyecto." target="_blank" rel="noopener">Hablar por WhatsApp →</a>
           <a class="btn btn-sec" href="#casos">Ver proyectos</a>
+        </div>
+        </div>
+        <div class="svc-obj-caja" aria-hidden="true">
+          <video class="svc-obj" data-obj="edif" width="960" height="600" muted loop playsinline preload="none" poster="/assets/srv/edif-claro.jpg"></video>
         </div>
       </div>
     </section>
@@ -106,7 +111,7 @@
     <section class="svc-sec" id="casos">
       <div class="wrap">
         <h2 class="h2">Proyectos.</h2>
-        <p class="sub">La maqueta de La Torre está en línea y muestra el estado real de cada unidad.</p>
+        <p class="sub">La maqueta de La Torre está en línea y muestra el estado real de cada unidad. También producto en 3D y un prototipo hecho en Blender.</p>
         <div class="demo-grid cs-grid">
           <a class="demo" data-cat="3d" data-cursor="Recorrer ↗" data-cursor-en="Explore ↗" href="https://edificiolatorre.com/3d/" target="_blank" rel="noopener">
             <div class="demo-shot"><img src="/assets/casos/case-latorre-3d.jpg" width="960" height="600" alt="Maqueta 3D del Edificio La Torre, con vistas de cámara y el estado de cada unidad" loading="lazy"></div>
@@ -125,6 +130,23 @@
             </div>
             <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
           </a>
+
+          <a class="demo" data-cursor="Girar ↗" href="https://sauriumchukum.com/#material" target="_blank" rel="noopener">
+            <div class="demo-shot"><img src="/assets/casos/case-saurium-saco.jpg" width="960" height="600" alt="El saco de chukum de Saurium en 3D, dentro del sitio" loading="lazy"></div>
+            <div class="demo-info">
+              <div><h3>Saco 3D de Saurium</h3><small>Producto en 3D que se gira con el dedo · Yucatán</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span>En línea</span></span>
+            </div>
+            <div class="demo-ov" aria-hidden="true"><span>Girar ↗</span></div>
+          </a>
+
+          <div class="demo">
+            <div class="demo-shot"><video class="lazy-vid" muted loop playsinline preload="none" poster="/assets/casos/proto-oficina.jpg" data-src="/assets/casos/proto-oficina.mp4" width="960" height="600" aria-label="Recorrido por una oficina 3D modelada en Blender, con personajes animados"></video></div>
+            <div class="demo-info">
+              <div><h3>Oficina en 3D</h3><small>Diorama modelado en Blender, con personajes</small></div>
+              <span class="live es-wip es-proto"><i class="obra" aria-hidden="true"></i><span>Prototipo</span></span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -174,6 +196,7 @@
           <a class="svc-otro" href="/diseno-web/">Diseño web <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/tiendas-online/">Tiendas online <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/sistemas-de-gestion/">Sistemas de gestión <span aria-hidden="true">→</span></a>
+          <a class="svc-otro" href="/apps-y-juegos/">Apps y juegos <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/automatizaciones/">Automatizaciones <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -186,6 +209,7 @@
         <div class="f-brand">
           <a class="logo pie-logo" href="/">dt<b>/</b>system</a>
           <p>Webs, tiendas y sistemas a medida, hechos desde Salta.</p>
+          <p class="pie-juego">Las teclas de abajo se mueven. Probá.</p>
         </div>
         <nav class="teclado" aria-label="Pie">
           <div class="fila">
@@ -194,8 +218,9 @@
               <a class="tecla" href="/diseno-web/">Diseño web</a>
               <a class="tecla t-gris" href="/tiendas-online/">Tiendas online</a>
               <a class="tecla" href="/sistemas-de-gestion/">Sistemas de gestión</a>
-              <a class="tecla t-gris" href="/automatizaciones/">Automatizaciones</a>
-              <a class="tecla" href="/proyectos-3d/" aria-current="page">Proyectos en 3D</a>
+              <a class="tecla t-gris" href="/apps-y-juegos/">Apps y juegos</a>
+              <a class="tecla" href="/automatizaciones/">Automatizaciones</a>
+              <a class="tecla t-gris" href="/proyectos-3d/" aria-current="page">Proyectos en 3D</a>
             </div>
           </div>
           <div class="fila">
@@ -223,6 +248,8 @@
       try { localStorage.setItem("dt-theme", t); } catch (e) {}
     });
   </script>
-  <script src="/medicion.js?v=20261118e" defer></script>
+  <script src="/servicios.js?v=20261118f" defer></script>
+  <script src="/teclas.js?v=20261118f" defer></script>
+  <script src="/medicion.js?v=20261118f" defer></script>
 </body>
 </html>

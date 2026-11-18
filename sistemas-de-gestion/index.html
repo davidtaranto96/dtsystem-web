@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://dtsystem.com.ar/sistemas-de-gestion/">
   <meta property="og:site_name" content="DT System">
   <meta property="og:locale" content="es_AR">
-  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118e">
+  <meta property="og:image" content="https://dtsystem.com.ar/assets/og.png?v=20261118f">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -23,8 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;700&family=Geist+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&text=ABCDEFGHIJKLMNOPQRSTUVWXYZ%C3%81%C3%89%C3%8D%C3%93%C3%9A%C3%91%20&display=swap">
-  <link rel="stylesheet" href="/styles.css?v=20261118e">
-  <link rel="stylesheet" href="/celular.css?v=20261118e" media="(max-width: 720px)">
+  <link rel="stylesheet" href="/styles.css?v=20261118f">
+  <link rel="stylesheet" href="/celular.css?v=20261118f" media="(max-width: 720px)">
   <script>
     (function () {
       var t = null; try { t = localStorage.getItem("dt-theme"); } catch (e) {}
@@ -77,13 +77,18 @@
 
   <main id="main">
     <section class="svc-hero">
-      <div class="wrap">
+      <div class="wrap svc-hero-in">
+        <div class="svc-hero-txt">
         <nav class="svc-bread" aria-label="Ruta"><a href="/">Inicio</a> <span aria-hidden="true">/</span> <a href="/#servicios">Servicios</a> <span aria-hidden="true">/</span> <span aria-current="page">Sistemas de gestión</span></nav>
         <h1 class="svc-h1">Sistemas de gestión y CRM a medida</h1>
         <p class="svc-lead">Desarrollo CRM y sistemas de gestión hechos para la forma de trabajar de cada negocio: clientes, consultas, presupuestos, cobros, stock o turnos en un solo lugar. Se usan desde la computadora o el celular, y cada persona del equipo ve lo que le corresponde. Varios están en uso diario en empresas de Salta.</p>
         <div class="svc-ctas">
           <a class="btn btn-pri" href="https://wa.me/5493875454070?text=Hola%20David%2C%20quiero%20consultar%20por%20un%20sistema%20de%20gesti%C3%B3n." target="_blank" rel="noopener">Hablar por WhatsApp →</a>
           <a class="btn btn-sec" href="#casos">Ver proyectos</a>
+        </div>
+        </div>
+        <div class="svc-obj-caja" aria-hidden="true">
+          <video class="svc-obj" data-obj="sys" width="960" height="600" muted loop playsinline preload="none" poster="/assets/srv/sys-claro.jpg"></video>
         </div>
       </div>
     </section>
@@ -106,7 +111,7 @@
     <section class="svc-sec" id="casos">
       <div class="wrap">
         <h2 class="h2">Proyectos.</h2>
-        <p class="sub">Los sistemas se muestran con datos inventados; el portal está en línea y lee los datos de un CRM real.</p>
+        <p class="sub">Sistemas en uso diario, mostrados con datos inventados.</p>
         <div class="demo-grid cs-grid">
           <div class="demo" data-cat="sys">
             <div class="demo-shot" data-video="/assets/casos/video-crm-inmo.mp4" data-video-cel="/assets/casos/video-crm-inmo-cel.mp4"><img src="/assets/casos/case-crm-inmo.jpg" width="960" height="600" alt="Demo de un CRM inmobiliario con datos inventados: cada consulta con su origen, la propiedad que pregunta, hace cuánto entró y el botón para atenderla" loading="lazy"></div>
@@ -124,14 +129,13 @@
             </div>
           </div>
 
-          <a class="demo" data-cat="web" data-cursor="Visitar ↗" data-cursor-en="Visit ↗" href="https://lopezpropiedades.com" target="_blank" rel="noopener">
-            <div class="demo-shot" data-full="/assets/casos/full-lpz.webp"><img src="/assets/casos/case-lpz.jpg" width="960" height="600" alt="Portal inmobiliario de López Propiedades, en Salta" loading="lazy"></div>
+          <div class="demo" data-cat="sys">
+            <div class="demo-shot" data-video="/assets/casos/video-crm-mix.mp4" data-video-cel="/assets/casos/video-crm-mix-cel.mp4"><img src="/assets/casos/case-crm-mix.jpg" width="960" height="600" alt="Tablero del sistema de una imprenta, mostrado con datos inventados: presupuestos esperando, trabajos y cobros" loading="lazy"></div>
             <div class="demo-info">
-              <div><h3>López Propiedades</h3><small data-i18n="c19s">Portal inmobiliario conectado al sistema · Salta</small></div>
-              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_live">En línea</span></span>
+              <div><h3>Sistema de una imprenta</h3><small data-i18n="c30s">Imprenta gráfica · Orán</small></div>
+              <span class="live"><i aria-hidden="true"></i> <span data-i18n="st_uso">En uso</span></span>
             </div>
-            <div class="demo-ov" aria-hidden="true"><span>Visitar ↗</span></div>
-          </a>
+          </div>
         </div>
       </div>
     </section>
@@ -180,6 +184,7 @@
           <span>Otros servicios</span>
           <a class="svc-otro" href="/diseno-web/">Diseño web <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/tiendas-online/">Tiendas online <span aria-hidden="true">→</span></a>
+          <a class="svc-otro" href="/apps-y-juegos/">Apps y juegos <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/automatizaciones/">Automatizaciones <span aria-hidden="true">→</span></a>
           <a class="svc-otro" href="/proyectos-3d/">Proyectos en 3D <span aria-hidden="true">→</span></a>
         </div>
@@ -193,6 +198,7 @@
         <div class="f-brand">
           <a class="logo pie-logo" href="/">dt<b>/</b>system</a>
           <p>Webs, tiendas y sistemas a medida, hechos desde Salta.</p>
+          <p class="pie-juego">Las teclas de abajo se mueven. Probá.</p>
         </div>
         <nav class="teclado" aria-label="Pie">
           <div class="fila">
@@ -201,8 +207,9 @@
               <a class="tecla" href="/diseno-web/">Diseño web</a>
               <a class="tecla t-gris" href="/tiendas-online/">Tiendas online</a>
               <a class="tecla" href="/sistemas-de-gestion/" aria-current="page">Sistemas de gestión</a>
-              <a class="tecla t-gris" href="/automatizaciones/">Automatizaciones</a>
-              <a class="tecla" href="/proyectos-3d/">Proyectos en 3D</a>
+              <a class="tecla t-gris" href="/apps-y-juegos/">Apps y juegos</a>
+              <a class="tecla" href="/automatizaciones/">Automatizaciones</a>
+              <a class="tecla t-gris" href="/proyectos-3d/">Proyectos en 3D</a>
             </div>
           </div>
           <div class="fila">
@@ -230,6 +237,8 @@
       try { localStorage.setItem("dt-theme", t); } catch (e) {}
     });
   </script>
-  <script src="/medicion.js?v=20261118e" defer></script>
+  <script src="/servicios.js?v=20261118f" defer></script>
+  <script src="/teclas.js?v=20261118f" defer></script>
+  <script src="/medicion.js?v=20261118f" defer></script>
 </body>
 </html>
