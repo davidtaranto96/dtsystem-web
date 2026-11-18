@@ -962,6 +962,11 @@
     tools_h: "Tools I work with",
     test_h: "Results, not promises.",
     mk_h: "Some of my clients",
+    st_cl_live: "live",
+    st_cl_uso: "in use",
+    st_cl_wip: "in progress",
+    cl_tuya: "Yours?",
+    cl_esc: "Get in touch →",
     f_role: "Founder · DT System",
     cs_h: "Projects.",
     cs_sub: "Websites, systems, games and apps.",
@@ -1359,92 +1364,28 @@
     medir();
   }
 
-  /* ---------- 25. Clientes en ranuras ----------
-     Casillas fijas (5 o 6 en la compu, 2 x 2 en el celular) que cambian de
-     logo de a una cada 2,6 s, con un deslizamiento vertical: se ven todos los
-     clientes sin cinta corrida ni logos cortados en el borde. Nunca se repite
-     un logo a la vista. Se frena fuera de pantalla, con la pestana oculta y
-     mientras el mouse o el foco estan adentro. Con movimiento reducido quedan
-     todos quietos en filas. Sin JS queda la cinta de siempre. */
+  /* ---------- 25. Clientes: el rotulo se arma letra por letra ----------
+     Una vez, al entrar en pantalla: cada letra pasa por caracteres de maquina
+     hasta quedar la real (~0,7 s). Con movimiento reducido queda quieto. */
   (() => {
-    const banda = $(".clientes-banda");
-    const pista = banda && $(".mtrack", banda);
-    if (!pista) return;
-    const fuentes = [...pista.children].map((li) => li.firstElementChild).filter(Boolean);
-    if (fuentes.length < 4) return;
-    const caja = document.createElement("div");
-    caja.className = "cl-ranuras";
-    const item = (i) => {
-      const d = document.createElement("div");
-      d.className = "cl-item";
-      d.append(fuentes[i].cloneNode(true));
-      return d;
-    };
-    $(".marcas-sec", banda).append(caja);
-    banda.classList.add("cl-on");
-
-    if (reduced) {
-      caja.classList.add("cl-todos");
-      fuentes.forEach((_, i) => { const r = document.createElement("div"); r.className = "cl-ranura"; r.append(item(i)); caja.append(r); });
-      return;
-    }
-
-    let cols = 0, filas = 1, ranuras = [], visibles = [], cola = [], orden = [], timer = 0;
-    let enPantalla = false, adentro = false;
-    const medida = () => {
-      const w = caja.clientWidth || innerWidth;
-      const c = Math.max(2, Math.min(6, Math.floor(w / 210)));
-      return c <= 3 ? [2, 2] : [c, 1];
-    };
-    const armar = () => {
-      [cols, filas] = medida();
-      const n = Math.min(cols * filas, fuentes.length - 1);
-      caja.style.setProperty("--cols", cols);
-      caja.replaceChildren();
-      ranuras = []; visibles = []; cola = []; orden = [];
-      fuentes.forEach((_, i) => (i < n ? visibles : cola).push(i));
-      for (let k = 0; k < n; k++) {
-        const r = document.createElement("div");
-        r.className = "cl-ranura" + (k % cols === 0 ? " fila-ini" : "") + (k >= cols ? " fila-2" : "");
-        r.append(item(visibles[k]));
-        caja.append(r);
-        ranuras.push(r);
-      }
-    };
-    const cambiar = () => {
-      if (!orden.length) orden = ranuras.map((_, k) => k).sort(() => Math.random() - 0.5);
-      const k = orden.shift();
-      const r = ranuras[k];
-      const viejo = r.lastElementChild;
-      const nuevo = cola.shift();
-      cola.push(visibles[k]);
-      visibles[k] = nuevo;
-      const el = item(nuevo);
-      el.classList.add("entra");
-      r.append(el);
-      el.getBoundingClientRect();
-      requestAnimationFrame(() => { el.classList.remove("entra"); viejo.classList.add("sale"); });
-      setTimeout(() => viejo.remove(), 760);
-    };
-    const andar = () => {
-      clearInterval(timer);
-      if (enPantalla && !adentro && !document.hidden) timer = setInterval(cambiar, 2600);
-    };
-    armar();
-    let ancho = innerWidth;
-    addEventListener("resize", () => {
-      if (Math.abs(innerWidth - ancho) < 40) return;
-      ancho = innerWidth;
-      if (medida()[0] !== cols) { armar(); andar(); }
-    });
-    caja.addEventListener("pointerenter", () => { adentro = true; andar(); });
-    caja.addEventListener("pointerleave", () => { adentro = false; andar(); });
-    caja.addEventListener("focusin", () => { adentro = true; andar(); });
-    caja.addEventListener("focusout", () => { adentro = false; andar(); });
-    document.addEventListener("visibilitychange", andar);
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver((es) => { enPantalla = es[0].isIntersecting; andar(); }).observe(caja);
-    } else { enPantalla = true; andar(); }
+    const el = $(".cl-t");
+    if (!el || reduced || !("IntersectionObserver" in window)) return;
+    const pool = "01<>/_#{}[]=";
+    const io = new IntersectionObserver((es) => {
+      if (!es[0].isIntersecting) return;
+      io.disconnect();
+      const final = el.textContent;
+      let t = 0; const total = 22;
+      el.setAttribute("aria-label", final);
+      const paso = () => {
+        t++;
+        const listo = Math.floor(final.length * t / total);
+        el.textContent = final.split("").map((ch, i) => (i < listo || ch === " " ? ch : pool[(i * 7 + t) % pool.length])).join("");
+        if (t < total) setTimeout(paso, 32); else { el.textContent = final; el.removeAttribute("aria-label"); }
+      };
+      paso();
+    }, { threshold: 0.6 });
+    io.observe(el);
   })();
 
   /* ---------- 24. Teclas del pie: viven en teclas.js (las usan tambien las paginas de servicio) ---------- */
