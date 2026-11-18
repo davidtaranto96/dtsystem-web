@@ -2465,17 +2465,67 @@ html.nav-lejos .hdr-pill {
 .nl-msg { flex-basis: 100%; min-height: 1.2em; margin: 0; font-size: var(--t-1); font-family: var(--font-mono); color: var(--ok-ink); }
 .nl-msg.nl-error { color: var(--err); }
 .nl-msg:empty { display: none; }
-@media (min-width: 721px) {
-  .footer-cols {
-    display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
-    gap: 32px clamp(24px, 4vw, 64px); padding-bottom: 56px;
-  }
-  .f-contacto ul { flex-direction: column; flex-wrap: nowrap; gap: 0; margin-top: 12px; }
-  .f-contacto a { min-height: 44px; }
-  .f-brand p { max-width: 280px; }
-}
 @media (max-width: 720px) {
   .nl-form { flex: none; max-width: none; width: 100%; }
   .nl-form .nl-btn { flex: 1 1 100%; }
   .nl-msg { text-align: center; }
 }
+
+/* ============================================================
+   PIE COMO TECLADO (18/11): cada enlace es una tecla con su lado y se
+   hunde al apretarla. Mismos colores que las teclas 3D del foso
+   (assets/teclas): blanca, gris, celeste y grafito.
+   ============================================================ */
+:root {
+  --kc-blanca: oklch(0.95 0.004 85);   --kc-blanca-lado: oklch(0.74 0.008 80);
+  --kc-gris: oklch(0.84 0.006 80);     --kc-gris-lado: oklch(0.62 0.01 75);
+  --kc-celeste: oklch(0.74 0.13 237);  --kc-celeste-lado: oklch(0.6 0.12 240);
+  --kc-grafito: oklch(0.33 0.006 250); --kc-grafito-lado: oklch(0.22 0.006 250);
+  --kc-tinta: oklch(0.22 0.006 250);   --kc-tinta-clara: oklch(0.97 0 0);
+  --kc-sombra: oklch(0 0 0 / 0.35);
+}
+.pie-teclado {
+  display: grid; grid-template-columns: minmax(200px, 0.6fr) minmax(0, 2.4fr); align-items: end;
+  gap: 32px clamp(24px, 4vw, 64px); padding-bottom: clamp(28px, 4vw, 44px);
+}
+.pie-logo { font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem); letter-spacing: -0.02em; }
+.pie-juego { margin-top: 14px; font-family: var(--font-mono); font-size: var(--t-1); color: var(--accent-ink); }
+.teclado {
+  display: grid; gap: 14px; padding: 18px; border-radius: 22px;
+  position: relative; z-index: 1; background: var(--card); border: 1px solid var(--card-border);
+  box-shadow: inset 0 2px 10px var(--kc-sombra);
+}
+.fila { display: grid; grid-template-columns: 80px minmax(0, 1fr); align-items: center; gap: 12px; }
+.fila-n { font-family: var(--font-mono); font-size: var(--t-1); font-weight: 400; color: var(--muted); letter-spacing: 0.04em; }
+.fila-teclas { display: flex; flex-wrap: wrap; gap: 12px 10px; }
+.tecla {
+  --cara: var(--kc-blanca); --lado: var(--kc-blanca-lado); --tinta: var(--kc-tinta);
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 14px; margin-bottom: 6px; border-radius: 11px;
+  background: linear-gradient(180deg, var(--cara), color-mix(in oklch, var(--cara) 86%, var(--lado)));
+  color: var(--tinta); font-family: var(--font-mono); font-size: var(--t-2); text-decoration: none; white-space: nowrap;
+  box-shadow: 0 6px 0 var(--lado), 0 12px 18px -8px var(--kc-sombra), inset 0 1px 0 color-mix(in oklch, var(--cara) 60%, white);
+  transition: transform var(--fx-tap) var(--fx-ease), box-shadow var(--fx-tap) var(--fx-ease);
+}
+.tecla svg { flex: none; }
+.tecla.t-gris { --cara: var(--kc-gris); --lado: var(--kc-gris-lado); }
+.tecla.t-celeste { --cara: var(--kc-celeste); --lado: var(--kc-celeste-lado); }
+.tecla.t-grafito { --cara: var(--kc-grafito); --lado: var(--kc-grafito-lado); --tinta: var(--kc-tinta-clara); }
+@media (hover: hover) {
+  .tecla:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--lado), 0 16px 22px -10px var(--kc-sombra), inset 0 1px 0 color-mix(in oklch, var(--cara) 60%, white); }
+}
+.tecla:active { transform: translateY(6px); box-shadow: 0 0 0 var(--lado), 0 3px 6px -3px var(--kc-sombra), inset 0 1px 0 color-mix(in oklch, var(--cara) 60%, white); }
+.tecla:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 980px) {
+  .pie-teclado { grid-template-columns: minmax(0, 1fr); align-items: start; }
+}
+@media (max-width: 720px) {
+  .pie-teclado { display: grid; text-align: left; justify-items: stretch; gap: 22px; }
+  .pie-teclado .f-brand { text-align: center; }
+  .teclado { padding: 14px; gap: 16px; }
+  .fila { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .fila-n { text-align: center; }
+  .fila-teclas { justify-content: center; gap: 12px 8px; }
+  .tecla { min-height: 46px; padding: 0 13px; font-size: var(--t-1); }
+}
+@media (prefers-reduced-motion: reduce) { .tecla { transition: none; } }

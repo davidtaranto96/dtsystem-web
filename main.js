@@ -1015,6 +1015,8 @@
     nl_p: "One email when I launch something new. That's all.",
     nl_btn: "Subscribe",
     nl_lbl: "Your email",
+    f_juego: "The keys below move. Give it a try.",
+    f_mail: "Email",
     nl_ph: "you@email.com",
     f_cont: "Contact",
     f_wa: "WhatsApp", f_status: "Available for projects",
