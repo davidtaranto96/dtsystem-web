@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <title>David Taranto · Resume</title>
-  <meta name="description" content="Resume of David Taranto: AI engineer (Claude, MCP and agents), full-stack and Microsoft security. Salta, Argentina, remote.">
+  <meta name="description" content="Resume of David Taranto: IT administrator, identity and access management, endpoint, SaaS and IT operations. Salta, Argentina.">
   <link rel="canonical" href="https://dtsystem.com.ar/cv/en/">
   <link rel="alternate" hreflang="en" href="https://dtsystem.com.ar/cv/en/">
   <link rel="alternate" hreflang="es" href="https://dtsystem.com.ar/cv/">
   <meta property="og:type" content="profile">
   <meta property="og:title" content="David Taranto · Resume">
-  <meta property="og:description" content="Resume of David Taranto: AI engineer (Claude, MCP and agents), full-stack and Microsoft security. Salta, Argentina, remote.">
+  <meta property="og:description" content="Resume of David Taranto: IT administrator, identity and access management, endpoint, SaaS and IT operations. Salta, Argentina.">
   <meta property="og:url" content="https://dtsystem.com.ar/cv/en/">
   <meta property="og:site_name" content="DT System">
   <meta property="og:locale" content="en_US">
@@ -28,7 +28,7 @@
       document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     })();
   </script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfilePage", "url": "https://dtsystem.com.ar/cv/en/", "inLanguage": "en", "mainEntity": {"@type": "Person", "name": "David Taranto", "jobTitle": "AI Engineer", "worksFor": {"@type": "Organization", "name": "DXC Technology"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Universidad Católica de Salta"}, "address": {"@type": "PostalAddress", "addressLocality": "Salta", "addressCountry": "AR"}, "email": "david@dtsystem.com.ar", "url": "https://dtsystem.com.ar/", "sameAs": ["https://www.linkedin.com/in/david-taranto/"], "knowsLanguage": ["es", "en"]}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfilePage", "url": "https://dtsystem.com.ar/cv/en/", "inLanguage": "en", "mainEntity": {"@type": "Person", "name": "David Taranto", "jobTitle": "IT Administrator", "worksFor": {"@type": "Organization", "name": "DXC Technology"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Universidad Católica de Salta"}, "address": {"@type": "PostalAddress", "addressLocality": "Salta", "addressCountry": "AR"}, "email": "david_taranto@outlook.es", "url": "https://dtsystem.com.ar/", "sameAs": ["https://www.linkedin.com/in/david-taranto/", "https://github.com/davidtaranto96"], "knowsLanguage": ["es", "en"]}}</script>
 </head>
 <body>
   <nav class="cv-bar" aria-label="CV">
@@ -42,111 +42,107 @@
   <main class="cv" id="main">
     <header class="cv-head">
       <h1>David Taranto</h1>
-      <p class="cv-rol">AI Engineer: Claude, MCP and agent integrations · Full-stack · Microsoft security</p>
+      <p class="cv-rol">IT Administrator · Identity &amp; Access Management · Endpoint · SaaS &amp; IT Operations</p>
       <ul class="cv-cont" aria-label="Contact">
-        <li>Salta, Argentina (UTC-3, overlaps US hours)</li>
-        <li><a href="mailto:david@dtsystem.com.ar">david@dtsystem.com.ar</a></li>
-        <li><a href="https://dtsystem.com.ar/">dtsystem.com.ar</a></li>
-        <li><a href="https://www.linkedin.com/in/david-taranto/" target="_blank" rel="noopener">linkedin.com/in/david-taranto</a></li>
+        <li>Salta, Argentina</li>
+        <li><a href="mailto:david_taranto@outlook.es">david_taranto@outlook.es</a></li>
+        <li><a href="https://wa.me/5493878599185" target="_blank" rel="noopener">+54 9 387 859 9185</a></li>
+        <li><a href="https://www.linkedin.com/in/david-taranto/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/davidtaranto96" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
     </header>
 
     <div class="cv-cuerpo">
       <div class="cv-main">
         <section class="cv-sec" aria-labelledby="h-perfil">
-          <h2 id="h-perfil">Summary</h2>
-          <p class="cv-perfil">I connect Claude and other LLMs to the systems a business already runs, and I build the apps around them. I also have 5+ years in Microsoft identity and security at multinational companies, and today I work on CBRE's multi-tenant environment of 80,000+ users through DXC Technology. That background shapes how I build agents: scoped permissions, spend limits, tests, and a person approving anything that leaves the system.</p>
+          <h2 id="h-perfil">Profile</h2>
+          <p class="cv-perfil">IT Administrator with 5+ years of experience in Microsoft environments at multinational companies. Most of my work is around identity and access management, endpoint compliance, and SSO/SCIM integrations, along with user lifecycle management, SaaS administration, VPN, and general security practices. Used to working independently in English with distributed teams across different time zones.</p>
         </section>
 
-        <section class="cv-sec" aria-labelledby="h-ia">
-          <h2 id="h-ia">AI and software work</h2>
-          <article class="cv-job">
-            <header>
-              <h3>Founder and AI Engineer <span class="cv-at">· DT System (independent)</span></h3>
-              <p class="cv-meta"><time>2025 to present</time></p>
-            </header>
-            <ul>
-              <li><b>Multi-agent system in production</b> (Python, Claude): researches prospects, drafts proposals and builds demos. Each step has its own model, tool limits and spend cap, nothing goes out until a person approves it, and 201 automated tests cover it.</li>
-              <li><b>MCP connector for a business CRM:</b> lets Claude read and update clients, projects, quotes and tasks from chat through validated tools.</li>
-              <li><b>Telegram business assistant</b> on Cloudflare Workers: reads the company database and only writes after an explicit button confirmation.</li>
-              <li><b>Custom CRMs in daily use</b> by real estate teams and studios (Next.js, TypeScript, Prisma, Postgres, Railway), with per-portfolio permissions and public property portals reading the CRM through its API.</li>
-              <li><b>Automation and web:</b> n8n workflows, a Cloudflare Worker and D1 API for leads and analytics, static websites and custom Shopify themes.</li>
-            </ul>
-            <p class="cv-proyl">Live projects and systems in use: <a href="/proyectos/">dtsystem.com.ar/proyectos</a></p>
-          </article>
-        </section>
 
         <section class="cv-sec" aria-labelledby="h-exp">
-          <h2 id="h-exp">Identity, cloud and security experience</h2>
+          <h2 id="h-exp">Professional experience</h2>
           <article class="cv-job">
             <header>
-              <h3>Identity and Access Engineer <span class="cv-at">· DXC Technology (client: CBRE)</span></h3>
-              <p class="cv-meta"><time>Jul 2026 to present</time></p>
+              <h3>IT Systems Administrator, Directory Services <span class="cv-at">· DXC Technology / CBRE</span></h3>
+              <p class="cv-meta"><time>Jul 2026 – Present</time></p>
             </header>
             <ul>
-              <li>Administer Microsoft Entra ID on CBRE's Global Directory Services team, across a multi-tenant, multi-domain environment with 80,000+ users.</li>
-              <li>Work on Conditional Access rollouts, Fine-Grained Password Policies across a multi-domain Active Directory forest, and certificate management for MFA infrastructure.</li>
-              <li>Automate access reviews, compliance reporting and policy deployment, use Privileged Identity Management for elevated access, and work with teams in the US, EMEA and APAC.</li>
+              <li>Administer Microsoft Entra ID for CBRE's Global Directory Services team, across a multi-tenant, multi-domain environment supporting a large global real estate company.</li>
+              <li>Work on Conditional Access rollouts and Fine-Grained Password Policies across a multi-domain Active Directory forest, plus certificate management for MFA infrastructure.</li>
+              <li>Use PowerShell and the Microsoft Graph API for access reviews, compliance reporting, and policy deployment, and use Privileged Identity Management (PIM) for elevated access.</li>
+              <li>Handle IAM and access tickets through ServiceNow, working with teams across the US, EMEA, and APAC.</li>
             </ul>
           </article>
           <article class="cv-job">
             <header>
-              <h3>Entra Identity and Systems Administrator <span class="cv-at">· JBK</span></h3>
-              <p class="cv-meta"><time>Jan 2025 to Jul 2026</time></p>
+              <h3>Entra Identity &amp; Systems Administrator <span class="cv-at">· JBK</span></h3>
+              <p class="cv-meta"><time>Jan 2025 – Jun 2026</time></p>
             </header>
             <ul>
-              <li>Ran Entra ID day to day: SSO and SCIM for SaaS apps, Conditional Access, MFA, Identity Protection and RBAC.</li>
-              <li>Automated user lifecycle, license assignment, access reviews and compliance reports. Managed Intune enrollment and compliance, and investigated sign-in failures.</li>
+              <li>Handled day-to-day identity work: user and group management, SSO, SCIM provisioning, and onboarding/offboarding workflows.</li>
+              <li>Managed Conditional Access, MFA, Identity Protection, and RBAC policies in Entra ID for an organization of 200+ employees and 300+ contractors.</li>
+              <li>Set up Intune device enrollment and compliance policies for Windows devices, and managed the SaaS integrations and licenses tied to them.</li>
+              <li>Used PowerShell and the Graph API to automate user provisioning and compliance reporting, and kept an eye on sign-in logs to catch access issues early.</li>
             </ul>
           </article>
           <article class="cv-job">
             <header>
-              <h3>IT Systems and Cloud Engineer <span class="cv-at">· Ganfeng Lithium</span></h3>
-              <p class="cv-meta"><time>Apr 2023 to Apr 2025</time></p>
+              <h3>IT Systems &amp; Cloud Engineer <span class="cv-at">· Ganfeng Lithium · Salta</span></h3>
+              <p class="cv-meta"><time>Apr 2023 – Jan 2025</time></p>
             </header>
             <ul>
-              <li>Ran hybrid identity across Azure AD and on-prem Active Directory for 200+ employees and 300+ contractors.</li>
-              <li>Rolled out Conditional Access, BitLocker, Defender and Intune baselines, and replaced most manual provisioning with scripts.</li>
+              <li>Ran the hybrid identity setup for a multinational mining operation: Azure AD plus on-prem Active Directory, with AAD Connect handling sync, SSO, and writeback.</li>
+              <li>Rolled out Intune compliance baselines, BitLocker, and Defender profiles, and handled VPN infrastructure and connectivity issues for remote staff.</li>
+              <li>Built PowerShell automation for user provisioning, group management, and mailbox tasks that replaced most of what used to be done by hand.</li>
+              <li>Managed the SaaS and M365 side (Exchange Online, SharePoint, Teams), and put together documentation and training for the team.</li>
             </ul>
           </article>
           <article class="cv-job">
             <header>
-              <h3>IT Support Specialist <span class="cv-at">· Livent</span></h3>
-              <p class="cv-meta"><time>May 2022 to Apr 2023</time></p>
+              <h3>IT Support Specialist <span class="cv-at">· Livent · Salta</span></h3>
+              <p class="cv-meta"><time>May 2022 – Apr 2023</time></p>
             </header>
             <ul>
-              <li>Supported Active Directory, SCCM, Intune and Microsoft 365 across multiple sites, including patching and security hardening.</li>
+              <li>Administered Active Directory, SCCM, Intune, and M365 for a multinational company, and handled incidents through ServiceNow for on-site and remote users.</li>
+              <li>Ran patch management, Windows Server maintenance, VPN support, and security hardening across several sites.</li>
             </ul>
           </article>
           <article class="cv-job">
             <header>
-              <h3>Earlier: Backend Developer Intern, Silentium Apps; IT Technician, LiteCODE</h3>
-              <p class="cv-meta"><time>2020 to 2021</time></p>
+              <h3>IT Technician <span class="cv-at">· Litecode SAS · Salta</span></h3>
+              <p class="cv-meta"><time>Jan 2020 – Dec 2020</time></p>
             </header>
+            <ul>
+              <li>First IT role: hardware support, software troubleshooting, and preventive maintenance for client systems.</li>
+            </ul>
           </article>
         </section>
       </div>
 
       <aside class="cv-side">
         <section class="cv-sec" aria-labelledby="h-hab">
-          <h2 id="h-hab">Skills</h2>
+          <h2 id="h-hab">Technical skills</h2>
           <dl class="cv-dl">
-            <div><dt>AI</dt><dd>Claude API, Claude Code, Model Context Protocol (MCP), multi-agent pipelines, tool use, prompt design, n8n</dd></div>
-            <div><dt>Development</dt><dd>Python, TypeScript, Node.js, Next.js, React, PostgreSQL, Prisma, SQLite, REST APIs, webhooks, Cloudflare Workers and D1, Railway, GitHub Actions</dd></div>
-            <div><dt>Security and Microsoft</dt><dd>Entra ID, multi-tenant identity, Conditional Access, PIM, SSO, SCIM, MFA, RBAC, Intune, Defender, BitLocker, Active Directory, Microsoft 365, ServiceNow</dd></div>
+            <div><dt>Identity &amp; Access Management</dt><dd>Microsoft Entra ID / Azure AD, Conditional Access, MFA, Identity Protection, RBAC, Admin Units, AAD Connect / SSO</dd></div>
+            <div><dt>SSO &amp; User Lifecycle</dt><dd>SSO integrations, SCIM provisioning, joiner/mover/leaver workflows, Okta (learning), Privileged Identity Management (PIM), user and group management</dd></div>
+            <div><dt>Endpoint &amp; Device</dt><dd>Microsoft Intune / MDM, compliance policies, OS &amp; app patching, Entra Join / Hybrid Join, BitLocker, Defender for Endpoint, SCCM</dd></div>
+            <div><dt>Automation &amp; Scripting</dt><dd>PowerShell (advanced), including MSOnline, AzureAD, and Graph modules, plus Microsoft Graph API, Python scripting, Power Automate, and GitHub</dd></div>
+            <div><dt>Infrastructure &amp; VPN</dt><dd>VPN administration, DNS, DHCP, networking, Windows Server, Active Directory, GPO, Azure (IAM, RBAC)</dd></div>
+            <div><dt>SaaS &amp; IT Operations</dt><dd>SaaS application management, license &amp; vendor coordination, ServiceNow (ITSM), technical documentation, macOS (familiarity), SOC 2 awareness</dd></div>
           </dl>
         </section>
         <section class="cv-sec" aria-labelledby="h-form">
           <h2 id="h-form">Education</h2>
           <dl class="cv-dl">
-            <div><dt>Informatics Engineering</dt><dd>Universidad Católica de Salta (final thesis in progress)</dd></div>
+            <div><dt>Informatics Engineering</dt><dd>Catholic University of Salta (UCASAL) · Final thesis in progress, expected 2026</dd></div>
           </dl>
         </section>
         <section class="cv-sec" aria-labelledby="h-idi">
           <h2 id="h-idi">Languages</h2>
           <ul class="cv-idi">
-            <li><b>English</b> B2+/C1</li>
             <li><b>Spanish</b> native</li>
+            <li><b>English</b> B2+/C1</li>
           </ul>
         </section>
       </aside>
