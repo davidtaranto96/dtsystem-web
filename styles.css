@@ -2825,3 +2825,8 @@ html.nav-lejos .hdr-pill {
 }
 .cl-rotulo .cl-t { color: inherit; }
 .testi-h .ast { color: var(--accent-ink); margin-left: 0.02em; }
+
+/* bio: en el celular sin los botones de servicios (quedaban raros, 18/11) */
+@media (max-width: 720px) { .founder-hace { display: none; } }
+.pie-logo { white-space: nowrap; }
+@media (min-width: 981px) { .pie-teclado { grid-template-columns: minmax(230px, 0.45fr) minmax(0, 2.55fr); } }

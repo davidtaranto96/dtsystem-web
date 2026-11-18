@@ -2,8 +2,7 @@
    DT SYSTEM · previas.js — las tarjetas de proyectos como mini vistas
    previas, solo cuando la persona las pide (ronda 18/11):
    - con mouse: al pasar por encima (la pagina entera baja; el video corre);
-   - con el dedo: el primer toque la prende (y en una tarjeta con enlace,
-     el segundo toque abre el sitio); tocar otra la cambia, tocar afuera la apaga.
+   - sin mouse: anda sola la tarjeta mas cerca del centro de la pantalla.
    Las apps (Apunto, Sencillo) pasan sus pantallas mientras se las toca o se
    tiene el mouse encima. Corre en la portada y en las paginas de servicio.
    Con movimiento reducido o ahorro de datos no hace nada.
@@ -61,16 +60,31 @@
       c.addEventListener("pointerleave", () => apagar(c));
     });
   } else {
+    // sin mouse (18/11): anda sola la tarjeta que quedo mas cerca del centro de
+    // la pantalla, entera a la vista en un 60 %; una sola a la vez
+    const vistas = new Set();
     let activa = null;
-    cards.forEach((c) => c.addEventListener("click", (e) => {
-      if (activa === c) return;               // segundo toque: sigue el enlace si lo hay
-      e.preventDefault();
+    const elegir = () => {
+      let mejor = null, dist = Infinity;
+      const cx = innerWidth / 2, cy = innerHeight / 2;
+      vistas.forEach((c) => {
+        const b = c.getBoundingClientRect();
+        const d = Math.hypot(b.left + b.width / 2 - cx, b.top + b.height / 2 - cy);
+        if (d < dist) { dist = d; mejor = c; }
+      });
+      if (mejor === activa) return;
       if (activa) apagar(activa);
-      activa = c; prender(c);
-    }));
-    document.addEventListener("click", (e) => {
-      if (activa && !activa.contains(e.target)) { apagar(activa); activa = null; }
-    });
+      activa = mejor;
+      if (activa) prender(activa);
+    };
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => (e.intersectionRatio >= 0.6 ? vistas.add(e.target) : vistas.delete(e.target)));
+      elegir();
+    }, { threshold: [0, 0.6, 1] });
+    cards.forEach((c) => io.observe(c));
+    let pend = 0;
+    const tick = () => { if (!pend) pend = setTimeout(() => { pend = 0; elegir(); }, 160); };
+    document.addEventListener("scroll", tick, { passive: true, capture: true });
   }
 
   // Apps: el celular del medio pasa por las pantallas de los tres, a pedido
@@ -96,7 +110,7 @@
       app.addEventListener("pointerenter", correr);
       app.addEventListener("pointerleave", parar);
     } else {
-      app.addEventListener("click", () => (timer ? parar() : correr()));
+      new IntersectionObserver((es) => (es[0].isIntersecting ? correr() : parar()), { threshold: 0.6 }).observe(caja);
     }
   });
 })();
