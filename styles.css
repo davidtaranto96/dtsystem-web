@@ -1072,6 +1072,25 @@ html.cursor-on .demo-ov { display: none; }
   }
   .demo-ov span { font-size: var(--t-min); padding: 8px 14px; }
 }
+/* 21/11: con el dedo el Visitar baja al bloque del nombre (una flecha a la derecha):
+   la captura queda limpia y la tarjeta entera es el enlace */
+.demo-ir { display: none; }
+@media (hover: none) {
+  .demo-ov { display: none !important; }
+  a.demo .demo-info { position: relative; padding-right: 76px; }
+  .demo-ir {
+    position: absolute; right: 16px; top: 50%; translate: 0 -50%;
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--text); color: var(--bg); font-size: var(--t-3); line-height: 1;
+  }
+}
+.tactil .demo-ov { display: none !important; }
+.tactil a.demo .demo-info { position: relative; padding-right: 76px; }
+.tactil .demo-ir {
+  position: absolute; right: 16px; top: 50%; translate: 0 -50%;
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--text); color: var(--bg); font-size: var(--t-3); line-height: 1;
+}
 
 /* Cambio de idioma: cada texto traducido entra con blur+fade */
 html.lang-swap [data-i18n] { animation: langswap 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
