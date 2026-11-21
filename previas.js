@@ -32,7 +32,9 @@
       im.className = "full"; im.alt = ""; im.decoding = "async";
       im.onload = () => {
         const viaje = Math.max(0, im.offsetHeight - shot.offsetHeight);
-        shot.style.setProperty("--dur", Math.min(12, Math.max(2.5, viaje / 240)).toFixed(1) + "s");
+        // en el celular mas despacio (90 px/s): a 240 la pagina pasaba en 3 s y no se leia
+        const vel = chico() ? 90 : 240;
+        shot.style.setProperty("--dur", Math.min(chico() ? 16 : 12, Math.max(chico() ? 5 : 2.5, viaje / vel)).toFixed(1) + "s");
         shot.classList.add("lista");
       };
       im.src = shot.dataset.full;
