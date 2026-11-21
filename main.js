@@ -330,8 +330,8 @@
   if (vidShots.length && matchMedia("(hover: hover) and (pointer: fine)").matches) {
     vidShots.forEach((shot) => {
       const card = shot.closest(".demo");
-      card.addEventListener("pointerenter", () => sonar(shot));
-      card.addEventListener("pointerleave", () => callar(shot));
+      card.addEventListener("pointerenter", (e) => e.pointerType !== "touch" && sonar(shot));
+      card.addEventListener("pointerleave", (e) => e.pointerType !== "touch" && callar(shot));
     });
   }
   /* sin mouse, los recorridos arrancan al tocar la tarjeta: previas.js (18/11) */
@@ -1826,62 +1826,9 @@
     if (document.fonts) document.fonts.ready.then(mover);
     calcular();
   })();
-  /* ---------- Tiras del celular: la tarjeta del medio muestra su recorrido ----------
-     En cada tira (proyectos, proximos, sistemas) la tarjeta mas cerca del
-     centro es la activa: si tiene video, suena; si tiene la pagina entera,
-     baja y vuelve a subir. Una sola a la vez por tira, y solo con la tira a la vista. */
-  if (!reduced && matchMedia("(max-width: 720px)").matches) {
-    const tiras = $$("#csGrid, #wipGrid, #sysGrid");
-    const vistas = new WeakSet();
-    const prender = (card) => {
-      const shot = $(".demo-shot", card);
-      if (!shot) return;
-      if (shot.dataset.video) { if (!navigator.connection?.saveData) sonar(shot); return; }
-      if (!shot.dataset.full || shot.querySelector(".full")) return;
-      const im = new Image();
-      im.className = "full"; im.alt = ""; im.decoding = "async";
-      im.onload = () => {
-        const viaje = im.offsetHeight - shot.offsetHeight;
-        shot.style.setProperty("--dur", Math.min(14, Math.max(3, viaje / 220)).toFixed(1) + "s");
-        shot.classList.add("lista");
-      };
-      im.src = shot.dataset.full;
-      shot.append(im);
-    };
-    const apagar = (card) => { const shot = $(".demo-shot", card); if (shot?.dataset.video) callar(shot); };
-    const activar = (tira) => {
-      const c = tira.getBoundingClientRect(), medio = c.left + c.width / 2;
-      let mejor = null, dist = Infinity;
-      const cards = $$(":scope > .demo", tira);
-      if (vistas.has(tira)) cards.forEach((card) => {
-        if (card.hidden) return;
-        const r = card.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - medio);
-        if (d < dist) { dist = d; mejor = card; }
-      });
-      cards.forEach((card) => {
-        const on = card === mejor;
-        if (card.classList.contains("activa") === on) return;
-        card.classList.toggle("activa", on);
-        if (!on) apagar(card);   // 18/11: no arranca sola; se toca la tarjeta (previas.js)
-      });
-    };
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) vistas.add(e.target); else vistas.delete(e.target);
-      activar(e.target);
-    }), { threshold: 0.35 });
-    tiras.forEach((tira) => {
-      io.observe(tira);
-      let pend = 0;
-      tira.addEventListener("scroll", () => {
-        if (pend) return;
-        pend = setTimeout(() => { pend = 0; activar(tira); }, 120);
-      }, { passive: true });
-    });
-    $$("#csFilter .af-chip").forEach((ch) => ch.addEventListener("click", () => {
-      const g = $("#csGrid"); if (!g) return;
-      g.scrollTo({ left: 0 }); setTimeout(() => activar(g), 60);
-    }));
-  }
+  /* Tiras del celular: la tarjeta del medio la elige y la mueve previas.js.
+     21/11: este bloque marcaba otra (.activa) y pausaba sus videos; se pisaban. */
+  $$("#csFilter .af-chip").forEach((ch) => ch.addEventListener("click", () => $("#csGrid")?.scrollTo({ left: 0 })));
 
   /* ---------- Cinta de clientes en el celular: se arrastra y no frena ----------
      La cinta pasa a ser un scroll de verdad que avanza sola: el dedo la lleva

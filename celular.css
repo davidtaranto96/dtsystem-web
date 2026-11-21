@@ -120,14 +120,7 @@ html { scroll-padding-top: 72px; }
 #csGrid > .demo[hidden] { display: none; }
 #csMas { display: none !important; }
 .sys-head { margin-top: 40px; }
-/* la tarjeta que eligio previas.js (.viendo) muestra su recorrido: la pagina baja
-   despacio y vuelve a subir. 21/11: antes lo movian a la vez .activa (main.js) y
-   .viendo (previas.js), y la imagen saltaba y quedaba clavada abajo. */
-.cs-grid .demo.viendo .demo-shot.lista .full {
-  transform: none; transition: opacity 0.3s;
-  animation: tira-recorre var(--dur, 8s) cubic-bezier(0.45, 0, 0.55, 1) 0.4s infinite alternate;
-}
-@keyframes tira-recorre { to { transform: translateY(calc(-100% + 100cqh)); } }
+/* el recorrido de la tarjeta del medio lo hace previas.js (Web Animations), 21/11 */
 
 /* ---------- 8. Servicios: tarjetas grandes y ya abiertas, el objeto arriba y el texto abajo ---------- */
 section#servicios { padding-block: 52px 44px; }
@@ -277,7 +270,6 @@ html.hoja-on .hoja { transform: none; visibility: visible; transition-delay: 0s;
   /* sin el apilado, las tarjetas no se corren: el top de arriba las desplazaba sobre lo que sigue */
   .dest-card { top: auto; }
   #acc, #csGrid, #wipGrid, #sysGrid { scroll-behavior: auto; }
-  .cs-grid .demo.viendo .demo-shot.lista .full { animation: none; }
   .menu[open] .menu-pop, .menu[open] .menu-redes { animation: none; }
   .hoja, .hoja-velo { transition: none; }
 }
