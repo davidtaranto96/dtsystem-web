@@ -964,6 +964,7 @@
     c28s: "Real-estate agency · Salta",
     c1s: "Site + bookings · Salta retreats",
     c2s: "Custom store · leather atelier",
+    c33s: "Original artwork store · Barcelona",
     c29s: "Accounting firm · Salta",
     c16s: "Yucatán chukum · bilingual",
     c4s: "Trilingual corporate site · agri",
